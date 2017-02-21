@@ -2,6 +2,10 @@
 
 Evangelical Mission and Seminary International
 
+## Active Deployed URL
+
+https://emsi-e77d5.firebaseapp.com/ 
+
 ## Install the Polymer-CLI
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
