@@ -1,4 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="my-firebase-element.html">
 
 <dom-module id="emsi-app">
   <template>
@@ -8,6 +12,18 @@
       }
     </style>
     <h2>Hello [[prop1]]</h2>
+    <firebase-app
+      auth-domain="emsi-e77d5.firebaseapp.com"
+      database-url="https://emsi-e77d5.firebaseio.com/"
+      api-key="AIzaSyAt6wiZ34JaJgni0c1boReLEU8ClzMCwqg">
+    </firebase-app>
+    <firebase-document id="firebasedoc"
+      path="asdsad"
+      data="{{noteData}}">
+    </firebase-document>
+    <paper-button on-click="saveToFirebase"> asd </paper-button>
+    <my-firebase-element> </my-firebase-element>
+
   </template>
 
   <script>
@@ -20,7 +36,31 @@
           type: String,
           value: 'emsi-app',
         },
+        noteData: {
+          type: String,
+          observer: 'noteDataChanged'
+        }, 
+        counter: {
+          type: Number,
+          value: 0
+        }
       },
+
+      noteDataChanged: function(newValue, oldValue) {
+        if(oldValue === undefined) {
+          return;
+        } else {
+          console.log(newValue.key);
+        }
+      },
+
+      created: function() {
+        //console.log(this.noteData);
+      } ,
+
+      saveToFirebase: function() {
+        this.$$('#firebasedoc').data = this.$$('#firebasedoc').data.key = this.counter++;
+      }
 
     });
   </script>

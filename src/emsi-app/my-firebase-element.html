@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="my-firebase-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>my-firebase-element</h2>
+
+    <firebase-document id="firebasedoc"
+      path="asdsad"
+      data="{{something}}">
+    </firebase-document>
+    <paper-button> {{something}} </paper-button>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'my-firebase-element',
+
+
+    });
+  </script>
+</dom-module>
