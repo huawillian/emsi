@@ -1,0 +1,99 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+<dom-module id="emsi-navbar-desktop">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			.container {
+				width: 500px;
+			}
+
+			.navbuttons {
+				position: absolute;
+				top: 0px;
+				width: 120px;
+			}
+
+			.navbuttons:hover {
+				background-color: rgba(1,1,1, 0.2);
+			}
+		</style>
+		<div class="container">
+			<paper-menu class="navbuttons" style="left:200px">
+				<paper-submenu on-tap="openMenu">
+					<paper-item class="menu-trigger"> About Us </paper-item>
+					<paper-menu class="menu-content">
+					  <paper-item> Organization </paper-item>
+					  <paper-item> Beliefs </paper-item>
+					  <paper-item> Missions </paper-item>
+					  <paper-item> Seminary </paper-item>
+					</paper-menu>
+				</paper-submenu>
+			</paper-menu>
+
+			<paper-menu class="navbuttons"  style="left:320px">
+				<paper-submenu on-tap="openMenu">
+					<paper-item class="menu-trigger"> Locations </paper-item>
+					<paper-menu class="menu-content">
+					  <paper-item> Search </paper-item>
+					  <paper-item> North America </paper-item>
+					  <paper-item> Europe </paper-item>
+					  <paper-item> Asia </paper-item>
+					  <paper-item> Africa </paper-item>
+					</paper-menu>
+				</paper-submenu>
+			</paper-menu>
+
+			<paper-menu class="navbuttons"  style="left:440px">
+				<paper-submenu on-tap="openMenu">
+					<paper-item class="menu-trigger"> Missions </paper-item>
+					<paper-menu class="menu-content">
+					  <paper-item> Introduction </paper-item>
+					  <paper-item> Ministries </paper-item>
+					  <paper-item> Churches </paper-item>
+					  <paper-item> Activities </paper-item>
+					</paper-menu>
+				</paper-submenu>
+			</paper-menu>
+
+			<paper-menu class="navbuttons" style="left:560px">
+				<paper-submenu on-tap="openMenu">
+					<paper-item class="menu-trigger"> Contact Us </paper-item>
+				</paper-submenu>
+			</paper-menu>
+
+
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-navbar-desktop' ,
+
+			openMenu: function(e) {
+				var submenuObj = Polymer.dom(e).localTarget.parentNode.parentNode;
+				var isOpen = submenuObj.opened;
+
+				this.closeAllMenus();
+
+	        	if(!isOpen) {
+	        		submenuObj.close();
+	        	} else {
+	        		submenuObj.open();
+	        	}
+			} ,
+
+			closeAllMenus: function(e) {
+				var submenuArr = Polymer.dom(this.root).querySelectorAll("paper-submenu");
+	        	for(var i = 0; i < submenuArr.length; i++) {
+	        		submenuArr[i].close();
+	        	}				
+			}
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<!-- Custom Elements -->
+<link rel="import" href="emsi-logo.html">
+<link rel="import" href="emsi-navbar-mobile.html">
+<link rel="import" href="emsi-language-button.html">
+<link rel="import" href="emsi-user-button.html">
+
+<dom-module id="emsi-toolbar-mobile">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			paper-toolbar {
+				height: 56px;
+			}
+		</style>
+		<iron-media-query query="(max-width: 1200px)" query-matches="{{queryMatches}}"></iron-media-query>
+		
+	    <template is="dom-if" if="[[queryMatches]]">
+			<paper-toolbar>
+				<!-- Left Side of Toolbar -->
+				<emsi-logo> </emsi-logo>
+				<emsi-navbar-mobile class="navbar"> </emsi-navbar-mobile>
+
+				<span class="title"> </span> <!-- Empty Element -->
+				<!-- Right Side of Toolbar -->
+				<emsi-language-button> </emsi-language-button>
+				<paper-icon-button icon="{{icon}}" on-click="toggleNavbarMenu"></paper-icon-button>
+			</paper-toolbar>
+	    </template>
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-toolbar-mobile' ,
+
+			properties: {
+				icon: {
+					type: String,
+					value: 'menu',
+				}
+			},
+
+			toggleNavbarMenu: function() {
+				if(this.icon == "menu") {
+					this.$$(".navbar").showMenu();
+					this.icon = "clear";
+				} else {
+					this.$$(".navbar").hideMenu();
+					this.icon = "menu";
+				}
+			}
+		});
+	</script>
+</dom-module>

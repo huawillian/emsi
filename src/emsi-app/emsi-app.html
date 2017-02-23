@@ -1,8 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="my-firebase-element.html">
+<link rel="import" href="emsi-toolbar-desktop.html">
+<link rel="import" href="emsi-toolbar-mobile.html">
 
 <dom-module id="emsi-app">
   <template>
@@ -10,20 +8,41 @@
       :host {
         display: block;
       }
-    </style>
-    <h2>Hello [[prop1]]</h2>
-    <firebase-app
-      auth-domain="emsi-e77d5.firebaseapp.com"
-      database-url="https://emsi-e77d5.firebaseio.com/"
-      api-key="AIzaSyAt6wiZ34JaJgni0c1boReLEU8ClzMCwqg">
-    </firebase-app>
-    <firebase-document id="firebasedoc"
-      path="asdsad"
-      data="{{noteData}}">
-    </firebase-document>
-    <paper-button on-click="saveToFirebase"> asd </paper-button>
-    <my-firebase-element> </my-firebase-element>
 
+      .mainContent {
+        height: 800px;
+        width: 100%;
+        background-color: #BBB;
+        position: absolute;
+        z-index: -10;
+      }
+
+      @media screen and (min-width: 1200px) {
+          .mainContent {
+            top:64px;
+          }
+      }
+
+      @media screen and (max-width: 1200px) {
+          .mainContent {
+            top:56px;
+          }
+      }
+    </style>
+    <emsi-toolbar-desktop> </emsi-toolbar-desktop>
+    <emsi-toolbar-mobile> </emsi-toolbar-mobile>
+    <div class="mainContent">
+      <div> Hi [[prop1]]</div>
+      <div> Hi [[prop1]]</div>
+      <div> Hi [[prop1]]</div>
+      <div> Hi [[prop1]]</div>
+      <div> Hi [[prop1]]</div>
+      <div> Hi [[prop1]]</div>
+      <div> Hi [[prop1]]</div>
+      <div> Hi [[prop1]]</div>
+      <div> Hi [[prop1]]</div>
+      <div> Hi [[prop1]]</div>
+    </div>
   </template>
 
   <script>
@@ -35,32 +54,8 @@
         prop1: {
           type: String,
           value: 'emsi-app',
-        },
-        noteData: {
-          type: String,
-          observer: 'noteDataChanged'
-        }, 
-        counter: {
-          type: Number,
-          value: 0
         }
       },
-
-      noteDataChanged: function(newValue, oldValue) {
-        if(oldValue === undefined) {
-          return;
-        } else {
-          console.log(newValue.key);
-        }
-      },
-
-      created: function() {
-        //console.log(this.noteData);
-      } ,
-
-      saveToFirebase: function() {
-        this.$$('#firebasedoc').data = this.$$('#firebasedoc').data.key = this.counter++;
-      }
 
     });
   </script>

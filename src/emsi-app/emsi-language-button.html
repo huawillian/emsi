@@ -1,0 +1,39 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="emsi-language-button">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			.desktop {
+				width: 75px;
+				height: 64px;
+			}
+
+			.mobile {
+				width: 60px;
+				height: 45px;
+			}
+
+			paper-button:hover {
+				background-color: rgba(1,1,1, 0.2);
+			}
+		</style>
+		<iron-media-query query="(min-width: 1200px)" query-matches="{{isDesktop}}"></iron-media-query>
+	    <template is="dom-if" if="[[isDesktop]]">
+			<paper-button raised class="desktop"> 中文 </paper-button>
+	    </template>
+		<template is="dom-if" if="[[!isDesktop]]">
+			<paper-button raised class="mobile"> 中文 </paper-button>
+	    </template>
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-language-button'
+		});
+	</script>
+</dom-module>

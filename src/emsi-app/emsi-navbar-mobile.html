@@ -1,0 +1,94 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+
+<dom-module id="emsi-navbar-mobile">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			#menu {
+				width:100%;
+				position: absolute;
+				top: 56px;
+				left: 0px;
+			}
+
+			.menu-content paper-item {
+				padding-left: 50px;
+			}
+
+		</style>
+		<iron-collapse id="collapse">
+			<paper-menu id="menu">
+				<paper-submenu>
+					<paper-item class="menu-trigger"> Home </paper-item>
+				</paper-submenu>
+				<paper-submenu>
+					<paper-item class="menu-trigger"> About Us </paper-item>
+					<paper-menu class="menu-content">
+					  <paper-item> Organization </paper-item>
+					  <paper-item> Beliefs </paper-item>
+					  <paper-item> Missions </paper-item>
+					  <paper-item> Seminary </paper-item>
+					</paper-menu>
+				</paper-submenu>
+				<paper-submenu>
+					<paper-item class="menu-trigger"> Locations </paper-item>
+					<paper-menu class="menu-content">
+					  <paper-item> Search </paper-item>
+					  <paper-item> North America </paper-item>
+					  <paper-item> Europe </paper-item>
+					  <paper-item> Asia </paper-item>
+					  <paper-item> Africa </paper-item>
+					</paper-menu>
+				</paper-submenu>
+				<paper-submenu>
+					<paper-item class="menu-trigger"> Missions </paper-item>
+					<paper-menu class="menu-content">
+					  <paper-item> Introduction </paper-item>
+					  <paper-item> Ministries </paper-item>
+					  <paper-item> Churches </paper-item>
+					  <paper-item> Activities </paper-item>
+					</paper-menu>
+				</paper-submenu>
+				<paper-submenu>
+					<paper-item class="menu-trigger"> Contact Us </paper-item>
+				</paper-submenu>
+				<paper-submenu>
+					<paper-item class="menu-trigger"> Sign In </paper-item>
+				</paper-submenu>
+			</paper-menu>
+		</iron-collapse>
+
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-navbar-mobile' ,
+
+			closeAllMenus: function(e) {
+				var submenuArr = Polymer.dom(this.root).querySelectorAll("paper-submenu");
+	        	for(var i = 0; i < submenuArr.length; i++) {
+	        		submenuArr[i].close();
+	        	}				
+			} ,
+
+			toggleMenu: function() {
+			  this.$.collapse.toggle();
+			} ,
+
+			showMenu: function() {
+			  this.$.collapse.show();
+			} ,
+
+			hideMenu: function() {
+			  this.$.collapse.hide();
+			  this.closeAllMenus();
+			}
+		});
+	</script>
+</dom-module>

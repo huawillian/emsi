@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="emsi-logo">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			paper-item:hover {
+				background-color: rgba(1,1,1, 0.2);
+			}
+
+			.desktop {
+				font-size: 40px;
+				width: 125px;
+				height: 64px;
+			}
+
+			.mobile {
+				font-size: 35px;
+				width: 125px;
+				height: 45px;
+			}
+		</style>
+		<iron-media-query query="(min-width: 1200px)" query-matches="{{isDesktop}}"></iron-media-query>
+	    <template is="dom-if" if="[[isDesktop]]">
+			<paper-item class="desktop"> E M S I </paper-item>
+	    </template>
+		<template is="dom-if" if="[[!isDesktop]]">
+			<paper-item class="mobile"> E M S I </paper-item>
+	    </template>
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-logo'
+		});
+	</script>
+</dom-module>

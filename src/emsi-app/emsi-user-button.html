@@ -1,0 +1,27 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="emsi-user-button">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			paper-button {
+				width: 75px;
+				height: 64px;
+			}
+
+			paper-button:hover {
+				background-color: rgba(1,1,1, 0.2);
+			}
+		</style>
+		<paper-button raised> Sign In </paper-button>
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-user-button'
+		});
+	</script>
+</dom-module>
