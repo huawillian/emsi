@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-toolbar-desktop.html">
@@ -14,60 +15,61 @@
     <style>
       :host {
         display: block;
+        margin: 0;
+        padding: 0;
       }
 
       .mainContent {
         min-height: 800px;
-        width: 100%;
         background-color: #BBB;
         position: absolute;
         z-index: -10;
+        margin: 0;
+        width:100%;
       }
 
-      @media screen and (min-width: 1200px) {
+      @media screen and (min-width: 1000px) {
           .mainContent {
             top:64px;
           }
       }
 
-      @media screen and (max-width: 1200px) {
+      @media screen and (max-width: 1000px) {
           .mainContent {
             top:56px;
           }
       }
     </style>
+
     <firebase-app auth-domain="emsi-e77d5.firebaseapp.com"
       database-url="https://emsi-e77d5.firebaseio.com/"
       api-key="AIzaSyAt6wiZ34JaJgni0c1boReLEU8ClzMCwqg">
     </firebase-app>
 
-    <emsi-toolbar-desktop> </emsi-toolbar-desktop>
-    <emsi-toolbar-mobile> </emsi-toolbar-mobile>
+    <iron-media-query query="(min-width: 1000px)" query-matches="{{isDesktop}}"></iron-media-query>
+
+
+    <template is="dom-if" if="[[isDesktop]]">
+      <emsi-toolbar-desktop> </emsi-toolbar-desktop>
+    </template>
+    <template is="dom-if" if="[[!isDesktop]]">
+      <emsi-toolbar-mobile> </emsi-toolbar-mobile>
+    </template>
+
+
     <div class="mainContent">
-
+asdsadsad
+      <!--
       <h1> <emsi-firebase-document my-path="arr" my-lang="en"> </emsi-firebase-document> </h1>
-
-
       <emsi-firebase-table my-path="table" my-lang="en"> </emsi-firebase-table>
-
       <emsi-church-paper-card city="Chinatown" address="248 Grand Street, New York, NY 10002 USA" sunday-service-time="Sunday 10:30 AM, 1:30 PM, 3:30PM and 6:30PM" learn-more-url="chinatown" user-location="New York City"> </emsi-church-paper-card>
-
       <emsi-church-paper-card user-location="79 Hiawatha Blvd"> </emsi-church-paper-card>
+      <emsi-church-collection query-type="user" continent="North America" region="East Coast"> </emsi-church-collection>
+      -->
 
-      <br>
-      <hr>
-      <br>
 
-      <emsi-church-collection query-type="none" continent="North America" region="East Coast"> </emsi-church-collection>
-
-      <div> Hi [[prop1]]</div>
-      <div> Hi [[prop1]]</div>
-      <div> Hi [[prop1]]</div>
-      <div> Hi [[prop1]]</div>
-      <div> Hi [[prop1]]</div>
-      <div> Hi [[prop1]]</div>
-      <div> Hi [[prop1]]</div>
     </div>
+
   </template>
 
   <script>
@@ -76,10 +78,6 @@
       is: 'emsi-app',
 
       properties: {
-        prop1: {
-          type: String,
-          value: 'emsi-app',
-        }
       },
     });
   </script>

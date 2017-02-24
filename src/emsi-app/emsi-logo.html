@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <dom-module id="emsi-logo">
 	<template>
@@ -9,29 +9,65 @@
 				display: block;
 			}
 
-			paper-item:hover {
-				background-color: rgba(1,1,1, 0.2);
+			.container:hover {
+				background-color: rgba(0,0,0,0.2);
 			}
 
-			.desktop {
-				font-size: 40px;
-				width: 125px;
-				height: 64px;
+			#logo {
+				border-radius: 50%;
 			}
 
-			.mobile {
-				font-size: 35px;
-				width: 125px;
-				height: 45px;
+			.container {
+				padding-left: 5px;
+			}
+
+			@media screen and (min-width: 1000px) {
+				#logo {
+					position: absolute;
+					width: 63px;
+					height: 63px;
+				}
+
+				#logoText {
+					position: absolute;
+					font-size: 40px;
+					top:3px;
+					left:90px;
+				}
+
+				.container {
+					width:300px;
+					height: 64px;
+				}
+			}
+
+			@media screen and (max-width: 1000px) {
+				#logo {
+					position: absolute;
+					width: 52px;
+					height: 52px;
+				}
+
+				#logoText {
+					position: absolute;
+					font-size: 35px;
+					top:3px;
+					left:90px;
+				}
+
+				.container {
+					width:200px;
+					height: 53px;
+				}
 			}
 		</style>
-		<iron-media-query query="(min-width: 1200px)" query-matches="{{isDesktop}}"></iron-media-query>
-	    <template is="dom-if" if="[[isDesktop]]">
-			<paper-item class="desktop"> E M S I </paper-item>
-	    </template>
-		<template is="dom-if" if="[[!isDesktop]]">
-			<paper-item class="mobile"> E M S I </paper-item>
-	    </template>
+		<iron-media-query query="(min-width: 1000px)" query-matches="{{isDesktop}}"></iron-media-query>
+
+		<div class="container">
+			<iron-image id="logo" style="background-color: lightgray;" sizing="cover" preload src="http://lorempixel.com/600/400"></iron-image>
+			<div id="logoText"> E M S I </div>
+		</div>
+
 	</template>
 	<script>
 		Polymer({

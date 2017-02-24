@@ -1,40 +1,42 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <!-- Custom Elements -->
 <link rel="import" href="emsi-logo.html">
 <link rel="import" href="emsi-navbar-desktop.html">
 <link rel="import" href="emsi-language-button.html">
-<link rel="import" href="emsi-user-button.html">
 
 <dom-module id="emsi-toolbar-desktop">
 	<template>
 		<style>
 			:host {
 				display: block;
+				margin: 0vw;
+				padding: 0vw;
 			}
 
 			paper-toolbar {
-				height: 64px;
+				--paper-toolbar-height: 64px;
+				--paper-toolbar-background: white;
+				--paper-toolbar-color: black;
 				position: fixed;
 				width:100vw;
+				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+				          0 1px 5px 0 rgba(0, 0, 0, 0.12),
+				          0 3px 1px -2px rgba(0, 0, 0, 0.2);
 			}
 		</style>
-		<iron-media-query query="(min-width: 1200px)" query-matches="{{queryMatches}}"></iron-media-query>
-		
-	    <template is="dom-if" if="[[queryMatches]]">
-			<paper-toolbar>
-				<!-- Left Side of Toolbar -->
-				<emsi-logo> </emsi-logo>
-				<emsi-navbar-desktop> </emsi-navbar-desktop>
 
-				<span class="title"> </span> <!-- Empty Element -->
-				<!-- Right Side of Toolbar -->
-				<emsi-language-button> </emsi-language-button>
-				<emsi-user-button> </emsi-user-button>
-			</paper-toolbar>
-	    </template>
+		<paper-toolbar>
+			<!-- Left Side of Toolbar -->
+			<emsi-logo> </emsi-logo>
+			<emsi-navbar-desktop> </emsi-navbar-desktop>
+
+			<span class="title"> </span> <!-- Empty Element -->
+			<!-- Right Side of Toolbar -->
+			<emsi-language-button> </emsi-language-button>
+		</paper-toolbar>
+
 	</template>
 	<script>
 		Polymer({

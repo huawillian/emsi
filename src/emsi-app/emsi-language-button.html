@@ -9,27 +9,21 @@
 				display: block;
 			}
 
-			.desktop {
-				width: 75px;
-				height: 64px;
+			.container {
+				width: 100px;
+				margin-right: 20px;
+				font-size: 15px;
 			}
 
-			.mobile {
-				width: 60px;
-				height: 45px;
-			}
-
-			paper-button:hover {
+			span:hover {
 				background-color: rgba(1,1,1, 0.2);
 			}
 		</style>
-		<iron-media-query query="(min-width: 1200px)" query-matches="{{isDesktop}}"></iron-media-query>
-	    <template is="dom-if" if="[[isDesktop]]">
-			<paper-button raised class="desktop"> 中文 </paper-button>
-	    </template>
-		<template is="dom-if" if="[[!isDesktop]]">
-			<paper-button raised class="mobile"> 中文 </paper-button>
-	    </template>
+
+		<div class="container">
+			<span> English </span> | <span> 中文 </span>
+		</div>
+
 	</template>
 	<script>
 		Polymer({
