@@ -1,6 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+
+
+<!-- custom elements -->
 <link rel="import" href="emsi-toolbar-desktop.html">
 <link rel="import" href="emsi-toolbar-mobile.html">
+<link rel="import" href="emsi-firebase-document.html">
 
 <dom-module id="emsi-app">
   <template>
@@ -29,9 +34,15 @@
           }
       }
     </style>
+    <firebase-app auth-domain="emsi-e77d5.firebaseapp.com"
+      database-url="https://emsi-e77d5.firebaseio.com/"
+      api-key="AIzaSyAt6wiZ34JaJgni0c1boReLEU8ClzMCwqg">
+    </firebase-app>
+
     <emsi-toolbar-desktop> </emsi-toolbar-desktop>
     <emsi-toolbar-mobile> </emsi-toolbar-mobile>
     <div class="mainContent">
+      <h1> <emsi-firebase-document my-path="arr" my-lang="en"> </emsi-firebase-document> </h1>
       <div> Hi [[prop1]]</div>
       <div> Hi [[prop1]]</div>
       <div> Hi [[prop1]]</div>
