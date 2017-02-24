@@ -1,0 +1,94 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<!-- custom elements -->
+<link rel="import" href="emsi-church-paper-card.html">
+
+<dom-module id="emsi-church-collection">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+	    <firebase-document
+	      path= "locations"
+	      data="{{data}}">
+	    </firebase-document>
+
+	    <template is="dom-repeat" id="menu" items="[[queryResults]]">
+	        <emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.name}}" user-location=""> </emsi-church-paper-card>
+	    </template>
+
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-church-collection' ,
+
+			properties: {
+				queryType: {
+					type: String,
+					value: "none",
+					observer: "queryChanged"
+				} ,
+				queryResults: {
+					type: Array,
+					value: []
+				} ,
+				continent: {
+					type: String,
+					value: "North America"
+				} ,
+				region: {
+					type: String,
+					value: "East Coast"
+				} ,
+				language: {
+					type: String,
+					value: "en"
+				} ,
+				location: {
+					type: String,
+					value: ""
+				} ,
+				data: {
+					type: Object,
+					value: {},
+					observer: "dataChanged"
+				}
+			} ,
+
+			dataChanged: function() {
+				this.queryChanged(this.queryType, this.queryType);
+			} ,
+
+			queryChanged: function(newValue, oldValue) {
+				if(oldValue == undefined) return;
+				if(this.data == {}) return;
+
+				this.splice('queryResults', 0, this.queryResults.length);
+
+				if(newValue == "all") {
+					for(var key in this.data) {
+						this.push('queryResults', this.data[key]);
+					}
+				} else if(newValue == "none") {
+					//this.splice('queryResults', 0, this.queryResults.length);
+				} else if(newValue == "search") {
+					for(var key in this.data) {
+						if(this.data[key].continent == this.continent && this.data[key].region == this.region)
+						{
+							this.push('queryResults', this.data[key]);
+						}
+					}
+				} else if(newValue == "user") {
+					
+				}
+			} ,
+
+			created: function() {
+
+			}
+		});
+	</script>
+</dom-module>

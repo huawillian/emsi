@@ -1,9 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
-<link rel="import" href="../../bower_components/google-map/google-map.html">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html">
-<link rel="import" href="../../bower_components/google-map/google-map-directions.html">
-
 
 <!-- custom elements -->
 <link rel="import" href="emsi-toolbar-desktop.html">
@@ -11,6 +7,7 @@
 <link rel="import" href="emsi-firebase-document.html">
 <link rel="import" href="emsi-firebase-table.html">
 <link rel="import" href="emsi-church-paper-card.html">
+<link rel="import" href="emsi-church-collection.html">
 
 <dom-module id="emsi-app">
   <template>
@@ -47,10 +44,22 @@
     <emsi-toolbar-desktop> </emsi-toolbar-desktop>
     <emsi-toolbar-mobile> </emsi-toolbar-mobile>
     <div class="mainContent">
+
       <h1> <emsi-firebase-document my-path="arr" my-lang="en"> </emsi-firebase-document> </h1>
+
+
       <emsi-firebase-table my-path="table" my-lang="en"> </emsi-firebase-table>
-      <emsi-church-paper-card city="Chinatown" address="248 Grand Street, New York, NY 10002 USA" sunday-service-time="Sunday 10:30 AM, 1:30 PM, 3:30PM and 6:30PM" learn-more-url="chinatown" user-location="79 Hiawatha Blvd"> </emsi-church-paper-card>
+
+      <emsi-church-paper-card city="Chinatown" address="248 Grand Street, New York, NY 10002 USA" sunday-service-time="Sunday 10:30 AM, 1:30 PM, 3:30PM and 6:30PM" learn-more-url="chinatown" user-location="New York City"> </emsi-church-paper-card>
+
       <emsi-church-paper-card user-location="79 Hiawatha Blvd"> </emsi-church-paper-card>
+
+      <br>
+      <hr>
+      <br>
+
+      <emsi-church-collection query-type="none" continent="North America" region="East Coast"> </emsi-church-collection>
+
       <div> Hi [[prop1]]</div>
       <div> Hi [[prop1]]</div>
       <div> Hi [[prop1]]</div>
