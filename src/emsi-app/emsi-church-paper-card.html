@@ -1,0 +1,96 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/google-map/google-map-directions.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
+<dom-module id="emsi-church-paper-card">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			paper-card {
+				width:80vw;
+				margin-left: 10vw;
+				margin-right: 10vw;
+				margin-top: 10px;
+				padding: 10px;
+			}
+		</style>
+      <google-map-directions class="dir"
+          start-address="{{userLocation}}"
+          end-address="{{address}}"
+          response="{{data}}" 
+          api-key="AIzaSyCmbUbEOc5qc59PyjgmM0kASRC9eS9JsDk"></google-map-directions>
+
+		<paper-card heading="{{city}}">
+		  <div class="card-content">
+		    <h3> {{address}}</h3>
+		    <h3> {{sundayServiceTime}}</h3>
+		    <h3> {{userDistance}}</h3>
+		  </div>
+		  <div class="card-actions">
+		  	<paper-button> Get Directions </paper-button>
+		    <paper-button> Learn More </paper-button>
+		  </div>
+		</paper-card>
+
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-church-paper-card',
+
+			properties: {
+				city: {
+					type: String,
+					value: "Towaco"
+				} ,
+				address: {
+					type: String,
+					value: "36 Alpine Road, Towaco, NJ 07082"
+				} ,
+				sundayServiceTime: {
+					type: String,
+					value: "Sunday at 10:30am to 11:50am"
+				} , 
+				learnMoreUrl: {
+					type: String,
+					value: "towaco"
+				} ,
+				data: {
+				  type: Object,
+				  value: {},
+				  observer: "responseChanged"
+				} ,
+				userLocation: {
+					type: String,
+					value: ""
+				} , 
+				userDistance: {
+					type: String,
+					value: ""
+				}
+			},
+
+			responseChanged: function(newValue, oldValue) {
+				if(oldValue == undefined) return;
+				if(this.userLocation != "") {
+					this.userDistance = newValue.routes[0].legs[0].distance.text;
+				}
+			} ,
+
+			created: function() {
+				//this.getLocation();
+			} ,
+
+			getLocation: function() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position){
+						this.userLocation = position.coords.latitude + " " + position.coords.longitude;
+					}.bind(this));
+				}
+			}
+		});
+	</script>
+</dom-module>
