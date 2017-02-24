@@ -1,0 +1,77 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-data-table/iron-data-table.html">
+<link rel="import" href="../../bower_components/iron-data-table/data-table-column.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<dom-module id="emsi-firebase-table">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			iron-data-table {
+			}
+		</style>
+		<firebase-document
+	      path= "[[myPath]]"
+	      data="{{data}}">
+	    </firebase-document>
+
+		<template is="dom-if" if="{{isEnglish}}">
+			<iron-data-table items="[[data]]">
+				<data-table-column name="Name">
+				  <template> [[item.name.en]] </template>
+				</data-table-column>
+				<data-table-column name="Time">
+				  <template>[[item.time.en]]</template>
+				</data-table-column>
+			</iron-data-table>
+		</template>
+
+		<template is="dom-if" if="{{!isEnglish}}">
+			<iron-data-table items="[[data]]">
+				<data-table-column name="Name">
+				  <template> [[item.name.zh]] </template>
+				</data-table-column>
+				<data-table-column name="Time">
+				  <template>[[item.time.zh]]</template>
+				</data-table-column>
+			</iron-data-table>
+		</template>
+
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-firebase-table' ,
+
+			properties: {
+				data: {
+					type: Object,
+					value: {}
+				} ,
+				myPath: {
+					type: "string",
+					value: "/"
+				} ,
+				myLang: {
+					type: "string",
+					value: "en",
+					observer: "languageChanged"
+				} ,
+				isEnglish: {
+					type: Boolean,
+					value: true
+				}
+			} ,
+
+			languageChanged: function(newValue, oldValue) {
+				if(newValue == "zh") {
+					this.isEnglish = false;
+				} else {
+					this.isEnglish = true;
+				}
+			}
+		});
+	</script>
+</dom-module>

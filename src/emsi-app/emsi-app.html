@@ -6,6 +6,7 @@
 <link rel="import" href="emsi-toolbar-desktop.html">
 <link rel="import" href="emsi-toolbar-mobile.html">
 <link rel="import" href="emsi-firebase-document.html">
+<link rel="import" href="emsi-firebase-table.html">
 
 <dom-module id="emsi-app">
   <template>
@@ -43,7 +44,7 @@
     <emsi-toolbar-mobile> </emsi-toolbar-mobile>
     <div class="mainContent">
       <h1> <emsi-firebase-document my-path="arr" my-lang="en"> </emsi-firebase-document> </h1>
-      <div> Hi [[prop1]]</div>
+      <div> <emsi-firebase-table my-path="table" my-lang="en"> </emsi-firebase-table>  </div>
       <div> Hi [[prop1]]</div>
       <div> Hi [[prop1]]</div>
       <div> Hi [[prop1]]</div>
