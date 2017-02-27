@@ -11,6 +11,7 @@
 <link rel="import" href="emsi-firebase-table.html">
 <link rel="import" href="emsi-church-paper-card.html">
 <link rel="import" href="emsi-church-collection.html">
+<link rel="import" href="emsi-homepage-landingscreen.html">
 
 <dom-module id="emsi-app">
   <template>
@@ -35,23 +36,12 @@
           .mainContent {
             top:90px;
           }
-      }
+      } 
 
       @media screen and (max-width: 1000px) {
           .mainContent {
             top:80px;
           }
-      }
-
-      #backgroundImage {
-        position: absolute;
-        width: 100%;
-        height: 90vh;
-        z-index: -10;
-      }
-
-      paper-button {
-        background-color: blue;
       }
     </style>
 
@@ -79,10 +69,7 @@
       <emsi-church-paper-card user-location="79 Hiawatha Blvd"> </emsi-church-paper-card>
       <emsi-church-collection query-type="user" continent="North America" region="East Coast"> </emsi-church-collection>
       -->
-      <iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../MainSanctuary_ImageBlurredFINAL.jpg"></iron-image>
-      <h1> Evangelical Mission and Seminary International</h1>
-      <h3> A Growing Christian Society for the Chinese Community</h3>
-      <paper-button raised> Find a Church </paper-button>
+      <emsi-homepage-landingscreen> </emsi-homepage-landingscreen>
     </div>
 
   </template>

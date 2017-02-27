@@ -1,0 +1,112 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+
+<dom-module id="emsi-homepage-landingscreen">
+	<template>
+		<style is="custom-style">
+			:host {
+				display: block;
+			}
+
+			#backgroundImage {
+				position: absolute;
+				width: 100%;
+				height: 90vh;
+				z-index: -10;
+				top:-35px;
+				filter: brightness(90%);
+			}
+
+			#personImage {
+				position: absolute;
+				z-index: -9;
+				right:0;
+				top: 5vh;
+				width: 80vh;
+				height: 80vh;
+			}
+
+			#title {
+				font-size: 45px;
+				margin-left: 5vw;
+				margin-top: 10vh;
+				font-weight: 700;
+			}
+
+			#subtitle {
+				font-size: 25px;
+				margin-left: 5vw;
+				margin-top: 5vh;
+			}
+
+			.homepageText {
+				color: white;
+    			text-shadow: 2px 2px 5px black;
+				font-family: 'PT Sans', sans-serif;
+			}
+
+			paper-button {
+				margin-left: 5vw;
+				margin-top: 5vh;
+				background-color: #236192;
+				color: white;
+				border: 2px solid white;
+				border-radius: 10px;
+				font-size: 20px;
+				padding-left: 40px;
+				padding-right: 40px;
+			}
+
+			@media screen and (max-width: 1000px) {
+				#title {
+					margin-left: 2vw;
+					margin-top: 12vh;
+					font-size: 35px;
+					padding-left:5vw;
+					padding-right: 5vw;
+				}
+
+				#subtitle {
+					margin-left: 2vw;
+					margin-top: 4vh;
+					font-size: 20px;
+					padding-left:5vw;
+					padding-right: 5vw;
+				}
+
+				paper-button {
+					margin-left: 7vw;
+					margin-top: 4vh;
+					padding-left:5vw;
+					padding-right: 5vw;
+				}
+
+				#personImage {
+					top: 15vh;
+					width: 70vh;
+					height: 70vh;
+				}
+			}	
+
+
+		</style>
+
+		<iron-image sizing="cover" id="personImage" preload src="../Donna'sImageSmaller-0.png"></iron-image>
+		
+      <iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../MainSanctuary_ImageBlurredFINAL.jpg"></iron-image>
+
+      <div id="title" class="homepageText"> EVANGELICAL MISSION & <br> SEMINARY INTERNATIONAL </div>
+      <div id="subtitle" class="homepageText"> Spreading the gospel to the chinese community  </div>
+      <paper-button raised> Find a Church </paper-button>
+
+
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-homepage-landingscreen'
+		});
+	</script>
+</dom-module>
