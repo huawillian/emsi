@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-toolbar-desktop.html">
@@ -23,21 +25,34 @@
         min-height: 800px;
         background-color: #BBB;
         position: absolute;
-        z-index: -10;
         margin: 0;
         width:100%;
+        z-index: -12;
+        color: white;
       }
 
       @media screen and (min-width: 1000px) {
           .mainContent {
-            top:64px;
+            top:100px;
           }
       }
 
       @media screen and (max-width: 1000px) {
           .mainContent {
-            top:56px;
+            top:80px;
           }
+      }
+
+      #backgroundImage {
+        position: absolute;
+        filter: brightness(50%) blur(10px)  ;
+        width: 100%;
+        height: 90vh;
+        z-index: -10;
+      }
+
+      paper-button {
+        background-color: blue;
       }
     </style>
 
@@ -57,8 +72,7 @@
     </template>
 
 
-    <div class="mainContent">
-asdsadsad
+    <div class="mainContent">    
       <!--
       <h1> <emsi-firebase-document my-path="arr" my-lang="en"> </emsi-firebase-document> </h1>
       <emsi-firebase-table my-path="table" my-lang="en"> </emsi-firebase-table>
@@ -66,8 +80,10 @@ asdsadsad
       <emsi-church-paper-card user-location="79 Hiawatha Blvd"> </emsi-church-paper-card>
       <emsi-church-collection query-type="user" continent="North America" region="East Coast"> </emsi-church-collection>
       -->
-
-
+      <iron-image id="backgroundImage" style="background-color: lightgray;" sizing="cover" preload src="http://lorempixel.com/600/400"></iron-image>
+      <h1> Evangelical Mission and Seminary International</h1>
+      <h3> A Growing Christian Society for the Chinese Community</h3>
+      <paper-button raised> Find a Church </paper-button>
     </div>
 
   </template>

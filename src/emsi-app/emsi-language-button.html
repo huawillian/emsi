@@ -2,6 +2,8 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+
 <dom-module id="emsi-language-button">
 	<template>
 		<style>
@@ -10,19 +12,41 @@
 			}
 
 			.container {
-				width: 100px;
+				width: 150px;
 				margin-right: 20px;
 				font-size: 15px;
+				color: #3d3d29;
+				position: absolute;
+				top:36px;
+				right:47px;
 			}
 
 			span:hover {
 				background-color: rgba(1,1,1, 0.2);
 			}
+
+			span {
+				padding: 5px;
+				font-family: 'PT Sans', sans-serif;
+				color: rgba(0,0,0,0.9);
+				font-size: 18px;
+			}
+
+			@media screen and (max-width: 1000px) {
+				.container {
+					top: 28px;
+					right:43px;
+				}
+			}			
+
 		</style>
 
-		<div class="container">
-			<span> English </span> | <span> 中文 </span>
+      	<div class="container">
+			<span> ENGLISH </span> | <span> 中文 </span>
 		</div>
+
+    </template>
+
 
 	</template>
 	<script>
