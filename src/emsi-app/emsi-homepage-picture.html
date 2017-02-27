@@ -1,0 +1,34 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<dom-module id="emsi-homepage-picture">
+	<template>
+		<style>
+			:host {
+				display: block;
+				margin-top: -1.5vh;
+			}
+
+			#image {
+				width:49vw;
+				height:49vw
+			}
+
+			@media screen and (max-width: 700px) {
+				#image {
+					width:98.5vw;
+					height:98.5vw
+				}
+			}
+		</style>
+		<iron-image id="image" style="background-color: black;" sizing="cover" preload src="{{imageUrl}}"></iron-image>
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-homepage-picture',
+			properties: {
+				imageUrl: String
+			}
+		});
+	</script>
+</dom-module>

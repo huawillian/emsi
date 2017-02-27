@@ -1,6 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+
 
 <!-- custom elements -->
 <link rel="import" href="emsi-toolbar-desktop.html">
@@ -11,10 +14,11 @@
 <link rel="import" href="emsi-church-collection.html">
 <link rel="import" href="emsi-homepage-landingscreen.html">
 <link rel="import" href="emsi-homepage-bibleverse.html">
+<link rel="import" href="emsi-homepage-picture.html">
 
 <dom-module id="emsi-app">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
         margin: 0;
@@ -26,11 +30,17 @@
         background-color: #BBB;
         position: absolute;
         margin: 0;
+        padding: 0;
         width:100%;
         z-index: -12;
         color: white;
       }
 
+      #moreContent {
+        padding: 0;
+        margin: 0;
+      }
+      
       @media screen and (min-width: 1000px) {
           .mainContent {
             top:90px;
@@ -70,6 +80,13 @@
       -->
       <emsi-homepage-landingscreen> </emsi-homepage-landingscreen>
       <emsi-homepage-bibleverse> </emsi-homepage-bibleverse>
+
+      <div id="moreContent" class="layout horizontal wrap">
+        <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
+        <emsi-homepage-picture image-url="src/Locations_ImageSquare.jpg"> </emsi-homepage-picture>
+        <emsi-homepage-picture image-url="src/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
+        <emsi-homepage-picture image-url="src/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
+      </div>
     </div>
 
   </template>
