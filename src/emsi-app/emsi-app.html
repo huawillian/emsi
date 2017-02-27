@@ -15,6 +15,7 @@
 <link rel="import" href="emsi-homepage-landingscreen.html">
 <link rel="import" href="emsi-homepage-bibleverse.html">
 <link rel="import" href="emsi-homepage-picture.html">
+<link rel="import" href="emsi-homepage-content.html">
 
 <dom-module id="emsi-app">
   <template>
@@ -40,7 +41,7 @@
         padding: 0;
         margin: 0;
       }
-      
+
       @media screen and (min-width: 1000px) {
           .mainContent {
             top:90px;
@@ -60,6 +61,7 @@
     </firebase-app>
 
     <iron-media-query query="(min-width: 1000px)" query-matches="{{isDesktop}}"></iron-media-query>
+    <iron-media-query query="(max-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
 
 
     <template is="dom-if" if="[[isDesktop]]">
@@ -82,10 +84,26 @@
       <emsi-homepage-bibleverse> </emsi-homepage-bibleverse>
 
       <div id="moreContent" class="layout horizontal wrap">
-        <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
-        <emsi-homepage-picture image-url="src/Locations_ImageSquare.jpg"> </emsi-homepage-picture>
-        <emsi-homepage-picture image-url="src/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
-        <emsi-homepage-picture image-url="src/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
+        <template is="dom-if" if="[[isTwoColumns]]">
+          <emsi-homepage-content title="ABOUT US" content="Headquartered in Towaco, New Jersey U.S.A (36 Alpine Road, Towaco, NJ 07082). EMSI was founded by Pastor Moses Yang. EMSI has branches in 4 continents: Europe, North America, Asia, and Africa. EMSI is made up of the following organizations - Evangelical Bible Institute, Christian Evangelical Mission, and Christian Evangelical Overseas Outreach."> </emsi-homepage-content>
+          <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
+          <emsi-homepage-content title="LOCATIONS" content="CEM is comprised of CEM America, CEM Europe, and CEM Africa. The primary mission is to establish churches, shepherd the flock, and to plant new churches. CEM has 9 churches in the eastern United States, 5 in the western United States, 4 in Belgium, 1 in France, 12 in the Netherlands, 4 in Portugal, 2 in Italy, 1 in Hungary, 3 in South Africa, 3 in Japan, 1 in Taipei Taiwan, and 8 in Spain for a total of 53 churches."> </emsi-homepage-content>
+          <emsi-homepage-picture image-url="src/Locations_ImageSquare.jpg"> </emsi-homepage-picture>
+          <emsi-homepage-content title="MISSIONS" content="In accordance with the teachings of the Bible our mission is to preach the Gospel; to establish churches; to win souls to Christ, and to train full-time missionaries. Through missions work, we seek to help Church members grow spiritually and to love the Lord fervently, so that all may bring the Gospel to all the world!"> </emsi-homepage-content>
+          <emsi-homepage-picture image-url="src/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
+          <emsi-homepage-content title="SEMINARY" content="The seminary was established by Rev. Moses Yang in 1975. Its mission is to train Bible students to become full time ministers of od to spread Gospel; and to help laymen grow spiritually so to serve God fervently. EBI's training emphasizes four expectations from the students: to walk in faith in their life and service; to bring forth spiritual children themselves; to preach well; and to lead Bible Study classes so that believers will be edified."> </emsi-homepage-content>
+          <emsi-homepage-picture image-url="src/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
+        </template>
+        <template is="dom-if" if="[[!isTwoColumns]]">
+          <emsi-homepage-content title="ABOUT US" content="Headquartered in Towaco, New Jersey U.S.A (36 Alpine Road, Towaco, NJ 07082). EMSI was founded by Pastor Moses Yang. EMSI has branches in 4 continents: Europe, North America, Asia, and Africa. EMSI is made up of the following organizations - Evangelical Bible Institute, Christian Evangelical Mission, and Christian Evangelical Overseas Outreach."> </emsi-homepage-content>
+          <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
+          <emsi-homepage-picture image-url="src/Locations_ImageSquare.jpg"> </emsi-homepage-picture>
+          <emsi-homepage-content title="LOCATIONS" content="CEM is comprised of CEM America, CEM Europe, and CEM Africa. The primary mission is to establish churches, shepherd the flock, and to plant new churches. CEM has 9 churches in the eastern United States, 5 in the western United States, 4 in Belgium, 1 in France, 12 in the Netherlands, 4 in Portugal, 2 in Italy, 1 in Hungary, 3 in South Africa, 3 in Japan, 1 in Taipei Taiwan, and 8 in Spain for a total of 53 churches."> </emsi-homepage-content>
+          <emsi-homepage-content title="MISSIONS" content="In accordance with the teachings of the Bible our mission is to preach the Gospel; to establish churches; to win souls to Christ, and to train full-time missionaries. Through missions work, we seek to help Church members grow spiritually and to love the Lord fervently, so that all may bring the Gospel to all the world!"> </emsi-homepage-content>
+          <emsi-homepage-picture image-url="src/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
+          <emsi-homepage-picture image-url="src/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
+          <emsi-homepage-content title="SEMINARY" content="The seminary was established by Rev. Moses Yang in 1975. Its mission is to train Bible students to become full time ministers of od to spread Gospel; and to help laymen grow spiritually so to serve God fervently. EBI's training emphasizes four expectations from the students: to walk in faith in their life and service; to bring forth spiritual children themselves; to preach well; and to lead Bible Study classes so that believers will be edified."> </emsi-homepage-content>
+        </template>
       </div>
     </div>
 

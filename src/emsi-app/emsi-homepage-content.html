@@ -1,0 +1,146 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+
+<dom-module id="emsi-homepage-content">
+	<template>
+		<style>
+			:host {
+				display: block;
+				margin-top: -0.8vh;
+			}
+
+			.container {
+				width:49vw;
+				height:49vw;
+				background-color: white;
+				font-family: 'PT Sans', sans-serif;
+			}
+
+			.title {
+				padding-top: 60px;
+				padding-left: 60px;
+				color: #236192;
+				font-weight: 700;
+				font-size: 30px;
+			}
+
+			.content {
+				padding-top: 30px;
+				padding-left: 60px;
+				padding-right: 60px;
+				color: rgba(0,0,0,0.7);
+				font-weight: 400;
+				font-size: 20px;
+				line-height: 1.5;
+			}
+
+			paper-button {
+				margin-left: 60px;
+				margin-top: 30px;
+				background-color: #857874;
+				color: white;
+				border: 2px solid rgba(1,1,1,0.5);
+				border-radius: 10px;
+				font-size: 20px;
+				padding-left: 40px;
+				padding-right: 40px;
+			}
+
+			@media screen and (max-width: 800px) {
+				.container {
+					width:98.5vw;
+					height:98.5vw
+				}
+			}
+
+			@media screen and (max-width: 1000px) and (min-width: 800px) {
+				.title {
+					padding-top: 8vh;
+					padding-left: 8vw;
+					font-size: 25px;
+				}
+
+				.content {
+					padding-top: 4vh;
+					padding-left: 8vw;
+					padding-right: 8vw;
+					font-size: 16px;
+					line-height: 1.4;
+				}
+
+				paper-button {
+					margin-left: 8vw;
+					margin-top: 4vh;
+					font-size: 15px;
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+			}
+
+
+			@media screen and (max-width: 800px) and (min-width: 500px){
+				.title {
+					padding-top: 15vh;
+					padding-left: 15vw;
+					font-size: 35px;
+				}
+
+				.content {
+					padding-top: 6vh;
+					padding-left: 15vw;
+					padding-right: 15vw;
+					font-size: 20px;
+					line-height: 1.5;
+				}
+
+				paper-button {
+					margin-left: 15vw;
+					margin-top: 6vh;
+					font-size: 20px;
+					padding-left: 4vw;
+					padding-right: 4vw;
+				}
+			}
+
+			@media screen and (max-width: 500px) {
+				.title {
+					padding-top: 6vh;
+					padding-left: 8vw;
+					font-size: 22px;
+				}
+
+				.content {
+					padding-top: 3vh;
+					padding-left: 8vw;
+					padding-right: 8vw;
+					font-size: 15px;
+					line-height: 1.4;
+				}
+
+				paper-button {
+					margin-left: 8vw;
+					margin-top: 3vh;
+					font-size: 15px;
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+			}
+		</style>
+		<div class="container">
+			<div class="title"> {{title}} </div>
+			<div class="content"> {{content}}</div>
+			<paper-button raised> LEARN MORE </paper-button>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-homepage-content',
+			properties: {
+				title: String,
+				content: String
+			}
+		});
+	</script>
+</dom-module>
