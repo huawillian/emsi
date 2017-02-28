@@ -1,8 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="emsi-firebase-document.html">
-
-
 <dom-module id="emsi-404-page">
 	<template>
 		<style>
@@ -12,15 +9,10 @@
 			}
 		</style>
 		<div> Showing the emsi-404-page </div>
-		<emsi-firebase-document id="uniqueId" my-path="arr" my-lang="en" on-child-output-changed="updateData"> </emsi-firebase-document>
 	</template>
 	<script>
 		Polymer({
 			is: 'emsi-404-page',
-			updateData: function(e){
-				console.log(Polymer.dom(e).localTarget.data);
-			}
-
 		});
 	</script>
 </dom-module>

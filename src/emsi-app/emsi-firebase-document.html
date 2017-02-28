@@ -25,9 +25,10 @@
           type: "string",
           value: "/"
         } ,
-        myLang: {
+        lang: {
           type: "string",
           value: "en",
+          observer: "langChanged"
         } , 
         data: {
           type: Object,
@@ -43,11 +44,23 @@
 
       dataChanged: function(newValue, oldValue) {
         if(oldValue === undefined) return;
-        if(this.myLang == "en") {
+        if(this.lang == "en") {
           this.output = newValue.en;
           this.fire("child-output-changed");
-        } else if(this.myLang == "zh") {
+        } else if(this.lang == "zh") {
           this.output = newValue.zh;
+          this.fire("child-output-changed");
+        }
+      } ,
+
+      langChanged: function(newValue, oldValue) {
+        if(oldValue === undefined) return;
+
+        if(newValue == "en") {
+          this.output = this.data.en;
+          this.fire("child-output-changed");
+        } else if(newValue == "zh") {
+          this.output = this.data.zh;
           this.fire("child-output-changed");
         }
       }

@@ -119,9 +119,9 @@
 
 	    <!-- app-location binds to the app's URL -->
 	    <app-location route="{{route}}"></app-location>
-		<emsi-firebase-document my-path="home/title" my-lang="{{lang}}" on-child-output-changed="updateTitle"> </emsi-firebase-document>
-		<emsi-firebase-document my-path="home/subtitle" my-lang="{{lang}}" on-child-output-changed="updateSubtitle"> </emsi-firebase-document>
-		<emsi-firebase-document my-path="home/churchButton" my-lang="{{lang}}" on-child-output-changed="updateButton"> </emsi-firebase-document>
+		<emsi-firebase-document my-path="home/title" lang="{{lang}}" on-child-output-changed="updateTitle"> </emsi-firebase-document>
+		<emsi-firebase-document my-path="home/subtitle" lang="{{lang}}" on-child-output-changed="updateSubtitle"> </emsi-firebase-document>
+		<emsi-firebase-document my-path="home/churchButton" lang="{{lang}}" on-child-output-changed="updateButton"> </emsi-firebase-document>
 
 		<iron-image sizing="cover" id="personImage" preload src="../DonnaPic_Cropped-01.png"></iron-image>
 
