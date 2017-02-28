@@ -1,6 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-toolbar-desktop.html">
@@ -10,7 +13,24 @@
 <link rel="import" href="emsi-church-paper-card.html">
 <link rel="import" href="emsi-church-collection.html">
 <link rel="import" href="emsi-footer.html">
+
+<!-- custom pages -->
 <link rel="import" href="emsi-home-page.html">
+<link rel="import" href="emsi-404-page.html">
+<link rel="import" href="emsi-organization-page.html">
+<link rel="import" href="emsi-beliefs-page.html">
+<link rel="import" href="emsi-missions-page.html">
+<link rel="import" href="emsi-seminary-page.html">
+<link rel="import" href="emsi-search-page.html">
+<link rel="import" href="emsi-america-page.html">
+<link rel="import" href="emsi-europe-page.html">
+<link rel="import" href="emsi-asia-page.html">
+<link rel="import" href="emsi-africa-page.html">
+<link rel="import" href="emsi-ministries-page.html">
+<link rel="import" href="emsi-churches-page.html">
+<link rel="import" href="emsi-activities-page.html">
+<link rel="import" href="emsi-courses-page.html">
+<link rel="import" href="emsi-curriculum-page.html">
 
 
 <dom-module id="emsi-app">
@@ -40,6 +60,17 @@
       api-key="AIzaSyAt6wiZ34JaJgni0c1boReLEU8ClzMCwqg">
     </firebase-app>
 
+    <!-- app-location binds to the app's URL -->
+    <app-location route="{{route}}"></app-location>
+
+    <!-- this app-route manages the top-level routes -->
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+
     <iron-media-query query="(min-width: 1000px)" query-matches="{{isDesktop}}"></iron-media-query>
 
     <template is="dom-if" if="[[isDesktop]]">
@@ -58,7 +89,27 @@
       <emsi-church-paper-card user-location="79 Hiawatha Blvd"> </emsi-church-paper-card>
       <emsi-church-collection query-type="user" continent="North America" region="East Coast"> </emsi-church-collection>
       -->
-      <emsi-home-page> </emsi-home-page>
+
+      <!-- iron-pages selects the view based on the active route -->
+      <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="404">
+        <emsi-home-page name=""> </emsi-home-page>
+        <emsi-home-page name="home"> </emsi-home-page>
+        <emsi-404-page name="404"> </emsi-404-page>
+        <emsi-organization-page name="about"> </emsi-organization-page>
+        <emsi-beliefs-page name="beliefs"> </emsi-beliefs-page>
+        <emsi-missions-page name="missions"> </emsi-missions-page>
+        <emsi-seminary-page name="seminary"> </emsi-seminary-page>
+        <emsi-search-page name="search"> </emsi-search-page>
+        <emsi-america-page name="america"> </emsi-america-page>
+        <emsi-europe-page name="europe"> </emsi-europe-page>
+        <emsi-asia-page name="asia"> </emsi-asia-page>
+        <emsi-africa-page name="africa"> </emsi-africa-page>
+        <emsi-ministries-page name="ministries"> </emsi-ministries-page>
+        <emsi-churches-page name="churches"> </emsi-churches-page>
+        <emsi-activities-page name="activities"> </emsi-activities-page>
+        <emsi-courses-page name="courses"> </emsi-courses-page>
+        <emsi-curriculum-page name="curriculum"> </emsi-curriculum-page>
+      </iron-pages>
 
       <emsi-footer> </emsi-footer>
     </div>

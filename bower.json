@@ -11,7 +11,8 @@
     "iron-media-query": "PolymerElements/iron-media-query#^1.0.8",
     "google-map": "GoogleWebComponents/google-map#^1.2.0",
     "paper-card": "PolymerElements/paper-card#^1.1.4",
-    "app-route": "PolymerElements/app-route#^0.9.3"
+    "app-route": "PolymerElements/app-route#^0.9.3",
+    "iron-pages": "PolymerElements/iron-pages#^1.0.8"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
