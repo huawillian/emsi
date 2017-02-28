@@ -40,7 +40,7 @@
 				left: 120pt;
 			}
 
-			@media screen and (max-width: 1000px) {
+			@media screen and (max-width: 1000px) and (min-width: 500px) {
 				#logoText {
 					left: 100pt;
 				}
@@ -48,9 +48,22 @@
 				.container {
 					padding-left: 15pt;
 					width: 140pt;
-					height: 74pt;
+					height: 72pt;
 				}
 			}
+
+			@media screen and (max-width: 500px) {
+				#logoText {
+					left: 80pt;
+				}
+
+				.container {
+					padding-left: 0pt;
+					width: 120pt;
+					height: 76pt;
+				}
+			}
+
 		</style>
 
 		<div class="container">
