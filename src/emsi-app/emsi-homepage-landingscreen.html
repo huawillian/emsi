@@ -2,16 +2,13 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
-<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-
 <dom-module id="emsi-homepage-landingscreen">
 	<template>
 		<style is="custom-style">
 			:host {
 				display: block;
 				height: 80vh;
-				margin: 0;
-				padding: 0;
+				width: 100%;
 			}
 
 			@font-face {
@@ -27,25 +24,29 @@
 			#backgroundImage {
 				position: absolute;
 				height: 110vh;
-				width: 100vw;
+				width: 100%;
 				z-index: -10;
-				top:0px;
+				top: 0px;
 				filter: brightness(90%);
 			}
 
 			#personImage {
 				position: absolute;
 				z-index: -9;
-				right:-15px;
+				right:-0;
 				top: 5vh;
 				width: 80vh;
-				height: 80vh;
+				height: 90vh;
+			}
+
+			.container {
+				width: 100%;
+				margin-top: 25vh;
 			}
 
 			#title {
 				font-size: 28pt;
 				margin-left: 5vw;
-				margin-top: 25vh;
 				letter-spacing: 0px;
 			}
 
@@ -79,15 +80,14 @@
 			@media screen and (max-width: 1000px) {
 				#title {
 					margin-left: 2vw;
-					margin-top: 12vh;
 					font-size: 20pt;
-					padding-left:5vw;
+					padding-left: 5vw;
 					padding-right: 5vw;
 				}
 
 				#subtitle {
 					margin-left: 2vw;
-					margin-top: 4vh;
+					margin-top: 5vh;
 					font-size: 20px;
 					padding-left:5vw;
 					padding-right: 5vw;
@@ -95,7 +95,7 @@
 
 				paper-button {
 					margin-left: 7vw;
-					margin-top: 4vh;
+					margin-top: 5vh;
 					padding-left:5vw;
 					padding-right: 5vw;
 					font-size: 15px;
@@ -104,7 +104,11 @@
 				#personImage {
 					top: 15vh;
 					width: 70vh;
-					height: 70vh;
+					height: 80vh;
+				}
+
+				.container {
+					margin-top: 20vh;
 				}
 			}
 
@@ -113,19 +117,22 @@
 					width: 0px;
 					height: 0px;
 				}
+
+
 			}
 
 
 		</style>
 
-	  <iron-image sizing="cover" id="personImage" preload src="../DonnaPic_Cropped-01.png"></iron-image>
-		
-      <iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../MainSanctuary_ImageBlurredFINAL.jpg"></iron-image>
+		<iron-image sizing="cover" id="personImage" preload src="../DonnaPic_Cropped-01.png"></iron-image>
 
-      <div id="title" class="homepageText"> EVANGELICAL MISSION & <br> SEMINARY INTERNATIONAL </div>
-      <div id="subtitle" class="homepageText"> Spreading the gospel to the chinese community  </div>
-      <paper-button raised> Find a Church </paper-button>
+		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../MainSanctuary_ImageBlurredFINAL.jpg"></iron-image>
 
+		<div class="container">
+			<div id="title" class="homepageText"> EVANGELICAL MISSION & <br> SEMINARY INTERNATIONAL </div>
+			<div id="subtitle" class="homepageText"> Spreading the gospel to the chinese community  </div>
+			<paper-button raised> Find a Church </paper-button>
+		</div>
 
 	</template>
 	<script>

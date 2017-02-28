@@ -1,15 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
-<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-
 <dom-module id="emsi-homepage-bibleverse">
 	<template>
 		<style>
 			:host {
 				display: block;
-				margin: 0;
-				padding: 0;
+				width: 100%;
 			}
 
 			@font-face {
@@ -45,8 +42,9 @@
 				padding-right: 20px;
 				padding-top: 16px;
 				padding-bottom: 16px;
-				right:-5px;
+				right:0px;
 				top:91vh;
+				margin-right: 0;
 			}
 
 			@media screen and (max-width: 1000px) {
@@ -57,11 +55,10 @@
 				}
 
 				paper-button {
-					font-size: 15px;
 					padding-left: 10px;
 					padding-right: 10px;
-					right:-5px;
-					top:78vh;
+					right:0px;
+					top:86vh;
 				}
 			}
 		</style>

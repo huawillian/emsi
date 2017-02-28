@@ -4,7 +4,6 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 
-
 <!-- custom elements -->
 <link rel="import" href="emsi-toolbar-desktop.html">
 <link rel="import" href="emsi-toolbar-mobile.html">
@@ -31,17 +30,18 @@
         min-height: 800px;
         background-color: #BBB;
         position: absolute;
-        margin: 0;
-        padding: 0;
-        width:100%;
         z-index: -12;
         color: white;
-        top:80px;
+        top:60pt;
+        width:100%;
+        padding: 0;
+        margin: 0;
       }
 
       #moreContent {
         padding: 0;
         margin: 0;
+        width: 100%;
       }
     </style>
 
@@ -52,7 +52,6 @@
 
     <iron-media-query query="(min-width: 1000px)" query-matches="{{isDesktop}}"></iron-media-query>
     <iron-media-query query="(max-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
-
 
     <template is="dom-if" if="[[isDesktop]]">
       <emsi-toolbar-desktop> </emsi-toolbar-desktop>
@@ -70,10 +69,13 @@
       <emsi-church-paper-card user-location="79 Hiawatha Blvd"> </emsi-church-paper-card>
       <emsi-church-collection query-type="user" continent="North America" region="East Coast"> </emsi-church-collection>
       -->
+      
       <emsi-homepage-landingscreen> </emsi-homepage-landingscreen>
+
       <emsi-homepage-bibleverse> </emsi-homepage-bibleverse>
 
       <div id="moreContent" class="layout horizontal wrap">
+        <!-- If small screen, show this... -->
         <template is="dom-if" if="[[isTwoColumns]]">
           <emsi-homepage-content title="ABOUT US" content="Headquartered in Towaco, New Jersey U.S.A (36 Alpine Road, Towaco, NJ 07082). EMSI was founded by Pastor Moses Yang. EMSI has branches in 4 continents: Europe, North America, Asia, and Africa. EMSI is made up of the following organizations - Evangelical Bible Institute, Christian Evangelical Mission, and Christian Evangelical Overseas Outreach."> </emsi-homepage-content>
           <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
@@ -84,6 +86,8 @@
           <emsi-homepage-content title="SEMINARY" content="The seminary was established by Rev. Moses Yang in 1975. Its mission is to train Bible students to become full time ministers of od to spread Gospel; and to help laymen grow spiritually so to serve God fervently. EBI's training emphasizes four expectations from the students: to walk in faith in their life and service; to bring forth spiritual children themselves; to preach well; and to lead Bible Study classes so that believers will be edified."> </emsi-homepage-content>
           <emsi-homepage-picture image-url="src/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
         </template>
+
+        <!-- If large screen, show this... -->
         <template is="dom-if" if="[[!isTwoColumns]]">
           <emsi-homepage-content title="ABOUT US" content="Headquartered in Towaco, New Jersey U.S.A (36 Alpine Road, Towaco, NJ 07082). EMSI was founded by Pastor Moses Yang. EMSI has branches in 4 continents: Europe, North America, Asia, and Africa. EMSI is made up of the following organizations - Evangelical Bible Institute, Christian Evangelical Mission, and Christian Evangelical Overseas Outreach."> </emsi-homepage-content>
           <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
@@ -95,8 +99,8 @@
           <emsi-homepage-content title="SEMINARY" content="The seminary was established by Rev. Moses Yang in 1975. Its mission is to train Bible students to become full time ministers of od to spread Gospel; and to help laymen grow spiritually so to serve God fervently. EBI's training emphasizes four expectations from the students: to walk in faith in their life and service; to bring forth spiritual children themselves; to preach well; and to lead Bible Study classes so that believers will be edified."> </emsi-homepage-content>
         </template>
       </div>
-      <emsi-footer> </emsi-footer>
 
+      <emsi-footer> </emsi-footer>
     </div>
 
   </template>
