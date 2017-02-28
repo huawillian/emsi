@@ -1,8 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-
-<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 
 <dom-module id="emsi-language-button">
 	<template>
@@ -17,35 +13,33 @@
 			}
 
 			.container {
-				width: 150px;
-				margin-right: 20px;
-				font-size: 15px;
-				color: #3d3d29;
+				width: 120pt;
+				margin-right: 12pt;
 				position: absolute;
-				top:33px;
-				right:45px;
+				top: 21pt;
+				right: 30pt;
+				color: rgba(0,0,0,0.6);;
 			}
 
 			span:hover {
-				background-color: rgba(1,1,1, 0.2);
+				background-color: rgba(0,0,0, 0.2);
 			}
 
 			span {
-				padding: 5px;
+				padding: 5pt;
+				padding-top: 7pt;
 				font-family: MyriadProSemiBold;
-				color: rgba(0,0,0,0.3);
+				color: rgba(0,0,0,0.6);
 				font-size: 9pt;
 			}
 
 			@media screen and (max-width: 1000px) {
 				.container {
-					width: 120px;
-					top: 33px;
-					right:50px;
+					right: 30pt;
 				}
 
 				span {
-					font-size: 15px;
+					font-size: 11pt;
 				}
 			}			
 

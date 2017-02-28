@@ -1,8 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
-
-<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 
 <dom-module id="emsi-logo">
 	<template>
@@ -20,60 +17,41 @@
 				background-color: rgba(0,0,0,0.2);
 			}
 
+			.container {
+				padding-left: 25pt;
+				width: 150pt;
+				height: 72pt;
+			}
+
 			#logo {
 				border-radius: 50%;
+				position: absolute;
+				width: 60pt;
+				top: 1pt;
+				height: 60pt;
 			}
 
 			#logoText {
 				color: #236192;
 				font-family: MyriadProBold;
 				position: absolute;
-			}
-
-			@media screen and (min-width: 1000px) {
-				#logo {
-					position: absolute;
-					width: 80px;
-					height: 80px;
-					top: 1px;
-				}
-
-				#logoText {
-					font-size: 23pt;
-					top: 26px;
-					left: 140px;
-				}
-
-				.container {
-					padding-left: 30px;
-					width: 250px;
-					height: 80px;
-				}
+				font-size: 23pt;
+				top: 21pt;
+				left: 120pt;
 			}
 
 			@media screen and (max-width: 1000px) {
-				#logo {
-					position: absolute;
-					width: 60px;
-					height: 60px;
-					top: 10px;
-				}
-
 				#logoText {
-					font-size: 23pt;
-					top: 27px;
-					left: 80px;
+					left: 100pt;
 				}
 
 				.container {
-					padding-left: 10px;
-					width: 150px;
-					height: 100px;
-					margin-left: -15px;
+					padding-left: 15pt;
+					width: 140pt;
+					height: 74pt;
 				}
 			}
 		</style>
-		<iron-media-query query="(min-width: 1000px)" query-matches="{{isDesktop}}"></iron-media-query>
 
 		<div class="container">
 			<iron-image id="logo" sizing="cover" preload src="../EMSI_logo-01.png"></iron-image>

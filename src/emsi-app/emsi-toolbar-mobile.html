@@ -1,9 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 
 <!-- Custom Elements -->
 <link rel="import" href="emsi-logo.html">
@@ -16,16 +14,13 @@
 		<style>
 			:host {
 				display: block;
-				margin: 0;
-				padding: 0;
 			}
 
 			paper-toolbar {
-				height: 80px;
-				--paper-toolbar-background: white;
-				--paper-toolbar-color: black;
+				height: 60pt;
+				background-color: white;
 				position: fixed;
-				width:100vw;
+				width: 100vw;
 				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
 				          0 1px 5px 0 rgba(0, 0, 0, 0.12),
 				          0 3px 1px -2px rgba(0, 0, 0, 0.2);
@@ -33,15 +28,16 @@
 
 			paper-icon-button {
 				position: absolute;
-				height: 50px;
-				width: 50px;
+				height: 40pt;
+				width: 40pt;
 				border-radius: 50%;
-				top: 17px;
-				right: 15px;
+				top: 12pt;
+				right: 12pt;
+				color: rgba(0,0,0,0.6);
 			}
 
 			paper-icon-button:hover {
-				background-color: rgba(1,1,1, 0.2);
+				background-color: rgba(0,0,0, 0.2);
 			}
 
 		</style>		

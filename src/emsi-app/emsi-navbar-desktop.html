@@ -3,8 +3,6 @@
 <link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
-<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-
 <dom-module id="emsi-navbar-desktop">
 	<template>
 		<style>
@@ -16,29 +14,19 @@
 			    font-family: MyriadProSemiBold;
 			    src: url(../fonts/MyriadPro-Semibold.otf);
 			}
-				
-			.container {
-			}
 
 			.navbuttons {
 				position: absolute;
-				top: 15px;
-				width: 120px;
-				margin-left: 330px;
-			}
-
-			.navbuttons:hover {
-				background-color: rgba(0,0,0,0.2);
-			}
-
-			.menu-content paper-item {
-				padding-left: 10px;
+				top: 12pt;
+				width: 90pt;
+				margin-left: 220pt;
 			}
 
 			paper-item {
 				font-family: MyriadProSemiBold;
-				color: rgba(0,0,0,0.3);
+				color: rgba(0,0,0,0.6);
 				font-size: 9pt;
+				padding-left: 22pt;
 			}
 
 			paper-item:hover {
@@ -59,7 +47,7 @@
 				</paper-submenu>
 			</paper-menu>
 
-			<paper-menu class="navbuttons"  style="left:120px">
+			<paper-menu class="navbuttons"  style="left:90pt">
 				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> LOCATIONS </paper-item>
 					<paper-menu class="menu-content">
@@ -72,7 +60,7 @@
 				</paper-submenu>
 			</paper-menu>
 
-			<paper-menu class="navbuttons"  style="left:240px">
+			<paper-menu class="navbuttons"  style="left:180pt">
 				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> MISSIONS </paper-item>
 					<paper-menu class="menu-content">
@@ -84,11 +72,12 @@
 				</paper-submenu>
 			</paper-menu>
 
-			<paper-menu class="navbuttons" style="left:360px">
+			<paper-menu class="navbuttons" style="left:270pt">
 				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> SEMINARY </paper-item>
 					<paper-menu class="menu-content">
 					  <paper-item> Introduction </paper-item>
+					  <paper-item> Courses </paper-item>
 					  <paper-item> Curriculum </paper-item>
 					</paper-menu>
 				</paper-submenu>

@@ -4,9 +4,6 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
 
-<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-
-
 <dom-module id="emsi-navbar-mobile">
 	<template>
 		<style>
@@ -22,8 +19,8 @@
 			#menu {
 				width:100%;
 				position: absolute;
-				top: 80px;
-				left: 0px;
+				top: 60pt;
+				left: 0;
 				background-color: #857874;
 				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
 			          0 1px 5px 0 rgba(0, 0, 0, 0.12),
@@ -31,21 +28,22 @@
 			}
 
 			.menu-content paper-item {
-				padding-left: 100px;
+				padding-left: 60pt;
 			}
 
 			.menu-trigger {
-				padding-left: 50px;
+				padding-left: 30pt;
 			}
 
 			paper-item {
 				font-family: MyriadProSemiBold;
 				color: white;
-				font-size: 12pt;
+				font-size: 11pt;
 			}
 
 			paper-menu {
 				background-color: #857874;
+				padding: 0;
 			}
 
 			paper-item:hover {
@@ -55,10 +53,10 @@
 		</style>
 		<iron-collapse id="collapse">
 			<paper-menu id="menu">
-				<paper-submenu on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
+				<paper-submenu>
 					<paper-item class="menu-trigger" > HOME </paper-item>
 				</paper-submenu>
-				<paper-submenu on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
+				<paper-submenu>
 					<paper-item class="menu-trigger"> ABOUT US </paper-item>
 					<paper-menu class="menu-content">
 					  <paper-item> Organization </paper-item>
@@ -67,7 +65,7 @@
 					  <paper-item> Seminary </paper-item>
 					</paper-menu>
 				</paper-submenu>
-				<paper-submenu on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
+				<paper-submenu>
 					<paper-item class="menu-trigger"> LOCATIONS </paper-item>
 					<paper-menu class="menu-content">
 					  <paper-item> Search </paper-item>
@@ -77,7 +75,7 @@
 					  <paper-item> Africa </paper-item>
 					</paper-menu>
 				</paper-submenu>
-				<paper-submenu on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
+				<paper-submenu>
 					<paper-item class="menu-trigger"> MISSIONS </paper-item>
 					<paper-menu class="menu-content">
 					  <paper-item> Introduction </paper-item>
@@ -86,10 +84,11 @@
 					  <paper-item> Activities </paper-item>
 					</paper-menu>
 				</paper-submenu>
-				<paper-submenu on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
+				<paper-submenu>
 					<paper-item class="menu-trigger"> SEMINARY </paper-item>
 					<paper-menu class="menu-content">
 					  <paper-item> Introduction </paper-item>
+					  <paper-item> Courses </paper-item>
 					  <paper-item> Curriculum </paper-item>
 					</paper-menu>
 				</paper-submenu>
