@@ -2,7 +2,6 @@
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-toolbar-desktop.html">
@@ -19,7 +18,7 @@
 
 <dom-module id="emsi-app">
   <template>
-    <style include="iron-flex iron-flex-alignment">
+    <style is="custom-style">
       :host {
         display: block;
         margin: 0;
@@ -42,6 +41,8 @@
         padding: 0;
         margin: 0;
         width: 100%;
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
       }
     </style>
 
@@ -74,7 +75,7 @@
 
       <emsi-homepage-bibleverse> </emsi-homepage-bibleverse>
 
-      <div id="moreContent" class="layout horizontal wrap">
+      <div id="moreContent">
         <!-- If small screen, show this... -->
         <template is="dom-if" if="[[isTwoColumns]]">
           <emsi-homepage-content title="ABOUT US" content="Headquartered in Towaco, New Jersey U.S.A (36 Alpine Road, Towaco, NJ 07082). EMSI was founded by Pastor Moses Yang. EMSI has branches in 4 continents: Europe, North America, Asia, and Africa. EMSI is made up of the following organizations - Evangelical Bible Institute, Christian Evangelical Mission, and Christian Evangelical Overseas Outreach."> </emsi-homepage-content>
