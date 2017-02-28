@@ -17,8 +17,8 @@
 	<script>
 		Polymer({
 			is: 'emsi-404-page',
-			updateData: function(){
-				console.log(this.$.uniqueId.data);
+			updateData: function(e){
+				console.log(Polymer.dom(e).localTarget.data);
 			}
 
 		});

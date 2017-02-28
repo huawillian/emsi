@@ -4,6 +4,7 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
+<link rel="import" href="emsi-firebase-document.html">
 
 <dom-module id="emsi-homepage-landingscreen">
 	<template>
@@ -118,15 +119,19 @@
 
 	    <!-- app-location binds to the app's URL -->
 	    <app-location route="{{route}}"></app-location>
+		<emsi-firebase-document my-path="home/title" my-lang="{{lang}}" on-child-output-changed="updateTitle"> </emsi-firebase-document>
+		<emsi-firebase-document my-path="home/subtitle" my-lang="{{lang}}" on-child-output-changed="updateSubtitle"> </emsi-firebase-document>
+		<emsi-firebase-document my-path="home/churchButton" my-lang="{{lang}}" on-child-output-changed="updateButton"> </emsi-firebase-document>
 
 		<iron-image sizing="cover" id="personImage" preload src="../DonnaPic_Cropped-01.png"></iron-image>
 
 		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../MainSanctuary_ImageBlurredFINAL.jpg"></iron-image>
 
 		<div class="container">
-			<div id="title" class="homepageText"> EVANGELICAL MISSION & <br> SEMINARY INTERNATIONAL </div>
-			<div id="subtitle" class="homepageText"> Spreading the gospel to the chinese community  </div>
-			<emsi-button name="FIND A CHURCH" color="blue" on-tap="changeRouteToSearch"> </emsi-button>
+			<template is="dom-if" if="[[isEnglish]]"> <div id="title" class="homepageText"> {{title1}} <br> {{title2}} </div> </template>
+			<template is="dom-if" if="[[!isEnglish]]"> <div id="title" class="homepageText"> {{title}} </div> </template>
+			<div id="subtitle" class="homepageText"> {{subtitle}}  </div>
+			<emsi-button name="{{button}}" color="blue" on-tap="changeRouteToSearch"> </emsi-button>
 		</div>
 
 	</template>
@@ -136,6 +141,60 @@
 
 			changeRouteToSearch: function() {
 				this.set('route.path', '/search');
+			} ,
+
+			properties: {
+				lang: {
+					type: String,
+					value: "en",
+					observer: "changeLang"
+				},
+				title: {
+					type: Object,
+					value: {}
+				} ,
+				subtitle: {
+					type: String,
+					value: "Spreading the gospel to the chinese community"
+				} ,
+				button: {
+					type: String,
+					value: "FIND A CHURCH"
+				} ,
+				title1: {
+					type: String,
+					value: "EVANGELICAL MISSION &"
+				} ,
+				title2: {
+					type: String,
+					value: "SEMINARY INTERNATIONAL"
+				} ,
+				isEnglish: {
+					type: Boolean,
+					value: true
+				}
+			} ,
+
+			updateTitle: function(e) {
+				this.title = Polymer.dom(e).localTarget.output;
+				this.title1 = this.title.firstLine;
+				this.title2 = this.title.secondLine;
+			} ,
+
+			updateSubtitle: function(e) {
+				this.subtitle = Polymer.dom(e).localTarget.output;
+			} ,
+
+			updateButton: function(e) {
+				this.button = Polymer.dom(e).localTarget.output;
+			} ,
+
+			changeLang: function(newValue) {
+				if(newValue == "en") {
+					this.isEnglish = true;
+				} else {
+					this.isEnglish = false;
+				}
 			}
 		});
 	</script>
