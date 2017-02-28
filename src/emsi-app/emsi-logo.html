@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <dom-module id="emsi-logo">
 	<template>
@@ -66,7 +67,10 @@
 
 		</style>
 
-		<div class="container">
+	    <!-- app-location binds to the app's URL -->
+	    <app-location route="{{route}}"></app-location>
+
+		<div class="container" on-tap="changeRouteHome">
 			<iron-image id="logo" sizing="cover" preload src="../EMSI_logo-01.png"></iron-image>
 			<div id="logoText"> EMSI </div>
 		</div>
@@ -74,7 +78,11 @@
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-logo'
+			is: 'emsi-logo' ,
+
+			changeRouteHome: function() {
+				this.set('route.path', '/home');
+			}
 		});
 	</script>
 </dom-module>

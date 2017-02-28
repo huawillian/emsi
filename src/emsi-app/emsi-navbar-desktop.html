@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <dom-module id="emsi-navbar-desktop">
 	<template>
@@ -34,15 +35,19 @@
 			}
 
 		</style>
+
+	    <!-- app-location binds to the app's URL -->
+	    <app-location route="{{route}}"></app-location>
+
 		<div class="container">
 			<paper-menu class="navbuttons" style="left:0px">
 				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> ABOUT US </paper-item>
 					<paper-menu class="menu-content">
-					  <paper-item> Organization </paper-item>
-					  <paper-item> Beliefs </paper-item>
-					  <paper-item> Missions </paper-item>
-					  <paper-item> Seminary </paper-item>
+					  <paper-item on-tap="changeRoute"> Organization </paper-item>
+					  <paper-item on-tap="changeRoute"> Beliefs </paper-item>
+					  <paper-item on-tap="changeRoute"> Missions </paper-item>
+					  <paper-item on-tap="changeRoute"> Seminary </paper-item>
 					</paper-menu>
 				</paper-submenu>
 			</paper-menu>
@@ -51,11 +56,11 @@
 				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> LOCATIONS </paper-item>
 					<paper-menu class="menu-content">
-					  <paper-item> Search </paper-item>
-					  <paper-item> America </paper-item>
-					  <paper-item> Europe </paper-item>
-					  <paper-item> Asia </paper-item>
-					  <paper-item> Africa </paper-item>
+					  <paper-item on-tap="changeRoute"> Search </paper-item>
+					  <paper-item on-tap="changeRoute"> America </paper-item>
+					  <paper-item on-tap="changeRoute"> Europe </paper-item>
+					  <paper-item on-tap="changeRoute"> Asia </paper-item>
+					  <paper-item on-tap="changeRoute"> Africa </paper-item>
 					</paper-menu>
 				</paper-submenu>
 			</paper-menu>
@@ -64,10 +69,10 @@
 				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> MISSIONS </paper-item>
 					<paper-menu class="menu-content">
-					  <paper-item> Introduction </paper-item>
-					  <paper-item> Ministries </paper-item>
-					  <paper-item> Churches </paper-item>
-					  <paper-item> Activities </paper-item>
+					  <paper-item on-tap="changeRouteToMissions"> Introduction </paper-item>
+					  <paper-item on-tap="changeRoute"> Ministries </paper-item>
+					  <paper-item on-tap="changeRoute"> Churches </paper-item>
+					  <paper-item on-tap="changeRoute"> Activities </paper-item>
 					</paper-menu>
 				</paper-submenu>
 			</paper-menu>
@@ -76,9 +81,9 @@
 				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> SEMINARY </paper-item>
 					<paper-menu class="menu-content">
-					  <paper-item> Introduction </paper-item>
-					  <paper-item> Courses </paper-item>
-					  <paper-item> Curriculum </paper-item>
+					  <paper-item on-tap="changeRouteToSeminary"> Introduction </paper-item>
+					  <paper-item on-tap="changeRoute"> Courses </paper-item>
+					  <paper-item on-tap="changeRoute"> Curriculum </paper-item>
 					</paper-menu>
 				</paper-submenu>
 			</paper-menu>
@@ -113,6 +118,29 @@
 	        	for(var i = 0; i < submenuArr.length; i++) {
 	        		submenuArr[i].close();
 	        	}				
+			} ,
+
+			changeRoute: function(e) {
+				var text = Polymer.dom(e).localTarget.innerText;
+				if(text == "Organization") {
+					this.set('route.path', '/about');
+				} else if(text == "Introduction") {
+					// Do nothing
+				} else {
+					this.set('route.path', '/' + text.toLowerCase());
+				}
+
+				this.closeAllMenus();
+			} ,
+
+			changeRouteToMissions: function() {
+				this.set('route.path', '/missions');
+				this.closeAllMenus();
+			} ,
+
+			changeRouteToSeminary: function() {
+				this.set('route.path', '/seminary');
+				this.closeAllMenus();
 			}
 		});
 	</script>
