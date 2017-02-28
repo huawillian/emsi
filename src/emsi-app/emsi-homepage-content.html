@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
@@ -131,18 +132,35 @@
 				}
 			}
 		</style>
+
+	    <!-- app-location binds to the app's URL -->
+    	<app-location route="{{route}}"></app-location>
+
 		<div class="container">
 			<div class="title"> {{title}} </div>
 			<div class="content"> {{content}}</div>
-			<emsi-button name="LEARN MORE" color="brown"> </emsi-button>
+			<emsi-button name="LEARN MORE" color="brown" on-tap="changeRoute"> </emsi-button>
 		</div>
 	</template>
 	<script>
 		Polymer({
 			is: 'emsi-homepage-content',
+
 			properties: {
 				title: String,
 				content: String
+			} ,
+
+			changeRoute: function() {
+				if(this.title == "ABOUT US") {
+					this.set('route.path', '/about');
+				} else if(this.title == "LOCATIONS") {
+					this.set('route.path', '/search');
+				} else if(this.title == "MISSIONS") {
+					this.set('route.path', '/missions');
+				} else if(this.title == "SEMINARY") {
+					this.set('route.path', '/seminary');
+				}
 			}
 		});
 	</script>

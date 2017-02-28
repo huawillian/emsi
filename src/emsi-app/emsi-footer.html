@@ -4,8 +4,7 @@
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
-
-<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <dom-module id="emsi-footer">
 	<template>
@@ -73,13 +72,16 @@
 				margin-left: 15px;
 			}
 		</style>
+
+	    <!-- app-location binds to the app's URL -->
+	    <app-location route="{{route}}"></app-location>
 		
 		<div class="container">
-			<div class="user"> SIGN IN </div>
+			<div class="user" on-tap="changeRouteToSignin"> SIGN IN </div>
 			<div class="content">
 				EMSI USA Headquarters | 36 Alpine Road | Towaco New Jersey | 973.335.7177 | emsi@emsionline.org
 			</div>
-			<paper-button raised> 
+			<paper-button raised on-tap="changeRouteToContact"> 
 				CONTACT US 
 				<iron-image id="icon" src="../MobilePhoneMail_Icons-01.png" sizing="cover" style="height:30px;width:70px;" preload></iron-image>
 			</paper-button>
@@ -88,7 +90,15 @@
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-footer'
+			is: 'emsi-footer' ,
+
+			changeRouteToContact: function(){
+				this.set('route.path', '/contact');
+			} ,
+
+			changeRouteToSignin: function(){
+				this.set('route.path', '/signin');
+			} ,
 		});
 	</script>
 </dom-module>

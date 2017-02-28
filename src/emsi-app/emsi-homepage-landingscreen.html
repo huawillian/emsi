@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
@@ -115,6 +116,9 @@
 
 		</style>
 
+	    <!-- app-location binds to the app's URL -->
+	    <app-location route="{{route}}"></app-location>
+
 		<iron-image sizing="cover" id="personImage" preload src="../DonnaPic_Cropped-01.png"></iron-image>
 
 		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../MainSanctuary_ImageBlurredFINAL.jpg"></iron-image>
@@ -122,13 +126,17 @@
 		<div class="container">
 			<div id="title" class="homepageText"> EVANGELICAL MISSION & <br> SEMINARY INTERNATIONAL </div>
 			<div id="subtitle" class="homepageText"> Spreading the gospel to the chinese community  </div>
-			<emsi-button name="FIND A CHURCH" color="blue"> </emsi-button>
+			<emsi-button name="FIND A CHURCH" color="blue" on-tap="changeRouteToSearch"> </emsi-button>
 		</div>
 
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-homepage-landingscreen'
+			is: 'emsi-homepage-landingscreen',
+
+			changeRouteToSearch: function() {
+				this.set('route.path', '/search');
+			}
 		});
 	</script>
 </dom-module>
