@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 
@@ -12,6 +13,16 @@
 			:host {
 				display: block;
 				margin-top:-1vh;
+			}
+
+			@font-face {
+			    font-family: MyriadProSemiBold;
+			    src: url(../fonts/MyriadPro-Semibold.otf);
+			}
+
+			@font-face {
+			    font-family: MyriadProRegular;
+			    src: url(../fonts/MyriadPro-Regular.otf);
 			}
 
 			.container {
@@ -25,7 +36,7 @@
 				text-align: right;
 				right: 5vw;
 				bottom: 3vh;
-				font-family: 'PT Sans', sans-serif;
+				font-family: MyriadProRegular;
 				font-size: 15px;
 				padding-left: 5vw;
 			}
@@ -35,7 +46,9 @@
 				text-align: right;
 				right: 5vw;
 				bottom: 12vh;
-				font-family: 'PT Sans', sans-serif;
+				font-family: MyriadProSemiBold;
+				font-size: 12pt;
+				color: rgba(255, 255, 255, 0.5);
 			}
 
 			.user:hover {
@@ -49,12 +62,14 @@
 				color: white;
 				border: 2px solid white;
 				border-radius: 10px;
-				font-size: 15px;
-				padding-left: 40px;
-				padding-right: 40px;
+				font-size: 10pt;
+				padding-left: 20px;
+				padding-right: 20px;
+				padding-top: 5px;
+				padding-bottom: 5px;
 			}
 
-			iron-icon {
+			#icon {
 				margin-left: 15px;
 			}
 		</style>
@@ -64,7 +79,10 @@
 			<div class="content">
 				EMSI USA Headquarters | 36 Alpine Road | Towaco New Jersey | 973.335.7177 | emsi@emsionline.org
 			</div>
-			<paper-button raised> CONTACT US <iron-icon icon="communication:phonelink-ring">  </iron-icon><iron-icon icon="mail"></iron-icon></paper-button>
+			<paper-button raised> 
+				CONTACT US 
+				<iron-image id="icon" src="../MobilePhoneMail_Icons-01.png" sizing="cover" style="height:30px;width:70px;" preload></iron-image>
+			</paper-button>
 		</div>
 
 	</template>

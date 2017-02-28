@@ -12,6 +12,11 @@
 				display: block;
 			}
 
+			@font-face {
+			    font-family: MyriadProSemiBold;
+			    src: url(../fonts/MyriadPro-Semibold.otf);
+			}
+				
 			.container {
 			}
 
@@ -31,15 +36,19 @@
 			}
 
 			paper-item {
-				font-family: 'PT Sans', sans-serif;
-				color: rgba(0,0,0,0.9);
-				font-size: 18px;
+				font-family: MyriadProSemiBold;
+				color: rgba(0,0,0,0.3);
+				font-size: 9pt;
+			}
+
+			paper-item:hover {
+				background-color: rgba(0,0,0,0.2);
 			}
 
 		</style>
 		<div class="container">
 			<paper-menu class="navbuttons" style="left:0px">
-				<paper-submenu on-tap="openMenu">
+				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> ABOUT US </paper-item>
 					<paper-menu class="menu-content">
 					  <paper-item> Organization </paper-item>
@@ -51,7 +60,7 @@
 			</paper-menu>
 
 			<paper-menu class="navbuttons"  style="left:120px">
-				<paper-submenu on-tap="openMenu">
+				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> LOCATIONS </paper-item>
 					<paper-menu class="menu-content">
 					  <paper-item> Search </paper-item>
@@ -64,7 +73,7 @@
 			</paper-menu>
 
 			<paper-menu class="navbuttons"  style="left:240px">
-				<paper-submenu on-tap="openMenu">
+				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> MISSIONS </paper-item>
 					<paper-menu class="menu-content">
 					  <paper-item> Introduction </paper-item>
@@ -76,7 +85,7 @@
 			</paper-menu>
 
 			<paper-menu class="navbuttons" style="left:360px">
-				<paper-submenu on-tap="openMenu">
+				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
 					<paper-item class="menu-trigger"> SEMINARY </paper-item>
 					<paper-menu class="menu-content">
 					  <paper-item> Introduction </paper-item>
@@ -103,6 +112,11 @@
 	        	} else {
 	        		submenuObj.open();
 	        	}
+			} ,
+
+			openSubMenu: function(e){
+				var submenuObj = Polymer.dom(e).localTarget;
+				submenuObj.open();
 			} ,
 
 			closeAllMenus: function(e) {
