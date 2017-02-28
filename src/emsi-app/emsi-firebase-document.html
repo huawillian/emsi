@@ -12,7 +12,7 @@
       path= "[[myPath]]"
       data="{{data}}">
     </firebase-document>
-    {{output}}
+    <template is="dom-if" if="[[display]]"> {{output}} </template>
   </template>
 
   <script>
@@ -30,19 +30,25 @@
           value: "en",
         } , 
         data: {
-          type: "string",
-          value: "" ,
+          type: Object,
+          value: {} ,
           observer: "dataChanged"
         },
-        output: "string"
+        output: "string",
+        display: {
+          type: Boolean,
+          value: false
+        }
       } , 
 
       dataChanged: function(newValue, oldValue) {
         if(oldValue === undefined) return;
         if(this.myLang == "en") {
           this.output = newValue.en;
+          this.fire("child-output-changed");
         } else if(this.myLang == "zh") {
           this.output = newValue.zh;
+          this.fire("child-output-changed");
         }
       }
     });
