@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <dom-module id="emsi-language-button">
 	<template>
@@ -57,8 +58,10 @@
 
 		</style>
 
+   	 	<app-location route="{{route}}" id="myRoute" query-params="{{queryParams}}"></app-location>
+
       	<div class="container">
-			<span> ENGLISH </span> | <span> 中文 </span>
+			<span on-tap="changeLangToEnglish"> ENGLISH </span> | <span on-tap="changeLangToChinese"> 中文 </span>
 		</div>
 
     </template>
@@ -67,7 +70,15 @@
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-language-button'
+			is: 'emsi-language-button' ,
+
+			changeLangToEnglish: function() {
+				this.$.myRoute.queryParams = {lang: "en"};
+			} ,
+
+			changeLangToChinese: function() {
+				this.$.myRoute.queryParams = {lang: "zh"};
+			}
 		});
 	</script>
 </dom-module>

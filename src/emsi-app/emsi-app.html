@@ -63,7 +63,7 @@
     </firebase-app>
 
     <!-- app-location binds to the app's URL -->
-    <app-location route="{{route}}"></app-location>
+    <app-location route="{{route}}" id="myRoute" query-params="{{queryParams}}"></app-location>
 
     <!-- this app-route manages the top-level routes -->
     <app-route
@@ -94,25 +94,25 @@
 
       <!-- iron-pages selects the view based on the active route -->
       <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="404">
-        <emsi-home-page name=""> </emsi-home-page>
-        <emsi-home-page name="home"> </emsi-home-page>
-        <emsi-404-page name="404"> </emsi-404-page>
-        <emsi-organization-page name="about"> </emsi-organization-page>
-        <emsi-beliefs-page name="beliefs"> </emsi-beliefs-page>
-        <emsi-missions-page name="missions"> </emsi-missions-page>
-        <emsi-seminary-page name="seminary"> </emsi-seminary-page>
-        <emsi-search-page name="search"> </emsi-search-page>
-        <emsi-america-page name="america"> </emsi-america-page>
-        <emsi-europe-page name="europe"> </emsi-europe-page>
-        <emsi-asia-page name="asia"> </emsi-asia-page>
-        <emsi-africa-page name="africa"> </emsi-africa-page>
-        <emsi-ministries-page name="ministries"> </emsi-ministries-page>
-        <emsi-churches-page name="churches"> </emsi-churches-page>
-        <emsi-activities-page name="activities"> </emsi-activities-page>
-        <emsi-courses-page name="courses"> </emsi-courses-page>
-        <emsi-curriculum-page name="curriculum"> </emsi-curriculum-page>
-        <emsi-contact-page name="contact"> </emsi-contact-page>
-        <emsi-signin-page name="signin"> </emsi-signin-page>
+        <emsi-home-page name="" lang="{{lang}}"> </emsi-home-page>
+        <emsi-home-page name="home" lang="{{lang}}"> </emsi-home-page>
+        <emsi-404-page name="404" lang="{{lang}}"> </emsi-404-page>
+        <emsi-organization-page name="about" lang="{{lang}}"> </emsi-organization-page>
+        <emsi-beliefs-page name="beliefs" lang="{{lang}}"> </emsi-beliefs-page>
+        <emsi-missions-page name="missions" lang="{{lang}}"> </emsi-missions-page>
+        <emsi-seminary-page name="seminary" lang="{{lang}}"> </emsi-seminary-page>
+        <emsi-search-page name="search" lang="{{lang}}"> </emsi-search-page>
+        <emsi-america-page name="america" lang="{{lang}}"> </emsi-america-page>
+        <emsi-europe-page name="europe" lang="{{lang}}"> </emsi-europe-page>
+        <emsi-asia-page name="asia" lang="{{lang}}"> </emsi-asia-page>
+        <emsi-africa-page name="africa" lang="{{lang}}"> </emsi-africa-page>
+        <emsi-ministries-page name="ministries" lang="{{lang}}"> </emsi-ministries-page>
+        <emsi-churches-page name="churches" lang="{{lang}}"> </emsi-churches-page>
+        <emsi-activities-page name="activities" lang="{{lang}}"> </emsi-activities-page>
+        <emsi-courses-page name="courses" lang="{{lang}}"> </emsi-courses-page>
+        <emsi-curriculum-page name="curriculum" lang="{{lang}}"> </emsi-curriculum-page>
+        <emsi-contact-page name="contact" lang="{{lang}}"> </emsi-contact-page>
+        <emsi-signin-page name="signin" lang="{{lang}}"> </emsi-signin-page>
       </iron-pages>
 
       <emsi-footer> </emsi-footer>
@@ -126,7 +126,35 @@
       is: 'emsi-app',
 
       properties: {
-      },
+        queryParams: {
+          type: Object,
+          observer: "queryParamsChanged"
+        } ,
+        lang: {
+          type: String,
+          value: "en",
+        }
+      } ,
+
+      queryParamsChanged: function(newValue, oldValue) {
+        if(oldValue == undefined) return;
+        
+        if(newValue.lang == "zh") {
+          this.lang = "zh";
+        } else if(newValue.lang == "en"){
+          this.lang = "en";
+        }
+      } ,
+
+      attached: function() {
+        // Set language to english or chinese on load
+        if(this.queryParams == {} || this.queryParams.lang == "en") {
+          this.lang = "en";
+        } else if(this.queryParams.lang == "zh") {
+          this.lang = "zh";
+        }
+      }
+
     });
   </script>
 </dom-module>
