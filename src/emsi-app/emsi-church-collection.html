@@ -66,10 +66,11 @@
 				if(oldValue == undefined) return;
 				if(this.data == {}) return;
 
-				this.splice('queryResults', 0, this.queryResults.length);
+				this.set('queryResults', []);
 
 				if(newValue == "all") {
 					for(var key in this.data) {
+						if(key == undefined) return;
 						this.push('queryResults', this.data[key]);
 					}
 				} else if(newValue == "none") {

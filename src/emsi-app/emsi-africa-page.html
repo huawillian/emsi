@@ -1,14 +1,21 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
+<!-- custom elements -->
+<link rel="import" href="emsi-church-collection.html">
+
 <dom-module id="emsi-africa-page">
 	<template>
 		<style>
 			:host {
 				display: block;
 				min-height: 100vh;
+				background-color: white;
+				color: black;
 			}
 		</style>
 		<div> Showing the emsi-africa-page </div>
+		<div> South Africa </div>
+		<emsi-church-collection query-type="search" continent="Africa" region="South Africa"> </emsi-church-collection>
 	</template>
 	<script>
 		Polymer({
