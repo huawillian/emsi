@@ -2,6 +2,9 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 
+<!-- custom elements-->
+<link rel="import" href="emsi-firebase-document.html">
+
 <dom-module id="emsi-homepage-bibleverse">
 	<template>
 		<style>
@@ -69,10 +72,10 @@
 
 		<div class="container">
 			<div class="bibleverse">
-				And he said unto them, Go ye into all the world, and preach the gospel to every creature. Mark 16:25
+				<emsi-firebase-document my-path="home/verse" lang="{{lang}}" display> </emsi-firebase-document>
 			</div>
 			<paper-button raised on-tap="changeRouteToContact">
-				Contact Us
+				<emsi-firebase-document my-path="home/contactButton" lang="{{lang}}" display> </emsi-firebase-document>
 			</paper-button>
 		</div>
 
@@ -80,6 +83,13 @@
 	<script>
 		Polymer({
 			is: 'emsi-homepage-bibleverse',
+
+			properties: {
+				lang: {
+					type: String,
+					value: "en"
+				} ,
+			} ,
 
 			changeRouteToContact: function(){
 				this.set('route.path', '/contact');

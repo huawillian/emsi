@@ -119,8 +119,8 @@
 
 	    <!-- app-location binds to the app's URL -->
 	    <app-location route="{{route}}"></app-location>
+
 		<emsi-firebase-document my-path="home/title" lang="{{lang}}" on-child-output-changed="updateTitle"> </emsi-firebase-document>
-		<emsi-firebase-document my-path="home/subtitle" lang="{{lang}}" on-child-output-changed="updateSubtitle"> </emsi-firebase-document>
 		<emsi-firebase-document my-path="home/churchButton" lang="{{lang}}" on-child-output-changed="updateButton"> </emsi-firebase-document>
 
 		<iron-image sizing="cover" id="personImage" preload src="../DonnaPic_Cropped-01.png"></iron-image>
@@ -130,8 +130,8 @@
 		<div class="container">
 			<template is="dom-if" if="[[isEnglish]]"> <div id="title" class="homepageText"> {{title1}} <br> {{title2}} </div> </template>
 			<template is="dom-if" if="[[!isEnglish]]"> <div id="title" class="homepageText"> {{title}} </div> </template>
-			<div id="subtitle" class="homepageText"> {{subtitle}}  </div>
-			<emsi-button name="{{button}}" color="blue" on-tap="changeRouteToSearch"> </emsi-button>
+			<div id="subtitle" class="homepageText"> <emsi-firebase-document my-path="home/subtitle" lang="{{lang}}" display> </emsi-firebase-document>  </div>
+			<emsi-button color="blue" on-tap="changeRouteToSearch"> <emsi-firebase-document my-path="home/churchButton" lang="{{lang}}" display> </emsi-firebase-document>  </emsi-button>
 		</div>
 
 	</template>
@@ -153,10 +153,6 @@
 					type: Object,
 					value: {}
 				} ,
-				subtitle: {
-					type: String,
-					value: "Spreading the gospel to the chinese community"
-				} ,
 				button: {
 					type: String,
 					value: "FIND A CHURCH"
@@ -177,12 +173,11 @@
 
 			updateTitle: function(e) {
 				this.title = Polymer.dom(e).localTarget.output;
-				this.title1 = this.title.firstLine;
-				this.title2 = this.title.secondLine;
-			} ,
 
-			updateSubtitle: function(e) {
-				this.subtitle = Polymer.dom(e).localTarget.output;
+				if(this.lang == "en") {
+					this.title1 = this.title.firstLine;
+					this.title2 = this.title.secondLine;
+				}
 			} ,
 
 			updateButton: function(e) {

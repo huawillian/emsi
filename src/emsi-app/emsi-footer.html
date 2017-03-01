@@ -6,6 +6,9 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 
+<!-- custom elements -->
+<link rel="import" href="emsi-firebase-document.html">
+
 <dom-module id="emsi-footer">
 	<template>
 		<style>
@@ -82,7 +85,7 @@
 				EMSI USA Headquarters | 36 Alpine Road | Towaco New Jersey | 973.335.7177 | emsi@emsionline.org
 			</div>
 			<paper-button raised on-tap="changeRouteToContact"> 
-				CONTACT US 
+				<emsi-firebase-document my-path="home/contactButton" lang="{{lang}}" display> </emsi-firebase-document> 
 				<iron-image id="icon" src="../MobilePhoneMail_Icons-01.png" sizing="cover" style="height:30px;width:70px;" preload></iron-image>
 			</paper-button>
 		</div>
@@ -91,6 +94,13 @@
 	<script>
 		Polymer({
 			is: 'emsi-footer' ,
+
+			properties: {
+				lang: {
+					type: String,
+					value: "en"
+				}
+			} ,
 
 			changeRouteToContact: function(){
 				this.set('route.path', '/contact');

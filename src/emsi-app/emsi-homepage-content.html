@@ -3,6 +3,7 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
+<link rel="import" href="emsi-firebase-document.html">
 
 <dom-module id="emsi-homepage-content">
 	<template>
@@ -137,9 +138,9 @@
     	<app-location route="{{route}}"></app-location>
 
 		<div class="container">
-			<div class="title"> {{title}} </div>
-			<div class="content"> {{content}}</div>
-			<emsi-button name="LEARN MORE" color="brown" on-tap="changeRoute"> </emsi-button>
+			<div class="title"> <emsi-firebase-document my-path="{{titlePath}}" lang="{{lang}}" display> </emsi-firebase-document> </div>
+			<div class="content"> <emsi-firebase-document my-path="{{contentPath}}" lang="{{lang}}" display> </emsi-firebase-document> </div>
+			<emsi-button color="brown" on-tap="changeRoute"> <emsi-firebase-document my-path="{{buttonPath}}" lang="{{lang}}" display> </emsi-firebase-document>  </emsi-button>
 		</div>
 	</template>
 	<script>
@@ -147,8 +148,25 @@
 			is: 'emsi-homepage-content',
 
 			properties: {
-				title: String,
-				content: String
+				lang: {
+					type: String,
+					value: "en"
+				},
+				sectionPath: {
+					type: String,
+					observer: "sectionPathChanged"
+				},
+				titlePath: String,
+				contentPath: String,
+				buttonPath: {
+					type: String,
+					value: "/home/learnMoreButton"
+				}
+			} ,
+
+			sectionPathChanged: function(newValue, oldValue) {
+				this.titlePath = newValue + "/title";
+				this.contentPath = newValue + "/text";
 			} ,
 
 			changeRoute: function() {
