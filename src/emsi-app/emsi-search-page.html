@@ -81,7 +81,11 @@
 					type: Array,
 					value: []
 				},
-				isSearching: Boolean
+				isSearching: Boolean ,
+				maxCount: {
+					type: Number,
+					value: 5
+				}
 			} ,
 
 			distanceUpdated: function(params) {
@@ -132,16 +136,20 @@
 
 					console.log(this.directionsArr);
 
+					var currCount = 0;
+
 					for(var i = 0; i < this.directionsArr.length; i++) {
 						for(var key in this.dataArr) {
 							if(this.dataArr[key].name == this.directionsArr[i].name) {
+								if(currCount >= this.maxCount) break;
+								currCount++;
+
 								this.push("displayArr", this.dataArr[key]);
 								this.dataArr[key].distance = this.directionsArr[i].distance.text;
 							}
 						}
 					}
 
-					this.$.churchdisplay.render();
 					this.isSearching = false;
 				}.bind(this), 4000);
 			} ,
@@ -162,7 +170,7 @@
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function(position){
 						if(this.isSearching == true) return;
-						
+
 						this.address = "";
 						this.address = position.coords.latitude + " " + position.coords.longitude;
 						this.resetDataArr();
