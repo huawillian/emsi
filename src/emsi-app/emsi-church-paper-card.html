@@ -20,8 +20,8 @@
 				color: black;
 			}
 		</style>
-      <google-map-directions class="dir"
-          start-address="{{userLocation}}"
+      <google-map-directions id="dir"
+          start-address=""
           end-address="{{address}}"
           response="{{data}}" 
           api-key="AIzaSyCmbUbEOc5qc59PyjgmM0kASRC9eS9JsDk"></google-map-directions>
@@ -67,7 +67,8 @@
 				} ,
 				userLocation: {
 					type: String,
-					value: ""
+					value: "",
+					observer: "userLocationChanged"
 				} , 
 				userDistance: {
 					type: Object,
@@ -89,11 +90,17 @@
 				if(oldValue == undefined) return;
 				if(this.userLocation != "") {
 					this.userDistance = newValue.routes[0].legs[0].distance;
+					this.$.dir.startAddress = "";
 				}
 			} ,
 
 			created: function() {
 				//this.getLocation();
+			} ,
+
+			userLocationChanged: function(newValue) {
+				if(newValue == "") return;
+				this.$.dir.startAddress = newValue;
 			} ,
 
 			getLocation: function() {

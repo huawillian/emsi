@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner-lite.html">
 
 <dom-module id="emsi-search-page">
 	<template>
@@ -14,6 +15,13 @@
 				padding-left: 20vw;
 				padding-right: 20vw;
 
+			}
+
+			paper-spinner-lite {
+				padding-left: 45%;
+				height: 50px;
+				width: 50px;
+				padding-top: 100px;
 			}
 		</style>
 
@@ -39,6 +47,10 @@
 
 		<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]">
 	        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.name}}" user-distance-text="{{item.distance}}"> </emsi-church-paper-card>
+	    </template>
+
+		<template is="dom-if" if="[[isSearching]]">
+	      <paper-spinner-lite active class="thick"></paper-spinner-lite>
 	    </template>
 
 	</template>
@@ -68,39 +80,57 @@
 				displayArr: {
 					type: Array,
 					value: []
-				}
+				},
+				isSearching: Boolean
 			} ,
 
 			distanceUpdated: function(params) {
 				if(params.detail.distance.text == undefined) return;
-
 				this.push("directionsArr", params.detail);
 				console.log(params.detail);
 			} ,
 
-			dataChanged: function(newValue) {
+			dataChanged: function(newValue, oldValue) {
+				if(oldValue == undefined) return;
+				if(JSON.stringify(newValue) == JSON.stringify(oldValue)) return;
+
 				this.set("dataArr", []);
 
 				for(var key in newValue) {
 					this.push("dataArr", newValue[key]);
 				}
+			} ,
 
-				this.$.addrFinder.render();
+			resetDataArr: function() {
+				this.set("dataArr", []);
+				
+				for(var key in this.data) {
+					this.push("dataArr", this.data[key]);
+				}
+
+				console.log(this.dataArr);
 			} ,
 
 			startSearchByAddress: function() {
-				//console.log(this.$.addressBox.value);
+				if(this.$.addressBox.value == "") return;
+				if(this.isSearching == true) return;
+
+				this.resetDataArr();
+
+				this.address = "";
 				this.address = this.$.addressBox.value;
+				this.set("directionsArr", []);
+				this.set("displayArr", []);
+				this.isSearching = true;
+
 				this.startSearch();
 			} ,
 
 			startSearch: function() {
-				this.set("directionsArr", []);
-				this.set("displayArr", []);
-
 				setTimeout(function(){
 					this.directionsArr.sort(function(a, b){return a.distance.value-b.distance.value});
 
+					console.log(this.directionsArr);
 
 					for(var i = 0; i < this.directionsArr.length; i++) {
 						for(var key in this.dataArr) {
@@ -112,8 +142,8 @@
 					}
 
 					this.$.churchdisplay.render();
-
-				}.bind(this), 1000);
+					this.isSearching = false;
+				}.bind(this), 4000);
 			} ,
 
 
@@ -131,7 +161,16 @@
 			getLocation: function() {
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function(position){
+						if(this.isSearching == true) return;
+						
+						this.address = "";
 						this.address = position.coords.latitude + " " + position.coords.longitude;
+						this.resetDataArr();
+						this.$.addrFinder.render();
+						this.set("directionsArr", []);
+						this.set("displayArr", []);
+						this.isSearching = true;
+
 						this.startSearch();
 					}.bind(this));
 				}
