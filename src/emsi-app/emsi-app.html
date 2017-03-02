@@ -127,10 +127,7 @@
       is: 'emsi-app',
 
       properties: {
-        queryParams: {
-          type: Object,
-          observer: "queryParamsChanged"
-        } ,
+        queryParams: Object,
         lang: {
           type: String,
           value: "en",
@@ -149,17 +146,14 @@
 
       langChangeEventHandler: function(e, param) {
         console.log("Lang Change Event Handler: " + param.lang);
-      },
+        this.lang = param.lang;
 
-      queryParamsChanged: function(newValue, oldValue) {
-        if(oldValue == undefined) return;
-        
-        if(newValue.lang == "zh") {
-          this.lang = "zh";
-        } else if(newValue.lang == "en"){
-          this.lang = "en";
+        if(param.lang == "en") {
+          this.$.myRoute.queryParams = {lang: "en"};
+        } else if(param.lang == "zh") {
+          this.$.myRoute.queryParams = {lang: "zh"};
         }
-      } ,
+      },
 
       attached: function() {
         // Set language to english or chinese on load
