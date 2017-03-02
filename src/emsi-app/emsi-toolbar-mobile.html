@@ -65,6 +65,15 @@
 				}
 			},
 
+			listeners: {
+				"emsi-route-change-event": "routeChangedEventHandler"
+			},
+
+			routeChangedEventHandler: function() {
+				this.$$(".navbar").hideMenu();
+				this.icon = "menu";
+			},
+
 			toggleNavbarMenu: function() {
 				if(this.icon == "menu") {
 					this.$$(".navbar").showMenu();
