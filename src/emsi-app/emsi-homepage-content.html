@@ -171,13 +171,13 @@
 
 			changeRoute: function() {
 				if(this.title == "ABOUT US") {
-					this.set('route.path', '/about');
+					this.fire("emsi-route-change-event", {route: "about"});
 				} else if(this.title == "LOCATIONS") {
-					this.set('route.path', '/search');
+					this.fire("emsi-route-change-event", {route: "search"});
 				} else if(this.title == "MISSIONS") {
-					this.set('route.path', '/missions');
+					this.fire("emsi-route-change-event", {route: "missions"});
 				} else if(this.title == "SEMINARY") {
-					this.set('route.path', '/seminary');
+					this.fire("emsi-route-change-event", {route: "seminary"});
 				}
 			}
 		});

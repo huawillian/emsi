@@ -1,6 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <!-- custom elements-->
 <link rel="import" href="emsi-firebase-document.html">
@@ -67,9 +66,6 @@
 			}
 		</style>
 
-	    <!-- app-location binds to the app's URL -->
-	    <app-location route="{{route}}"></app-location>		
-
 		<div class="container">
 			<div class="bibleverse">
 				<emsi-firebase-document my-path="home/verse" lang="{{lang}}" display> </emsi-firebase-document>
@@ -92,7 +88,7 @@
 			} ,
 
 			changeRouteToContact: function(){
-				this.set('route.path', '/contact');
+				this.fire("emsi-route-change-event", {route: "contact"});
 			}
 		});
 	</script>

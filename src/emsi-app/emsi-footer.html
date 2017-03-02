@@ -4,7 +4,6 @@
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-firebase-document.html">
@@ -76,9 +75,6 @@
 			}
 		</style>
 
-	    <!-- app-location binds to the app's URL -->
-	    <app-location route="{{route}}"></app-location>
-		
 		<div class="container">
 			<div class="user" on-tap="changeRouteToSignin"> SIGN IN </div>
 			<div class="content">
@@ -103,11 +99,11 @@
 			} ,
 
 			changeRouteToContact: function(){
-				this.set('route.path', '/contact');
+				this.fire("emsi-route-change-event", {route: "contact"});
 			} ,
 
 			changeRouteToSignin: function(){
-				this.set('route.path', '/signin');
+				this.fire("emsi-route-change-event", {route: "signin"});
 			} ,
 		});
 	</script>

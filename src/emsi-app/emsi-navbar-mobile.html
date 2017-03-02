@@ -3,7 +3,6 @@
 <link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
-<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <dom-module id="emsi-navbar-mobile">
 	<template>
@@ -132,11 +131,11 @@
 			changeRoute: function(e) {
 				var text = Polymer.dom(e).localTarget.innerText;
 				if(text == "Organization") {
-					this.set('route.path', '/about');
+					this.fire("emsi-route-change-event", {route: "about"});
 				} else if(text == "Introduction") {
 					// Do nothing
 				} else {
-					this.set('route.path', '/' + text.toLowerCase());
+					this.fire("emsi-route-change-event", {route: text.toLowerCase()});
 				}
 
 				this.closeAllMenus();
@@ -144,13 +143,13 @@
 			} ,
 
 			changeRouteToMissions: function() {
-				this.set('route.path', '/missions');
+				this.fire("emsi-route-change-event", {route: "missions"});
 				this.closeAllMenus();
 				this.hideMenu();
 			} ,
 
 			changeRouteToSeminary: function() {
-				this.set('route.path', '/seminary');
+				this.fire("emsi-route-change-event", {route: "seminary"});
 				this.closeAllMenus();
 				this.hideMenu();
 			}

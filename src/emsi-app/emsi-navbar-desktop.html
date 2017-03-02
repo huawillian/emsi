@@ -2,7 +2,6 @@
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <dom-module id="emsi-navbar-desktop">
 	<template>
@@ -35,10 +34,6 @@
 			}
 
 		</style>
-
-	    <!-- app-location binds to the app's URL -->
-	    <app-location route="{{route}}"></app-location>
-
 		<div class="container">
 			<paper-menu class="navbuttons" style="left:0px">
 				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
@@ -123,23 +118,23 @@
 			changeRoute: function(e) {
 				var text = Polymer.dom(e).localTarget.innerText;
 				if(text == "Organization") {
-					this.set('route.path', '/about');
+					this.fire("emsi-route-change-event", {route: "about"});
 				} else if(text == "Introduction") {
 					// Do nothing
 				} else {
-					this.set('route.path', '/' + text.toLowerCase());
+					this.fire("emsi-route-change-event", {route: text.toLowerCase()});
 				}
 
 				this.closeAllMenus();
 			} ,
 
 			changeRouteToMissions: function() {
-				this.set('route.path', '/missions');
+				this.fire("emsi-route-change-event", {route: "missions"});
 				this.closeAllMenus();
 			} ,
 
 			changeRouteToSeminary: function() {
-				this.set('route.path', '/seminary');
+				this.fire("emsi-route-change-event", {route: "seminary"});
 				this.closeAllMenus();
 			}
 		});

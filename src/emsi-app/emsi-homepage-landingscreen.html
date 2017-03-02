@@ -1,6 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
@@ -113,12 +112,7 @@
 
 
 			}
-
-
 		</style>
-
-	    <!-- app-location binds to the app's URL -->
-	    <app-location route="{{route}}"></app-location>
 
 		<emsi-firebase-document my-path="home/title" lang="{{lang}}" on-child-output-changed="updateTitle"> </emsi-firebase-document>
 		<emsi-firebase-document my-path="home/churchButton" lang="{{lang}}" on-child-output-changed="updateButton"> </emsi-firebase-document>
@@ -140,7 +134,7 @@
 			is: 'emsi-homepage-landingscreen',
 
 			changeRouteToSearch: function() {
-				this.set('route.path', '/search');
+				this.fire("emsi-route-change-event", {route: "search"});
 			} ,
 
 			properties: {
