@@ -1,4 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 
 <dom-module id="emsi-search-page">
 	<template>
@@ -6,13 +9,134 @@
 			:host {
 				display: block;
 				min-height: 100vh;
+				background-color: white;
+				color: black;
+				padding-left: 20vw;
+				padding-right: 20vw;
+
 			}
 		</style>
+
+		<firebase-document
+	      path= "locations"
+	      data="{{data}}">
+	    </firebase-document>
+
 		<div> Showing the emsi-search-page </div>
+		<br>
+		<div> Search by Address </div>
+		<paper-input id="addressBox" always-float-label label="Address" placeholder="36 Alpine Road, Towaco, NJ"></paper-input>
+		<paper-button raised on-tap="startSearchByAddress"> Search </paper-button>
+		or
+		<paper-button raised on-tap="getLocation"> Use Your Location </paper-button>
+		<br>
+
+		<template is="dom-repeat" id="addrFinder" items="[[dataArr]]">
+			<iron-collapse class="collapse">
+	        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.name}}" user-location="{{address}}" on-distance-updated="distanceUpdated"> </emsi-church-paper-card>
+	        <iron-collapse>
+	    </template>
+
+		<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]">
+	        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.name}}" user-distance-text="{{item.distance}}"> </emsi-church-paper-card>
+	    </template>
+
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-search-page'
+			is: 'emsi-search-page',
+
+			properties: {
+				lang: {
+					type: String,
+					value: "en"
+				} ,
+				address: String ,
+				data: {
+					type: Object,
+					value: {},
+					observer: "dataChanged"
+				},
+				dataArr: {
+					type: Array,
+					value: []
+				} , 
+				directionsArr: {
+					type: Array,
+					value: []
+				} ,
+				displayArr: {
+					type: Array,
+					value: []
+				}
+			} ,
+
+			distanceUpdated: function(params) {
+				if(params.detail.distance.text == undefined) return;
+
+				this.push("directionsArr", params.detail);
+				console.log(params.detail);
+			} ,
+
+			dataChanged: function(newValue) {
+				this.set("dataArr", []);
+
+				for(var key in newValue) {
+					this.push("dataArr", newValue[key]);
+				}
+
+				this.$.addrFinder.render();
+			} ,
+
+			startSearchByAddress: function() {
+				//console.log(this.$.addressBox.value);
+				this.address = this.$.addressBox.value;
+				this.startSearch();
+			} ,
+
+			startSearch: function() {
+				this.set("directionsArr", []);
+				this.set("displayArr", []);
+
+				setTimeout(function(){
+					this.directionsArr.sort(function(a, b){return a.distance.value-b.distance.value});
+
+
+					for(var i = 0; i < this.directionsArr.length; i++) {
+						for(var key in this.dataArr) {
+							if(this.dataArr[key].name == this.directionsArr[i].name) {
+								this.push("displayArr", this.dataArr[key]);
+								this.dataArr[key].distance = this.directionsArr[i].distance.text;
+							}
+						}
+					}
+
+					this.$.churchdisplay.render();
+
+				}.bind(this), 1000);
+			} ,
+
+
+			attached: function() {
+				
+			} ,
+
+			toggleAllCollapse: function() {
+				var collapseArr = Polymer.dom(this.root).querySelectorAll('.collapse');
+				for(var i = 0; i < collapseArr.length; i++) {
+					collapseArr[i].show();
+				}
+			} ,
+
+			getLocation: function() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position){
+						this.address = position.coords.latitude + " " + position.coords.longitude;
+						this.startSearch();
+					}.bind(this));
+				}
+			} ,
+
 		});
 	</script>
 </dom-module>

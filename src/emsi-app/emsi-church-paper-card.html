@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/google-map/google-map-directions.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
 
 <dom-module id="emsi-church-paper-card">
 	<template>
@@ -11,9 +12,9 @@
 			}
 
 			paper-card {
-				width:80vw;
-				margin-left: 10vw;
-				margin-right: 10vw;
+				width:80%;
+				margin-left: 10%;
+				margin-right: 10%;
 				margin-top: 10px;
 				padding: 10px;
 				color: black;
@@ -29,7 +30,7 @@
 		  <div class="card-content">
 		    <h3> {{address}}</h3>
 		    <h3> {{sundayServiceTime}}</h3>
-		    <h3> {{userDistance}}</h3>
+		    <h3> {{userDistanceText}}</h3>
 		  </div>
 		  <div class="card-actions">
 		  	<paper-button> Get Directions </paper-button>
@@ -69,15 +70,25 @@
 					value: ""
 				} , 
 				userDistance: {
-					type: String,
-					value: ""
-				}
+					type: Object,
+					value: {},
+					observer: "distanceUpdated"
+				} ,
+				userDistanceText: String
 			},
+
+			distanceUpdated: function(newValue) {
+				if(newValue == {}) return;
+				var param = {};
+				param.name = this.city;
+				param.distance = newValue;
+				this.fire('distance-updated', param);
+			} ,
 
 			responseChanged: function(newValue, oldValue) {
 				if(oldValue == undefined) return;
 				if(this.userLocation != "") {
-					this.userDistance = newValue.routes[0].legs[0].distance.text;
+					this.userDistance = newValue.routes[0].legs[0].distance;
 				}
 			} ,
 
