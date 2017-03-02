@@ -87,25 +87,25 @@
     <div class="mainContent">    
       <!-- iron-pages selects the view based on the active route -->
       <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="404">
-        <emsi-home-page name="" lang="{{lang}}"> </emsi-home-page>
-        <emsi-home-page name="home" lang="{{lang}}"> </emsi-home-page>
-        <emsi-404-page name="404" lang="{{lang}}"> </emsi-404-page>
-        <emsi-organization-page name="about" lang="{{lang}}"> </emsi-organization-page>
-        <emsi-beliefs-page name="beliefs" lang="{{lang}}"> </emsi-beliefs-page>
-        <emsi-missions-page name="missions" lang="{{lang}}"> </emsi-missions-page>
-        <emsi-seminary-page name="seminary" lang="{{lang}}"> </emsi-seminary-page>
-        <emsi-search-page name="search" lang="{{lang}}"> </emsi-search-page>
-        <emsi-america-page name="america" lang="{{lang}}"> </emsi-america-page>
-        <emsi-europe-page name="europe" lang="{{lang}}"> </emsi-europe-page>
-        <emsi-asia-page name="asia" lang="{{lang}}"> </emsi-asia-page>
-        <emsi-africa-page name="africa" lang="{{lang}}"> </emsi-africa-page>
-        <emsi-ministries-page name="ministries" lang="{{lang}}"> </emsi-ministries-page>
-        <emsi-churches-page name="churches" lang="{{lang}}"> </emsi-churches-page>
-        <emsi-activities-page name="activities" lang="{{lang}}"> </emsi-activities-page>
-        <emsi-courses-page name="courses" lang="{{lang}}"> </emsi-courses-page>
-        <emsi-curriculum-page name="curriculum" lang="{{lang}}"> </emsi-curriculum-page>
-        <emsi-contact-page name="contact" lang="{{lang}}"> </emsi-contact-page>
-        <emsi-signin-page name="signin" lang="{{lang}}"> </emsi-signin-page>
+        <emsi-home-page class="page" name="" lang="{{lang}}"> </emsi-home-page>
+        <emsi-home-page class="page"name="home" lang="{{lang}}"> </emsi-home-page>
+        <emsi-404-page class="page" name="404" lang="{{lang}}"> </emsi-404-page>
+        <emsi-organization-page class="page" name="about" lang="{{lang}}"> </emsi-organization-page>
+        <emsi-beliefs-page class="page" name="beliefs" lang="{{lang}}"> </emsi-beliefs-page>
+        <emsi-missions-page class="page" name="missions" lang="{{lang}}"> </emsi-missions-page>
+        <emsi-seminary-page class="page" name="seminary" lang="{{lang}}"> </emsi-seminary-page>
+        <emsi-search-page class="page" name="search" lang="{{lang}}"> </emsi-search-page>
+        <emsi-america-page class="page" name="america" lang="{{lang}}"> </emsi-america-page>
+        <emsi-europe-page class="page" name="europe" lang="{{lang}}"> </emsi-europe-page>
+        <emsi-asia-page class="page" name="asia" lang="{{lang}}"> </emsi-asia-page>
+        <emsi-africa-page class="page" name="africa" lang="{{lang}}"> </emsi-africa-page>
+        <emsi-ministries-page class="page" name="ministries" lang="{{lang}}"> </emsi-ministries-page>
+        <emsi-churches-page class="page" name="churches" lang="{{lang}}"> </emsi-churches-page>
+        <emsi-activities-page class="page" name="activities" lang="{{lang}}"> </emsi-activities-page>
+        <emsi-courses-page class="page" name="courses" lang="{{lang}}"> </emsi-courses-page>
+        <emsi-curriculum-page class="page" name="curriculum" lang="{{lang}}"> </emsi-curriculum-page>
+        <emsi-contact-page class="page" name="contact" lang="{{lang}}"> </emsi-contact-page>
+        <emsi-signin-page class="page" name="signin" lang="{{lang}}"> </emsi-signin-page>
       </iron-pages>
 
       <emsi-footer lang="{{lang}}"> </emsi-footer>
@@ -133,6 +133,7 @@
       routeChangeEventHandler: function(e, param) {
         console.log("Route Change Event Handler: " + param.route);
         this.set('route.path', param.route);
+        this.scrollAllPagesToTop();
       },
 
       langChangeEventHandler: function(e, param) {
@@ -144,6 +145,19 @@
         } else if(param.lang == "zh") {
           this.$.myRoute.queryParams = {lang: "zh"};
         }
+      },
+
+      scrollAllPagesToTop: function() {
+        /*
+        var pagesArr = Polymer.dom(this.root).querySelectorAll(".page");
+        for(var i = 0; i < pagesArr.length; i++) {
+          console.log(pagesArr[i].$$(".container"));
+          if(pagesArr[i].$$(".container") == null) return;
+          pagesArr[i].$$(".container").scrollTop = 0;
+        }*/
+
+        //this.$$(".mainContent").scrollTop(0);
+        setTimeout(function(){this.document.body.scrollTop = 0;}, 0);
       },
 
       attached: function() {

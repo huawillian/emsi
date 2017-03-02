@@ -25,40 +25,38 @@
 		        @apply(--layout-wrap);
 		    }
 		</style>
+			<iron-media-query query="(min-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
 
-		<iron-media-query query="(min-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
+			<emsi-homepage-landingscreen lang="{{lang}}"> </emsi-homepage-landingscreen>
 
-		<emsi-homepage-landingscreen lang="{{lang}}"> </emsi-homepage-landingscreen>
+			<emsi-homepage-bibleverse lang="{{lang}}"> </emsi-homepage-bibleverse>
 
-		<emsi-homepage-bibleverse lang="{{lang}}"> </emsi-homepage-bibleverse>
+			<div id="moreContent">
+			<!-- If small screen, show this... -->
+			<template is="dom-if" if="[[!isTwoColumns]]">
+			  <emsi-homepage-content section-path="home/sections/0" lang="{{lang}}" title="ABOUT US"> </emsi-homepage-content>
+			  <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
+			  <emsi-homepage-content section-path="home/sections/1" lang="{{lang}}" title="LOCATIONS"> </emsi-homepage-content>
+			  <emsi-homepage-picture image-url="src/Locations_ImageSquare.jpg"> </emsi-homepage-picture>
+			  <emsi-homepage-content section-path="home/sections/2" lang="{{lang}}" title="MISSIONS"> </emsi-homepage-content>
+			  <emsi-homepage-picture image-url="src/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
+			  <emsi-homepage-content section-path="home/sections/3" lang="{{lang}}" title="SEMINARY"> </emsi-homepage-content>
+			  <emsi-homepage-picture image-url="src/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
+			</template>
 
-		<div id="moreContent">
-		<!-- If small screen, show this... -->
-		<template is="dom-if" if="[[!isTwoColumns]]">
-		  <emsi-homepage-content section-path="home/sections/0" lang="{{lang}}" title="ABOUT US"> </emsi-homepage-content>
-		  <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
-		  <emsi-homepage-content section-path="home/sections/1" lang="{{lang}}" title="LOCATIONS"> </emsi-homepage-content>
-		  <emsi-homepage-picture image-url="src/Locations_ImageSquare.jpg"> </emsi-homepage-picture>
-		  <emsi-homepage-content section-path="home/sections/2" lang="{{lang}}" title="MISSIONS"> </emsi-homepage-content>
-		  <emsi-homepage-picture image-url="src/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
-		  <emsi-homepage-content section-path="home/sections/3" lang="{{lang}}" title="SEMINARY"> </emsi-homepage-content>
-		  <emsi-homepage-picture image-url="src/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
+			<!-- If large screen, show this... -->
+			<template is="dom-if" if="[[isTwoColumns]]">
+			  <emsi-homepage-content section-path="home/sections/0" lang="{{lang}}" title="ABOUT US"> </emsi-homepage-content>
+			  <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
+			  <emsi-homepage-picture image-url="src/Locations_ImageSquare.jpg"> </emsi-homepage-picture>
+			  <emsi-homepage-content section-path="home/sections/1" lang="{{lang}}" title="LOCATIONS"> </emsi-homepage-content>
+			  <emsi-homepage-content section-path="home/sections/2" lang="{{lang}}" title="MISSIONS"> </emsi-homepage-content>
+			  <emsi-homepage-picture image-url="src/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
+			  <emsi-homepage-picture image-url="src/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
+			  <emsi-homepage-content section-path="home/sections/3" lang="{{lang}}" title="SEMINARY"> </emsi-homepage-content>
+			</template>
+			</div>
 		</template>
-
-		<!-- If large screen, show this... -->
-		<template is="dom-if" if="[[isTwoColumns]]">
-		  <emsi-homepage-content section-path="home/sections/0" lang="{{lang}}" title="ABOUT US"> </emsi-homepage-content>
-		  <emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
-		  <emsi-homepage-picture image-url="src/Locations_ImageSquare.jpg"> </emsi-homepage-picture>
-		  <emsi-homepage-content section-path="home/sections/1" lang="{{lang}}" title="LOCATIONS"> </emsi-homepage-content>
-		  <emsi-homepage-content section-path="home/sections/2" lang="{{lang}}" title="MISSIONS"> </emsi-homepage-content>
-		  <emsi-homepage-picture image-url="src/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
-		  <emsi-homepage-picture image-url="src/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
-		  <emsi-homepage-content section-path="home/sections/3" lang="{{lang}}" title="SEMINARY"> </emsi-homepage-content>
-		</template>
-		</div>
-
-	</template>
 	<script>
 		Polymer({
 			is: 'emsi-home-page' ,
