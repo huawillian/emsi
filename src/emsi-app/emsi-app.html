@@ -85,14 +85,6 @@
 
 
     <div class="mainContent">    
-      <!--
-      <h1> <emsi-firebase-document my-path="arr" my-lang="en"> </emsi-firebase-document> </h1>
-      <emsi-firebase-table my-path="table" my-lang="en"> </emsi-firebase-table>
-      <emsi-church-paper-card city="Chinatown" address="248 Grand Street, New York, NY 10002 USA" sunday-service-time="Sunday 10:30 AM, 1:30 PM, 3:30PM and 6:30PM" learn-more-url="chinatown" user-location="New York City"> </emsi-church-paper-card>
-      <emsi-church-paper-card user-location="79 Hiawatha Blvd"> </emsi-church-paper-card>
-      <emsi-church-collection query-type="user" continent="North America" region="East Coast"> </emsi-church-collection>
-      -->
-
       <!-- iron-pages selects the view based on the active route -->
       <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="404">
         <emsi-home-page name="" lang="{{lang}}"> </emsi-home-page>
@@ -127,7 +119,6 @@
       is: 'emsi-app',
 
       properties: {
-        queryParams: Object,
         lang: {
           type: String,
           value: "en",
@@ -156,10 +147,10 @@
       },
 
       attached: function() {
-        // Set language to english or chinese on load
-        if(this.queryParams == {} || this.queryParams.lang == "en") {
+        // Set language to english or chinese on load given queryParams
+        if(this.$.myRoute.queryParams.lang == undefined || this.$.myRoute.queryParams.lang == "en") {
           this.lang = "en";
-        } else if(this.queryParams.lang == "zh") {
+        } else if(this.$.myRoute.queryParams.lang == "zh") {
           this.lang = "zh";
         }
       }
