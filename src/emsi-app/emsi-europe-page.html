@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-church-collection.html">
@@ -11,27 +13,73 @@
 				min-height: 100vh;
 				background-color: white;
 				color: black;
+				padding-left: 20vw;
+				padding-right: 20vw;
 			}
 		</style>
 		<div> Showing the emsi-europe-page </div>
-		<div> Hungary </div>
-		<emsi-church-collection query-type="search" continent="Europe" region="Hungary"> </emsi-church-collection>
-		<div> Netherlands </div>
-		<emsi-church-collection query-type="search" continent="Europe" region="Netherlands"> </emsi-church-collection>
-		<div> Spain </div>
-		<emsi-church-collection query-type="search" continent="Europe" region="Spain"> </emsi-church-collection>
-		<div> Portugal </div>
-		<emsi-church-collection query-type="search" continent="Europe" region="Portugal"> </emsi-church-collection>
-		<div> France </div>
-		<emsi-church-collection query-type="search" continent="Europe" region="France"> </emsi-church-collection>
-		<div> Belgium </div>
-		<emsi-church-collection query-type="search" continent="Europe" region="Belgium"> </emsi-church-collection>
-		<div> Italy </div>
-		<emsi-church-collection query-type="search" continent="Europe" region="Italy"> </emsi-church-collection>
+
+		<paper-dropdown-menu-light label="Regions / Countries" selected-item="{{selectedItem}}" active>
+		  <paper-listbox class="dropdown-content">
+		    <paper-item> All </paper-item>
+		    <paper-item> Hungary </paper-item>
+		    <paper-item> Netherlands </paper-item>
+		    <paper-item> Spain </paper-item>
+		    <paper-item> Portugal </paper-item>
+		    <paper-item> France </paper-item>
+		    <paper-item> Belgium </paper-item>
+		    <paper-item> Italy </paper-item>
+		  </paper-listbox>
+		</paper-dropdown-menu-light>
+
+		<!-- iron-pages selects the view based on the active route -->
+      	<iron-pages selected="[[displayRegion]]" attr-for-selected="name">
+      		<div name="All"> 
+      			<div> Hungary </div>
+				<emsi-church-collection query-type="search" continent="Europe" region="Hungary"> </emsi-church-collection>
+				<div> Netherlands </div>
+				<emsi-church-collection query-type="search" continent="Europe" region="Netherlands"> </emsi-church-collection>
+				<div> Spain </div>
+				<emsi-church-collection query-type="search" continent="Europe" region="Spain"> </emsi-church-collection>
+				<div> Portugal </div>
+				<emsi-church-collection query-type="search" continent="Europe" region="Portugal"> </emsi-church-collection>
+				<div> France </div>
+				<emsi-church-collection query-type="search" continent="Europe" region="France"> </emsi-church-collection>
+				<div> Belgium </div>
+				<emsi-church-collection query-type="search" continent="Europe" region="Belgium"> </emsi-church-collection>
+				<div> Italy </div>
+				<emsi-church-collection query-type="search" continent="Europe" region="Italy"> </emsi-church-collection>
+      		</div> 
+			<emsi-church-collection name="Hungary" query-type="search" continent="Europe" region="Hungary"> </emsi-church-collection>
+			<emsi-church-collection name="Netherlands" query-type="search" continent="Europe" region="Netherlands"> </emsi-church-collection>
+			<emsi-church-collection name="Spain" query-type="search" continent="Europe" region="Spain"> </emsi-church-collection>
+			<emsi-church-collection name="Portugal" query-type="search" continent="Europe" region="Portugal"> </emsi-church-collection>
+			<emsi-church-collection name="France" query-type="search" continent="Europe" region="France"> </emsi-church-collection>
+			<emsi-church-collection name="Belgium" query-type="search" continent="Europe" region="Belgium"> </emsi-church-collection>
+			<emsi-church-collection name="Italy" query-type="search" continent="Europe" region="Italy"> </emsi-church-collection>
+      	</iron-pages>
+
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-europe-page'
+			is: 'emsi-europe-page',
+			
+			properties: {
+				selectedItem: {
+					type: Object,
+					observer: "regionChanged"
+				},
+				displayRegion: {
+					type: String,
+					value: "All",
+				}
+			} ,
+
+			regionChanged: function(newValue) {
+				if(newValue == null) return;
+
+				this.displayRegion = newValue.innerText;
+			} ,
 		});
 	</script>
 </dom-module>
