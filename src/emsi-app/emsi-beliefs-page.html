@@ -1,4 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<!-- custom element -->
+<link rel="import" href="emsi-firebase-document.html">
 
 <dom-module id="emsi-beliefs-page">
 	<template>
@@ -6,13 +12,152 @@
 			:host {
 				display: block;
 				min-height: 100vh;
+				width: 100%;
+				z-index: 0;
+			}
+
+			@font-face {
+			    font-family: MyriadProBold;
+			    src: url(../fonts/MyriadPro-Bold.otf);
+			}
+
+			@font-face {
+			    font-family: MyriadProSemiboldIt;
+			    src: url(../fonts/MyriadPro-SemiboldIt.otf);
+			}
+
+			.titleContainer {
+				height: 80pt;
+				font-size: 30pt;
+				font-weight: 400;
+				background-color: rgba(133,120,116, 0.15);
+				color: #236192;
+				font-family: MyriadProBold;
+				padding-top: 40pt;
+				padding-left: 20vw;
+				padding-right: 20vw;
+				z-index: 2;
+			}
+
+			.contentContainer {
+				padding-left: 20vw;
+				padding-right: 20vw;
+				padding-top: 20pt;
+				padding-bottom: 20pt;
+				font-family: MyriadProSemiboldIt;
+				background-color: rgba(133,120,116, 0.1);
+				font-size: 15pt;
+				font-weight: 400;
+				color: white;
+				text-align: left;
+			}
+
+			@media screen and (max-width: 800px) {
+				.titleContainer {
+					padding-left: 10vw;
+					padding-right: 10vw;
+				}
+
+				.contentContainer {
+					padding-left: 10vw;
+					padding-right: 10vw;
+				}
+
+			}
+
+			td {
+				vertical-align: top;
+				padding-top: 10px;
+				padding-left: 5px;
+				min-width: 40px;
+			}
+
+			.num {
+				color: rgba(255,255,255, 0.4);
+			}
+
+			#backgroundImage {
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				z-index: -1;
+				top: 0%;
+			}
+
+			.titleContainerBackground {
+				height: 110pt;
+				background-color: white;
+				width: 100%;
+				position: absolute;
+				z-index: -1;
 			}
 		</style>
-		<div> Showing the emsi-beliefs-page </div>
+
+		<firebase-document
+	      path= "beliefs"
+	      data="{{data}}">
+	    </firebase-document>
+
+		<iron-image id="backgroundImage" sizing="cover" preload src="../StatementOfFaithImage-01.jpg"></iron-image>
+
+	    <iron-media-query query="(min-width: 400px)" query-matches="{{isDesktop}}"></iron-media-query>
+
+		<div class="titleContainerBackground"> </div>
+
+	    <template is="dom-if" if="[[isDesktop]]">
+	      <div class="titleContainer"> Statement of Faith </div>
+	    </template>
+	    <template is="dom-if" if="[[!isDesktop]]">
+	      <div class="titleContainer"> Beliefs </div>
+	    </template>
+
+	    <div class="contentContainer">
+	    	<template is="dom-repeat" id="beliefsList" items="[[displayedData]]">
+	    		<table>
+	    		  <tr>
+				    <td class="num"> <emsi-firebase-document my-path="beliefs/{{index}}/num" lang="{{lang}}" display> </emsi-firebase-document> </td>
+				    <td> <emsi-firebase-document my-path="beliefs/{{index}}" lang="{{lang}}" display> </emsi-firebase-document> </td> 
+				  </tr>
+				</table>
+	        	<br>
+	    	</template>
+	    </div>
+
+
+
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-beliefs-page'
+			is: 'emsi-beliefs-page' ,
+
+			properties: {
+				data: {
+					type: Object,
+					observer: 'dataChanged'
+				} ,
+				displayedData: {
+					type: Array,
+					value: []
+				} ,
+				lang: {
+					type: String,
+					value: "en"
+				}
+			} ,
+
+			dataChanged: function(newValue, oldValue) {
+				// stop initial call
+				if(oldValue == undefined) return;
+
+				this.set('displayedData', []);
+
+				for(var key in newValue) {
+
+					this.push('displayedData', newValue[key]);
+				}
+				console.log(this.displayedData);
+				this.$.beliefsList.render();
+			}
 		});
 	</script>
 </dom-module>

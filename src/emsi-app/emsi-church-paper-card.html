@@ -12,13 +12,13 @@
 			}
 
 			paper-card {
-				width:80%;
-				margin-left: 10%;
-				margin-right: 10%;
-				margin-top: 10px;
 				padding: 10px;
 				color: black;
+				border-radius: 30px;
+				max-width:800px;
+				width:100%;
 			}
+
 		</style>
       <google-map-directions id="dir"
           start-address=""
@@ -26,8 +26,9 @@
           response="{{data}}" 
           api-key="AIzaSyCmbUbEOc5qc59PyjgmM0kASRC9eS9JsDk"></google-map-directions>
 
-		<paper-card heading="{{city}}">
+		<paper-card>
 		  <div class="card-content">
+		  	<div id="title"> {{city}} </div>
 		    <h3> {{address}}</h3>
 		    <h3> {{sundayServiceTime}}</h3>
 		    <h3> {{userDistanceText}}</h3>

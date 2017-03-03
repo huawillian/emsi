@@ -13,12 +13,44 @@
 				min-height: 100vh;
 				background-color: white;
 				color: black;
-				padding-left: 20vw;
-				padding-right: 20vw;
+				padding-left: 20%;
+				padding-right: 20%;
 			}
-		</style>
-		<div> Showing the emsi-europe-page </div>
 
+			@font-face {
+			    font-family: MyriadProSemibold;
+			    src: url(../fonts/MyriadPro-Semibold.otf);
+			}
+
+			.regionContainer {
+				font-family: MyriadProSemibold;
+				color: #857874;
+				font-size: 20pt;
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+
+			paper-dropdown-menu-light{
+				width:100%;
+				margin-bottom: 50px;
+			}
+
+			.titleContainer {
+				height: 20vh;
+				min-height: 100px;
+				font-size: 40pt;
+				font-weight: 700;
+				width: 100%;
+				background-color: white;
+				color: #236192;
+				text-align: center;
+				font-family: MyriadProBold;
+				padding-top: 10vh;
+			}
+
+		</style>
+	    <div class="titleContainer"> Europe </div>
+      	<div class="regionContainer"> Select Region or Country </div>
 		<paper-dropdown-menu-light label="Regions / Countries" selected-item="{{selectedItem}}" active>
 		  <paper-listbox class="dropdown-content">
 		    <paper-item> All </paper-item>
@@ -35,19 +67,19 @@
 		<!-- iron-pages selects the view based on the active route -->
       	<iron-pages selected="[[displayRegion]]" attr-for-selected="name">
       		<div name="All"> 
-      			<div> Hungary </div>
+      			<div class="regionContainer"> Hungary </div>
 				<emsi-church-collection query-type="search" continent="Europe" region="Hungary"> </emsi-church-collection>
-				<div> Netherlands </div>
+				<div class="regionContainer"> Netherlands </div>
 				<emsi-church-collection query-type="search" continent="Europe" region="Netherlands"> </emsi-church-collection>
-				<div> Spain </div>
+				<div class="regionContainer"> Spain </div>
 				<emsi-church-collection query-type="search" continent="Europe" region="Spain"> </emsi-church-collection>
-				<div> Portugal </div>
+				<div class="regionContainer"> Portugal </div>
 				<emsi-church-collection query-type="search" continent="Europe" region="Portugal"> </emsi-church-collection>
-				<div> France </div>
+				<div class="regionContainer"> France </div>
 				<emsi-church-collection query-type="search" continent="Europe" region="France"> </emsi-church-collection>
-				<div> Belgium </div>
+				<div class="regionContainer"> Belgium </div>
 				<emsi-church-collection query-type="search" continent="Europe" region="Belgium"> </emsi-church-collection>
-				<div> Italy </div>
+				<div class="regionContainer"> Italy </div>
 				<emsi-church-collection query-type="search" continent="Europe" region="Italy"> </emsi-church-collection>
       		</div> 
 			<emsi-church-collection name="Hungary" query-type="search" continent="Europe" region="Hungary"> </emsi-church-collection>

@@ -3,18 +3,15 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <dom-module id="emsi-search-page">
 	<template>
 		<style>
 			:host {
 				display: block;
-				min-height: 100vh;
-				background-color: white;
 				color: black;
-				padding-left: 20vw;
-				padding-right: 20vw;
-
+				height: 80vh;
 			}
 
 			paper-spinner-lite {
@@ -23,12 +20,22 @@
 				width: 50px;
 				padding-top: 100px;
 			}
+
+			#backgroundImage {
+				position: absolute;
+				height: 81vh;
+				width: 100%;
+				z-index: -1;
+				top: 0px;
+			}
 		</style>
 
 		<firebase-document
 	      path= "locations"
 	      data="{{data}}">
 	    </firebase-document>
+
+		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../FindALocationBkgrd-01.jpg"></iron-image>
 
 		<div> Showing the emsi-search-page </div>
 		<br>
