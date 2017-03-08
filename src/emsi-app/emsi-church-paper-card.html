@@ -103,19 +103,13 @@
 		  	<div id="title"> {{city}} </div>
 		    <div id="address"> {{address}} </div>
 			<div id="serviceTitle"> Sunday Worship </div>
-			<table id="serviceContainer"> 
-				<tr>
-					<td>10:30am</td> 
-				    <td>English</td>
-			  	</tr>
-				<tr>
-					<td>1:30pm</td> 
-				    <td>Chinese</td>
-			  	</tr>
-			  	<tr>
-			  		<td>3:30pm</td> 
-				    <td>Fukinese</td>
-			  	</tr>
+			<table id="serviceContainer">
+				<template is="dom-repeat" items="[[sundayServiceTime]]">
+					<tr>
+						<td>{{item.time}}</td> 
+					    <td>{{item.name}}</td>
+				  	</tr>
+				</template>
 			</table>
 
 		    <!-- <h3> {{sundayServiceTime}}</h3>
@@ -147,8 +141,8 @@
 					value: "36 Alpine Road, Towaco, NJ 07082"
 				} ,
 				sundayServiceTime: {
-					type: String,
-					value: "Sunday at 10:30am to 11:50am"
+					type: Array,
+					value: []
 				} , 
 				learnMoreUrl: {
 					type: String,
