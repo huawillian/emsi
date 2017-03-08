@@ -1,4 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<!-- custom element -->
+<link rel="import" href="emsi-firebase-document.html">
+<link rel="import" href="emsi-template-page.html">
 
 <dom-module id="emsi-activities-page">
 	<template>
@@ -6,13 +11,68 @@
 			:host {
 				display: block;
 				min-height: 100vh;
+				width: 100%;
+				z-index: 0;
 			}
 		</style>
-		<div> Showing the emsi-activities-page </div>
+		
+		<emsi-template-page title-path="activities/title" background-image-path="src/StatementOfFaithImage-01.jpg" lang="{{lang}}">
+			<!-- iron-pages selects the view based on the active route -->
+	      	<iron-pages selected="[[lang]]" attr-for-selected="name">
+	      		<div name="en"> 
+			<section><p/><p><b><u>Musical Evangelical tour in Azores</u></b></p><p>In May 2015, Rev. Yue Ping Chen in Portugal led a person living in Azores to the Lord. 
+		   The gospel needs in Azores touched Rev. Chen. He and brothers and sisters prayed for the 
+		   need in Azores and started preparation. On July 14, a group of thirty-two of them went to 
+		   the islands for a four days and three nights musical evangelical tour. That evening, 
+		   they held a musical evangelical meeting in Azores. More than sixty people attended the meeting 
+		   and a few accepted the Lord. The evangelical work thus started.
+		</p><p><b><u>Evangelical Outreach in the Northeastern Three
+					Provinces of Holland between 2012 and 2013 </u></b></p><p>In 2011, CEC Groningen in Holland reached out to the Chinese in
+			the northeastern provinces of Holland to spread Gospel to them and by
+			January 2013, we started monthly worship services, alternating
+			between restaurants in Leeuwarden and in Bolsward. We had 8
+			attendance the first night in Bolsward, and 18 the second night in
+			Leeuwarden. We were greatly encouraged. May God lead us in this
+			service.</p><p><b><u>CEC Utrecht in Holland Gospel Outreach between 2009 and
+					2012 </u></b></p><p>Veenendaal is about 45 km from Utrecht. Some church members of
+			CEC Utrecht live in Veenendaal, some run business there. There are
+			also many snack bars and restaurants run by Chinese in Veenendaal. In
+			a September 2009 coworkers’ meeting, decision was made to start Bible
+			study classes in Veenendaal. Then in September 2011, the coworkers
+			decided to start a youth fellowship for children of restaurant
+			owners. In 2012, after much prayer, the coworkers decided to start a
+			church in Veenendaal. So on October 11, 2012, they signed a contract
+			to purchase a church building. On October 20, 2012, the church
+			dedication was held, and CEC Veenendaal was formally established.</p></section>
+	      		</div>
+	      		<div name="zh">
+			<section><div><div><p class="MsoNormal"><u>2015 亞速爾海島宣教旅行</u></p></div><div>
+			2015 年五月，葡萄牙陳岳平 牧師帶領一位住在亞速爾海島的弟兄信主，因而想到亞速爾海島的福音需要。是年六月與弟兄姐妹一起禱告，開始準備，七月14日一行三十二人在海島有四天三夜的音樂佈道旅行；第一天晚上音樂佈道會有六十多人參加，有數人決志信耶穌，亞速爾海島的福音工作從此展開。			
+			</div><br/><div><p class="MsoNormal"><u>2012年 ~2013年 荷蘭東北三省福音事工拓荒</u></p></div><div>
+			高寧根生命堂採取了「走出去」的策略，深入各地向當地的居民傳福音。感謝主，2012年一月，在菲仕蘭省（Friesland）兩個城市柳華頓（Leeuwarden）和伯斯旺 （Bolsward）開始了崇拜。
+			</div><br/><div><p class="MsoNormal"><u>2009年~2012年 烏特勒生命堂福音事工</u></p></div><div>
+			烏特勒生命堂一些弟兄姐妹在福臨道城做生意和居住，福臨道 (Veenendaal) 城距離烏特勒 (Utrecht) 市約45公里，附近亦有不少華人經營的餐館及薯條店，經同工會決議正式在2009年九月開始每月兩次的查經聚會。
+			</div><div>
+			2011年九月開始少年團契，邀請店家的小孩參加。
+			</div><div>
+			經過數年的耕耘，烏特勒堂同工有感時機成熟，於是大家禱告後決定開設小型教會，讓更多華人認識真神。2012年10月11日購堂簽約。2012年10月20日獻堂典禮，福臨道生命堂正式成立。
+			</div></div><br/><br/></section>
+	      		</div>
+	      	</iron-pages>
+	    </emsi-template-page>
+
+
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-activities-page'
+			is: 'emsi-activities-page' ,
+
+			properties: {
+				lang: {
+					type: String,
+					value: "en"
+				}
+			} ,
 		});
 	</script>
 </dom-module>

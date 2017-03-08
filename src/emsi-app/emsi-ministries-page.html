@@ -1,4 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<!-- custom element -->
+<link rel="import" href="emsi-firebase-document.html">
+<link rel="import" href="emsi-template-page.html">
 
 <dom-module id="emsi-ministries-page">
 	<template>
@@ -6,13 +11,242 @@
 			:host {
 				display: block;
 				min-height: 100vh;
+				width: 100%;
+				z-index: 0;
 			}
 		</style>
-		<div> Showing the emsi-ministries-page </div>
+
+		<emsi-template-page title-path="ministries/title" background-image-path="src/StatementOfFaithImage-01.jpg" lang="{{lang}}">
+			<!-- iron-pages selects the view based on the active route -->
+	      	<iron-pages selected="[[lang]]" attr-for-selected="name">
+	      		<div name="en"> 
+			<section><p><span style="font-weight: bold;">PAST</span></p><p>I. THE BRIEF HISTORY OF THE CHRISTIAN EVANGELICAL OVERSEA MISSION
+			(C.E.O.M.)</p><p>The Christian Evangelical Overseas Mission was established in
+			April of 1995 by E.M.S.I. at the Mission Headquarters in Towaco, New
+			Jersey. And, since then, it expanded to missions and church planting.
+			Rev. Yang has been traveling to and from the U.S. to Europe many
+			times in the past thirty years. He has been invited to lead
+			evangelistic meetings and deeper life services. The Holy Spirit had
+			worked mightily in the places he went to, not only causing many to
+			respond by going to the churches, but also bringing spiritual revival
+			among brothers and sisters. At the moment, the C.E.O.M. has expanded
+			its ministry to four large continents - America, Europe, Asia and
+			Africa. And different C.E.M. branches were set up to assist in the
+			missions ministry among the C.E.C. churches.</p><p>EUROPE</p><p>
+			SPAIN<br/> Rev. Moses Yang was invited to speak in Holland in
+			October of 1994. A sister who immigrated from Holland to Spain came
+			to attend the meeting and made a Macedonian call to Rev. Yang about
+			the needs of the Chinese churches in Spain. Then, E.M.S.I.
+			commissioned Ev. Anne Li to explore Spain for two months in November
+			1994, while preparing to establish a C.E.M. in Spain. Rev. Yang went
+			to Spain for a circuit preaching from December 25-31 for the first
+			time. At the time, there was only one Chinese church in Barcelona and
+			the rest were not official churches with a full-time evangelist. Ev.
+			Anne Li came back from Spain to U.S. in January 1995 and she started
+			raising funds for the mission fund in Spain from the east coast
+			C.E.C. and Taiwan. The Mission Evangelical China Espanola was
+			established in April of 1995 and was officially registered with the
+			Spanish government.
+		</p><p>
+			HOLLAND<br/> Rev. Moses Yang came in contact with the mission work
+			in Holland sometime around 1973. He had been traveling back and forth
+			from the U.S. to Holland and he knew the needs of the Chinese
+			churches in Holland. From 1973 to 1999, Rev. Yang had a close
+			relationship with the Chinese Evangelical Mission in Europe. Rev.
+			Yang led a short-term Western Europe mission team in June of 1999 to
+			expand the Gospel ministry. The Gospel ministry in Breda and Bergen
+			Op Zoom rapidly grew and it motivated many church members to
+			participate actively in the mission work.
+		</p><p>
+			PORTUGAL <br/> Ev. Yue Ping Chen from the C.E.C. in Valencia
+			received an invitation from his sister Xiao Li Chen in July 1999
+			about the urgent Gospel need in Lisbon, Portugal. After prayers and
+			discussion from the U.S. Mission headquarters, a short-term mission
+			team from the U.S. to Spain also went to Portugal to visit the
+			Christians there. After much observation and understanding, there was
+			a need of establishing a C.E.C in Portugal. E.M.S.I. transferred Ev.
+			Chen from Spain to Portugal in September to expand the Gospel
+			ministry in Portugal . The C.E.C. in Lisbon was officially
+			established on October 19, 1999.
+		</p><p>
+			FRANCE <br/> A short-term Gospel team of 37 members went to Paris
+			in March of 2000 for two nights of evangelical meetings. They
+			presented musicals, inspiring Gospel skits, and evangelical messages
+			which made a deep impression upon the local Chinese. The C.E.C. in
+			Paris was then established in July 2000. Rev. Yang led another team
+			of thirty members to Paris on October 10th, 2001. The team not only
+			did mission work, but attended the Church Dedication of the C.E.C. in
+			Paris. During those three days of services, twenty people were
+			baptized. In a short 1 ½ years after the C.E.C. in Paris was
+			established, it purchased a church building right in the commercial
+			district. It became most special in the mission field and one that
+			bought a church building in the shortest time.
+			<br/><br/>
+			BELGIUM
+			<br/> E.M.S.I. sent a short-term Gospel team to Antwerpen in April
+			of 2000. The team had two nights of evangelistic meetings, but
+			because of the lack of manpower, there was no follow-up. Ev. Mix and
+			Anny Chan had the burden for the Gospel need in Belgium around April
+			2003 and Rev. Hosea Chi went with them to visit Antwerpen, Brussels
+			and Gent where they met with Rev. Hugo Chan for a discussion. They
+			chose Antwerpen to be the base for the Gospel ministry after much
+			prayer. This was also a response to the Gospel seed sown in the year
+			2000 in Antwerpen by the short-term Gospel team.<br/> Ev. Chan and
+			his family moved to Antwerpen in July of 2003, where they started a
+			Gospel ministry in Belgium. A short Gospel team of twelve then went
+			for visitation and evangelism. Through their efforts they officially
+			expanded the Gospel ministry in Belgium.
+		</p><p>
+			ITALY<br/> There are more than hundred thousands of Chinese in
+			Italy. The preliminary estimate of Chinese is around 30,000 who are
+			from Northern China and many of them are not believers. Because of
+			the Gospel need there, we have been earnestly praying for Gospel
+			ministry in Italy. When Rev. Yang came back from Paris in October
+			2006, he had a vision of expanding the Gospel ministry in Milan. Rev.
+			Yang, Rev. Chi and Rev. Ye went to visit Milan on March 25, 2007. In
+			a short span of five days, they found the right direction in
+			expanding the Gospel ministry there. In June of 2008 we will
+			commission Ev. Grace Zhang to a church planting ministry in Milan.
+		</p><p><br/> AFRICA<br/> Rev. Moses Yang went to South Africa by the
+			year end of 1995 to visit a seminary student. There he came to
+			realize that there were many Chinese in Cape Town, so then he flew
+			there. Little did he know that the Chinese Christians had been
+			praying for two years already for a church so Rev. Yang made a
+			promise that he will send a missionary after meeting with them. The
+			C.E.C. in Cape Town was officially established in February 1996 and
+			it has expanded its Gospel ministry since then.
+		</p><p>ASIA</p><p>
+			JAPAN<br/> Following the constitution of CEMI (Christian
+			Evangelical Mission International), we started a renewed mission, a
+			new plan, and a new assignment to spread Gospel in Japan beginning in
+			2009.
+		</p><p>
+			TAIWAN <br/> The C.E.C. in Taipei was officially established on
+			September 23, 2007. E.M.S.I. commissioned Rev. and Mrs. Chan from
+			Holland to assist in pastoring the church for a short period of time,
+			therefore the Gospel ministry in Taiwan was expanded.
+		</p><p>Since the establishment of the Christian Evangelical Oversea
+			Mission eighteen years ago, in each of the missionary work, we
+			witnessed Jesus Christ provided different situations whereby we
+			learned valuable lessons. These ministries not only brought people to
+			the Lord, but they also deeply motivated us in our spiritual lives.
+			May God use our C.E.C. churches to spread the Gospel to the ends of
+			the earth.</p><p><b>PRESENT</b></p><p>II. THE MINISTRY OF THE CHRISTIAN EVANGELICAL OVERSEAS MISSION
+		</p><p>The main thrusts of the ministry of the Christian Evangelical
+			Oversea Mission are to spread the Gospel of Christ Jesus and to
+			establish churches that are based on God’s truth. Aside from
+			coordinating all missionary work in America, Europe, Asia, and
+			Africa, the CEOM oversees the establishment of mission churches. It
+			also sends out and supervises missionaries in order to meet the needs
+			of the mission fields.</p><p>When a mission church is self sufficient
+			financially and can take care of its day to day operation and does
+			not need assistance from other mission churches or missionary
+			foundation; and when its operation is in unison with the Mission
+			Headquarters, it becomes an integral part of the Mission Headquarters
+			and yet it is independently established.</p>
+		A mission church is like a new-born baby that needs extra care and
+		nurture. It needs financial, manpower, and prayer support from
+		brothers and sisters. So, in the mission field, the C.E.O.M. will
+		fully support the pioneering mission field.
+		<p/><p><b>FUTURE</b></p><p>
+			III.
+			FUTURE PROSPECT OF THE CHRISTIAN EVANGELICAL OVERSEAS MISSION
+		</p><p>
+			There are more than 50 mission organizations around the world and
+			most of them have the burden toward Mainland China. The reason is
+			because there are billions of unconquered souls in China and this has
+			become the main goal of many short-term mission teams. The C.E.O.M.
+			has our own mission direction. Our goal is that, through the
+			influence of the overseas Chinese, we can go into the whole world.
+			The C.E.O.M. does not follow the crowd, but it follows God’s wisdom.
+			We have our own strategy and plan in expanding the mission work. We
+			do not waste financial resources and manpower, but we fulfill the
+			Gospel ministry in these last days. <br/><br/> For the past
+			eighteen years, through the Lord’s leading and the full support of
+			the C.E.M. pastors and members, we were able to send out missionaries
+			trained in our seminary to the mission’s field. We were also able to
+			reach out to the overseas Chinese and expand the Gospel ministry. We
+			will continue to train more full-time Christian workers in the days
+			to come. We want to challenge all C.E.C. members to be directly
+			involved in the mission’s work. In the past, every time we made a
+			mission’s call, many faithful brothers and sisters gave generously,
+			just like what Apostle Paul said: “as having nothing, and yet
+			possessing all things” (II Corinthians 6:10). This is an exercise of
+			our faith and a blessed commitment. But the greatest blessing goes to
+			our brothers and sisters. God promises hundred fold now in this life,
+			but eternal life in the world to come (Mark 10:30). Therefore, if we
+			are willing to give our time, money, energy and lives to the Lord, He
+			will always be faithful to us.
+		</p></section>
+	      		</div>
+	      		<div name="zh">
+			<section><p>
+			壹、國際福音差傳會的過去─我們的簡史 
+			</p><p>
+			「國際福音差傳會」於一九九五年四月在美國新澤西多華谷總會成立，隨即開展宣教拓荒的事工。卅多年前，楊摩西牧師有機會常往返於歐、美洲之間，應邀至各地培靈及佈道，所到之地看到聖靈引導，不但許多人走進教會，也帶給弟兄姐妹靈命的復興。如今國際福音差傳會已於美、歐、亞、非四大洲都設有分會協助各地生命堂宣教事工的推展。 
+			</p><p>
+			歐洲<br/>
+			西班牙：<br/>
+			一九九四年十月，楊摩西牧師應邀至荷蘭主領特會，一位從荷蘭移民至西班牙的姐妹回到荷蘭參加培靈會，向楊摩西牧師發出西班牙華人教會荒涼的「馬其頓呼聲」。十一月底，李月雲傳道奉派前往西班牙兩個月，考察當地福音工場，同時進行成立「西班牙華人福音佈道會」的籌備工作。十二月二十五日至三十一日，楊摩西牧師第一次西班牙巡迴證道。當時西班牙的巴塞羅那只有一間華人教會，其餘地方均無正式教會，也無專職傳道人。一九九五年一月底，李月雲傳道自西班牙回美，在美東各生命堂和台灣傳遞宣教負擔，籌募差傳基金。四月四日，「西班牙華人福音佈道會」在西班牙的註冊申請，經審查通過獲准設立。 
+			</p><p>
+			荷  蘭：<br/>
+			一九七三年，楊摩西牧師即開始接觸荷蘭宣教事工，於此期間也常在荷蘭及美國往返，所以他深知華人教會的需要。自一九七三年至一九九九年，這廿多年間楊摩西牧師與荷蘭「旅歐華僑福音佈道會」有密切聯繫。一九九九年六月，楊牧師率領西歐短宣隊正式展開在荷蘭的福音出擊；同年九月百合山及百利達兩地福音事工快速成長，激勵許多弟兄姐妹熱心參與各項宣教開展。 
+			</p><p>
+			葡萄牙：<br/>
+			一九九九年七月，在西班牙瓦倫西亞生命堂牧會的陳岳平傳道接到其胞妹陳小麗邀請電話，得悉在里斯本福音的迫切需要。經禱告和與北美總會磋商後，隨即帶同由美國至西班牙短宣的弟兄前往葡萄牙里斯本探望信徒。經過多方了解和考察，確知實有成立生命堂之需；於是向總會提報，並在九月得總會調派葡萄牙負責開展當地福音事工。十月十九日成立「里斯本基督教生命堂」。 
+			</p><p>
+			法  國：<br/>
+			二千年三月，短宣隊一行卅七人曾於巴黎舉行兩場佈道會。福音詩歌、精彩的福音劇及佈道信息在 當地的華人中留下深刻印象。巴黎生命堂於二○○○年七月正式成立；二○○一年，十月十日楊牧師再率卅多位同工、同學及會友前往巴黎，此次短宣隊不但宣教、佈道，也為巴黎生命堂獻堂，三天的聚會有廿位決志的弟兄姐妹接受洗禮。巴黎生命堂能於成立後短短的一年半之內，在歐洲購得中心地區的堂會，是宣教事工中最特殊及購堂最快的工場。 
+			</p><p>
+			比利時：<br/>
+			二千年四月北美總會短宣隊曾在安慰城(Antwerpen)舉辦過兩晚的佈道會，可惜礙於人手不足，無法跟進。二千零三年四月陳茂祥傳道夫婦有感於比利時福音的需要，於是由總部負責宣教事工的戚厚生牧師陪同前往根特、安慰城、布魯塞爾三地考察，事後又在布魯塞爾與陳啟猷牧師會合商討，經禱告後選擇安慰城作為比利時福音事工的基地。這也回應了二千年<br/>
+			短宣隊在安慰城所撒的福音種子！<br/>
+			二千零三年七月，陳傳道夫婦遷往安慰城，開始籌組比利時福音佈道會的開拓工作。十一月初，北美總會派短宣隊十二人前去探訪和佈道，正式開展比利時福音事工。 
+			</p><p>
+			義大利：<br/>
+			義大利有十幾萬的中國人，特別是大陸北方一帶的人陸續不斷地在增加。初步估計大約有三萬人左右，且多數還未信耶穌，就因著這福音的使命，讓我們迫切地為義大利華人福音事工的開展禱告。二○○六年十月，當楊摩西牧師由巴黎回美時，有了開展米蘭福音事工的異象。二千零七年三月廿五日，楊摩西牧師、葉建偉牧師、戚厚生牧師前往探查。短短的五天在義大利找到了明確的方向，福音事工即由米蘭開始展開。二千零八年六月，差派鄭恩惠傳道前往拓荒。<br/><br/>
+			非洲<br/>
+			南  非：<br/>
+			一九九五年底，楊摩西牧師前往南非，探視在南非宣教的神學生，詢問得知開普敦靠海邊的城市聚集有眾多的華人，隨後立即飛往開普敦。原來開普敦的弟兄姐妹已禱告兩年之久，經開會商討後，楊牧師立刻答應並差派宣教士前往。一九九六年二月，成立教會並同時開展南非福音事工。 
+			</p><p>
+			亞洲<br/>
+			日  本：<br/>
+			二千零九年由神戶開始新的使命、新的安排、新的差派，照國際福音佈道會章程發展日本的宣教事工。 
+			</p><p>
+			台  灣：<br/>
+			2007年，在楊摩西牧師的感動下開始了台灣拓荒宣教事工，同年九月廿三日成立教會，總部特由歐洲調派陳啟猷牧師夫婦前往牧會。2008年9月差派吳錫安牧師夫婦牧會。2010年2月由戚厚生牧師、師母繼續牧養羊群。 
+			</p><p>
+			｢國際福音差傳會｣ 成立以來，我們在每一次的拓荒及宣教當中，看到耶穌基督為我們開設了各個不同的宣教歷程，而我們也從其中學得許多新的功課也留下美好的經歷。這些福音的事工不但幫助人來到主前，也使我們自己的靈性得著很深的激勵。願上帝使用我們生命堂將福音傳至地極！ 
+			</p><p>
+			貳、國際福音差傳會的現在─我們的事工  
+			</p><p>
+			國際福音差傳會主要的事工就是：傳揚基督耶穌的福音，並在世界各地建立基督真理的教會。我們除了聯合協調美洲、歐洲、亞洲、非洲各地宣教的工作，監督各宣教教會的建立，也差遣並監管各地宣教同工，以配合各地福音工場之需。 目前，國際福音差傳會事工的重點較集中於各宣教教會。<br/><br/>
+			當宣教教會已有能力足夠支付自己教會的一切經常開支，不需其他教會或是宣教基金支持，在一切整體的運作上也與總會一致時，即成為自立教會。<br/><br/>
+			宣教教會，有如剛出生的嬰孩，需要格外地照顧，不論在財力、人力、物力等方面，特別在禱告中都需要弟兄姐妹特別關懷；因此在宣教的事工中，差傳會是全力支援這些剛拓荒的工場。<br/><br/>
+			参、國際福音差傳會的未來- 我們的展望<br/><br/>
+			目前全世界至少有五十多個宣教的機構，而大部分的機構，他們的負擔都是在中國大陸；因為中國大陸有十億未得之民，所以成為許多短宣隊的主要目標。而國際福音差傳會的目標是希望藉由海外華人的影響，而走向全世界。我們祈求主賜我們智慧，讓我們有策略及有計劃地開展我們的宣教事工；不浪費財力、人力，盼能在這末後的世代做我們可以勝任的福音工作。<br/><br/>
+			過去的十餘年中，感謝主引領，生命堂各牧者全力地配合，使我們能結合各生命堂弟兄姐妹的力量，差派神學院訓練的宣教士投入宣教工場，積極對散佈在海外的華人同胞，開展我們的福音宣教事工；而未來我們除了仍會繼續栽培造就更多願意走上全職事奉道路的宣教士外，我們也要挑旺各生命堂的弟兄姐妹更多直接地參與宣教。若我們能在時間、金錢、才識及體力上都盡己力而為之，主決不會虧待我們。在宣教的事奉中。感謝主，祂的應許不落空！<br/><br/>
+			宣教一直是國際神學福音佈道會多年來所持守的異象，因為我們知道主喜悅我們將祂的福音傳往地極；我們堅守從主來的異象，同心協力往前走，為要搶救更多的靈魂。一個成長的基督徒，一間愛主的教會，都應將宣教當成屬靈生命邁入成長的必經過程；因此為提昇弟兄姐妹對宣教更多的認知，我們這些年來藉由短宣隊、宣教旅遊、音樂佈道來幫助大家有負擔成為宣教的勇士。而如今在不同的國家中，我們應如何堅固這些事工，將各生命堂帶進復興之路，乃是我們的當務之急。求主賜我們各生命堂的牧者、傳道、同工及弟兄姐妹能有此共同的體認。<br/><br/>
+			盼望這傳福音的使命能激勵弟兄姐妹對宣教的負擔，帶動整個生命堂的宣教事工；所以，挑旺弟兄姐妹參與宣教的行列，將每位我們所接觸及認識的華人帶到主前，是國際福音差傳會繼續不斷推動的事工。
+			</p></section>
+	      		</div>
+	      	</iron-pages>
+	    </emsi-template-page>
+
+
+
+
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-ministries-page'
+			is: 'emsi-ministries-page' ,
+
+			properties: {
+				lang: {
+					type: String,
+					value: "en"
+				}
+			} ,
 		});
 	</script>
 </dom-module>

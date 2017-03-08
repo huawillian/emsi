@@ -1,4 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<!-- custom element -->
+<link rel="import" href="emsi-firebase-document.html">
+<link rel="import" href="emsi-template-page.html">
 
 <dom-module id="emsi-seminary-page">
 	<template>
@@ -6,13 +11,57 @@
 			:host {
 				display: block;
 				min-height: 100vh;
+				width: 100%;
+				z-index: 0;
 			}
 		</style>
-		<div> Showing the emsi-seminary-page </div>
+
+		<firebase-document
+	      path= "seminary"
+	      data="{{data}}">
+	    </firebase-document>
+
+		<emsi-template-page title-path="seminary/title" background-image-path="src/StatementOfFaithImage-01.jpg" lang="{{lang}}">
+			<template is="dom-repeat" id="seminaryList" items="[[displayedData]]">
+				<emsi-firebase-document my-path="seminary/{{index}}" lang="{{lang}}" display> </emsi-firebase-document>
+	        	<br>
+	    	</template>
+		</emsi-template-page>
+
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-seminary-page'
+			is: 'emsi-seminary-page' ,
+
+			properties: {
+				data: {
+					type: Object,
+					observer: 'dataChanged',
+					value: {}
+				} ,
+				displayedData: {
+					type: Array,
+					value: []
+				} ,
+				lang: {
+					type: String,
+					value: "en"
+				}
+			} ,
+
+			dataChanged: function(newValue, oldValue) {
+				// stop initial call
+				if(oldValue == undefined) return;
+
+				this.set('displayedData', []);
+
+				for(var key in newValue) {
+					if(key == "title") continue;
+					this.push('displayedData', newValue[key]);
+				}
+				console.log(this.displayedData);
+				this.$.seminaryList.render();
+			}
 		});
 	</script>
 </dom-module>

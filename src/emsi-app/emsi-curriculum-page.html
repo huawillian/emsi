@@ -1,4 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<!-- custom element -->
+<link rel="import" href="emsi-firebase-document.html">
+<link rel="import" href="emsi-template-page.html">
 
 <dom-module id="emsi-curriculum-page">
 	<template>
@@ -6,13 +11,93 @@
 			:host {
 				display: block;
 				min-height: 100vh;
+				width: 100%;
+				z-index: 0;
 			}
 		</style>
-		<div> Showing the emsi-curriculum-page </div>
+		<emsi-template-page title-path="curriculum/title" background-image-path="src/StatementOfFaithImage-01.jpg" lang="{{lang}}">
+		
+課 程
+Course	學 分
+Credits	日 期
+Dates	課 時
+Day/Time	教 授
+Professor
+創造論 
+Creationism	
+2	
+03/06/17 – 05/22/17	Monday 
+10:00 a.m. – 12:00 noon	
+Moses Yang
+末世論 
+Eschatology	
+3	
+03/07/17 – 05/23/17	Tuesday 
+10:00 a.m. – 12:00 noon	
+Moses Yang
+教牧學
+Pastoral Theology	
+2	
+03/07/17 – 05/23/17	Tuesday
+1:00 a.m. – 3:00p.m.	
+Moses Yang
+個人佈道 
+Personal Evangelism	
+2	
+03/08/17 – 05/24/17	Wednesday
+10:00 a.m. – 12:00 noon	
+Moses Yang
+教會電腦應用 
+Church Office 
+Technology	
+2	
+03/08/17 – 05/24/17	Wednesday
+1:00 p.m. – 3:00 p.m.	
+Zion Wu
+約書亞記/士師記/
+路得記
+(密 集 課)
+Joshua/Judges/Ruth 
+(Intensive course)	
+
+2	
+04/18/17 – 04/21/17
+04/25/17 – 04/28/17	
+Tuesday-Friday 
+12:45 a.m. – 03:30 p.m.	
+
+Gordon Franz
+合 唱
+Chorus	
+1	
+03/09/17 – 05/25/17	Thursday
+10:00 a.m. – 12:00 noon	
+Jing Huang
+合唱指揮
+Choral Conducting	
+1	
+03/09/17 – 05/25/17	Thursday
+1:00 p.m. – 2:00 p.m.	
+Jing Huang
+聲 樂
+Voice	
+1	
+03/09/17 – 05/25/17	Thursday/Friday
+(Individually Arranged)	
+Jing Huang
+
+		</emsi-template-page>
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-curriculum-page'
+			is: 'emsi-curriculum-page' ,
+
+			properties: {
+				lang: {
+					type: String,
+					value: "en"
+				}
+			} ,
 		});
 	</script>
 </dom-module>
