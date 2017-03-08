@@ -7,7 +7,7 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
-
+<link rel="import" href="emsi-template-page.html">
 
 <dom-module id="emsi-search-page">
 	<template>
@@ -32,7 +32,7 @@
 				padding-left: 45%;
 				height: 50px;
 				width: 50px;
-				padding-top: 100px;
+				padding-top: 10vh;
 			}
 
 			#backgroundImage {
@@ -97,6 +97,20 @@
 				padding: 15px 40px 15px 40px;
 			}
 
+			#returnToSearchButton {
+				width: 78%;
+				margin-left: 10%;
+				margin-right: 10%;
+				margin-top: 10pt;
+				margin-bottom: 20pt;
+				background-color: #236192;
+				color: white;
+				border: 2px solid white;
+				border-radius: 5px;
+				font-size: 9pt;
+				padding: 15px 40px 15px 40px;
+			}
+
 			#locationButton {
 				font-family: MyriadProSemibold;
 				font-size: 10pt;
@@ -109,6 +123,31 @@
 
 			#locationButton:hover {
 				color: blue;
+			}
+
+			#resultsContainer {
+				background-color: white;
+				min-height: 100vh;
+				padding-bottom: 20pt;
+			}
+
+			#resultsTitle {
+				height: 40pt;
+				font-size: 30pt;
+				background-color: white;
+				color: #236192;
+				font-family: MyriadProBold;
+				padding-top: 20pt;
+				padding-left: 10%;
+				padding-right: 10%;
+				z-index: 2;
+			}
+
+			emsi-church-paper-card {
+				width: 80%;
+				margin-left: 10%;
+				margin-right: 10%;
+				margin-top: 10pt;
 			}
 
 			@media screen and (max-width: 800px) {
@@ -133,39 +172,49 @@
 	      data="{{data}}">
 	    </firebase-document>
 
-		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../FindALocationBkgrd-01.jpg"></iron-image>
-
-		<div id="searchContainer">
-			<div id="searchTitle"> FIND A CHURCH </div>
-			<paper-input id="addressBox" placeholder="Enter Address Here"></paper-input>
-			<paper-button raised id="searchButton" on-tap="startSearchByAddress"> FIND A LOCATION </paper-button>
-			<div id="locationButton" on-tap="getLocation"> Or, use your location </div>
-		</div>
-
-
-
-
-
 		<template is="dom-repeat" id="addrFinder" items="[[dataArr]]">
 			<iron-collapse class="collapse">
 	        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.name}}" user-location="{{address}}" on-distance-updated="distanceUpdated"> </emsi-church-paper-card>
 	        <iron-collapse>
 	    </template>
 
-		<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]">
-	        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.name}}" user-distance-text="{{item.distance}}"> </emsi-church-paper-card>
+	 	<template is="dom-if" if="{{!showSearchResults}}" id="searchMenu">
+	 		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../FindALocationBkgrd-01.jpg"></iron-image>
+			<div id="searchContainer">
+				<div id="searchTitle"> FIND A CHURCH </div>
+				<paper-input id="addressBox" placeholder="Enter Address Here"></paper-input>
+				<paper-button raised id="searchButton" on-tap="startSearchByAddress"> FIND A LOCATION </paper-button>
+				<div id="locationButton" on-tap="getLocation"> Or, use your current location </div>
+			</div>
 	    </template>
 
-		<template is="dom-if" if="[[isSearching]]">
-	      <paper-spinner-lite active class="thick"></paper-spinner-lite>
-	    </template>
+	    <template is="dom-if" if="{{showSearchResults}}">
+			<div id="resultsContainer">
+				<div id="resultsTitle">
+					Results
+				</div>
 
+				<paper-button raised id="returnToSearchButton" on-tap="toggleShowSearchResults"> START ANOTHER SEARCH </paper-button>
+
+				<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]">
+		        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.name}}" user-distance-text="{{item.distance}}"> </emsi-church-paper-card>
+			    </template>
+
+				<template is="dom-if" if="[[isSearching]]">
+			      <paper-spinner-lite active class="thick"></paper-spinner-lite>
+			    </template>
+			</div>
+		</template>
 	</template>
 	<script>
 		Polymer({
 			is: 'emsi-search-page',
 
 			properties: {
+				showSearchResults: {
+					type: Boolean,
+					value: false,
+				} ,
 				lang: {
 					type: String,
 					value: "en"
@@ -192,6 +241,15 @@
 				maxCount: {
 					type: Number,
 					value: 5
+				}
+			} ,
+
+			toggleShowSearchResults: function() {
+				setTimeout(function(){this.document.body.scrollTop = 0;}, 0);
+				if(this.showSearchResults) {
+					this.showSearchResults = false;
+				} else {
+					this.showSearchResults = true;
 				}
 			} ,
 
@@ -223,23 +281,23 @@
 			} ,
 
 			startSearchByAddress: function() {
-				if(this.$.addressBox.value == "") return;
+				if(this.$$('#addressBox') == undefined || this.$$('#addressBox').value == "") return;
 				if(this.isSearching == true) return;
-
 				this.resetDataArr();
 
 				this.address = "";
-				this.address = this.$.addressBox.value;
+				this.address = this.$$('#addressBox').value;
 				this.set("directionsArr", []);
 				this.set("displayArr", []);
 				this.isSearching = true;
-
+				this.toggleShowSearchResults();
 				this.startSearch();
 			} ,
 
 			startSearch: function() {
 				setTimeout(function(){
 					this.directionsArr.sort(function(a, b){return a.distance.value-b.distance.value});
+
 
 					console.log(this.directionsArr);
 
@@ -285,7 +343,7 @@
 						this.set("directionsArr", []);
 						this.set("displayArr", []);
 						this.isSearching = true;
-
+						this.toggleShowSearchResults();
 						this.startSearch();
 					}.bind(this));
 				}
