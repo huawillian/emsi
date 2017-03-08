@@ -11,12 +11,83 @@
 				display: block;
 			}
 
+			@font-face {
+			    font-family: MyriadProBold;
+			    src: url(../fonts/MyriadPro-Bold.otf);
+			}
+
+			@font-face {
+			    font-family: MyriadProRegular;
+			    src: url(../fonts/MyriadPro-Regular.otf);
+			}
+
+			@font-face {
+			    font-family: MyriadProSemibold;
+			    src: url(../fonts/MyriadPro-Semibold.otf);
+			}
+
 			paper-card {
-				padding: 10px;
 				color: black;
-				border-radius: 30px;
+				border-radius: 20px;
 				max-width:800px;
 				width:100%;
+				background-color: rgb(230,230,230);
+				
+				--paper-card-actions: {
+					background-color: rgba(133,120,116, 0.75);
+					border-radius: 0 0 20px 20px;
+					color: white;
+					padding-bottom: 0;
+				}
+
+				--paper-card-content: {
+					padding-top: 20px;
+					padding-left: 40px;
+					padding-right: 40px;
+				}
+			}
+
+			#title {
+				font-size: 22pt;
+				color: #236192;
+				font-family: MyriadProBold;
+				padding-bottom: 10px;
+			}
+
+			#address {
+				font-size: 15pt;
+				color: rgba(0,0,0,0.6);
+				font-family: MyriadProSemibold;
+			}
+
+			#serviceTitle {
+				font-size: 14pt;
+				color: rgba(0,0,0,0.6);
+				font-family: MyriadProSemibold;
+				padding-top: 30px;
+			}
+
+			#serviceContainer {
+				font-size: 13pt;
+				color: rgba(0,0,0,0.6);
+				font-family: MyriadProRegular;
+				width: 50%;
+				text-align: left;
+				padding-bottom: 30px;
+			}
+
+			#distance {
+				position: absolute;
+				width: 100%;
+				text-align: right;
+				right:0;
+				margin-right: 30px;
+			}
+
+			paper-button {
+				font-family: MyriadProRegular;
+				padding-top: 11px;
+				padding-bottom: 10px;
 			}
 
 		</style>
@@ -26,16 +97,34 @@
           response="{{data}}" 
           api-key="AIzaSyCmbUbEOc5qc59PyjgmM0kASRC9eS9JsDk"></google-map-directions>
 
-		<paper-card>
+		<paper-card elevation="3">
 		  <div class="card-content">
+		  	<div id="distance"> {{userDistanceText}} </div>
 		  	<div id="title"> {{city}} </div>
-		    <h3> {{address}}</h3>
-		    <h3> {{sundayServiceTime}}</h3>
-		    <h3> {{userDistanceText}}</h3>
+		    <div id="address"> {{address}} </div>
+			<div id="serviceTitle"> Sunday Worship </div>
+			<table id="serviceContainer"> 
+				<tr>
+					<td>10:30am</td> 
+				    <td>English</td>
+			  	</tr>
+				<tr>
+					<td>1:30pm</td> 
+				    <td>Chinese</td>
+			  	</tr>
+			  	<tr>
+			  		<td>3:30pm</td> 
+				    <td>Fukinese</td>
+			  	</tr>
+			</table>
+
+		    <!-- <h3> {{sundayServiceTime}}</h3>
+
+		    <h3> {{userDistanceText}}</h3> -->
 		  </div>
 		  <div class="card-actions">
-		  	<paper-button> Get Directions </paper-button>
-		    <paper-button> Learn More </paper-button>
+		  	<paper-button on-click="goToGoogleMaps"> Get Directions </paper-button>
+		    <paper-button on-click="gotoChurchPage"> Learn More </paper-button>
 		  </div>
 		</paper-card>
 
@@ -45,6 +134,10 @@
 			is: 'emsi-church-paper-card',
 
 			properties: {
+				lang: {
+					type: String,
+					value: "en"
+				} ,
 				city: {
 					type: String,
 					value: "Towaco"
@@ -59,7 +152,7 @@
 				} , 
 				learnMoreUrl: {
 					type: String,
-					value: "towaco"
+					value: "church/towaco"
 				} ,
 				data: {
 				  type: Object,
@@ -111,6 +204,16 @@
 					}.bind(this));
 				}
 			} ,
+
+			goToGoogleMaps: function() {
+				setTimeout(function(){
+					window.location.href = 'http://maps.google.com/?q=' + this.address;
+				}.bind(this), 0);
+			} ,
+
+			gotoChurchPage: function() {
+				this.fire("emsi-route-change-event", {route: this.learnMoreUrl});
+			}
 		});
 	</script>
 </dom-module>
