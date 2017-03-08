@@ -11,7 +11,7 @@
 			:host {
 				display: block;
 				color: black;
-				height: 80vh;
+				min-height: 80vh;
 			}
 
 			paper-spinner-lite {
@@ -28,6 +28,19 @@
 				z-index: -1;
 				top: 0px;
 			}
+
+			#searchContainer {
+				position: absolute;
+				height: 60vh;
+				width: 35vw;
+				max-height: 500px;
+				max-width: 500px;
+				background-color: black;
+				left: 55vw;
+				top: 10vh;
+				border-radius: 30px;
+				border: 20px white;
+			}
 		</style>
 
 		<firebase-document
@@ -37,7 +50,6 @@
 
 		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="../FindALocationBkgrd-01.jpg"></iron-image>
 
-		<div> Showing the emsi-search-page </div>
 		<br>
 		<div> Search by Address </div>
 		<paper-input id="addressBox" always-float-label label="Address" placeholder="36 Alpine Road, Towaco, NJ"></paper-input>
@@ -45,6 +57,13 @@
 		or
 		<paper-button raised on-tap="getLocation"> Use Your Location </paper-button>
 		<br>
+
+		<div id="searchContainer">
+			
+		</div>
+
+
+
 
 		<template is="dom-repeat" id="addrFinder" items="[[dataArr]]">
 			<iron-collapse class="collapse">
