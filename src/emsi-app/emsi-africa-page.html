@@ -11,13 +11,62 @@
 				min-height: 100vh;
 				background-color: white;
 				color: black;
-				padding-left: 20vw;
-				padding-right: 20vw;
+			}
+
+			.container {
+				padding-left: 10%;
+				padding-right: 10%;
+			}
+
+			@font-face {
+			    font-family: MyriadProSemibold;
+			    src: url(../fonts/MyriadPro-Semibold.otf);
+			}
+
+			.regionContainer {
+				font-family: MyriadProSemibold;
+				color: #857874;
+				font-size: 20pt;
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+
+			paper-dropdown-menu-light{
+				width:100%;
+				margin-bottom: 50px;
+			}
+
+			.titleContainer {
+				font-size: 40pt;
+				font-weight: 700;
+				width: 100%;
+				background-color: white;
+				color: #236192;
+				text-align: center;
+				font-family: MyriadProBold;
+				padding-top: 30pt;
+				padding-bottom: 10pt;
+			}
+
+
+			paper-dropdown-menu-light ::content #dropdown {
+				width: 30%;
+				min-width: 100pt;
+			}
+
+
+			@media screen and (max-width: 800px) {
+				.container {
+					padding-left: 5%;
+					padding-right: 5%;
+				}
 			}
 		</style>
-		<div> Showing the emsi-africa-page </div>
-		<div> South Africa </div>
-		<emsi-church-collection query-type="search" continent="Africa" region="South Africa"> </emsi-church-collection>
+		<div class="container">
+			<div class="titleContainer"> Africa </div>
+			<div class="regionContainer"> South Africa </div>
+			<emsi-church-collection query-type="search" continent="Africa" region="South Africa"> </emsi-church-collection>
+		</div>
 	</template>
 	<script>
 		Polymer({

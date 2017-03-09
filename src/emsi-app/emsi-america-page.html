@@ -13,31 +13,80 @@
 				min-height: 100vh;
 				background-color: white;
 				color: black;
-				padding-left: 20vw;
-				padding-right: 20vw;
+			}
+
+			.container {
+				padding-left: 10%;
+				padding-right: 10%;
+			}
+
+			@font-face {
+			    font-family: MyriadProSemibold;
+			    src: url(../fonts/MyriadPro-Semibold.otf);
+			}
+
+			.regionContainer {
+				font-family: MyriadProSemibold;
+				color: #857874;
+				font-size: 20pt;
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+
+			paper-dropdown-menu-light{
+				width:100%;
+				margin-bottom: 50px;
+			}
+
+			.titleContainer {
+				font-size: 40pt;
+				font-weight: 700;
+				width: 100%;
+				background-color: white;
+				color: #236192;
+				text-align: center;
+				font-family: MyriadProBold;
+				padding-top: 30pt;
+				padding-bottom: 10pt;
+			}
+
+
+			paper-dropdown-menu-light ::content #dropdown {
+				width: 30%;
+				min-width: 100pt;
+			}
+
+
+			@media screen and (max-width: 800px) {
+				.container {
+					padding-left: 5%;
+					padding-right: 5%;
+				}
 			}
 		</style>
-		<div> Showing the emsi-america-page </div>
+		<div class="container">
+			<div class="titleContainer"> America </div>
+			<div class="regionContainer"> Select Region or Country </div>
+			<paper-dropdown-menu-light label="Regions / Countries" selected-item="{{selectedItem}}" active>
+			  <paper-listbox class="dropdown-content">
+			    <paper-item> All </paper-item>
+			    <paper-item> East Coast </paper-item>
+			    <paper-item> West Coast </paper-item>
+			  </paper-listbox>
+			</paper-dropdown-menu-light>
 
-		<paper-dropdown-menu-light label="Regions / Countries" selected-item="{{selectedItem}}" active>
-		  <paper-listbox class="dropdown-content">
-		    <paper-item> All </paper-item>
-		    <paper-item> East Coast </paper-item>
-		    <paper-item> West Coast </paper-item>
-		  </paper-listbox>
-		</paper-dropdown-menu-light>
-
-		<!-- iron-pages selects the view based on the active route -->
-      	<iron-pages selected="[[displayRegion]]" attr-for-selected="name">
-      		<div name="All"> 
-      			<div> East Coast </div>
-      			<emsi-church-collection query-type="search" continent="North America" region="East Coast"> </emsi-church-collection>
-      			<div> West Coast </div>
-				<emsi-church-collection query-type="search" continent="North America" region="West Coast"> </emsi-church-collection>
-      		</div> 
-			<emsi-church-collection name="East Coast" query-type="search" continent="North America" region="East Coast"> </emsi-church-collection>
-			<emsi-church-collection name="West Coast" query-type="search" continent="North America" region="West Coast"> </emsi-church-collection>
-      	</iron-pages>
+			<!-- iron-pages selects the view based on the active route -->
+	      	<iron-pages selected="[[displayRegion]]" attr-for-selected="name">
+	      		<div name="All"> 
+	      			<div class="regionContainer"> East Coast </div>
+	      			<emsi-church-collection query-type="search" continent="North America" region="East Coast"> </emsi-church-collection>
+	      			<div class="regionContainer"> West Coast </div>
+					<emsi-church-collection query-type="search" continent="North America" region="West Coast"> </emsi-church-collection>
+	      		</div> 
+				<emsi-church-collection name="East Coast" query-type="search" continent="North America" region="East Coast"> </emsi-church-collection>
+				<emsi-church-collection name="West Coast" query-type="search" continent="North America" region="West Coast"> </emsi-church-collection>
+	      	</iron-pages>
+		</div>
 
 	</template>
 	<script>
