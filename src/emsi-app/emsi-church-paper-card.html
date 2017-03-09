@@ -204,7 +204,7 @@
 
 			goToGoogleMaps: function() {
 				setTimeout(function(){
-					window.location.href = 'http://maps.google.com/?q=' + this.address;
+					window.open('http://maps.google.com/?q=' + this.address);
 				}.bind(this), 0);
 			} ,
 
