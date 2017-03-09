@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 
 <dom-module id="emsi-signin-page">
 	<template>
@@ -6,9 +7,49 @@
 			:host {
 				display: block;
 				min-height: 100vh;
+				width: 100%;
+				z-index: 0;
+				background-color: white;
+				color: #236192;
+			}
+
+			@font-face {
+			    font-family: MyriadProBold;
+			    src: url(../fonts/MyriadPro-Bold.otf);
+			}
+
+			#title {
+				padding-top: 5%;
+				font-size: 40pt;
+				font-family: MyriadProBold;
+				padding-left: 20%;
+				padding-right: 20%;
+				text-align: center;
+			}
+
+			#content {
+				padding-top: 5%;
+				font-size: 25pt;
+				font-family: MyriadProBold;
+				padding-left: 20%;
+				padding-right: 20%;
+				color: rgba(0,0,0,0.5);
+				text-align: center;
+			}
+
+			iron-icon {
+				margin-top: 5%;
+				margin-bottom: 5%;
+				margin-left: 40%;
+				width: 20%;
+				height: 20vw;
+				color: rgba(0,0,0,0.5);
 			}
 		</style>
-		<div> Showing the emsi-signin-page </div>
+		<div id="title"> Sign In </div>
+		<div id="content"> This page is still under construction... </div>
+		<iron-icon icon="build"></iron-icon>
+
 	</template>
 	<script>
 		Polymer({
