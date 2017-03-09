@@ -1,10 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<!-- custom elements -->
-<link rel="import" href="emsi-button.html">
-<link rel="import" href="emsi-firebase-document.html">
-
-<dom-module id="emsi-homepage-content">
+<dom-module id="emsi-church-description">
 	<template>
 		<style>
 			:host {
@@ -53,11 +49,6 @@
 				font-family: MyriadProRegular;
 			}
 
-			emsi-button {
-				margin-left: 10vw;
-				margin-top: 6vh;
-			}
-
 			@media screen and (max-width: 800px) {
 				.container {
 					height:100vw
@@ -82,11 +73,6 @@
 					font-size: 16px;
 					line-height: 1.4;
 				}
-
-				emsi-button {
-					margin-left: 8vw;
-					margin-top: 4vh;
-				}
 			}
 
 
@@ -104,11 +90,6 @@
 					font-size: 20px;
 					line-height: 1.5;
 				}
-
-				emsi-button {
-					margin-left: 15vw;
-					margin-top: 6vh;
-				}
 			}
 
 			@media screen and (max-width: 500px) {
@@ -125,57 +106,28 @@
 					font-size: 15px;
 					line-height: 1.4;
 				}
-
-				emsi-button {
-					margin-left: 8vw;
-					margin-top: 3vh;
-				}
 			}
 		</style>
 
 		<div class="container">
-			<div class="title"> <emsi-firebase-document my-path="{{titlePath}}" lang="{{lang}}" display> </emsi-firebase-document> </div>
-			<div class="content"> <emsi-firebase-document my-path="{{contentPath}}" lang="{{lang}}" display> </emsi-firebase-document> </div>
-			<emsi-button color="brown" on-tap="changeRoute"> <emsi-firebase-document my-path="{{buttonPath}}" lang="{{lang}}" display> </emsi-firebase-document>  </emsi-button>
+			<div class="title"> {{title}} </div>
+			<div class="content"> {{description}} </div>
 		</div>
+
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-homepage-content',
+			is: 'emsi-church-description', 
 
 			properties: {
 				lang: {
 					type: String,
 					value: "en"
 				},
-				sectionPath: {
-					type: String,
-					observer: "sectionPathChanged"
-				},
-				titlePath: String,
-				contentPath: String,
-				buttonPath: {
-					type: String,
-					value: "/home/learnMoreButton"
-				}
+				title: String,
+				description: String
 			} ,
 
-			sectionPathChanged: function(newValue, oldValue) {
-				this.titlePath = newValue + "/title";
-				this.contentPath = newValue + "/text";
-			} ,
-
-			changeRoute: function() {
-				if(this.title == "ABOUT US") {
-					this.fire("emsi-route-change-event", {route: "about"});
-				} else if(this.title == "LOCATIONS") {
-					this.fire("emsi-route-change-event", {route: "search"});
-				} else if(this.title == "MISSIONS") {
-					this.fire("emsi-route-change-event", {route: "missions"});
-				} else if(this.title == "SEMINARY") {
-					this.fire("emsi-route-change-event", {route: "seminary"});
-				}
-			}
 		});
 	</script>
 </dom-module>

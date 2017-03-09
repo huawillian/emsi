@@ -1,0 +1,180 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="emsi-church-ministries-fellowships">
+	<template>
+		<style>
+			:host {
+				display: block;
+				margin: 0;
+				padding: 0;
+				margin-bottom: -1vh;
+				width:50%;
+			}
+
+			@font-face {
+			    font-family: MyriadProBold;
+			    src: url(../fonts/MyriadPro-Bold.otf);
+			}
+
+			@font-face {
+			    font-family: MyriadProRegular;
+			    src: url(../fonts/MyriadPro-Regular.otf);
+			}
+
+
+			.container {
+				width:100%;
+				height: 50vw;
+				background-color: white;
+			}
+
+			.title {
+				padding-top: 18vh;
+				padding-left: 3vw;
+				color: #236192;
+				font-weight: 700;
+				font-size: 18pt;
+				font-family: MyriadProBold;
+				letter-spacing: 2px;
+				text-align: left;
+			}
+
+			.content {
+				padding-top: 6vh;
+				padding-left: 3vw;
+				padding-right: 3vw;
+				color: rgba(0,0,0,0.6);
+				font-weight: 400;
+				font-size: 12pt;
+				line-height: 1.5;
+				font-family: MyriadProRegular;
+			}
+
+			@media screen and (max-width: 800px) {
+				.container {
+					height:100vw
+				}
+
+				:host {
+					width: 100%;
+				}
+			}
+
+			@media screen and (max-width: 1000px) and (min-width: 800px) {
+				.title {
+					padding-top: 8vh;
+					padding-left: 8vw;
+					font-size: 25px;
+				}
+
+				.content {
+					padding-top: 4vh;
+					padding-left: 2vw;
+					padding-right: 2vw;
+					font-size: 16px;
+					line-height: 1.4;
+				}
+			}
+
+
+			@media screen and (max-width: 800px) and (min-width: 500px){
+				.title {
+					padding-top: 15vh;
+					padding-left: 15vw;
+					font-size: 35px;
+				}
+
+				.content {
+					padding-top: 6vh;
+					padding-left: 5vw;
+					padding-right: 5vw;
+					font-size: 20px;
+					line-height: 1.5;
+				}
+			}
+
+			@media screen and (max-width: 500px) {
+				.title {
+					padding-top: 6vh;
+					padding-left: 8vw;
+					font-size: 22px;
+				}
+
+				.content {
+					padding-top: 3vh;
+					padding-left: 3vw;
+					padding-right: 3vw;
+					font-size: 15px;
+					line-height: 1.4;
+				}
+			}
+
+			#serviceTitle {
+				font-size: 14pt;
+				color: rgba(0,0,0,0.6);
+				font-family: MyriadProSemibold;
+				padding-top: 10px;
+			}
+
+			#serviceContainer {
+				font-size: 13pt;
+				color: rgba(0,0,0,0.6);
+				font-family: MyriadProRegular;
+				width:100%;
+				text-align: left;
+				padding-bottom: 0px;
+			}
+		</style>
+
+		<div class="container">
+			<div class="title"> {{title}} </div>
+			<div class="content">
+				<div id="serviceTitle"> English </div>
+				<table id="serviceContainer">
+					<template is="dom-repeat" items="[[data.english]]">
+						<tr>
+							<td>{{item.time}}</td> 
+						    <td>{{item.name}}</td>
+					  	</tr>
+					</template>
+				</table>
+				<div id="serviceTitle"> Mandarin </div>
+				<table id="serviceContainer">
+					<template is="dom-repeat" items="[[data.mandarin]]">
+						<tr>
+							<td>{{item.time}}</td> 
+						    <td>{{item.name}}</td>
+					  	</tr>
+					</template>
+				</table>
+				<div id="serviceTitle"> Cantonese </div>
+				<table id="serviceContainer">
+					<template is="dom-repeat" items="[[data.cantonese]]">
+						<tr>
+							<td>{{item.time}}</td> 
+						    <td>{{item.name}}</td>
+					  	</tr>
+					</template>
+				</table>
+			</div>
+		</div>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-church-ministries-fellowships' ,
+
+			properties: {
+				lang: {
+					type: String,
+					value: "en"
+				},
+				title: String,
+				data: {
+					type: Object,
+					value: {},
+				}
+			}
+		});
+	</script>
+</dom-module>

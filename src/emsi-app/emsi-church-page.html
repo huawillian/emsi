@@ -1,0 +1,180 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<!-- custom elements -->
+<link rel="import" href="emsi-homepage-picture.html">
+<link rel="import" href="emsi-church-description.html">
+<link rel="import" href="emsi-church-ministries-fellowships.html">
+<link rel="import" href="emsi-church-pastors-staff.html">
+
+
+<dom-module id="emsi-church-page">
+	<template>
+		<style>
+			:host {
+				display: block;
+				min-height: 100vh;
+				width: 100%;
+				z-index: 0;
+			}
+
+			@font-face {
+			    font-family: MyriadProBold;
+			    src: url(../fonts/MyriadPro-Bold.otf);
+			}
+
+			@font-face {
+			    font-family: MyriadProRegular;
+			    src: url(../fonts/MyriadPro-Regular.otf);
+			}
+
+			#churchHeader {
+				background-color: rgb(250,250,250);
+				width: 100%;
+				text-align: center;
+			}
+
+			#churchName {
+				font-family: MyriadProBold;
+				font-size: 40pt;
+				color: #236192;
+				padding-top: 10vh;
+			}
+
+			#churchAddress {
+				font-family: MyriadProBold;
+				font-size: 20pt;
+				color: #236192;
+			}
+
+			#serviceContainer {
+				font-size: 13pt;
+				color: rgba(0,0,0,0.6);
+				font-family: MyriadProRegular;
+				margin-left: 25%;
+				width: 50%;
+				text-align: center;
+				padding-bottom: 30px;
+			}
+
+			#serviceTitle {
+				font-size: 14pt;
+				color: rgba(0,0,0,0.6);
+				font-family: MyriadProSemibold;
+				padding-top: 30px;
+			}
+
+			paper-button {
+				font-family: MyriadProRegular;
+				background-color: #236192;
+				color: white;
+				border: 2px solid white;
+				border-radius: 5px;
+				font-size: 14pt;
+				padding: 15px 40px 15px 40px;
+				width:50%;
+				margin-left: 2%;
+				margin-bottom: 5vh;
+			}
+
+			#contentArea {
+		        padding: 0;
+		        margin: 0;
+		        width: 100%;
+		        @apply(--layout-horizontal);
+		        @apply(--layout-wrap);
+		    }
+
+		</style>
+
+	    <firebase-document
+	      path= "locations"
+	      data="{{data}}">
+	    </firebase-document>
+
+		<div id="churchHeader">
+			<div id="churchName"> {{churchData.name}} </div>
+			<div id="churchAddress"> {{churchData.address}} </div>
+			<div id="serviceTitle"> Sunday Worship Times </div>
+			<table id="serviceContainer">
+				<template is="dom-repeat" items="[[churchData.time]]">
+					<tr>
+						<td>{{item.time}}</td> 
+					    <td>{{item.name}}</td>
+				  	</tr>
+				</template>
+			</table>
+			<paper-button on-click="goToGoogleMaps"> Get Directions </paper-button>
+		</div>
+
+		<iron-media-query query="(min-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
+
+		<div id="contentArea">
+			<emsi-homepage-picture image-url="src/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
+			<emsi-church-description title="Brief History" description="{{churchData.description}}"> </emsi-church-description>
+			<emsi-church-ministries-fellowships title="Ministries and Fellowships" data="{{churchData.ministries}}"> </emsi-church-ministries-fellowships>
+			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}"> </emsi-church-pastors-staff>
+		</div>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-church-page' ,
+
+			properties: {
+				path: {
+					type: String,
+					value: "church/chinatown",
+					observer: "pathChanged"
+				} ,
+				lang: String,
+				data: {
+					type: Object,
+					value: {},
+					observer: "dataChanged"
+				} ,
+				churchData: {
+					type: Object,
+					value: {},
+				}
+			} ,
+
+			pathChanged: function(newValue, oldValue) {
+				if(oldValue == undefined) return;
+
+				console.log(newValue);
+
+				for(var key in this.data) {
+
+					if(this.data[key].url == newValue) {
+						this.churchData = this.data[key];
+					}
+				}
+			} ,
+
+			dataChanged: function(newValue, oldValue) {
+				if(oldValue == undefined) return;
+				if(newValue == {}) return;
+
+				console.log(this.path);
+
+				for(var key in newValue) {
+
+					if(newValue[key].url == this.path) {
+						this.churchData = newValue[key];
+					}
+				}
+			} ,
+
+			goToGoogleMaps: function() {
+				setTimeout(function(){
+					window.location.href = 'http://maps.google.com/?q=' + this.churchData.address;
+				}.bind(this), 0);
+			} ,
+
+
+		});
+	</script>
+</dom-module>
