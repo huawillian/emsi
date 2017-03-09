@@ -75,14 +75,26 @@
 			#icon {
 				margin-left: 15px;
 			}
+
+			a:visited{
+				color : rgba(255,255,255, 0.5);
+				font-weight:bold;
+				text-decoration: none;
+			} 
+
+			a:hover {
+				color : blue;
+			}
 		</style>
 
 		<div class="container">
-			<div class="user" on-tap="changeRouteToSignin"> SIGN IN </div>
+			<div class="user" on-tap="changeRouteToSignin">
+				<a href=""> SIGN IN </a>
+			</div>
 			<div class="content">
 				EMSI USA Headquarters | 36 Alpine Road | Towaco New Jersey | 973.335.7177 | emsi@emsionline.org
 			</div>
-			<paper-button raised on-tap="changeRouteToContact"> 
+			<paper-button raised on-tap="openEmail"> 
 				<emsi-firebase-document my-path="home/contactButton" lang="{{lang}}" display> </emsi-firebase-document> 
 				<iron-image id="icon" src="../MobilePhoneMail_Icons-01.png" sizing="cover" style="height:30px;width:70px;" preload></iron-image>
 			</paper-button>
@@ -107,6 +119,10 @@
 			changeRouteToSignin: function(){
 				this.fire("emsi-route-change-event", {route: "signin"});
 			} ,
+
+			openEmail: function() {
+				window.open('mailto:emsi@emsionline.org');
+			}
 		});
 	</script>
 </dom-module>

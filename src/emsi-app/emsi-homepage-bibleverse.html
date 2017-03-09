@@ -70,7 +70,7 @@
 			<div class="bibleverse">
 				<emsi-firebase-document my-path="home/verse" lang="{{lang}}" display> </emsi-firebase-document>
 			</div>
-			<paper-button raised on-tap="changeRouteToContact">
+			<paper-button raised on-tap="openEmail">
 				<emsi-firebase-document my-path="home/contactButton" lang="{{lang}}" display> </emsi-firebase-document>
 			</paper-button>
 		</div>
@@ -87,8 +87,8 @@
 				} ,
 			} ,
 
-			changeRouteToContact: function(){
-				this.fire("emsi-route-change-event", {route: "contact"});
+			openEmail: function() {
+				window.open('mailto:emsi@emsionline.org');
 			}
 		});
 	</script>

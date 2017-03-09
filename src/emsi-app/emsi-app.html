@@ -31,7 +31,6 @@
 <link rel="import" href="emsi-activities-page.html">
 <link rel="import" href="emsi-courses-page.html">
 <link rel="import" href="emsi-curriculum-page.html">
-<link rel="import" href="emsi-contact-page.html">
 <link rel="import" href="emsi-signin-page.html">
 <link rel="import" href="emsi-church-page.html">
 
@@ -74,7 +73,6 @@
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
-
     <iron-media-query query="(min-width: 1000px)" query-matches="{{isDesktop}}"></iron-media-query>
 
     <template is="dom-if" if="[[isDesktop]]">
@@ -105,7 +103,6 @@
         <emsi-activities-page class="page" name="activities" lang="{{lang}}"> </emsi-activities-page>
         <emsi-courses-page class="page" name="courses" lang="{{lang}}"> </emsi-courses-page>
         <emsi-curriculum-page class="page" name="curriculum" lang="{{lang}}"> </emsi-curriculum-page>
-        <emsi-contact-page class="page" name="contact" lang="{{lang}}"> </emsi-contact-page>
         <emsi-signin-page class="page" name="signin" lang="{{lang}}"> </emsi-signin-page>
         <emsi-church-page id="churchPage" class="page" name="church" lang="{{lang}}" path="{{route.path}}"> </emsi-church-page>
       </iron-pages>

@@ -29,10 +29,10 @@
 			}
 
 			paper-spinner-lite {
-				padding-left: 45%;
-				height: 50px;
-				width: 50px;
-				padding-top: 10vh;
+				padding-left: 47%;
+				height: 100px;
+				width: 100px;
+				padding-top: 20vh;
 			}
 
 			#backgroundImage {
@@ -168,6 +168,16 @@
 				}
 			}
 
+			a:visited{
+				color : rgba(255,255,255, 0.5);
+				font-weight:bold;
+				text-decoration: none;
+			} 
+
+			a:hover {
+				color : blue;
+			}
+			
 		</style>
 
 		<firebase-document
@@ -187,7 +197,7 @@
 				<div id="searchTitle"> FIND A CHURCH </div>
 				<paper-input id="addressBox" placeholder="Enter Address Here"></paper-input>
 				<paper-button raised id="searchButton" on-tap="startSearchByAddress"> FIND A LOCATION </paper-button>
-				<div id="locationButton" on-tap="getLocation"> Or, use your current location </div>
+				<div id="locationButton" on-tap="getLocation"> <a href=""> Or, use your current location </a> </div>
 			</div>
 	    </template>
 
@@ -197,7 +207,9 @@
 					Results
 				</div>
 
-				<paper-button raised id="returnToSearchButton" on-tap="toggleShowSearchResults"> START ANOTHER SEARCH </paper-button>
+				<template is="dom-if" if="{{!isSearching}}">
+					<paper-button raised id="returnToSearchButton" on-tap="toggleShowSearchResults"> START ANOTHER SEARCH </paper-button>
+				</template>
 
 				<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]">
 		        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.url}}" user-distance-text="{{item.distance}}"> </emsi-church-paper-card>
