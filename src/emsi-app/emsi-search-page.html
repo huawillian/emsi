@@ -197,7 +197,7 @@
 				<paper-button raised id="returnToSearchButton" on-tap="toggleShowSearchResults"> START ANOTHER SEARCH </paper-button>
 
 				<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]">
-		        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.name}}" user-distance-text="{{item.distance}}"> </emsi-church-paper-card>
+		        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.url}}" user-distance-text="{{item.distance}}"> </emsi-church-paper-card>
 			    </template>
 
 				<template is="dom-if" if="[[isSearching]]">
