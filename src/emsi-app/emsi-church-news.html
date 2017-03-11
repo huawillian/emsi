@@ -1,0 +1,233 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+<!-- custom elements -->
+<link rel="import" href="emsi-button.html">
+<link rel="import" href="emsi-firebase-document.html">
+
+<dom-module id="emsi-church-news">
+	<template>
+		<style>
+			:host {
+				display: block;
+				margin: 0;
+				padding: 0;
+				margin-bottom: -1vh;
+				width:50%;
+			}
+
+			@font-face {
+			    font-family: MyriadProBold;
+			    src: url(../fonts/MyriadPro-Bold.otf);
+			}
+
+			@font-face {
+			    font-family: MyriadProRegular;
+			    src: url(../fonts/MyriadPro-Regular.otf);
+			}
+
+			@font-face {
+			    font-family: MyriadProSemibold;
+			    src: url(../fonts/MyriadPro-Semibold.otf);
+			}
+
+
+			.container {
+				width:100%;
+				height: 50vw;
+				background-color: #857874;
+			}
+
+			.title {
+				padding-top: 18vh;
+				padding-left: 10vw;
+				color: white;
+				font-weight: 700;
+				font-size: 18pt;
+				font-family: MyriadProBold;
+				letter-spacing: 2px;
+			}
+
+			.content {
+				padding-top: 6vh;
+				padding-left: 10vw;
+				padding-right: 10vw;
+				color: white;
+				font-weight: 400;
+				font-size: 12pt;
+				line-height: 1.5;
+				font-family: MyriadProRegular;
+			}
+
+			@media screen and (max-width: 800px) {
+				.container {
+					height:100vw
+				}
+
+				:host {
+					width: 100%;
+				}
+			}
+
+			@media screen and (max-width: 1000px) and (min-width: 800px) {
+				.title {
+					padding-top: 8vh;
+					padding-left: 8vw;
+					font-size: 25px;
+				}
+
+				.content {
+					padding-top: 4vh;
+					padding-left: 8vw;
+					padding-right: 8vw;
+					font-size: 16px;
+					line-height: 1.4;
+				}
+			}
+
+
+			@media screen and (max-width: 800px) and (min-width: 500px){
+				.title {
+					padding-top: 15vh;
+					padding-left: 15vw;
+					font-size: 35px;
+				}
+
+				.content {
+					padding-top: 6vh;
+					padding-left: 15vw;
+					padding-right: 15vw;
+					font-size: 20px;
+					line-height: 1.5;
+				}
+			}
+
+			@media screen and (max-width: 500px) {
+				.title {
+					padding-top: 6vh;
+					padding-left: 8vw;
+					font-size: 22px;
+				}
+
+				.content {
+					padding-top: 3vh;
+					padding-left: 8vw;
+					padding-right: 8vw;
+					font-size: 15px;
+					line-height: 1.4;
+				}
+			}
+
+			.newsTitle {
+				font-family: MyriadProSemibold;
+				font-size: 20pt;
+				padding-left: 20%;
+				padding-right: 20%;
+				padding-top: 20pt;
+			}
+
+			.newsContent {
+				font-family: MyriadProRegular;
+				font-size: 15pt;
+				padding-left: 20%;
+				padding-right: 20%;
+			}
+
+			emsi-button {
+				margin-top: 3vh;
+				margin-left: 10vw;
+			}
+
+			paper-dialog {
+				width: 80%;
+				background-color: #857874;
+			}
+		</style>
+
+		<div class="container">
+			<div class="title"> {{title}} </div>
+
+			<template id='renderList' is="dom-repeat" items="[[displayedData]]">
+				<div class="newsTitle"> {{item.title}} </div>
+				<div class="newsContent"> {{item.content}} </div>
+			</template>
+
+			<template is="dom-if" if="{{hasHiddenNews}}">
+		      <emsi-button color="blue" on-tap="showMore"> 
+		      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
+		      </emsi-button>
+		    </template>
+		</div>
+
+		<paper-dialog id="dialog">
+		  <div class="title"> {{title}} </div>
+		  <paper-dialog-scrollable>
+			<div class="content">
+				<template id='renderList' is="dom-repeat" items="[[data]]">
+					<div class="newsTitle">{{item.title}}</div>
+					<div class="newsContent">{{item.content}}</div>
+				</template>
+			</div>
+		  </paper-dialog-scrollable>
+		  <div class="buttons">
+		    <paper-button dialog-dismiss> Close </paper-button>
+		  </div>
+		</paper-dialog>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'emsi-church-news' ,
+
+			properties: {
+				lang: {
+					type: String,
+					value: "en"
+				},
+				title: String,
+				data: {
+					type: Array,
+					value: [] ,
+					observer: "dataChanged"
+				} ,
+				displayedData: {
+					type: Array,
+					value: []
+				} ,
+				hasHiddenNews: {
+					type: Boolean,
+					value: false
+				}
+			} ,
+
+			dataChanged: function(newValue, oldValue) {
+				if(newValue.length > 3) {
+					this.hasHiddenNews = true;
+				}
+
+				this.set("displayedData", []);
+
+				for(var i = 0; i < 3; i++) {
+					if(newValue[i] == undefined) break;
+					var tempObj = {};
+					tempObj.title = newValue[i].title;
+					tempObj.content = newValue[i].content.slice(0,50);
+
+					if(newValue[i].content.length > 75) {
+						tempObj.content += " . . ."
+					}
+
+					this.push("displayedData", tempObj);
+
+				}
+
+				console.log(this.displayedData);
+			} ,
+
+			showMore: function() {
+				this.$.dialog.open();
+			}
+		});
+	</script>
+</dom-module>
