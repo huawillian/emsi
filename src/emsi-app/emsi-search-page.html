@@ -168,13 +168,13 @@
 				}
 			}
 
-			a:visited{
+			#locationButton {
 				color : rgba(255,255,255, 0.5);
 				font-weight:bold;
 				text-decoration: none;
 			} 
 
-			a:hover {
+			#locationButton:hover {
 				color : blue;
 			}
 			
@@ -197,7 +197,7 @@
 				<div id="searchTitle"> FIND A CHURCH </div>
 				<paper-input id="addressBox" placeholder="Enter Address Here"></paper-input>
 				<paper-button raised id="searchButton" on-tap="startSearchByAddress"> FIND A LOCATION </paper-button>
-				<div id="locationButton" on-tap="getLocation"> <a href=""> Or, use your current location </a> </div>
+				<div id="locationButton" on-tap="getLocation"> Or, use your current location </div>
 			</div>
 	    </template>
 

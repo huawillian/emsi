@@ -1,4 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+<!-- custom elements -->
+<link rel="import" href="emsi-button.html">
+<link rel="import" href="emsi-firebase-document.html">
 
 <dom-module id="emsi-church-ministries-fellowships">
 	<template>
@@ -20,7 +26,6 @@
 			    font-family: MyriadProRegular;
 			    src: url(../fonts/MyriadPro-Regular.otf);
 			}
-
 
 			.container {
 				width:100%;
@@ -46,8 +51,17 @@
 				color: rgba(0,0,0,0.6);
 				font-weight: 400;
 				font-size: 12pt;
-				line-height: 1.5;
+				line-height: 1.3;
 				font-family: MyriadProRegular;
+			}
+
+			paper-dialog {
+				width: 80%;
+			}
+
+			emsi-button {
+				margin-top: 3vh;
+				margin-left: 3vw;
 			}
 
 			@media screen and (max-width: 800px) {
@@ -72,7 +86,7 @@
 					padding-left: 2vw;
 					padding-right: 2vw;
 					font-size: 16px;
-					line-height: 1.4;
+					line-height: 1.2;
 				}
 			}
 
@@ -89,7 +103,7 @@
 					padding-left: 5vw;
 					padding-right: 5vw;
 					font-size: 20px;
-					line-height: 1.5;
+					line-height: 1.2;
 				}
 			}
 
@@ -105,7 +119,7 @@
 					padding-left: 3vw;
 					padding-right: 3vw;
 					font-size: 15px;
-					line-height: 1.4;
+					line-height: 1.2;
 				}
 			}
 
@@ -129,35 +143,47 @@
 		<div class="container">
 			<div class="title"> {{title}} </div>
 			<div class="content">
-				<div id="serviceTitle"> English </div>
-				<table id="serviceContainer">
-					<template is="dom-repeat" items="[[data.english]]">
-						<tr>
-							<td>{{item.time}}</td> 
-						    <td>{{item.name}}</td>
-					  	</tr>
-					</template>
-				</table>
-				<div id="serviceTitle"> Mandarin </div>
-				<table id="serviceContainer">
-					<template is="dom-repeat" items="[[data.mandarin]]">
-						<tr>
-							<td>{{item.time}}</td> 
-						    <td>{{item.name}}</td>
-					  	</tr>
-					</template>
-				</table>
-				<div id="serviceTitle"> Cantonese </div>
-				<table id="serviceContainer">
-					<template is="dom-repeat" items="[[data.cantonese]]">
-						<tr>
-							<td>{{item.time}}</td> 
-						    <td>{{item.name}}</td>
-					  	</tr>
-					</template>
-				</table>
+				<template is="dom-repeat" items="[[displayedData]]" as="section">
+					<div id="serviceTitle"> {{section.language}} </div>
+					<table id="serviceContainer">
+						<template is="dom-repeat" items="[[section.list]]" as="item">
+							<tr>
+								<td>{{item.time}}</td> 
+							    <td>{{item.name}}</td>
+						  	</tr>
+						</template>
+					</table>
+				</template>
 			</div>
+
+			<template is="dom-if" if="{{hasHiddenMinistries}}">
+		      <emsi-button color="blue" on-tap="showMore"> 
+		      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
+		      </emsi-button>
+		    </template>
 		</div>
+
+		<paper-dialog id="dialog">
+		  <div class="title"> {{title}} </div>
+		  <paper-dialog-scrollable>
+			<div class="content">
+				<template is="dom-repeat" items="[[data]]" as="section">
+					<div id="serviceTitle"> {{section.language}} </div>
+					<table id="serviceContainer">
+						<template is="dom-repeat" items="[[section.list]]" as="item">
+							<tr>
+								<td>{{item.time}}</td> 
+							    <td>{{item.name}}</td>
+						  	</tr>
+						</template>
+					</table>
+				</template>
+			</div>
+		  </paper-dialog-scrollable>
+		  <div class="buttons">
+		    <paper-button dialog-dismiss> Close </paper-button>
+		  </div>
+		</paper-dialog>
 		
 	</template>
 	<script>
@@ -171,9 +197,61 @@
 				},
 				title: String,
 				data: {
-					type: Object,
-					value: {},
+					type: Array,
+					value: [],
+					observer: "dataChanged"
+				} ,
+				displayedData: {
+					type: Array,
+					value: []
+				} ,
+				hasHiddenMinistries: {
+					type: Boolean,
+					value: false
 				}
+			} ,
+
+			dataChanged: function(newValue, oldValue) {
+				console.log(newValue);
+				this.calculateHasHiddenMinistries(newValue);
+
+				this.set("displayedData", []);
+
+				for(var i = 0; i < 3; i++) {
+					if(newValue[i] == undefined) break;
+
+					var tempObj = {};
+					tempObj.language = newValue[i].language;
+					tempObj.list = [];
+
+					for(var j = 0; j < 3; j++) {
+						if(newValue[i].list[j] == undefined) break;
+						tempObj.list[j] = newValue[i].list[j];
+					}
+
+					this.push("displayedData", tempObj);
+				}
+
+				console.log(this.displayedData);
+
+			} ,
+
+			calculateHasHiddenMinistries: function(data) {
+				this.hasHiddenMinistries = false;
+
+				if(data.length > 3) {
+					this.hasHiddenMinistries = true;
+				}
+
+				for(var i = 0; i < data.length; i++) {
+					if(data[i].list.length > 3) {
+						this.hasHiddenMinistries = true;
+					}
+				}
+			} ,
+
+			showMore: function() {
+				this.$.dialog.open();
 			}
 		});
 	</script>
