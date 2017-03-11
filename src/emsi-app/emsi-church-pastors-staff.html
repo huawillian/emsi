@@ -1,6 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 
+<!-- custom elements -->
+<link rel="import" href="emsi-button.html">
+<link rel="import" href="emsi-firebase-document.html">
 
 <dom-module id="emsi-church-pastors-staff">
 	<template>
@@ -137,22 +142,53 @@
 			.staffpic {
 				width: 50pt;
 				height: 50pt;
-				position: absolute;
-				right: 10%;
-				margin-top: -45pt;
+				right: -70%;
 				border-radius: 50%;
+				top: -110pt;
+				margin-bottom: -100pt;
+			}
+
+			emsi-button {
+				margin-top: 3vh;
+				margin-left: 10vw;
+			}
+
+			paper-dialog {
+				width: 80%;
+				background-color: #857874;
 			}
 
 		</style>
 		
 		<div class="container">
 			<div class="title"> {{title}} </div>
-			<template id='renderList' is="dom-repeat" items="[[dataArr]]">
+			<template id='renderList' is="dom-repeat" items="[[displayedData]]">
 				<div class="stafftitle">{{item.title}}</div>
 				<div class="staffname">{{item.name}}</div>
 				<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}"></iron-image>
 			</template>
+			<template is="dom-if" if="{{hasHiddenStaff}}">
+		      <emsi-button color="blue" on-tap="showMore"> 
+		      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
+		      </emsi-button>
+		    </template>
 		</div>
+
+		<paper-dialog id="dialog">
+		  <div class="title"> {{title}} </div>
+		  <paper-dialog-scrollable>
+			<div class="content">
+				<template id='renderList' is="dom-repeat" items="[[data]]">
+					<div class="stafftitle">{{item.title}}</div>
+					<div class="staffname">{{item.name}}</div>
+					<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}"></iron-image>
+				</template>
+			</div>
+		  </paper-dialog-scrollable>
+		  <div class="buttons">
+		    <paper-button dialog-dismiss> Close </paper-button>
+		  </div>
+		</paper-dialog>
 
 	</template>
 	<script>
@@ -166,22 +202,38 @@
 				},
 				title: String,
 				data: {
-					type: Object,
+					type: Array,
+					value: [] ,
 					observer: "dataChanged"
-				},
-				dataArr: Array
+				} ,
+				displayedData: {
+					type: Array,
+					value: []
+				} ,
+				hasHiddenStaff: {
+					type: Boolean,
+					value: false
+				}
 			} ,
 
 			dataChanged: function(newValue, oldValue) {
-				this.set("dataArr", []);
-				this.$.renderList.render();
-
-				for(var key in newValue) {
-					this.push("dataArr", newValue[key]);
+				if(newValue.length > 4) {
+					this.hasHiddenStaff = true;
 				}
 
-				console.log(this.dataArr);
-				this.$.renderList.render();
+				this.set("displayedData", []);
+
+				for(var i = 0; i < 4; i++) {
+					if(newValue[i] == undefined) break;
+					this.push("displayedData", newValue[i]);
+
+				}
+
+				console.log(this.displayedData);
+			} ,
+
+			showMore: function() {
+				this.$.dialog.open();
 			}
 		});
 	</script>
