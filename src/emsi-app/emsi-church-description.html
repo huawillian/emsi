@@ -44,7 +44,7 @@
 				padding-right: 10vw;
 				color: rgba(0,0,0,0.6);
 				font-weight: 400;
-				font-size: 12pt;
+				font-size: 13pt;
 				line-height: 1.5;
 				font-family: MyriadProRegular;
 			}
@@ -70,7 +70,7 @@
 					padding-top: 4vh;
 					padding-left: 8vw;
 					padding-right: 8vw;
-					font-size: 16px;
+					font-size: 18px;
 					line-height: 1.4;
 				}
 			}
@@ -87,7 +87,7 @@
 					padding-top: 6vh;
 					padding-left: 15vw;
 					padding-right: 15vw;
-					font-size: 20px;
+					font-size: 22px;
 					line-height: 1.5;
 				}
 			}
@@ -103,16 +103,42 @@
 					padding-top: 3vh;
 					padding-left: 8vw;
 					padding-right: 8vw;
-					font-size: 15px;
+					font-size: 17px;
 					line-height: 1.4;
 				}
+			}
+
+			emsi-button {
+				margin-top: 3vh;
+				margin-left: 10vw;
+			}
+
+			paper-dialog {
+				width: 80%;
+				background-color: white;
 			}
 		</style>
 
 		<div class="container">
 			<div class="title"> {{title}} </div>
-			<div class="content"> {{description}} </div>
+			<div class="content">  </div>
+			<template is="dom-if" if="{{hasHiddenDescription}}">
+		      <emsi-button color="blue" on-tap="showMore"> 
+		      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
+		      </emsi-button>
+		    </template>
 		</div>
+
+		<paper-dialog id="dialog">
+		  <div class="title"> {{title}} </div>
+		  <paper-dialog-scrollable>
+			<div class="content contentDialog">
+			</div>
+		  </paper-dialog-scrollable>
+		  <div class="buttons">
+		    <paper-button dialog-dismiss> Close </paper-button>
+		  </div>
+		</paper-dialog>
 
 	</template>
 	<script>
@@ -125,9 +151,35 @@
 					value: "en"
 				},
 				title: String,
-				description: String
+				description: {
+					type: String,
+					observer: "descriptionChanged"
+				} ,
+				displayedDescription: String,
+				hasHiddenDescription: Boolean,
 			} ,
 
+			descriptionChanged: function(newValue, oldValue) {
+				var polymerElem = this.$$(".content");
+				var polymerElemDialog = this.$$(".contentDialog");
+
+				this.displayedDescription = newValue.slice(0, 500);
+
+				if(newValue.length > 500) {
+					this.displayedDescription += " . . .";
+					this.hasHiddenDescription = true;
+				} else {
+					this.hasHiddenDescription = false;
+				}
+
+				Polymer.dom(polymerElem).node.innerHTML = this.displayedDescription;
+				Polymer.dom(polymerElemDialog).node.innerHTML = this.description;
+
+			} ,
+
+			showMore: function() {
+				this.$.dialog.open();
+			}
 		});
 	</script>
 </dom-module>
