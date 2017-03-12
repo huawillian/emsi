@@ -36,24 +36,24 @@
 			.container {
 				width:100%;
 				height: 50vw;
-				background-color: #857874;
+				background-color: white;
 			}
 
 			.title {
 				padding-top: 18vh;
 				padding-left: 10vw;
-				color: white;
+				color: rgba(133,120,116, 0.9);
 				font-weight: 700;
-				font-size: 18pt;
+				font-size: 22pt;
 				font-family: MyriadProBold;
-				letter-spacing: 2px;
+				letter-spacing: 0px;
 			}
 
 			.content {
-				padding-top: 6vh;
+				padding-top: 10vh;
 				padding-left: 10vw;
 				padding-right: 10vw;
-				color: white;
+				color: rgba(0,0,0,0.6);
 				font-weight: 400;
 				font-size: 12pt;
 				line-height: 1.5;
@@ -125,24 +125,28 @@
 				padding-left: 20%;
 				padding-right: 20%;
 				padding-top: 20pt;
+				color: rgba(0,0,0,0.6);
 			}
 
 			.newsContent {
 				font-family: MyriadProRegular;
 				font-size: 15pt;
+				color: rgba(0,0,0,0.6);
 			}
 
 			ul {
 				margin-left: 20%;
 				margin-right: 20%;
+				color: rgba(0,0,0,0.6);
 			}
 
 			li {
 				margin-bottom: 10pt;
+				color: rgba(0,0,0,0.6);
 			}
 
 			emsi-button {
-				margin-top: 3vh;
+				margin-top: 6vh;
 				margin-left: 10vw;
 			}
 
@@ -164,7 +168,7 @@
 			</ul>
 
 			<template is="dom-if" if="{{hasHiddenNews}}">
-		      <emsi-button color="blue" on-tap="showMore"> 
+		      <emsi-button color="brown" on-tap="showMore"> 
 		      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
 		      </emsi-button>
 		    </template>

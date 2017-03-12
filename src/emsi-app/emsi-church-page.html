@@ -166,13 +166,29 @@
 		<iron-media-query query="(min-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
 
 		<div id="contentArea">
-			<emsi-homepage-picture image-url="{{churchData.churchImageUrl}}"> </emsi-homepage-picture>
-			<emsi-church-description title="Brief History" description="{{churchData.description}}"> </emsi-church-description>
-			<emsi-church-ministries-fellowships title="Ministries and Fellowships" data="{{churchData.ministries}}"> </emsi-church-ministries-fellowships>
-			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}"> </emsi-church-pastors-staff>
-			<emsi-church-news title="News and Updates" data="{{churchData.news}}"> </emsi-church-news>
-			<emsi-church-events title="Upcoming Events" data="{{churchData.events}}"> </emsi-church-news>
+			<!-- If large screen, show this... -->
+			<template is="dom-if" if="[[isTwoColumns]]">
+				<emsi-homepage-picture image-url="{{churchData.churchImageUrl}}"> </emsi-homepage-picture>
+				<emsi-church-ministries-fellowships title="Ministries and Fellowships" data="{{churchData.ministries}}"> </emsi-church-ministries-fellowships>
+				<emsi-church-events title="Upcoming Events" data="{{churchData.events}}"> </emsi-church-events>
+				<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}"> </emsi-church-pastors-staff>
+				<emsi-church-description title="Brief History" description="{{churchData.description}}"> </emsi-church-description>
+				<emsi-church-news title="News and Updates" data="{{churchData.news}}"> </emsi-church-news>
+			</template>
+
+			<!-- If small screen, show this... -->
+			<template is="dom-if" if="[[!isTwoColumns]]">
+				<emsi-homepage-picture image-url="{{churchData.churchImageUrl}}"> </emsi-homepage-picture>
+				<emsi-church-ministries-fellowships title="Ministries and Fellowships" data="{{churchData.ministries}}"> </emsi-church-ministries-fellowships>
+					<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}"> </emsi-church-pastors-staff>
+					<emsi-church-events title="Upcoming Events" data="{{churchData.events}}"> </emsi-church-events>
+					<emsi-church-description title="Brief History" description="{{churchData.description}}"> </emsi-church-description>
+					<emsi-church-news title="News and Updates" data="{{churchData.news}}"> </emsi-church-news>
+			</template>
 		</div>
+
+
+
 		
 	</template>
 	<script>
