@@ -12,7 +12,10 @@
       path= "[[myPath]]"
       data="{{data}}">
     </firebase-document>
-    <template is="dom-if" if="[[display]]"> {{output}} </template>
+    <template is="dom-if" if="[[display]]">
+       <template is="dom-if" if="[[isDataSet]]"> {{output}} </template>
+       <template is="dom-if" if="[[!isDataSet]]"> {{alt}} </template>
+    </template>
   </template>
 
   <script>
@@ -39,11 +42,22 @@
         display: {
           type: Boolean,
           value: false
+        },
+        alt: {
+          type: String,
+          value: "Unable to get data"
+        },
+        isDataSet: {
+          type: Boolean,
+          value: false
         }
       } , 
 
       dataChanged: function(newValue, oldValue) {
         if(oldValue === undefined) return;
+
+        this.isDataSet = true;
+
         if(this.lang == "en") {
           this.output = newValue.en;
           this.fire("child-output-changed");
