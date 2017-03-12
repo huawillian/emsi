@@ -242,7 +242,7 @@
 
 			goToGoogleMaps: function() {
 				setTimeout(function(){
-					window.location.href = 'http://maps.google.com/?q=' + this.churchData.address;
+					window.open('http://maps.google.com/?q=' + this.churchData.address);
 				}.bind(this), 0);
 			} ,
 
