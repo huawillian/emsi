@@ -6,7 +6,7 @@
 <link rel="import" href="emsi-button.html">
 <link rel="import" href="emsi-firebase-document.html">
 
-<dom-module id="emsi-church-news">
+<dom-module id="emsi-church-events">
 	<template>
 		<style>
 			:host {
@@ -119,30 +119,24 @@
 				}
 			}
 
-			.newsTitle {
+			.eventTitle {
 				font-family: MyriadProSemibold;
 				font-size: 20pt;
-				padding-left: 20%;
+				padding-left: 40%;
 				padding-right: 20%;
 				padding-top: 20pt;
+				margin-bottom: 20pt;
 			}
 
-			.newsContent {
+			.eventContent {
 				font-family: MyriadProRegular;
 				font-size: 15pt;
-			}
-
-			ul {
-				margin-left: 20%;
-				margin-right: 20%;
-			}
-
-			li {
-				margin-bottom: 10pt;
+				padding-left: 40%;
+				padding-right: 20%;
 			}
 
 			emsi-button {
-				margin-top: 3vh;
+				margin-top: 6vh;
 				margin-left: 10vw;
 			}
 
@@ -150,37 +144,71 @@
 				width: 80%;
 				background-color: #857874;
 			}
+
+			.calender {
+				height: 50pt;
+				width: 50pt;
+				background-color: rgb(230,230,230);
+				border-radius: 5pt;
+				margin-bottom: -50pt;
+				left: 10vw;
+				top: -45pt;
+				position: relative;
+			}
+
+			.calenderMonth {
+				height: 20pt;
+				width: 50pt;
+				background-color: #236192;
+				color: white;
+				text-align: center;
+				font-family: MyriadProSemibold;
+				font-size: 15pt;
+				border-radius: 5pt 5pt 0 0;
+			}
+
+			.calenderDay {
+				height: 30pt;
+				width: 50pt;
+				color: black;
+				text-align: center;
+				font-family: MyriadProSemibold;
+				font-size: 25pt;
+			}
 		</style>
 
 		<div class="container">
 			<div class="title"> {{title}} </div>
 
-			<ul>
-				<template id='renderList' is="dom-repeat" items="[[displayedData]]">
-					<li>
-						<div class="newsContent">{{item.content}}</div>
-					</li>
-				</template>
-			</ul>
+			<template id='renderList' is="dom-repeat" items="[[displayedData]]">
+				<div class="eventTitle"> {{item.title}} </div>
+				<!-- <div class="eventContent"> {{item.content}} </div> -->
+				<div class="calender">
+					<div class="calenderMonth"> MAY </div>
+					<div class="calenderDay"> 2 6 </div>
+				</div>
+			</template>
 
-			<template is="dom-if" if="{{hasHiddenNews}}">
+			<template is="dom-if" if="{{hasHiddenEvents}}">
 		      <emsi-button color="blue" on-tap="showMore"> 
 		      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
 		      </emsi-button>
 		    </template>
 		</div>
 
+
 		<paper-dialog id="dialog">
 		  <div class="title"> {{title}} </div>
 		  <paper-dialog-scrollable>
 			<div class="content">
-				<ul>
-					<template id='renderList' is="dom-repeat" items="[[data]]">
-						<li>
-							<div class="newsContent">{{item.content}}</div>
-						</li>
-					</template>
-				</ul>
+				<template id='renderList' is="dom-repeat" items="[[data]]">
+				<div class="eventTitle"> {{item.title}} </div>
+				<div class="calender">
+					<div class="calenderMonth"> MAY </div>
+					<div class="calenderDay"> 2 6 </div>
+				</div>
+				<div class="eventContent"> {{item.content}} </div>
+			</template>
 			</div>
 		  </paper-dialog-scrollable>
 		  <div class="buttons">
@@ -191,7 +219,7 @@
 	</template>
 	<script>
 		Polymer({
-			is: 'emsi-church-news' ,
+			is: 'emsi-church-events' ,
 
 			properties: {
 				lang: {
@@ -208,7 +236,7 @@
 					type: Array,
 					value: []
 				} ,
-				hasHiddenNews: {
+				hasHiddenEvents: {
 					type: Boolean,
 					value: false
 				}
@@ -216,17 +244,18 @@
 
 			dataChanged: function(newValue, oldValue) {
 				if(newValue.length > 3) {
-					this.hasHiddenNews = true;
-				}
+					this.hasHiddenEvents = true;
+				} 
 
 				this.set("displayedData", []);
 
 				for(var i = 0; i < 3; i++) {
 					if(newValue[i] == undefined) break;
 					var tempObj = {};
-					tempObj.content = newValue[i].content.slice(0,100);
+					tempObj.title = newValue[i].title;
+					tempObj.content = newValue[i].content.slice(0,50);
 
-					if(newValue[i].content.length > 100) {
+					if(newValue[i].content.length > 75) {
 						tempObj.content += " . . ."
 					}
 
