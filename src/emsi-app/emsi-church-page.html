@@ -4,6 +4,8 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <!-- custom elements -->
+<link rel="import" href="emsi-button.html">
+<link rel="import" href="emsi-firebase-document.html">
 <link rel="import" href="emsi-homepage-picture.html">
 <link rel="import" href="emsi-church-description.html">
 <link rel="import" href="emsi-church-ministries-fellowships.html">
@@ -20,6 +22,7 @@
 				min-height: 100vh;
 				width: 100%;
 				z-index: 0;
+				background-color: #857874;
 			}
 
 			@font-face {
@@ -32,9 +35,13 @@
 			    src: url(../fonts/MyriadPro-Regular.otf);
 			}
 
+			@font-face {
+			    font-family: MyriadProSemibold;
+			    src: url(../fonts/MyriadPro-Semibold.otf);
+			}
+
 			#churchHeader {
-				background-color: rgb(250,250,250);
-				width: 100%;
+				background-color: rgba(255,255,255, 0.8);
 				text-align: center;
 				padding-bottom: 10vh;
 			}
@@ -44,52 +51,47 @@
 				font-size: 40pt;
 				color: #236192;
 				padding-top: 10vh;
+				margin-right: 10%;
+				margin-left:  10%;
 			}
 
 			#churchAddress {
-				font-family: MyriadProBold;
-				font-size: 20pt;
-				color: #236192;
-				padding-bottom: 10px;
-				margin-right: 30pt;
-				margin-left: 30pt;
-			}
-
-			#churchPhoneNumber {
+				font-family: MyriadProSemibold;
 				font-size: 20pt;
 				color: rgba(0,0,0,0.6);
+				padding-bottom: 5px;
+				margin-right: 5%;
+				margin-left: 5%;
+			}
+
+			#churchPhoneNumber, #churchEmail {
+				font-size: 18pt;
+				color: rgba(0,0,0,0.5);
 				font-family: MyriadProRegular;
 				text-align: center;
 				padding-bottom: 30px;
 				margin-right: 15pt;
 				margin-left: 15pt;
-			}
-
-			#churchEmail {
-				font-size: 20pt;
-				color: rgba(0,0,0,0.6);
-				font-family: MyriadProRegular;
-				margin-right: 15pt;
-				margin-left: 15pt;
-				text-align: center;
-				padding-bottom: 30px;
 			}
 
 			#serviceContainer {
 				font-size: 13pt;
 				color: rgba(0,0,0,0.6);
 				font-family: MyriadProRegular;
-				margin-left: 25%;
-				width: 50%;
-				text-align: center;
+				width: 400px;
+				text-align: left;
 				padding-bottom: 30px;
+				margin-left:auto; 
+    			margin-right:auto;
+    			padding-left: 60px;
 			}
 
 			#serviceTitle {
-				font-size: 14pt;
+				font-size: 16pt;
 				color: rgba(0,0,0,0.6);
-				font-family: MyriadProSemibold;
+				font-family: MyriadProBold;
 				padding-top: 30px;
+				padding-bottom: 5px;
 			}
 
 			paper-button {
@@ -112,6 +114,10 @@
 		        width: 100%;
 		        @apply(--layout-horizontal);
 		        @apply(--layout-wrap);
+		    }
+
+		    emsi-button {
+		    	display: inline;
 		    }
 
 		</style>
@@ -137,9 +143,13 @@
 				  	</tr>
 				</template>
 			</table>
-			<br>
-			<paper-button on-click="goToGoogleMaps"> Get Directions </paper-button>
-			<paper-button on-click="openEmail"> Contact Us </paper-button>
+			
+			<emsi-button color="brown" on-tap="goToGoogleMaps">
+				<emsi-firebase-document my-path="getDirectionsButton" lang="{{lang}}" display> </emsi-firebase-document> 
+			</emsi-button>
+			<emsi-button color="brown" on-tap="openEmail">
+				<emsi-firebase-document my-path="home/contactButton" lang="{{lang}}" display> </emsi-firebase-document> 
+			</emsi-button>
 		</div>
 
 		<iron-media-query query="(min-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
