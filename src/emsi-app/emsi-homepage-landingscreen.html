@@ -38,7 +38,7 @@
 				z-index: -9;
 				right:-0;
 				top: 8vh;
-				width: 75vh;
+				width: 70vh;
 				height: 75vh;
 			}
 
@@ -96,7 +96,7 @@
 				#personImage {
 					top: 10vh;
 					width: 70vh;
-					height: 70vh;
+					height: 75vh;
 				}
 
 				.container {
@@ -117,9 +117,9 @@
 		<emsi-firebase-document my-path="home/title" lang="{{lang}}" on-child-output-changed="updateTitle"> </emsi-firebase-document>
 		<emsi-firebase-document my-path="home/churchButton" lang="{{lang}}" on-child-output-changed="updateButton"> </emsi-firebase-document>
 
-		<iron-image sizing="cover" id="personImage" preload src="https://firebasestorage.googleapis.com/v0/b/emsi-e77d5.appspot.com/o/DonnaImageFinal-01.png?alt=media&token=6d8e9f47-a42d-4d0a-a121-6ac2f852840d"></iron-image>
+		<iron-image sizing="cover" id="personImage" preload src="https://github.com/huawillian/emsi/raw/master/src/images/DonnaImageFinal-01.png"></iron-image>
 
-		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="https://firebasestorage.googleapis.com/v0/b/emsi-e77d5.appspot.com/o/MainSanctuary_ImageBlurredFINAL.jpg?alt=media&token=bdefa846-110b-4dc8-8818-57f1e37ff736"></iron-image>
+		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="https://github.com/huawillian/emsi/raw/master/src/images/MainSanctuary_ImageBlurredFINAL.jpg"></iron-image>
 
 		<div class="container">
 			<template is="dom-if" if="[[isEnglish]]"> <div id="title" class="homepageText"> {{title1}} <br> {{title2}} </div> </template>

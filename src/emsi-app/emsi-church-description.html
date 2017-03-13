@@ -132,7 +132,7 @@
 		    </template>
 		</div>
 
-		<paper-dialog id="dialog">
+		<paper-dialog id="dialog" modal>
 		  <div class="title"> {{title}} </div>
 		  <paper-dialog-scrollable>
 			<div class="content contentDialog">
@@ -181,8 +181,11 @@
 			} ,
 
 			showMore: function() {
-				this.$.dialog.open();
-			}
+				var body = document.querySelector('body');
+			  	Polymer.dom(body).appendChild(this.$.dialog);
+			  	this.$.dialog.open();
+			} ,
+
 		});
 	</script>
 </dom-module>
