@@ -4,6 +4,7 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-church-collection.html">
+<link rel="import" href="emsi-firebase-document.html">
 
 <dom-module id="emsi-europe-page">
 	<template>
@@ -63,49 +64,46 @@
 					padding-right: 5%;
 				}
 			}
+
+			@media screen and (min-width: 1200px) {
+				.container {
+					padding-left: 20%;
+					padding-right: 20%;
+				}
+			}
 		</style>
 
+		<firebase-document
+	      path= "locations"
+	      data="{{data}}">
+	    </firebase-document>
+
 		<div class="container">
-			<div class="titleContainer"> Europe </div>
-	      	<div class="regionContainer"> Select Region or Country </div>
+			<div class="titleContainer"> {{continent}} </div>
+			<div class="regionContainer"> Select Region or Country </div>
 			<paper-dropdown-menu-light label="Regions / Countries" selected-item="{{selectedItem}}" active>
 			  <paper-listbox class="dropdown-content">
 			    <paper-item> All </paper-item>
-			    <paper-item> Hungary </paper-item>
-			    <paper-item> Netherlands </paper-item>
-			    <paper-item> Spain </paper-item>
-			    <paper-item> Portugal </paper-item>
-			    <paper-item> France </paper-item>
-			    <paper-item> Belgium </paper-item>
-			    <paper-item> Italy </paper-item>
+
+			    <template is="dom-repeat" items="[[regionArr]]">
+					<paper-item> {{item}} </paper-item>
+				</template>
+
 			  </paper-listbox>
 			</paper-dropdown-menu-light>
 
 			<!-- iron-pages selects the view based on the active route -->
 	      	<iron-pages selected="[[displayRegion]]" attr-for-selected="name">
 	      		<div name="All"> 
-	      			<div class="regionContainer"> Hungary </div>
-					<emsi-church-collection query-type="search" continent="Europe" region="Hungary"> </emsi-church-collection>
-					<div class="regionContainer"> Netherlands </div>
-					<emsi-church-collection query-type="search" continent="Europe" region="Netherlands"> </emsi-church-collection>
-					<div class="regionContainer"> Spain </div>
-					<emsi-church-collection query-type="search" continent="Europe" region="Spain"> </emsi-church-collection>
-					<div class="regionContainer"> Portugal </div>
-					<emsi-church-collection query-type="search" continent="Europe" region="Portugal"> </emsi-church-collection>
-					<div class="regionContainer"> France </div>
-					<emsi-church-collection query-type="search" continent="Europe" region="France"> </emsi-church-collection>
-					<div class="regionContainer"> Belgium </div>
-					<emsi-church-collection query-type="search" continent="Europe" region="Belgium"> </emsi-church-collection>
-					<div class="regionContainer"> Italy </div>
-					<emsi-church-collection query-type="search" continent="Europe" region="Italy"> </emsi-church-collection>
-	      		</div> 
-				<emsi-church-collection name="Hungary" query-type="search" continent="Europe" region="Hungary"> </emsi-church-collection>
-				<emsi-church-collection name="Netherlands" query-type="search" continent="Europe" region="Netherlands"> </emsi-church-collection>
-				<emsi-church-collection name="Spain" query-type="search" continent="Europe" region="Spain"> </emsi-church-collection>
-				<emsi-church-collection name="Portugal" query-type="search" continent="Europe" region="Portugal"> </emsi-church-collection>
-				<emsi-church-collection name="France" query-type="search" continent="Europe" region="France"> </emsi-church-collection>
-				<emsi-church-collection name="Belgium" query-type="search" continent="Europe" region="Belgium"> </emsi-church-collection>
-				<emsi-church-collection name="Italy" query-type="search" continent="Europe" region="Italy"> </emsi-church-collection>
+	      			<template is="dom-repeat" items="[[regionArr]]">
+						<div class="regionContainer"> {{item}} </div>
+	      				<emsi-church-collection query-type="search" continent="{{continent}}" region="{{item}}"> </emsi-church-collection>
+					</template>
+	      		</div>
+
+	      		<template is="dom-repeat" items="[[regionArr]]">
+						<emsi-church-collection name="{{item}}" query-type="search" continent="{{continent}}" region="{{item}}"> </emsi-church-collection>
+				</template>
 	      	</iron-pages>
 		</div>
 	    
@@ -122,7 +120,43 @@
 				displayRegion: {
 					type: String,
 					value: "All",
+				} ,
+				data: {
+					type: Object,
+					observer: "dataChanged"
+				} ,
+				regionArr: {
+					type: Array,
+					value: []
+				} ,
+				continent: {
+					type: String, 
+					value: "Europe"
 				}
+			} ,
+
+			dataChanged: function(newValue) {
+				if(newValue == null) return;
+
+				this.set("regionArr", []);
+
+				for(var key in newValue) {
+					if(newValue[key].continent == this.continent) {
+						var containsRegion = false;
+
+						for(var i = 0; i < this.regionArr.length; i++) {
+							if(this.regionArr[i] == newValue[key].region) {
+								containsRegion = true;
+							}
+						}
+
+						if(!containsRegion) {
+							this.push("regionArr", newValue[key].region);
+						}
+					}
+				}
+
+				console.log(this.regionArr);
 			} ,
 
 			regionChanged: function(newValue) {
@@ -130,6 +164,7 @@
 
 				this.displayRegion = newValue.innerText;
 			} ,
+
 		});
 	</script>
 </dom-module>

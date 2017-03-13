@@ -4,6 +4,7 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-church-collection.html">
+<link rel="import" href="emsi-firebase-document.html">
 
 <dom-module id="emsi-asia-page">
 	<template>
@@ -63,28 +64,45 @@
 					padding-right: 5%;
 				}
 			}
+
+			@media screen and (min-width: 1200px) {
+				.container {
+					padding-left: 20%;
+					padding-right: 20%;
+				}
+			}
 		</style>
+		<firebase-document
+	      path= "locations"
+	      data="{{data}}">
+	    </firebase-document>
+
 		<div class="container">
-			<div class="titleContainer"> Asia </div>
-	      	<div class="regionContainer"> Select Region or Country </div>
+			<div class="titleContainer"> {{continent}} </div>
+			<div class="regionContainer"> Select Region or Country </div>
 			<paper-dropdown-menu-light label="Regions / Countries" selected-item="{{selectedItem}}" active>
 			  <paper-listbox class="dropdown-content">
 			    <paper-item> All </paper-item>
-			    <paper-item> Japan </paper-item>
-			    <paper-item> Taiwan </paper-item>
+
+			    <template is="dom-repeat" items="[[regionArr]]">
+					<paper-item> {{item}} </paper-item>
+				</template>
+
 			  </paper-listbox>
 			</paper-dropdown-menu-light>
 
 			<!-- iron-pages selects the view based on the active route -->
 	      	<iron-pages selected="[[displayRegion]]" attr-for-selected="name">
 	      		<div name="All"> 
-	      			<div class="regionContainer"> Japan </div>
-					<emsi-church-collection query-type="search" continent="Asia" region="Japan"> </emsi-church-collection>
-					<div class="regionContainer"> Taiwan </div>
-					<emsi-church-collection query-type="search" continent="Asia" region="Taiwan"> </emsi-church-collection>
-	      		</div> 
-				<emsi-church-collection name="Japan" query-type="search" continent="Asia" region="Japan"> </emsi-church-collection>
-				<emsi-church-collection name="Taiwan" query-type="search" continent="Asia" region="Taiwan"> </emsi-church-collection>
+	      			<template is="dom-repeat" items="[[regionArr]]">
+						<div class="regionContainer"> {{item}} </div>
+	      				<emsi-church-collection query-type="search" continent="{{continent}}" region="{{item}}"> </emsi-church-collection>
+					</template>
+	      		</div>
+
+	      		<template is="dom-repeat" items="[[regionArr]]">
+						<emsi-church-collection name="{{item}}" query-type="search" continent="{{continent}}" region="{{item}}"> </emsi-church-collection>
+				</template>
 	      	</iron-pages>
 		</div>
 	</template>
@@ -100,7 +118,43 @@
 				displayRegion: {
 					type: String,
 					value: "All",
+				} ,
+				data: {
+					type: Object,
+					observer: "dataChanged"
+				} ,
+				regionArr: {
+					type: Array,
+					value: []
+				} ,
+				continent: {
+					type: String, 
+					value: "Asia"
 				}
+			} ,
+
+			dataChanged: function(newValue) {
+				if(newValue == null) return;
+
+				this.set("regionArr", []);
+
+				for(var key in newValue) {
+					if(newValue[key].continent == this.continent) {
+						var containsRegion = false;
+
+						for(var i = 0; i < this.regionArr.length; i++) {
+							if(this.regionArr[i] == newValue[key].region) {
+								containsRegion = true;
+							}
+						}
+
+						if(!containsRegion) {
+							this.push("regionArr", newValue[key].region);
+						}
+					}
+				}
+
+				console.log(this.regionArr);
 			} ,
 
 			regionChanged: function(newValue) {
