@@ -30,26 +30,29 @@
 			}
 
 			.title {
-				padding-top: 18vh;
-				padding-left: 10vw;
 				color: #236192;
 				font-weight: 700;
-				font-size: 22pt;
+				font-size: 25pt;
 				font-family: MyriadProBold;
 				letter-spacing: 0px;
 				color: white;
+				margin-bottom: 15pt
 			}
 
 			.content {
-				padding-top: 6vh;
-				padding-left: 10vw;
-				padding-right: 10vw;
-				padding-bottom: 3vh;
 				color: white;
 				font-weight: 400;
-				font-size: 13pt;
+				font-size: 15pt;
 				line-height: 1.5;
 				font-family: MyriadProRegular;
+				margin-bottom: 15pt
+			}
+
+			.container > table {
+				width:100%; 
+				height:100%; 
+				text-align: left; 
+				padding: 15%;
 			}
 
 			@media screen and (max-width: 800px) {
@@ -63,57 +66,52 @@
 			}
 
 			@media screen and (max-width: 1000px) and (min-width: 800px) {
+				.container > table {
+					padding: 10%;
+				}
+
 				.title {
-					padding-top: 8vh;
-					padding-left: 8vw;
-					font-size: 25px;
+					font-size: 30px;
+					margin-bottom: 8pt;
 				}
 
 				.content {
-					padding-top: 4vh;
-					padding-left: 8vw;
-					padding-right: 8vw;
-					font-size: 18px;
-					line-height: 1.4;
+					margin-bottom: 8pt;
+					font-size: 13pt;
 				}
 			}
 
 
 			@media screen and (max-width: 800px) and (min-width: 500px){
+				.container > table {
+					padding: 15%;
+				}
+
 				.title {
-					padding-top: 15vh;
-					padding-left: 15vw;
-					font-size: 35px;
+					font-size: 25pt;
+					margin-bottom: 15pt;
 				}
 
 				.content {
-					padding-top: 6vh;
-					padding-left: 15vw;
-					padding-right: 15vw;
-					font-size: 22px;
-					line-height: 1.5;
+					font-size: 15pt;
+					margin-bottom: 15pt;
 				}
 			}
 
 			@media screen and (max-width: 500px) {
+				.container > table {
+					padding: 7%;
+				}
+
 				.title {
-					padding-top: 6vh;
-					padding-left: 8vw;
-					font-size: 22px;
+					font-size: 30px;
+					margin-bottom: 8pt;
 				}
 
 				.content {
-					padding-top: 3vh;
-					padding-left: 8vw;
-					padding-right: 8vw;
-					font-size: 17px;
-					line-height: 1.4;
+					margin-bottom: 8pt;
+					font-size: 13pt;
 				}
-			}
-
-			emsi-button {
-				margin-top: 3vh;
-				margin-left: 10vw;
 			}
 
 			paper-dialog {
@@ -123,6 +121,22 @@
 		</style>
 
 		<div class="container">
+			<table> 
+				<tbody valign="top">
+					<tr>
+	    				<td>
+	    					<div class="title"> {{title}} </div>
+	    					<div class="content">  </div>
+	    					<template is="dom-if" if="{{hasHiddenDescription}}">
+						      <emsi-button color="blue" on-tap="showMore"> 
+						      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
+						      </emsi-button>
+						    </template>
+	    				</td>
+	    			</tr>
+    			</tbody>
+			</table>
+			<!--
 			<div class="title"> {{title}} </div>
 			<div class="content">  </div>
 			<template is="dom-if" if="{{hasHiddenDescription}}">
@@ -130,6 +144,7 @@
 		      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
 		      </emsi-button>
 		    </template>
+		-->
 		</div>
 
 		<paper-dialog id="dialog" modal style="width: 80vw; padding: 20pt;">
@@ -166,9 +181,9 @@
 				var polymerElem = this.$$(".content");
 				var polymerElemDialog = this.$$(".contentDialog");
 
-				this.displayedDescription = newValue.slice(0, 500);
+				this.displayedDescription = newValue.slice(0, 300);
 
-				if(newValue.length > 500) {
+				if(newValue.length > 300) {
 					this.displayedDescription += " . . .";
 					this.hasHiddenDescription = true;
 				} else {
