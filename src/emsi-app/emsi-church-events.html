@@ -189,8 +189,8 @@
 				<div class="eventTitle"> {{item.title}} </div>
 				<!-- <div class="eventContent"> {{item.content}} </div> -->
 				<div class="calender">
-					<div class="calenderMonth"> MAY </div>
-					<div class="calenderDay"> 2 6 </div>
+					<div class="calenderMonth"> {{item.month}} </div>
+					<div class="calenderDay"> {{item.date}} </div>
 				</div>
 			</template>
 
@@ -202,22 +202,54 @@
 		</div>
 
 
-		<paper-dialog id="dialog" modal>
-		  <div class="title"> {{title}} </div>
+		<paper-dialog id="dialog" modal style="width: 80vw; padding: 20pt;">
+		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
 		  <paper-dialog-scrollable>
-			<div class="content">
+			<div class="content" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
 				<template id='renderList' is="dom-repeat" items="[[data]]">
-				<div class="eventTitle"> {{item.title}} </div>
-				<div class="calender">
-					<div class="calenderMonth"> MAY </div>
-					<div class="calenderDay"> 2 6 </div>
+				<div class="eventTitle" style="font-family: MyriadProSemibold;
+				font-size: 15pt;
+				padding-left: 10%;
+				padding-right: 20%;
+				padding-top: 20pt;
+				margin-bottom: 20pt;
+				color: rgba(0,0,0,0.6);"> {{item.title}} </div>
+				<div class="calender" style='height: 50pt;
+				width: 50pt;
+				background-color: rgb(230,230,230);
+				border-radius: 5pt;
+				margin-bottom: -50pt;
+				left: 0;
+				top: -50pt;
+				position: relative;'>
+					<div class="calenderMonth" style="height: 20pt;
+				width: 50pt;
+				background-color: #236192;
+				color: white;
+				text-align: center;
+				font-family: MyriadProSemibold;
+				font-size: 12pt;
+				border-radius: 5pt 5pt 0 0;
+				padding-top: 5px;"> {{item.month}}  </div>
+					<div class="calenderDay" style="height: 30pt;
+				width: 50pt;
+				color: black;
+				text-align: center;
+				font-family: MyriadProSemibold;
+				font-size: 25pt;
+				letter-spacing: -2px;
+				margin-top:-4px"> {{item.date}}  </div>
 				</div>
-				<div class="eventContent"> {{item.content}} </div>
+				<div class="eventContent" style="font-family: MyriadProRegular;
+				font-size: 15pt;
+				padding-left: 10%;
+				padding-right: 20%;
+				color: rgba(0,0,0,0.6);"> {{item.content}} </div>
 			</template>
 			</div>
 		  </paper-dialog-scrollable>
 		  <div class="buttons">
-		    <paper-button dialog-dismiss> Close </paper-button>
+		    <emsi-button color="blue" dialog-dismiss> CLOSE </emsi-button>
 		  </div>
 		</paper-dialog>
 		
@@ -259,6 +291,8 @@
 					var tempObj = {};
 					tempObj.title = newValue[i].title;
 					tempObj.content = newValue[i].content.slice(0,50);
+					tempObj.month = newValue[i].month;
+					tempObj.date = newValue[i].date;
 
 					if(newValue[i].content.length > 75) {
 						tempObj.content += " . . ."
