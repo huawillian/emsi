@@ -112,7 +112,7 @@
 				}
 
 				.title {
-					font-size: 30px;
+					font-size: 26px;
 					margin-bottom: 8pt;
 				}
 
@@ -122,6 +122,7 @@
 
 				#serviceContainer {
 					font-size: 11pt;
+					line-height: 1;
 				}
 			}
 
@@ -156,8 +157,8 @@
 									<table id="serviceContainer">
 										<template is="dom-repeat" items="[[section.list]]" as="item">
 											<tr>
-												<td>{{item.time}}</td> 
-											    <td>{{item.name}}</td>
+												<td>{{item.name}}</td> 
+											    <td>{{item.time}}</td>
 										  	</tr>
 										</template>
 									</table>
@@ -175,7 +176,7 @@
 			</table>
 		</div>
 
-		<paper-dialog id="dialog" modal style="width: 80vw; padding: 20pt; padding-right: 0">
+		<paper-dialog id="dialog" modal style="width: 80vw; padding: 10pt; padding-right: 0">
 		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
 		  <paper-dialog-scrollable>
 			<div class="content" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
@@ -184,8 +185,8 @@
 					<table id="serviceContainer" style="font-size: 13pt; color: rgba(0,0,0,0.6); font-family: MyriadProRegular; width:100%; text-align: left; padding-bottom: 0px;table-layout: fixed;">
 						<template is="dom-repeat" items="[[section.list]]" as="item">
 							<tr>
-								<td style="width: 50%;">{{item.time}}</td> 
-							    <td style="width: 50%;">{{item.name}}</td>
+								<td style="width: 50%;">{{item.name}}</td> 
+							    <td style="width: 50%;">{{item.time}}</td>
 						  	</tr>
 						</template>
 					</table>
