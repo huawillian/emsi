@@ -133,6 +133,15 @@
 			emsi-button {
 				margin-top: 10pt;
 			}
+
+			table {
+				table-layout: fixed;
+			}
+
+			th, td {
+			    width: 50%;
+			}
+
 		</style>
 
 		<div class="container">
@@ -172,11 +181,11 @@
 			<div class="content" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
 				<template is="dom-repeat" items="[[data]]" as="section">
 					<div id="serviceTitle" style="font-size: 14pt; color: rgba(0,0,0,0.6); font-family: MyriadProSemibold; padding-top: 5px;"> {{section.language}} </div>
-					<table id="serviceContainer" style="font-size: 13pt; color: rgba(0,0,0,0.6); font-family: MyriadProRegular; width:100%; text-align: left; padding-bottom: 0px;">
+					<table id="serviceContainer" style="font-size: 13pt; color: rgba(0,0,0,0.6); font-family: MyriadProRegular; width:100%; text-align: left; padding-bottom: 0px;table-layout: fixed;">
 						<template is="dom-repeat" items="[[section.list]]" as="item">
 							<tr>
-								<td>{{item.time}}</td> 
-							    <td>{{item.name}}</td>
+								<td style="width: 50%;">{{item.time}}</td> 
+							    <td style="width: 50%;">{{item.name}}</td>
 						  	</tr>
 						</template>
 					</table>
