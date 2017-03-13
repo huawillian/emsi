@@ -40,24 +40,38 @@
 			}
 
 			.title {
-				padding-top: 18vh;
-				padding-left: 10vw;
 				color: rgba(133,120,116, 0.9);
 				font-weight: 700;
-				font-size: 22pt;
+				font-size: 25pt;
 				font-family: MyriadProBold;
 				letter-spacing: 0px;
+				margin-bottom: 15pt
 			}
 
 			.content {
-				padding-top: 10vh;
-				padding-left: 10vw;
-				padding-right: 10vw;
 				color: rgba(0,0,0,0.6);
 				font-weight: 400;
-				font-size: 12pt;
+				font-size: 15pt;
 				line-height: 1.5;
 				font-family: MyriadProRegular;
+				margin-bottom: 15pt
+			}
+
+			.container > table {
+				width:100%; 
+				height:100%; 
+				text-align: left; 
+				padding: 15%;
+			}
+
+			ul {
+				color: rgba(0,0,0,0.6);
+			}
+
+			li {
+				margin-bottom: 10pt;
+				color: rgba(0,0,0,0.6);
+				font-size: 15pt;
 			}
 
 			@media screen and (max-width: 800px) {
@@ -71,51 +85,63 @@
 			}
 
 			@media screen and (max-width: 1000px) and (min-width: 800px) {
+				.container > table {
+					padding: 10%;
+				}
+
 				.title {
-					padding-top: 8vh;
-					padding-left: 8vw;
-					font-size: 25px;
+					font-size: 30px;
+					margin-bottom: 8pt;
 				}
 
 				.content {
-					padding-top: 4vh;
-					padding-left: 8vw;
-					padding-right: 8vw;
-					font-size: 16px;
-					line-height: 1.4;
+					margin-bottom: 8pt;
+					font-size: 13pt;
+				}
+
+				li {
+					font-size: 8pt;
 				}
 			}
 
 
 			@media screen and (max-width: 800px) and (min-width: 500px){
+				.container > table {
+					padding: 15%;
+				}
+
 				.title {
-					padding-top: 15vh;
-					padding-left: 15vw;
-					font-size: 35px;
+					font-size: 25pt;
+					margin-bottom: 15pt;
 				}
 
 				.content {
-					padding-top: 6vh;
-					padding-left: 15vw;
-					padding-right: 15vw;
-					font-size: 20px;
-					line-height: 1.5;
+					font-size: 15pt;
+					margin-bottom: 15pt;
+				}
+
+				li {
+					font-size: 15pt;
 				}
 			}
 
 			@media screen and (max-width: 500px) {
+				.container > table {
+					padding: 7%;
+				}
+
 				.title {
-					padding-top: 6vh;
-					padding-left: 8vw;
-					font-size: 22px;
+					font-size: 30px;
+					margin-bottom: 8pt;
 				}
 
 				.content {
-					padding-top: 3vh;
-					padding-left: 8vw;
-					padding-right: 8vw;
-					font-size: 15px;
-					line-height: 1.4;
+					margin-bottom: 8pt;
+					font-size: 13pt;
+				}
+
+				li {
+					font-size: 13pt;
 				}
 			}
 
@@ -134,22 +160,6 @@
 				color: rgba(0,0,0,0.6);
 			}
 
-			ul {
-				margin-left: 20%;
-				margin-right: 20%;
-				color: rgba(0,0,0,0.6);
-			}
-
-			li {
-				margin-bottom: 10pt;
-				color: rgba(0,0,0,0.6);
-			}
-
-			emsi-button {
-				margin-top: 6vh;
-				margin-left: 10vw;
-			}
-
 			paper-dialog {
 				width: 80%;
 				background-color: #857874;
@@ -157,21 +167,29 @@
 		</style>
 
 		<div class="container">
-			<div class="title"> {{title}} </div>
+			<table> 
+				<tbody valign="top">
+					<tr>
+	    				<td>
+							<div class="title"> {{title}} </div>
 
-			<ul>
-				<template id='renderList' is="dom-repeat" items="[[displayedData]]">
-					<li>
-						<div class="newsContent">{{item.content}}</div>
-					</li>
-				</template>
-			</ul>
+							<ul>
+								<template id='renderList' is="dom-repeat" items="[[displayedData]]">
+									<li>
+										<div class="newsContent">{{item.content}}</div>
+									</li>
+								</template>
+							</ul>
 
-			<template is="dom-if" if="{{hasHiddenNews}}">
-		      <emsi-button color="brown" on-tap="showMore"> 
-		      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
-		      </emsi-button>
-		    </template>
+							<template is="dom-if" if="{{hasHiddenNews}}">
+						      <emsi-button color="brown" on-tap="showMore"> 
+						      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
+						      </emsi-button>
+						    </template>
+						</td>
+	    			</tr>
+    			</tbody>
+			</table>
 		</div>
 
 		<paper-dialog id="dialog" modal style="width: 80vw; padding: 20pt;">
@@ -231,9 +249,9 @@
 				for(var i = 0; i < 3; i++) {
 					if(newValue[i] == undefined) break;
 					var tempObj = {};
-					tempObj.content = newValue[i].content.slice(0,100);
+					tempObj.content = newValue[i].content.slice(0,75);
 
-					if(newValue[i].content.length > 100) {
+					if(newValue[i].content.length > 75) {
 						tempObj.content += " . . ."
 					}
 
