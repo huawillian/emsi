@@ -174,24 +174,21 @@
 		    </template>
 		</div>
 
-		<paper-dialog id="dialog" modal style="width: 80vw; padding: 20pt;">
-		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
+		<paper-dialog id="dialog" modal>
+		  <div class="title"> {{title}} </div>
 		  <paper-dialog-scrollable>
-			<div class="content" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
-				<ul style="margin-left: 0%;
-				margin-right: 20%;
-				color: rgba(0,0,0,0.6);">
+			<div class="content">
+				<ul>
 					<template id='renderList' is="dom-repeat" items="[[data]]">
-						<li style="margin-bottom: 10pt;
-				color: rgba(0,0,0,0.6);">
-							<div class="newsContent" style="font-family: MyriadProRegular; font-size: 15pt; color: rgba(0,0,0,0.6);">{{item.content}}</div>
+						<li>
+							<div class="newsContent">{{item.content}}</div>
 						</li>
 					</template>
 				</ul>
 			</div>
 		  </paper-dialog-scrollable>
 		  <div class="buttons">
-		  	<emsi-button color="blue" dialog-dismiss> CLOSE </emsi-button>
+		    <paper-button dialog-dismiss> Close </paper-button>
 		  </div>
 		</paper-dialog>
 		

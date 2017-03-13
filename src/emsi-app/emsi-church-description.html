@@ -132,14 +132,14 @@
 		    </template>
 		</div>
 
-		<paper-dialog id="dialog" modal style="width: 80vw; padding: 20pt;">
-		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
+		<paper-dialog id="dialog" modal>
+		  <div class="title"> {{title}} </div>
 		  <paper-dialog-scrollable>
-			<div class="content contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
+			<div class="content contentDialog">
 			</div>
 		  </paper-dialog-scrollable>
 		  <div class="buttons">
-		    <emsi-button color="blue" dialog-dismiss> CLOSE </emsi-button>
+		    <paper-button dialog-dismiss> Close </paper-button>
 		  </div>
 		</paper-dialog>
 
