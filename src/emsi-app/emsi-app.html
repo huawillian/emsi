@@ -34,26 +34,22 @@
 <link rel="import" href="emsi-signin-page.html">
 <link rel="import" href="emsi-church-page.html">
 
-
+<!-- Define: emsi-app custom element -->
+<!-- Usage: Used by index.html, runs the whole app in polymer context -->
 <dom-module id="emsi-app">
   <template>
     <style is="custom-style">
       :host {
         display: block;
-        margin: 0;
-        padding: 0;
       }
 
       .mainContent {
-        min-height: 200px;
-        background-color: #BBB;
+        min-height: 100vh;
+        background-color: white;
         position: absolute;
         z-index: -12;
-        color: white;
         top:60pt;
-        width:100%;
-        padding: 0;
-        margin: 0;
+        width: 100%;
       }
     </style>
 
@@ -73,22 +69,24 @@
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
+    <!-- set isDesktop property depending on width of screen -->
     <iron-media-query query="(min-width: 1000px)" query-matches="{{isDesktop}}"></iron-media-query>
 
     <template is="dom-if" if="[[isDesktop]]">
+      <!-- Use emsi-toolbar-desktop for wide screens -->
       <emsi-toolbar-desktop> </emsi-toolbar-desktop>
     </template>
     <template is="dom-if" if="[[!isDesktop]]">
+      <!-- Use emsi-toolbar-mobile for narrow screens -->
       <emsi-toolbar-mobile> </emsi-toolbar-mobile>
     </template>
 
-
     <div class="mainContent">    
-      <!-- iron-pages selects the view based on the active route -->
+      <!-- iron-pages selects the view based on the active route routeData.page by checking name of element, and show 404 image if no name matches -->
       <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="404">
+        <emsi-404-page class="page" name="404" lang="{{lang}}"> </emsi-404-page>
         <emsi-home-page class="page" name="" lang="{{lang}}"> </emsi-home-page>
         <emsi-home-page class="page"name="home" lang="{{lang}}"> </emsi-home-page>
-        <emsi-404-page class="page" name="404" lang="{{lang}}"> </emsi-404-page>
         <emsi-organization-page class="page" name="about" lang="{{lang}}"> </emsi-organization-page>
         <emsi-beliefs-page class="page" name="beliefs" lang="{{lang}}"> </emsi-beliefs-page>
         <emsi-missions-page class="page" name="missions" lang="{{lang}}"> </emsi-missions-page>
@@ -107,6 +105,7 @@
         <emsi-church-page id="churchPage" class="page" name="church" lang="{{lang}}" path="{{route.path}}"> </emsi-church-page>
       </iron-pages>
 
+      <!-- Footer -->
       <emsi-footer lang="{{lang}}"> </emsi-footer>
     </div>
 
@@ -117,6 +116,7 @@
 
       is: 'emsi-app',
 
+      // lang property binded to each page element
       properties: {
         lang: {
           type: String,
@@ -124,22 +124,31 @@
         }
       } ,
 
+      // Listen to route and lang change events from all polymer elements
       listeners: {
         'emsi-route-change-event': 'routeChangeEventHandler',
         'emsi-lang-change-event': 'langChangeEventHandler',
       },
 
+      // Called on event fired, emsi-route-change-event, given object param
       routeChangeEventHandler: function(e, param) {
         console.log("Route Change Event Handler: " + param.route);
-        this.set('route.path', param.route);
+
+        // Set all pages back to the top of the screen
         this.scrollAllPagesToTop();
+
+        this.set('route.path', param.route);
         this.$.churchPage.path = this.route.path;
       },
 
+      // Called on event fired, emsi-lang-change-event, given object param
       langChangeEventHandler: function(e, param) {
         console.log("Lang Change Event Handler: " + param.lang);
+
+        // Set top level lang to language, this will cascade down each page binded to lang {{lang}}
         this.lang = param.lang;
 
+        // Change queryParams to reflect lang change
         if(param.lang == "en") {
           this.$.myRoute.queryParams = {lang: "en"};
         } else if(param.lang == "zh") {
@@ -147,16 +156,8 @@
         }
       },
 
+      // Set all pages back to the top of the screen
       scrollAllPagesToTop: function() {
-        /*
-        var pagesArr = Polymer.dom(this.root).querySelectorAll(".page");
-        for(var i = 0; i < pagesArr.length; i++) {
-          console.log(pagesArr[i].$$(".container"));
-          if(pagesArr[i].$$(".container") == null) return;
-          pagesArr[i].$$(".container").scrollTop = 0;
-        }*/
-
-        //this.$$(".mainContent").scrollTop(0);
         setTimeout(function(){this.document.body.scrollTop = 0;}, 0);
       },
 
@@ -167,7 +168,10 @@
         } else if(this.$.myRoute.queryParams.lang == "zh") {
           this.lang = "zh";
         }
+
+        console.log("Language set to: " + this.lang);
       }
+
     });
   </script>
 </dom-module>
