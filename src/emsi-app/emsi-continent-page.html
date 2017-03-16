@@ -1,12 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-church-collection.html">
 <link rel="import" href="emsi-firebase-document.html">
 
-<dom-module id="emsi-asia-page">
+<!-- Define: emsi-continent-page custom element -->
+<!-- Usage: Used by emsi-app, must set continent property to either America, Europe, Asia, or Africa  -->
+<dom-module id="emsi-continent-page">
 	<template>
 		<style>
 			:host {
@@ -72,6 +75,8 @@
 				}
 			}
 		</style>
+
+		<!-- Set data property to locations part of database -->
 		<firebase-document
 	      path= "locations"
 	      data="{{data}}">
@@ -80,10 +85,13 @@
 		<div class="container">
 			<div class="titleContainer"> {{continent}} </div>
 			<div class="regionContainer"> Select Region or Country </div>
+
+			<!-- Regions Dropdown Menu-->
 			<paper-dropdown-menu-light label="Regions / Countries" selected-item="{{selectedItem}}" active>
 			  <paper-listbox class="dropdown-content">
 			    <paper-item> All </paper-item>
 
+				<!-- Add paper-item for each element in regionArr-->
 			    <template is="dom-repeat" items="[[regionArr]]">
 					<paper-item> {{item}} </paper-item>
 				</template>
@@ -93,6 +101,7 @@
 
 			<!-- iron-pages selects the view based on the active route -->
 	      	<iron-pages selected="[[displayRegion]]" attr-for-selected="name">
+	      		<!-- Show all regions if currently displayed Region is All -->
 	      		<div name="All"> 
 	      			<template is="dom-repeat" items="[[regionArr]]">
 						<div class="regionContainer"> {{item}} </div>
@@ -100,43 +109,55 @@
 					</template>
 	      		</div>
 
+				<!-- Show the corresponding region -->
 	      		<template is="dom-repeat" items="[[regionArr]]">
-						<emsi-church-collection name="{{item}}" query-type="search" continent="{{continent}}" region="{{item}}"> </emsi-church-collection>
+					<emsi-church-collection name="{{item}}" query-type="search" continent="{{continent}}" region="{{item}}"> </emsi-church-collection>
 				</template>
 	      	</iron-pages>
 		</div>
+
 	</template>
+
 	<script>
 		Polymer({
-			is: 'emsi-asia-page' ,
+			is: 'emsi-continent-page' ,
 
 			properties: {
+				// Currently selected Item from dropdown
 				selectedItem: {
 					type: Object,
 					observer: "regionChanged"
 				},
+				// Currently displayed Region, defaulted to All
 				displayRegion: {
 					type: String,
 					value: "All",
 				} ,
+				// Set from firebase document locations
 				data: {
 					type: Object,
 					observer: "dataChanged"
 				} ,
+				// List of regions given continent
 				regionArr: {
 					type: Array,
 					value: []
 				} ,
+				// Element's continent set from emsi-app
 				continent: {
 					type: String, 
-					value: "Asia"
+					value: "America"
 				}
 			} ,
 
-			dataChanged: function(newValue) {
-				if(newValue == null) return;
+			// Called when locations data from firebase document is changed
+			dataChanged: function(newValue, oldValue) {
+				// Return if newValue is empty
+				if(newValue == null || JSON.stringify(newValue) === JSON.stringify({})) return;
+				// Return if regionArr is already set
+				if(JSON.stringify(newValue) === JSON.stringify(oldValue)) return;
 
-				this.set("regionArr", []);
+				this.set("regionArr", []); // Empty regionArr
 
 				for(var key in newValue) {
 					if(newValue[key].continent == this.continent) {
@@ -148,6 +169,7 @@
 							}
 						}
 
+						// Add to regionArr if the location is current continent and region does not exist in regionArr	
 						if(!containsRegion) {
 							this.push("regionArr", newValue[key].region);
 						}
@@ -157,12 +179,11 @@
 				console.log(this.regionArr);
 			} ,
 
+			// Called when different region selected from dropdown
 			regionChanged: function(newValue) {
 				if(newValue == null) return;
-
 				this.displayRegion = newValue.innerText;
 			} ,
-
 		});
 	</script>
 </dom-module>
