@@ -25,11 +25,11 @@
       static get properties() { 
         return {
           myPath: {
-            type: "string",
+            type: String,
             value: "/"
           } ,
           lang: {
-            type: "string",
+            type: String,
             value: "en",
             observer: "langChanged"
           } , 
@@ -38,7 +38,7 @@
             value: {} ,
             observer: "dataChanged"
           },
-          output: "string",
+          output: String,
           display: {
             type: Boolean,
             value: false
@@ -61,10 +61,10 @@
 
         if(this.lang == "en") {
           this.output = newValue.en;
-          this.fire("child-output-changed");
+          // this.fire("child-output-changed");
         } else if(this.lang == "zh") {
           this.output = newValue.zh;
-          this.fire("child-output-changed");
+          // this.fire("child-output-changed");
         }
       }
 
@@ -73,10 +73,10 @@
 
         if(newValue == "en") {
           this.output = this.data.en;
-          this.fire("child-output-changed");
+          // this.fire("child-output-changed");
         } else if(newValue == "zh") {
           this.output = this.data.zh;
-          this.fire("child-output-changed");
+          // this.fire("child-output-changed");
         }
       }
     }

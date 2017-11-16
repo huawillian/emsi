@@ -242,6 +242,10 @@
 			}
 
 			dataChanged(newValue, oldValue) {
+				if(!newValue || newValue.length === 0) {
+					return;
+				}
+				
 				if(newValue.length > 3) {
 					this.hasHiddenNews = true;
 				}
