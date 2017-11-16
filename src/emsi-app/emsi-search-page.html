@@ -221,60 +221,63 @@
 			</div>
 		</template>
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-search-page',
+		class EMSISearchPage extends Polymer.Element {
+			static get is() { return 'emsi-search-page'; }
 
-			properties: {
-				showSearchResults: {
-					type: Boolean,
-					value: false,
-				} ,
-				lang: {
-					type: String,
-					value: "en"
-				} ,
-				address: String ,
-				data: {
-					type: Object,
-					value: {},
-					observer: "dataChanged"
-				},
-				dataArr: {
-					type: Array,
-					value: []
-				} , 
-				directionsArr: {
-					type: Array,
-					value: []
-				} ,
-				displayArr: {
-					type: Array,
-					value: []
-				},
-				isSearching: Boolean ,
-				maxCount: {
-					type: Number,
-					value: 5
-				}
-			} ,
+			static get properties() { 
+				return {
+					showSearchResults: {
+						type: Boolean,
+						value: false,
+					} ,
+					lang: {
+						type: String,
+						value: "en"
+					} ,
+					address: String ,
+					data: {
+						type: Object,
+						value: {},
+						observer: "dataChanged"
+					},
+					dataArr: {
+						type: Array,
+						value: []
+					} , 
+					directionsArr: {
+						type: Array,
+						value: []
+					} ,
+					displayArr: {
+						type: Array,
+						value: []
+					},
+					isSearching: Boolean ,
+					maxCount: {
+						type: Number,
+						value: 5
+					}
+				}; 
+			}
 
-			toggleShowSearchResults: function() {
+			toggleShowSearchResults() {
 				setTimeout(function(){this.document.body.scrollTop = 0;}, 0);
 				if(this.showSearchResults) {
 					this.showSearchResults = false;
 				} else {
 					this.showSearchResults = true;
 				}
-			} ,
+			}
 
-			distanceUpdated: function(params) {
+			distanceUpdated(params) {
 				if(params.detail.distance.text == undefined) return;
 				this.push("directionsArr", params.detail);
 				console.log(params.detail);
-			} ,
+			}
 
-			dataChanged: function(newValue, oldValue) {
+			dataChanged(newValue, oldValue) {
 				if(oldValue == undefined) return;
 				if(JSON.stringify(newValue) == JSON.stringify(oldValue)) return;
 
@@ -283,9 +286,9 @@
 				for(var key in newValue) {
 					this.push("dataArr", newValue[key]);
 				}
-			} ,
+			}
 
-			resetDataArr: function() {
+			resetDataArr() {
 				this.set("dataArr", []);
 				
 				for(var key in this.data) {
@@ -293,9 +296,9 @@
 				}
 
 				console.log(this.dataArr);
-			} ,
+			}
 
-			startSearchByAddress: function() {
+			startSearchByAddress() {
 				if(this.$$('#addressBox') == undefined || this.$$('#addressBox').value == "") return;
 				if(this.isSearching == true) return;
 				this.resetDataArr();
@@ -307,9 +310,9 @@
 				this.isSearching = true;
 				this.toggleShowSearchResults();
 				this.startSearch();
-			} ,
+			} 
 
-			startSearch: function() {
+			startSearch() {
 				setTimeout(function(){
 					this.directionsArr.sort(function(a, b){return a.distance.value-b.distance.value});
 
@@ -329,24 +332,18 @@
 							}
 						}
 					}
-
 					this.isSearching = false;
 				}.bind(this), 4000);
-			} ,
+			}
 
-
-			attached: function() {
-				
-			} ,
-
-			toggleAllCollapse: function() {
+			toggleAllCollapse() {
 				var collapseArr = Polymer.dom(this.root).querySelectorAll('.collapse');
 				for(var i = 0; i < collapseArr.length; i++) {
 					collapseArr[i].show();
 				}
-			} ,
+			}
 
-			getLocation: function() {
+			getLocation() {
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function(position){
 						if(this.isSearching == true) return;
@@ -362,8 +359,9 @@
 						this.startSearch();
 					}.bind(this));
 				}
-			} ,
+			}
+		}
 
-		});
+		window.customElements.define(EMSISearchPage.is, EMSISearchPage);
 	</script>
 </dom-module>

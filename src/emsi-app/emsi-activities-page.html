@@ -69,15 +69,17 @@
 
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-activities-page' ,
-
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				}
-			} ,
-		});
+		class EMSIActivitiesPage extends Polymer.Element {
+			static get is() { return 'emsi-activities-page'; }
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
+		}
+		window.customElements.define(EMSIActivitiesPage.is, EMSIActivitiesPage);
 	</script>
 </dom-module>

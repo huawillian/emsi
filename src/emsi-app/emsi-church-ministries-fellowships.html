@@ -200,35 +200,37 @@
 		
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-church-ministries-fellowships' ,
+		class EMSIChurchMinistriesFellowships extends Polymer.Element {
+			static get is() { return 'emsi-church-ministries-fellowships'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				},
-				title: String,
-				data: {
-					type: Array,
-					value: [],
-					observer: "dataChanged"
-				} ,
-				displayedData: {
-					type: Array,
-					value: []
-				} ,
-				hasHiddenMinistries: {
-					type: Boolean,
-					value: false
-				}
-			} ,
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					},
+					title: String,
+					data: {
+						type: Array,
+						value: [],
+						observer: "dataChanged"
+					} ,
+					displayedData: {
+						type: Array,
+						value: []
+					} ,
+					hasHiddenMinistries: {
+						type: Boolean,
+						value: false
+					}
+				}; 
+			}
 
-			dataChanged: function(newValue, oldValue) {
+			dataChanged(newValue, oldValue) {
 				if(!newValue || newValue.length === 0) {
 					return;
 				}
-				
+
 				console.log(newValue);
 				this.calculateHasHiddenMinistries(newValue);
 
@@ -251,9 +253,9 @@
 
 				console.log(this.displayedData);
 
-			} ,
+			}
 
-			calculateHasHiddenMinistries: function(data) {
+			calculateHasHiddenMinistries(data) {
 				if(!data || data.length === 0) {
 					this.hasHiddenMinistries = false;
 					return;
@@ -270,13 +272,15 @@
 						this.hasHiddenMinistries = true;
 					}
 				}
-			} ,
+			}
 
-			showMore: function() {
+			showMore() {
 				var body = document.querySelector('body');
 			  	Polymer.dom(body).appendChild(this.$.dialog);
 			  	this.$.dialog.open();
 			}
-		});
+		}
+
+		window.customElements.define(EMSIChurchMinistriesFellowships.is, EMSIChurchMinistriesFellowships);
 	</script>
 </dom-module>

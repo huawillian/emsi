@@ -194,16 +194,21 @@
 	      	</iron-pages>	
 		</emsi-template-page>
 	</template>
+	
 	<script>
-		Polymer({
-			is: 'emsi-courses-page' ,
+		class EMSICoursesPage extends Polymer.Element {
+			static get is() { return 'emsi-courses-page'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				}
-			} ,
-		});
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
+		}
+
+		window.customElements.define(EMSICoursesPage.is, EMSICoursesPage);
 	</script>
 </dom-module>

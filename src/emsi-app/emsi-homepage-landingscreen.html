@@ -129,62 +129,63 @@
 		</div>
 
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-homepage-landingscreen',
+		class EMSIHomepageLandingscreen extends Polymer.Element {
+			static get is() { return 'emsi-homepage-landingscreen'; }
 
-			changeRouteToSearch: function() {
-				this.fire("emsi-route-change-event", {route: "search"});
-			} ,
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en",
+						observer: "changeLang"
+					},
+					title: {
+						type: Object,
+						value: {}
+					} ,
+					button: {
+						type: String,
+						value: "FIND A CHURCH"
+					} ,
+					title1: {
+						type: String,
+						value: "EVANGELICAL MISSION &"
+					} ,
+					title2: {
+						type: String,
+						value: "SEMINARY INTERNATIONAL"
+					} ,
+					isEnglish: {
+						type: Boolean,
+						value: true
+					}
+				}; 
+			}
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en",
-					observer: "changeLang"
-				},
-				title: {
-					type: Object,
-					value: {}
-				} ,
-				button: {
-					type: String,
-					value: "FIND A CHURCH"
-				} ,
-				title1: {
-					type: String,
-					value: "EVANGELICAL MISSION &"
-				} ,
-				title2: {
-					type: String,
-					value: "SEMINARY INTERNATIONAL"
-				} ,
-				isEnglish: {
-					type: Boolean,
-					value: true
-				}
-			} ,
-
-			updateTitle: function(e) {
+			updateTitle(e) {
 				this.title = Polymer.dom(e).localTarget.output;
 
 				if(this.lang == "en") {
 					this.title1 = this.title.firstLine;
 					this.title2 = this.title.secondLine;
 				}
-			} ,
+			}
 
-			updateButton: function(e) {
+			updateButton(e) {
 				this.button = Polymer.dom(e).localTarget.output;
-			} ,
+			}
 
-			changeLang: function(newValue) {
+			changeLang(newValue) {
 				if(newValue == "en") {
 					this.isEnglish = true;
 				} else {
 					this.isEnglish = false;
 				}
 			}
-		});
+		}
+
+		window.customElements.define(EMSIHomepageLandingscreen.is, EMSIHomepageLandingscreen);
 	</script>
 </dom-module>

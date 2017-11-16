@@ -88,16 +88,21 @@ Jing Huang
 
 		</emsi-template-page>
 	</template>
+	
 	<script>
-		Polymer({
-			is: 'emsi-curriculum-page' ,
+		class EMSICurriculumPage extends Polymer.Element {
+			static get is() { return 'emsi-curriculum-page'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				}
-			} ,
-		});
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
+		}
+
+		window.customElements.define(EMSICurriculumPage.is, EMSICurriculumPage);
 	</script>
 </dom-module>

@@ -21,48 +21,51 @@
 	    </template>
 
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-church-collection' ,
+		class EMSIChurchCollection extends Polymer.Element {
+			static get is() { return 'emsi-church-collection'; }
 
-			properties: {
-				queryType: {
-					type: String,
-					value: "none",
-					observer: "queryChanged"
-				} ,
-				queryResults: {
-					type: Array,
-					value: []
-				} ,
-				continent: {
-					type: String,
-					value: "America"
-				} ,
-				region: {
-					type: String,
-					value: "East Coast"
-				} ,
-				language: {
-					type: String,
-					value: "en"
-				} ,
-				location: {
-					type: String,
-					value: ""
-				} ,
-				data: {
-					type: Object,
-					value: {},
-					observer: "dataChanged"
-				}
-			} ,
+			static get properties() { 
+				return {
+					queryType: {
+						type: String,
+						value: "none",
+						observer: "queryChanged"
+					} ,
+					queryResults: {
+						type: Array,
+						value: []
+					} ,
+					continent: {
+						type: String,
+						value: "America"
+					} ,
+					region: {
+						type: String,
+						value: "East Coast"
+					} ,
+					language: {
+						type: String,
+						value: "en"
+					} ,
+					location: {
+						type: String,
+						value: ""
+					} ,
+					data: {
+						type: Object,
+						value: {},
+						observer: "dataChanged"
+					}
+				}; 
+			}
 
-			dataChanged: function() {
+			dataChanged() {
 				this.queryChanged(this.queryType, this.queryType);
-			} ,
+			}
 
-			queryChanged: function(newValue, oldValue) {
+			queryChanged(newValue, oldValue) {
 				if(oldValue == undefined) return;
 				if(this.data == {}) return;
 
@@ -85,11 +88,9 @@
 				} else if(newValue == "user") {
 					
 				}
-			} ,
-
-			created: function() {
-
 			}
-		});
+		}
+
+		window.customElements.define(EMSIChurchCollection.is, EMSIChurchCollection);
 	</script>
 </dom-module>

@@ -58,13 +58,21 @@
 			</template>
 			</div>
 		</template>
-	<script>
-		Polymer({
-			is: 'emsi-home-page' ,
 
-			properties: {
-				lang: String
+	<script>
+		class EMSIHomePage extends Polymer.Element {
+			static get is() { return 'emsi-home-page'; }
+
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
 			}
-		});
+		}
+
+		window.customElements.define(EMSIHomePage.is, EMSIHomePage);
 	</script>
 </dom-module>

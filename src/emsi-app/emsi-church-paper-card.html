@@ -129,90 +129,94 @@
 
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-church-paper-card',
+		class EMSIChurchPaperCard extends Polymer.Element {
+			static get is() { return 'emsi-church-paper-card'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				} ,
-				city: {
-					type: String,
-					value: "Towaco"
-				} ,
-				address: {
-					type: String,
-					value: "36 Alpine Road, Towaco, NJ 07082"
-				} ,
-				sundayServiceTime: {
-					type: Array,
-					value: []
-				} , 
-				learnMoreUrl: {
-					type: String,
-					value: "church/towaco"
-				} ,
-				data: {
-				  type: Object,
-				  value: {},
-				  observer: "responseChanged"
-				} ,
-				userLocation: {
-					type: String,
-					value: "",
-					observer: "userLocationChanged"
-				} , 
-				userDistance: {
-					type: Object,
-					value: {},
-					observer: "distanceUpdated"
-				} ,
-				userDistanceText: String
-			},
+			static get properties() {
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					} ,
+					city: {
+						type: String,
+						value: "Towaco"
+					} ,
+					address: {
+						type: String,
+						value: "36 Alpine Road, Towaco, NJ 07082"
+					} ,
+					sundayServiceTime: {
+						type: Array,
+						value: []
+					} , 
+					learnMoreUrl: {
+						type: String,
+						value: "church/towaco"
+					} ,
+					data: {
+					  type: Object,
+					  value: {},
+					  observer: "responseChanged"
+					} ,
+					userLocation: {
+						type: String,
+						value: "",
+						observer: "userLocationChanged"
+					} , 
+					userDistance: {
+						type: Object,
+						value: {},
+						observer: "distanceUpdated"
+					} ,
+					userDistanceText: String
+				};
+			}
 
-			distanceUpdated: function(newValue) {
+			ready() {
+				//this.getLocation();
+			}
+
+			distanceUpdated(newValue) {
 				if(newValue == {}) return;
 				var param = {};
 				param.name = this.city;
 				param.distance = newValue;
 				this.fire('distance-updated', param);
-			} ,
+			}
 
-			responseChanged: function(newValue, oldValue) {
+			responseChanged(newValue, oldValue) {
 				if(oldValue == undefined) return;
 				if(this.userLocation != "") {
 					this.userDistance = newValue.routes[0].legs[0].distance;
 					this.$.dir.startAddress = "";
 				}
-			} ,
+			}
 
-			created: function() {
-				//this.getLocation();
-			} ,
-
-			userLocationChanged: function(newValue) {
+			userLocationChanged(newValue) {
 				if(newValue == "") return;
 				this.$.dir.startAddress = newValue;
-			} ,
+			}
 
-			getLocation: function() {
+			getLocation() {
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function(position){
 						this.userLocation = position.coords.latitude + " " + position.coords.longitude;
 					}.bind(this));
 				}
-			} ,
+			}
 
-			goToGoogleMaps: function() {
+			goToGoogleMaps() {
 				setTimeout(function(){
 					window.open('http://maps.google.com/?q=' + this.address);
 				}.bind(this), 0);
-			} ,
+			}
 
-			gotoChurchPage: function() {
+			gotoChurchPage() {
 				this.fire("emsi-route-change-event", {route: this.learnMoreUrl});
 			}
-		});
+		}
+
+		window.customElements.define(EMSIChurchPaperCard.is, EMSIChurchPaperCard);
 	</script>
 </dom-module>

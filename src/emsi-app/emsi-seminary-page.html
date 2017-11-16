@@ -30,26 +30,28 @@
 
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-seminary-page' ,
+		class EMSISeminaryPage extends Polymer.Element {
+			static get is() { return 'emsi-seminary-page'; }
 
-			properties: {
-				data: {
-					type: Object,
-					observer: 'dataChanged',
-					value: {}
-				} ,
-				displayedData: {
-					type: Array,
-					value: []
-				} ,
-				lang: {
-					type: String,
-					value: "en"
-				}
-			} ,
+			static get properties() { 
+				return {
+					data: {
+						type: Object,
+						observer: 'dataChanged',
+						value: {}
+					} ,
+					displayedData: {
+						type: Array,
+						value: []
+					} ,
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
 
-			dataChanged: function(newValue, oldValue) {
+			dataChanged(newValue, oldValue) {
 				// stop initial call
 				if(oldValue == undefined) return;
 
@@ -62,6 +64,8 @@
 				console.log(this.displayedData);
 				this.$.seminaryList.render();
 			}
-		});
+		}
+
+		window.customElements.define(EMSISeminaryPage.is, EMSISeminaryPage);
 	</script>
 </dom-module>

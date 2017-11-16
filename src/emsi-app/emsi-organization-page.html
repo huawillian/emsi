@@ -29,27 +29,30 @@
 		</emsi-template-page>
 
 	</template>
+	
 	<script>
-		Polymer({
-			is: 'emsi-organization-page' ,
+		class EMSIOrganizationPage extends Polymer.Element {
+			static get is() { return 'emsi-organization-page'; }
 
-			properties: {
-				data: {
-					type: Object,
-					observer: 'dataChanged',
-					value: {}
-				} ,
-				displayedData: {
-					type: Array,
-					value: []
-				} ,
-				lang: {
-					type: String,
-					value: "en"
-				}
-			} ,
+			static get properties() { 
+				return {
+					data: {
+						type: Object,
+						observer: 'dataChanged',
+						value: {}
+					} ,
+					displayedData: {
+						type: Array,
+						value: []
+					} ,
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
 
-			dataChanged: function(newValue, oldValue) {
+			dataChanged(newValue, oldValue) {
 				// stop initial call
 				if(oldValue == undefined) return;
 
@@ -62,6 +65,8 @@
 				console.log(this.displayedData);
 				this.$.organizationList.render();
 			}
-		});
+		}
+
+		window.customElements.define(EMSIOrganizationPage.is, EMSIOrganizationPage);
 	</script>
 </dom-module>

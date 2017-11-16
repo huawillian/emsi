@@ -200,28 +200,30 @@
 		
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-church-page' ,
+		class EMSIChurchPage extends Polymer.Element {
+			static get is() { return 'emsi-church-page'; }
 
-			properties: {
-				path: {
-					type: String,
-					value: "church/chinatown",
-					observer: "pathChanged"
-				} ,
-				lang: String,
-				data: {
-					type: Object,
-					value: {},
-					observer: "dataChanged"
-				} ,
-				churchData: {
-					type: Object,
-					value: {},
-				}
-			} ,
+			static get properties() { 
+				return {
+					path: {
+						type: String,
+						value: "church/chinatown",
+						observer: "pathChanged"
+					} ,
+					lang: String,
+					data: {
+						type: Object,
+						value: {},
+						observer: "dataChanged"
+					} ,
+					churchData: {
+						type: Object,
+						value: {},
+					}
+				}; 
+			}
 
-			pathChanged: function(newValue, oldValue) {
+			pathChanged(newValue, oldValue) {
 				if(oldValue == undefined) return;
 
 				console.log(newValue);
@@ -232,9 +234,9 @@
 						this.churchData = this.data[key];
 					}
 				}
-			} ,
+			}
 
-			dataChanged: function(newValue, oldValue) {
+			dataChanged(newValue, oldValue) {
 				if(oldValue == undefined) return;
 				if(newValue == {}) return;
 
@@ -246,17 +248,19 @@
 						this.churchData = newValue[key];
 					}
 				}
-			} ,
+			}
 
-			goToGoogleMaps: function() {
+			goToGoogleMaps() {
 				setTimeout(function(){
 					window.open('http://maps.google.com/?q=' + this.churchData.address);
 				}.bind(this), 0);
-			} ,
+			}
 
-			openEmail: function() {
+			openEmail() {
 				window.open('mailto:' + this.churchData.email);
 			}
-		});
+		}
+
+		window.customElements.define(EMSIChurchPage.is, EMSIChurchPage);
 	</script>
 </dom-module>

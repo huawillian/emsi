@@ -101,28 +101,33 @@
 		</div>
 
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-footer' ,
+		class EMSIFooter extends Polymer.Element {
+			static get is() { return 'emsi-footer'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				}
-			} ,
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
 
-			changeRouteToContact: function(){
+			changeRouteToContact() {
 				this.fire("emsi-route-change-event", {route: "contact"});
-			} ,
+			}
 
-			changeRouteToSignin: function(){
+			changeRouteToSignin() {
 				this.fire("emsi-route-change-event", {route: "signin"});
-			} ,
+			}
 
-			openEmail: function() {
+			openEmail() {
 				window.open('mailto:emsi@emsionline.org');
 			}
-		});
+		}
+
+		window.customElements.define(EMSIFooter.is, EMSIFooter);
 	</script>
 </dom-module>

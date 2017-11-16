@@ -35,8 +35,10 @@
 
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-toolbar-desktop' ,
-		});
+		class EMSIToolbarDesktop extends Polymer.Element {
+			static get is() { return 'emsi-toolbar-desktop'; }
+			static get properties() { return {}; }
+		}
+		window.customElements.define(EMSIToolbarDesktop.is, EMSIToolbarDesktop);
 	</script>
 </dom-module>

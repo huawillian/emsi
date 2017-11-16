@@ -150,25 +150,28 @@
 		</paper-dialog>
 
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-church-description', 
+		class EMSIChurchDescription extends Polymer.Element {
+			static get is() { return 'emsi-church-description'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				},
-				title: String,
-				description: {
-					type: String,
-					observer: "descriptionChanged"
-				} ,
-				displayedDescription: String,
-				hasHiddenDescription: Boolean,
-			} ,
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					},
+					title: String,
+					description: {
+						type: String,
+						observer: "descriptionChanged"
+					} ,
+					displayedDescription: String,
+					hasHiddenDescription: Boolean,
+				}; 
+			}
 
-			descriptionChanged: function(newValue, oldValue) {
+			descriptionChanged(newValue, oldValue) {
 				var polymerElem = this.$$(".content");
 				var polymerElemDialog = this.$$(".contentDialog");
 
@@ -183,15 +186,15 @@
 
 				Polymer.dom(polymerElem).node.innerHTML = this.displayedDescription;
 				Polymer.dom(polymerElemDialog).node.innerHTML = this.description;
+			}
 
-			} ,
-
-			showMore: function() {
+			showMore() {
 				var body = document.querySelector('body');
 			  	Polymer.dom(body).appendChild(this.$.dialog);
 			  	this.$.dialog.open();
-			} ,
+			}
+		}
 
-		});
+		window.customElements.define(EMSIChurchDescription.is, EMSIChurchDescription);
 	</script>
 </dom-module>

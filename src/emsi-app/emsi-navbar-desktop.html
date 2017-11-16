@@ -88,10 +88,12 @@
 		</div>
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-navbar-desktop' ,
+		class EMSINavbarDesktop extends Polymer.Element {
+			static get is() { return 'emsi-navbar-desktop'; }
 
-			openMenu: function(e) {
+			static get properties() { return {}; }
+
+			openMenu(e) {
 				var submenuObj = Polymer.dom(e).localTarget.parentNode.parentNode;
 				var isOpen = submenuObj.opened;
 
@@ -102,21 +104,21 @@
 	        	} else {
 	        		submenuObj.open();
 	        	}
-			} ,
+			}
 
-			openSubMenu: function(e){
+			openSubMenu(e) {
 				var submenuObj = Polymer.dom(e).localTarget;
 				submenuObj.open();
-			} ,
+			}
 
-			closeAllMenus: function(e) {
+			closeAllMenus(e) {
 				var submenuArr = Polymer.dom(this.root).querySelectorAll("paper-submenu");
 	        	for(var i = 0; i < submenuArr.length; i++) {
 	        		submenuArr[i].close();
 	        	}				
-			} ,
+			}
 
-			changeRoute: function(e) {
+			changeRoute(e) {
 				var text = Polymer.dom(e).localTarget.innerText;
 				if(text == "Organization") {
 					this.fire("emsi-route-change-event", {route: "about"});
@@ -127,17 +129,19 @@
 				}
 
 				this.closeAllMenus();
-			} ,
+			}
 
-			changeRouteToMissions: function() {
+			changeRouteToMissions() {
 				this.fire("emsi-route-change-event", {route: "missions"});
 				this.closeAllMenus();
-			} ,
+			}
 
-			changeRouteToSeminary: function() {
+			changeRouteToSeminary() {
 				this.fire("emsi-route-change-event", {route: "seminary"});
 				this.closeAllMenus();
 			}
-		});
+		}
+
+		window.customElements.define(EMSINavbarDesktop.is, EMSINavbarDesktop);
 	</script>
 </dom-module>

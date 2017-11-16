@@ -107,25 +107,30 @@
 	    </div>
 		
 	</template>
+	
 	<script>
-		Polymer({
-			is: 'emsi-template-page' ,
+		class EMSITemplatePage extends Polymer.Element {
+			static get is() { return 'emsi-template-page'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				} ,
-				titlePath: {
-					type: String,
-					value: "beliefs/title",
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					} ,
+					titlePath: {
+						type: String,
+						value: "beliefs/title",
 
-				},
-				backgroundImagePath: {
-					type: String,
-					value: "src/StatementOfFaithImage-01.jpg",
-				}
-			} ,
-		});
+					},
+					backgroundImagePath: {
+						type: String,
+						value: "src/StatementOfFaithImage-01.jpg",
+					}
+				}; 
+			}
+		}
+
+		window.customElements.define(EMSITemplatePage.is, EMSITemplatePage);
 	</script>
 </dom-module>

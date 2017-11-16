@@ -42,25 +42,27 @@
 
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-beliefs-page' ,
+		class EMSIBeliefsPage extends Polymer.Element {
+			static get is() { return 'emsi-beliefs-page'; }
 
-			properties: {
-				data: {
-					type: Object,
-					observer: 'dataChanged'
-				} ,
-				displayedData: {
-					type: Array,
-					value: []
-				} ,
-				lang: {
-					type: String,
-					value: "en"
-				}
-			} ,
+			static get properties() { 
+				return {
+					data: {
+						type: Object,
+						observer: 'dataChanged'
+					} ,
+					displayedData: {
+						type: Array,
+						value: []
+					} ,
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
 
-			dataChanged: function(newValue, oldValue) {
+			dataChanged(newValue, oldValue) {
 				// stop initial call
 				if(oldValue == undefined) return;
 
@@ -73,6 +75,8 @@
 				console.log(this.displayedData);
 				this.$.beliefsList.render();
 			}
-		});
+		}
+
+		window.customElements.define(EMSIBeliefsPage.is, EMSIBeliefsPage);
 	</script>
 </dom-module>

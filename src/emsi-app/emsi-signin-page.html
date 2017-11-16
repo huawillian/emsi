@@ -51,9 +51,13 @@
 		<iron-icon icon="build"></iron-icon>
 
 	</template>
+	
 	<script>
-		Polymer({
-			is: 'emsi-signin-page'
-		});
+		class EMSISigninPage extends Polymer.Element {
+			static get is() { return 'emsi-signin-page'; }
+			static get properties() { return {}; }
+		}
+
+		window.customElements.define(EMSISigninPage.is, EMSISigninPage);
 	</script>
 </dom-module>

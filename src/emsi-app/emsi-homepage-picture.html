@@ -29,12 +29,18 @@
 		</style>
 		<iron-image id="image" style="background-color: black;" sizing="cover" preload src="{{imageUrl}}"></iron-image>
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-homepage-picture',
-			properties: {
-				imageUrl: String
+		class EMSIHomepagePicture extends Polymer.Element {
+			static get is() { return 'emsi-homepage-picture'; }
+
+			static get properties() { 
+				return {
+					imageUrl: String
+				}; 
 			}
-		});
+		}
+		
+		window.customElements.define(EMSIHomepagePicture.is, EMSIHomepagePicture);
 	</script>
 </dom-module>

@@ -62,15 +62,19 @@
 
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-churches-page' ,
+		class EMSIChurchesPage extends Polymer.Element {
+			static get is() { return 'emsi-churches-page'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				}
-			} ,
-		});
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
+		}
+		
+		window.customElements.define(EMSIChurchesPage.is, EMSIChurchesPage);
 	</script>
 </dom-module>

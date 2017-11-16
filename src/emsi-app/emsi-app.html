@@ -108,26 +108,33 @@
   </template>
 
   <script>
-    Polymer({
+    class EMSIApp extends Polymer.Element {
+      static get is() { return 'emsi-app'; }
 
-      is: 'emsi-app',
+      static get properties() {
+        return {
+          lang: {
+            type: String,
+            value: "en",
+          }
+        };
+      }
 
-      // lang property binded to each page element
-      properties: {
-        lang: {
-          type: String,
-          value: "en",
+      ready() {
+        super.ready();
+        this.addEventListener('emsi-route-change-event', this.routeChangeEventHandler);
+        this.addEventListener('emsi-lang-change-event', this.langChangeEventHandler);
+        // Set language to english or chinese on load given queryParams
+        if(this.$.myRoute.queryParams.lang == undefined || this.$.myRoute.queryParams.lang == "en") {
+          this.lang = "en";
+        } else if(this.$.myRoute.queryParams.lang == "zh") {
+          this.lang = "zh";
         }
-      } ,
-
-      // Listen to route and lang change events from all polymer elements
-      listeners: {
-        'emsi-route-change-event': 'routeChangeEventHandler',
-        'emsi-lang-change-event': 'langChangeEventHandler',
-      },
+        console.log("Language set to: " + this.lang);
+      }
 
       // Called on event fired, emsi-route-change-event, given object param
-      routeChangeEventHandler: function(e, param) {
+      routeChangeEventHandler(e, param) {
         console.log("Route Change Event Handler: " + param.route);
 
         // Set all pages back to the top of the screen
@@ -135,10 +142,10 @@
 
         this.set('route.path', param.route);
         this.$.churchPage.path = this.route.path;
-      },
+      }
 
       // Called on event fired, emsi-lang-change-event, given object param
-      langChangeEventHandler: function(e, param) {
+      langChangeEventHandler(e, param) {
         console.log("Lang Change Event Handler: " + param.lang);
 
         // Set top level lang to language, this will cascade down each page binded to lang {{lang}}
@@ -150,24 +157,14 @@
         } else if(param.lang == "zh") {
           this.$.myRoute.queryParams = {lang: "zh"};
         }
-      },
-
-      // Set all pages back to the top of the screen
-      scrollAllPagesToTop: function() {
-        setTimeout(function(){this.document.body.scrollTop = 0;}, 0);
-      },
-
-      attached: function() {
-        // Set language to english or chinese on load given queryParams
-        if(this.$.myRoute.queryParams.lang == undefined || this.$.myRoute.queryParams.lang == "en") {
-          this.lang = "en";
-        } else if(this.$.myRoute.queryParams.lang == "zh") {
-          this.lang = "zh";
-        }
-
-        console.log("Language set to: " + this.lang);
       }
 
-    });
+      // Set all pages back to the top of the screen
+      scrollAllPagesToTop() {
+        setTimeout(function(){this.document.body.scrollTop = 0;}, 0);
+      }
+    }
+
+    window.customElements.define(EMSIApp.is, EMSIApp);
   </script>
 </dom-module>

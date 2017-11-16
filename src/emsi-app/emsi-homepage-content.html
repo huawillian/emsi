@@ -139,33 +139,36 @@
 			<emsi-button color="brown" on-tap="changeRoute"> <emsi-firebase-document my-path="{{buttonPath}}" lang="{{lang}}" display> </emsi-firebase-document>  </emsi-button>
 		</div>
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-homepage-content',
+		class EMSIHomepageContent extends Polymer.Element {
+			static get is() { return 'emsi-homepage-content'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				},
-				sectionPath: {
-					type: String,
-					observer: "sectionPathChanged"
-				},
-				titlePath: String,
-				contentPath: String,
-				buttonPath: {
-					type: String,
-					value: "/home/learnMoreButton"
-				}
-			} ,
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					},
+					sectionPath: {
+						type: String,
+						observer: "sectionPathChanged"
+					},
+					titlePath: String,
+					contentPath: String,
+					buttonPath: {
+						type: String,
+						value: "/home/learnMoreButton"
+					}
+				};
+			}
 
-			sectionPathChanged: function(newValue, oldValue) {
+			sectionPathChanged(newValue, oldValue) {
 				this.titlePath = newValue + "/title";
 				this.contentPath = newValue + "/text";
-			} ,
+			}
 
-			changeRoute: function() {
+			changeRoute() {
 				if(this.title == "ABOUT US") {
 					this.fire("emsi-route-change-event", {route: "about"});
 				} else if(this.title == "LOCATIONS") {
@@ -176,6 +179,8 @@
 					this.fire("emsi-route-change-event", {route: "seminary"});
 				}
 			}
-		});
+		}
+
+		window.customElements.define(EMSIHomepageContent.is, EMSIHomepageContent);
 	</script>
 </dom-module>

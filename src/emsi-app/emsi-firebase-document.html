@@ -19,41 +19,42 @@
   </template>
 
   <script>
-    Polymer({
+    class EMSIFirebaseDocument extends Polymer.Element {
+      static get is() { return 'emsi-firebase-document'; }
 
-      is: 'emsi-firebase-document',
+      static get properties() { 
+        return {
+          myPath: {
+            type: "string",
+            value: "/"
+          } ,
+          lang: {
+            type: "string",
+            value: "en",
+            observer: "langChanged"
+          } , 
+          data: {
+            type: Object,
+            value: {} ,
+            observer: "dataChanged"
+          },
+          output: "string",
+          display: {
+            type: Boolean,
+            value: false
+          },
+          alt: {
+            type: String,
+            value: "Unable to get data"
+          },
+          isDataSet: {
+            type: Boolean,
+            value: false
+          }
+        }; 
+      }
 
-      properties: {
-        myPath: {
-          type: "string",
-          value: "/"
-        } ,
-        lang: {
-          type: "string",
-          value: "en",
-          observer: "langChanged"
-        } , 
-        data: {
-          type: Object,
-          value: {} ,
-          observer: "dataChanged"
-        },
-        output: "string",
-        display: {
-          type: Boolean,
-          value: false
-        },
-        alt: {
-          type: String,
-          value: "Unable to get data"
-        },
-        isDataSet: {
-          type: Boolean,
-          value: false
-        }
-      } , 
-
-      dataChanged: function(newValue, oldValue) {
+      dataChanged(newValue, oldValue) {
         if(oldValue === undefined) return;
 
         this.isDataSet = true;
@@ -65,9 +66,9 @@
           this.output = newValue.zh;
           this.fire("child-output-changed");
         }
-      } ,
+      }
 
-      langChanged: function(newValue, oldValue) {
+      langChanged(newValue, oldValue) {
         if(oldValue === undefined) return;
 
         if(newValue == "en") {
@@ -78,6 +79,8 @@
           this.fire("child-output-changed");
         }
       }
-    });
+    }
+
+    window.customElements.define(EMSIFirebaseDocument.is, EMSIFirebaseDocument);
   </script>
 </dom-module>

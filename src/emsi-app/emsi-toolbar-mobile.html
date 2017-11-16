@@ -54,27 +54,31 @@
 		</paper-toolbar>
 
 	</template>
+	
 	<script>
-		Polymer({
-			is: 'emsi-toolbar-mobile' ,
+		class EMSIToolbarMobile extends Polymer.Element {
+			static get is() { return 'emsi-toolbar-mobile'; }
 
-			properties: {
-				icon: {
-					type: String,
-					value: 'menu',
-				}
-			},
+			static get properties() { 
+				return {
+					icon: {
+						type: String,
+						value: 'menu',
+					}
+				}; 
+			}
 
-			listeners: {
-				"emsi-route-change-event": "routeChangedEventHandler"
-			},
+			ready() {
+				super.ready();
+        this.addEventListener('emsi-route-change-event', this.routeChangedEventHandler);
+			}
 
-			routeChangedEventHandler: function() {
+			routeChangedEventHandler() {
 				this.$$(".navbar").hideMenu();
 				this.icon = "menu";
-			},
+			}
 
-			toggleNavbarMenu: function() {
+			toggleNavbarMenu() {
 				if(this.icon == "menu") {
 					this.$$(".navbar").showMenu();
 					this.icon = "clear";
@@ -83,6 +87,8 @@
 					this.icon = "menu";
 				}
 			}
-		});
+		}
+
+		window.customElements.define(EMSIToolbarMobile.is, EMSIToolbarMobile);
 	</script>
 </dom-module>

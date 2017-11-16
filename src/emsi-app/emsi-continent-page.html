@@ -119,39 +119,42 @@
 	</template>
 
 	<script>
-		Polymer({
-			is: 'emsi-continent-page' ,
 
-			properties: {
-				// Currently selected Item from dropdown
-				selectedItem: {
-					type: Object,
-					observer: "regionChanged"
-				},
-				// Currently displayed Region, defaulted to All
-				displayRegion: {
-					type: String,
-					value: "All",
-				} ,
-				// Set from firebase document locations
-				data: {
-					type: Object,
-					observer: "dataChanged"
-				} ,
-				// List of regions given continent
-				regionArr: {
-					type: Array,
-					value: []
-				} ,
-				// Element's continent set from emsi-app
-				continent: {
-					type: String, 
-					value: "America"
-				}
-			} ,
+		class EMSIContinentPage extends Polymer.Element {
+			static get is() { return 'emsi-continent-page'; }
+
+			static get properties() { 
+				return {
+					// Currently selected Item from dropdown
+					selectedItem: {
+						type: Object,
+						observer: "regionChanged"
+					},
+					// Currently displayed Region, defaulted to All
+					displayRegion: {
+						type: String,
+						value: "All",
+					} ,
+					// Set from firebase document locations
+					data: {
+						type: Object,
+						observer: "dataChanged"
+					} ,
+					// List of regions given continent
+					regionArr: {
+						type: Array,
+						value: []
+					} ,
+					// Element's continent set from emsi-app
+					continent: {
+						type: String, 
+						value: "America"
+					}
+				}; 
+			}
 
 			// Called when locations data from firebase document is changed
-			dataChanged: function(newValue, oldValue) {
+			dataChanged(newValue, oldValue) {
 				// Return if newValue is empty
 				if(newValue == null || JSON.stringify(newValue) === JSON.stringify({})) return;
 				// Return if regionArr is already set
@@ -177,13 +180,15 @@
 				}
 
 				console.log(this.regionArr);
-			} ,
+			}
 
 			// Called when different region selected from dropdown
-			regionChanged: function(newValue) {
+			regionChanged(newValue) {
 				if(newValue == null) return;
 				this.displayRegion = newValue.innerText;
-			} ,
-		});
+			}
+		}
+
+		window.customElements.define(EMSIContinentPage.is, EMSIContinentPage);
 	</script>
 </dom-module>

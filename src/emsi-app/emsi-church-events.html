@@ -265,32 +265,35 @@
 		</paper-dialog>
 		
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-church-events' ,
+		class EMSIChurchEvents extends Polymer.Element {
+			static get is() { return 'emsi-church-events'; }
+			
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					},
+					title: String,
+					data: {
+						type: Array,
+						value: [] ,
+						observer: "dataChanged"
+					} ,
+					displayedData: {
+						type: Array,
+						value: []
+					} ,
+					hasHiddenEvents: {
+						type: Boolean,
+						value: false
+					}
+				}; 
+			}
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				},
-				title: String,
-				data: {
-					type: Array,
-					value: [] ,
-					observer: "dataChanged"
-				} ,
-				displayedData: {
-					type: Array,
-					value: []
-				} ,
-				hasHiddenEvents: {
-					type: Boolean,
-					value: false
-				}
-			} ,
-
-			dataChanged: function(newValue, oldValue) {
+			dataChanged(newValue, oldValue) {
 				if(newValue.length > 3) {
 					this.hasHiddenEvents = true;
 				} 
@@ -314,13 +317,15 @@
 				}
 
 				console.log(this.displayedData);
-			} ,
+			}
 
-			showMore: function() {
+			showMore() {
 				var body = document.querySelector('body');
 			  	Polymer.dom(body).appendChild(this.$.dialog);
 			  	this.$.dialog.open();
 			}
-		});
+		}
+
+		window.customElements.define(EMSIChurchEvents.is, EMSIChurchEvents);
 	</script>
 </dom-module>

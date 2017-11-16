@@ -215,31 +215,33 @@
 		
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-church-news' ,
+	class EMSIChurchNews extends Polymer.Element {
+			static get is() { return 'emsi-church-news'; }
+			
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					},
+					title: String,
+					data: {
+						type: Array,
+						value: [] ,
+						observer: "dataChanged"
+					} ,
+					displayedData: {
+						type: Array,
+						value: []
+					} ,
+					hasHiddenNews: {
+						type: Boolean,
+						value: false
+					}
+				}; 
+			}
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				},
-				title: String,
-				data: {
-					type: Array,
-					value: [] ,
-					observer: "dataChanged"
-				} ,
-				displayedData: {
-					type: Array,
-					value: []
-				} ,
-				hasHiddenNews: {
-					type: Boolean,
-					value: false
-				}
-			} ,
-
-			dataChanged: function(newValue, oldValue) {
+			dataChanged(newValue, oldValue) {
 				if(newValue.length > 3) {
 					this.hasHiddenNews = true;
 				}
@@ -256,17 +258,18 @@
 					}
 
 					this.push("displayedData", tempObj);
-
 				}
 
 				console.log(this.displayedData);
-			} ,
+			}
 
-			showMore: function() {
+			showMore() {
 				var body = document.querySelector('body');
 			  	Polymer.dom(body).appendChild(this.$.dialog);
 			  	this.$.dialog.open();
 			}
-		});
+		}
+
+		window.customElements.define(EMSIChurchNews.is, EMSIChurchNews);
 	</script>
 </dom-module>

@@ -55,8 +55,10 @@
 
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-404-page',
-		});
+		class EMSI404Page extends Polymer.Element {
+			static get is() { return 'emsi-404-page'; }
+			static get properties() { return {}; }
+		}
+		window.customElements.define(EMSI404Page.is, EMSI404Page);
 	</script>
 </dom-module>

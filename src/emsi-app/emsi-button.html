@@ -23,24 +23,26 @@
 		
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-button',
+		class EMSIButton extends Polymer.Element {
+			static get is() { return 'emsi-button'; }
 
-			properties: {
-				name: {
+			static get properties() { 
+				return {
+					name: {
 					type: String,
 					value: "LEARN MORE"
-				} ,
-				color: {
-					type: String,
-					value: "blue",
-					observer: "colorChanged"
-				} ,
-				myBackgroundColor: String,
-				myBorder: String
-			} ,
+					} ,
+					color: {
+						type: String,
+						value: "blue",
+						observer: "colorChanged"
+					} ,
+					myBackgroundColor: String,
+					myBorder: String
+				}; 
+			}
 
-			colorChanged: function(newValue, oldValue) {				
+			colorChanged(newValue, oldValue) {				
 				if(newValue == "brown") {
 					this.myBackgroundColor = "#857874";
 					this.myBorder = "2px solid rgba(255, 255, 255, 0.5)";
@@ -49,7 +51,9 @@
 					this.myBackgroundColor = "#236192";
 					this.myBorder = "2px solid white";
 				}
-			} ,
-		});
+			}
+		}
+
+		window.customElements.define(EMSIButton.is, EMSIButton);
 	</script>
 </dom-module>

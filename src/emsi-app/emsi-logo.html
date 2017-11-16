@@ -73,12 +73,16 @@
 
 	</template>
 	<script>
-		Polymer({
-			is: 'emsi-logo' ,
+		class EMSILogo extends Polymer.Element {
+			static get is() { return 'emsi-logo'; }
 
-			changeRouteHome: function() {
+			static get properties() { return {}; }
+
+			changeRouteHome() {
 				this.fire("emsi-route-change-event", {route: "home"});
 			}
-		});
+		}
+		
+		window.customElements.define(EMSILogo.is, EMSILogo);
 	</script>
 </dom-module>

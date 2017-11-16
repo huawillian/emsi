@@ -76,20 +76,25 @@
 		</div>
 
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-homepage-bibleverse',
+	class EMSIHomepageBibleverse extends Polymer.Element {
+			static get is() { return 'emsi-homepage-bibleverse'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				} ,
-			} ,
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
 
-			openEmail: function() {
+			openEmail() {
 				window.open('mailto:emsi@emsionline.org');
 			}
-		});
+		}
+
+		window.customElements.define(EMSIHomepageBibleverse.is, EMSIHomepageBibleverse);
 	</script>
 </dom-module>

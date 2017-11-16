@@ -237,16 +237,21 @@
 
 
 	</template>
+	
 	<script>
-		Polymer({
-			is: 'emsi-ministries-page' ,
+		class EMSIMinistriesPage extends Polymer.Element {
+			static get is() { return 'emsi-ministries-page'; }
 
-			properties: {
-				lang: {
-					type: String,
-					value: "en"
-				}
-			} ,
-		});
+			static get properties() { 
+				return {
+					lang: {
+						type: String,
+						value: "en"
+					}
+				}; 
+			}
+		}
+
+		window.customElements.define(EMSIMinistriesPage.is, EMSIMinistriesPage);
 	</script>
 </dom-module>

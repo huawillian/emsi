@@ -62,20 +62,23 @@
 		</div>
 
     </template>
-
-
 	</template>
+
 	<script>
-		Polymer({
-			is: 'emsi-language-button' ,
+		class EMSILanguageButton extends Polymer.Element {
+			static get is() { return 'emsi-language-button'; }
 
-			changeLangToEnglish: function() {
+			static get properties() { return {}; }
+
+			changeLangToEnglish() {
 				this.fire("emsi-lang-change-event", {lang: "en"});
-			} ,
+			}
 
-			changeLangToChinese: function() {
+			changeLangToChinese() {
 				this.fire("emsi-lang-change-event", {lang: "zh"});
 			}
-		});
+		}
+
+		window.customElements.define(EMSILanguageButton.is, EMSILanguageButton);
 	</script>
 </dom-module>

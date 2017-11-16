@@ -19,9 +19,13 @@
 		</style>
 		<paper-button raised> Sign In </paper-button>
 	</template>
+	
 	<script>
-		Polymer({
-			is: 'emsi-user-button'
-		});
+		class EMSIUserButton extends Polymer.Element {
+			static get is() { return 'emsi-user-button'; }
+			static get properties() { return {}; }
+		}
+
+		window.customElements.define(EMSIUserButton.is, EMSIUserButton);
 	</script>
 </dom-module>
