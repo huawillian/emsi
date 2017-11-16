@@ -225,6 +225,10 @@
 			} ,
 
 			dataChanged: function(newValue, oldValue) {
+				if(!newValue || newValue.length === 0) {
+					return;
+				}
+				
 				console.log(newValue);
 				this.calculateHasHiddenMinistries(newValue);
 
@@ -250,6 +254,11 @@
 			} ,
 
 			calculateHasHiddenMinistries: function(data) {
+				if(!data || data.length === 0) {
+					this.hasHiddenMinistries = false;
+					return;
+				}
+				
 				this.hasHiddenMinistries = false;
 
 				if(data.length > 3) {
