@@ -16,10 +16,11 @@
 				font-size: 9pt;
 				padding: 15px 40px 15px 40px;
 			}
-
 		</style>
 
-		<paper-button raised style$="background-color: {{myBackgroundColor}}; border: {{myBorder}}"> <content> </content> </paper-button>
+		<paper-button raised style$="background-color: {{myBackgroundColor}}; border: {{myBorder}}">
+			<slot> </slot> 
+		</paper-button>
 		
 	</template>
 	<script>
@@ -29,8 +30,8 @@
 			static get properties() { 
 				return {
 					name: {
-					type: String,
-					value: "LEARN MORE"
+						type: String,
+						value: "LEARN MORE"
 					} ,
 					color: {
 						type: String,

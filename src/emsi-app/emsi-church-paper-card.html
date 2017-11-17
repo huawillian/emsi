@@ -182,7 +182,7 @@
 				var param = {};
 				param.name = this.city;
 				param.distance = newValue;
-				this.fire('distance-updated', param);
+				// this.fire('distance-updated', param);
 			}
 
 			responseChanged(newValue, oldValue) {
@@ -213,7 +213,7 @@
 			}
 
 			gotoChurchPage() {
-				this.fire("emsi-route-change-event", {route: this.learnMoreUrl});
+				// this.fire("emsi-route-change-event", {route: this.learnMoreUrl});
 			}
 		}
 

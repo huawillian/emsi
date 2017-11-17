@@ -121,23 +121,23 @@
 			changeRoute(e) {
 				var text = Polymer.dom(e).localTarget.innerText;
 				if(text == "Organization") {
-					this.fire("emsi-route-change-event", {route: "about"});
+					// this.fire("emsi-route-change-event", {route: "about"});
 				} else if(text == "Introduction") {
 					// Do nothing
 				} else {
-					this.fire("emsi-route-change-event", {route: text.toLowerCase()});
+					// this.fire("emsi-route-change-event", {route: text.toLowerCase()});
 				}
 
 				this.closeAllMenus();
 			}
 
 			changeRouteToMissions() {
-				this.fire("emsi-route-change-event", {route: "missions"});
+				// this.fire("emsi-route-change-event", {route: "missions"});
 				this.closeAllMenus();
 			}
 
 			changeRouteToSeminary() {
-				this.fire("emsi-route-change-event", {route: "seminary"});
+				// this.fire("emsi-route-change-event", {route: "seminary"});
 				this.closeAllMenus();
 			}
 		}

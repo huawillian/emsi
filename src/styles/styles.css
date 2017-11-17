@@ -1,0 +1,20 @@
+@font-face {
+  font-family: MyriadProBold;
+  src: url(../fonts/MyriadPro-Bold.otf);
+}
+
+@font-face {
+  font-family: MyriadProRegular;
+  src: url(../fonts/MyriadPro-Regular.otf);
+}
+
+@font-face {
+  font-family: MyriadProSemibold;
+  src: url(../fonts/MyriadPro-Semibold.otf);
+}
+
+body {
+  margin:0px;
+  padding:0;
+  font-family: MyriadProRegular;
+}

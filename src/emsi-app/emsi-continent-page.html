@@ -1,7 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/neon-animation/web-animations.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-church-collection.html">
@@ -55,9 +59,9 @@
 			}
 
 
-			paper-dropdown-menu-light ::content #dropdown {
+			paper-dropdown-menu-light ::slotted() #dropdown {
 				width: 30%;
-				min-width: 100pt;
+				min-width: 200pt;
 			}
 
 
@@ -74,6 +78,15 @@
 					padding-right: 20%;
 				}
 			}
+
+			paper-listbox {
+				width: 80vw;
+			}
+
+			paper-item {
+				padding: 10pt 0 0 10pt;
+    		background-color: rgb(220,220,220);
+			}
 		</style>
 
 		<!-- Set data property to locations part of database -->
@@ -88,11 +101,11 @@
 
 			<!-- Regions Dropdown Menu-->
 			<paper-dropdown-menu-light label="Regions / Countries" selected-item="{{selectedItem}}" active>
-			  <paper-listbox class="dropdown-content">
+			  <paper-listbox slot="dropdown-content" selected="1" class="dropdown-content">
 			    <paper-item> All </paper-item>
 
 				<!-- Add paper-item for each element in regionArr-->
-			    <template is="dom-repeat" items="[[regionArr]]">
+		    <template is="dom-repeat" items="[[regionArr]]">
 					<paper-item> {{item}} </paper-item>
 				</template>
 
@@ -156,36 +169,40 @@
 			// Called when locations data from firebase document is changed
 			dataChanged(newValue, oldValue) {
 				// Return if newValue is empty
-				if(newValue == null || JSON.stringify(newValue) === JSON.stringify({})) return;
+				if(!newValue || Object.keys(newValue).length === 0) return;
 				// Return if regionArr is already set
-				if(JSON.stringify(newValue) === JSON.stringify(oldValue)) return;
-
-				this.set("regionArr", []); // Empty regionArr
+				if(Object.keys(oldValue).length > 0) return;
+				let regionResults = [];
 
 				for(var key in newValue) {
-					if(newValue[key].continent == this.continent) {
+					if(!!newValue[key] && newValue[key].continent == this.continent) {
 						var containsRegion = false;
 
-						for(var i = 0; i < this.regionArr.length; i++) {
-							if(this.regionArr[i] == newValue[key].region) {
+						for(var i = 0; i < regionResults.length; i++) {
+							if(regionResults[i] == newValue[key].region) {
 								containsRegion = true;
 							}
 						}
 
 						// Add to regionArr if the location is current continent and region does not exist in regionArr	
 						if(!containsRegion) {
-							this.push("regionArr", newValue[key].region);
+							regionResults.push(newValue[key].region);
 						}
 					}
 				}
 
+
+
+				this.set("regionArr", regionResults.map(v => v + " "));
+
 				console.log(this.regionArr);
 			}
+		
 
 			// Called when different region selected from dropdown
 			regionChanged(newValue) {
-				if(newValue == null) return;
-				this.displayRegion = newValue.innerText;
+				if(!newValue) return;
+				this.displayRegion = newValue.innerText.toString().slice(-1);
 			}
 		}
 

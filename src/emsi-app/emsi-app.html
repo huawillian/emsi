@@ -34,7 +34,7 @@
 <!-- Usage: Used by index.html, runs the whole app in polymer context -->
 <dom-module id="emsi-app">
   <template>
-    <style is="custom-style">
+    <style>
       :host {
         display: block;
       }
@@ -82,16 +82,19 @@
       <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="404">
         <emsi-404-page class="page" name="404" lang="{{lang}}"> </emsi-404-page>
         <emsi-home-page class="page" name="" lang="{{lang}}"> </emsi-home-page>
-        <emsi-home-page class="page"name="home" lang="{{lang}}"> </emsi-home-page>
+        <emsi-home-page class="page" name="home" lang="{{lang}}"> </emsi-home-page>
+
         <emsi-organization-page class="page" name="about" lang="{{lang}}"> </emsi-organization-page>
         <emsi-beliefs-page class="page" name="beliefs" lang="{{lang}}"> </emsi-beliefs-page>
         <emsi-missions-page class="page" name="missions" lang="{{lang}}"> </emsi-missions-page>
         <emsi-seminary-page class="page" name="seminary" lang="{{lang}}"> </emsi-seminary-page>
+
         <emsi-search-page class="page" name="search" lang="{{lang}}"> </emsi-search-page>
         <emsi-continent-page class="page" name="america" lang="{{lang}}" continent="America"> </emsi-continent-page>
         <emsi-continent-page class="page" name="europe" lang="{{lang}}" continent="Europe"> </emsi-continent-page>
         <emsi-continent-page class="page" name="asia" lang="{{lang}}" continent="Asia"> </emsi-continent-page>
         <emsi-continent-page class="page" name="africa" lang="{{lang}}" continent="Africa"> </emsi-continent-page>
+
         <emsi-ministries-page class="page" name="ministries" lang="{{lang}}"> </emsi-ministries-page>
         <emsi-churches-page class="page" name="churches" lang="{{lang}}"> </emsi-churches-page>
         <emsi-activities-page class="page" name="activities" lang="{{lang}}"> </emsi-activities-page>
