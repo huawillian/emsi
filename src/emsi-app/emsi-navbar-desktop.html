@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
 
 <dom-module id="emsi-navbar-desktop">
 	<template>
@@ -11,79 +12,85 @@
 				display: block;
 			}
 
-			@font-face {
-			    font-family: MyriadProSemiBold;
-			    src: url(../fonts/MyriadPro-Semibold.otf);
-			}
-
 			.navbuttons {
 				position: absolute;
 				top: 12pt;
-				width: 90pt;
 				margin-left: 220pt;
 			}
 
-			paper-item {
-				font-family: MyriadProSemiBold;
-				color: rgba(0,0,0,0.6);
-				font-size: 9pt;
-				padding-left: 22pt;
+			.menu-trigger, paper-item {	
+		    width: 80pt;
+    		height: 30px;
+		    padding-top: 20px;
+		    padding-bottom: 0;
+		    font-family: MyriadProSemiBold;
+		    color: rgba(0,0,0,0.6);
+		    font-size: 9pt;
+		    padding-left: 20pt;
 			}
 
-			paper-item:hover {
+			.menu-content {
+
+			}
+
+			paper-item {
+				width: 80pt;
+    		height: 20px;
+		    padding-top: 10px;
+		    padding-bottom: 0;
+		    font-family: MyriadProSemiBold;
+		    color: rgba(0,0,0,0.6);
+		    font-size: 9pt;
+		    padding-left: 20pt;
+			}
+
+			paper-item:hover, .menu-trigger:hover {
 				background-color: rgba(0,0,0,0.2);
+				cursor: pointer;
 			}
 
 		</style>
 		<div class="container">
-			<paper-menu class="navbuttons" style="left:0px">
-				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
-					<paper-item class="menu-trigger"> ABOUT US </paper-item>
-					<paper-menu class="menu-content">
-					  <paper-item on-tap="changeRoute"> Organization </paper-item>
-					  <paper-item on-tap="changeRoute"> Beliefs </paper-item>
-					  <paper-item on-tap="changeRoute"> Missions </paper-item>
-					  <paper-item on-tap="changeRoute"> Seminary </paper-item>
-					</paper-menu>
-				</paper-submenu>
-			</paper-menu>
 
-			<paper-menu class="navbuttons"  style="left:90pt">
-				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
-					<paper-item class="menu-trigger"> LOCATIONS </paper-item>
-					<paper-menu class="menu-content">
-					  <paper-item on-tap="changeRoute"> Search </paper-item>
-					  <paper-item on-tap="changeRoute"> America </paper-item>
-					  <paper-item on-tap="changeRoute"> Europe </paper-item>
-					  <paper-item on-tap="changeRoute"> Asia </paper-item>
-					  <paper-item on-tap="changeRoute"> Africa </paper-item>
-					</paper-menu>
-				</paper-submenu>
-			</paper-menu>
+			<paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style="left:0pt" vertical-offset="55" horizontal-offset="8">
+			  <div slot="dropdown-trigger" class="menu-trigger"> ABOUT US </div>
+			  <paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
+			    <div on-tap="changeRoute" class="menu-trigger"> Organization </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Beliefs </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Missions </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Seminary </div>
+			  </paper-listbox>
+			</paper-menu-button>
 
-			<paper-menu class="navbuttons"  style="left:180pt">
-				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
-					<paper-item class="menu-trigger"> MISSIONS </paper-item>
-					<paper-menu class="menu-content">
-					  <paper-item on-tap="changeRouteToMissions"> Introduction </paper-item>
-					  <paper-item on-tap="changeRoute"> Ministries </paper-item>
-					  <paper-item on-tap="changeRoute"> Churches </paper-item>
-					  <paper-item on-tap="changeRoute"> Activities </paper-item>
-					</paper-menu>
-				</paper-submenu>
-			</paper-menu>
+			<paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style="left:90pt" vertical-offset="55" horizontal-offset="8">
+			  <div slot="dropdown-trigger" class="menu-trigger"> LOCATIONS </div>
+			  <paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
+			    <div on-tap="changeRoute" class="menu-trigger"> Search </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> America </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Europe </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Asia </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Africa </div>
+			  </paper-listbox>
+			</paper-menu-button>
 
-			<paper-menu class="navbuttons" style="left:270pt">
-				<paper-submenu on-tap="openMenu" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus">
-					<paper-item class="menu-trigger"> SEMINARY </paper-item>
-					<paper-menu class="menu-content">
-					  <paper-item on-tap="changeRouteToSeminary"> Introduction </paper-item>
-					  <paper-item on-tap="changeRoute"> Courses </paper-item>
-					  <paper-item on-tap="changeRoute"> Curriculum </paper-item>
-					</paper-menu>
-				</paper-submenu>
-			</paper-menu>
+			<paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style="left:180pt" vertical-offset="55" horizontal-offset="8">
+			  <div slot="dropdown-trigger" class="menu-trigger"> MISSIONS </div>
+			  <paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
+			    <div on-tap="changeRoute" class="menu-trigger"> Introduction </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Ministries </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Churches </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Activities </div>
+			  </paper-listbox>
+			</paper-menu-button>
 
+			<paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style="left:270pt" vertical-offset="55" horizontal-offset="8">
+			  <div slot="dropdown-trigger" class="menu-trigger"> SEMINARY </div>
+			  <paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
+			    <div on-tap="changeRoute" class="menu-trigger"> Introduction </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Courses </div>
+			    <div on-tap="changeRoute" class="menu-trigger"> Curriculum </div>
+			  </paper-listbox>
+			</paper-menu-button>
 
 		</div>
 	</template>
@@ -112,10 +119,10 @@
 			}
 
 			closeAllMenus(e) {
-				var submenuArr = Polymer.dom(this.root).querySelectorAll("paper-submenu");
-	        	for(var i = 0; i < submenuArr.length; i++) {
-	        		submenuArr[i].close();
-	        	}				
+				var submenuArr = Polymer.dom(this.root).querySelectorAll("paper-menu-button");
+      	for(var i = 0; i < submenuArr.length; i++) {
+      		submenuArr[i].close();
+      	}				
 			}
 
 			changeRoute(e) {

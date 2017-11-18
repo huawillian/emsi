@@ -7,11 +7,6 @@
 				display: block;
 			}
 
-			@font-face {
-			    font-family: MyriadProSemiBold;
-			    src: url(../fonts/MyriadPro-Semibold.otf);
-			}
-
 			.container {
 				width: 120pt;
 				margin-right: 12pt;
@@ -23,6 +18,7 @@
 
 			span:hover {
 				background-color: rgba(0,0,0, 0.2);
+				cursor: pointer;
 			}
 
 			span {
@@ -57,11 +53,9 @@
 
 		</style>
 
-      	<div class="container">
+  	<div class="container">
 			<span on-tap="changeLangToEnglish"> ENGLISH </span> | <span on-tap="changeLangToChinese"> 中文 </span>
 		</div>
-
-    </template>
 	</template>
 
 	<script>
