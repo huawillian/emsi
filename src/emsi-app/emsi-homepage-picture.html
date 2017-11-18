@@ -4,41 +4,18 @@
 <dom-module id="emsi-homepage-picture">
 	<template>
 		<style>
-			:host {
-				display: block;
-				margin: 0;
-				padding: 0;
-				margin-bottom: -4pt;
-				width: 50%;
-			}
-
-			#image {
-				width: 100%;
-				height: 50vw;
-			}
-
-			@media screen and (max-width: 800px) {
-				#image {
-					height: 100vw;
-				}
-
-				:host {
-					width: 100%;
-				}
-			}
+		img {
+			display: block;
+			background-color: black;
+		}
 		</style>
-		<iron-image id="image" style="background-color: black;" sizing="cover" preload src="{{imageUrl}}"></iron-image>
+		<img src="{{imageUrl}}" height="100%" width="100%">
 	</template>
 
 	<script>
 		class EMSIHomepagePicture extends Polymer.Element {
 			static get is() { return 'emsi-homepage-picture'; }
-
-			static get properties() { 
-				return {
-					imageUrl: String
-				}; 
-			}
+			static get properties() { return { imageUrl: String }; }
 		}
 		
 		window.customElements.define(EMSIHomepagePicture.is, EMSIHomepagePicture);

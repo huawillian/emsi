@@ -13,6 +13,11 @@
   src: url(../fonts/MyriadPro-Semibold.otf);
 }
 
+@font-face {
+  font-family: MyriadProIt;
+  src: url(../fonts/MyriadPro-It.otf);
+}
+
 body {
   margin:0px;
   padding:0;

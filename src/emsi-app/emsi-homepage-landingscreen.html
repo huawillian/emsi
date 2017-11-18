@@ -3,7 +3,6 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
-<link rel="import" href="emsi-firebase-document.html">
 
 <dom-module id="emsi-homepage-landingscreen">
 	<template>
@@ -12,16 +11,6 @@
 				display: block;
 				height: 80vh;
 				width: 100%;
-			}
-
-			@font-face {
-			    font-family: MyriadProSemiBold;
-			    src: url(../fonts/MyriadPro-Semibold.otf);
-			}
-
-			@font-face {
-			    font-family: MyriadProIt;
-			    src: url(../fonts/MyriadPro-It.otf);
 			}
 
 			#backgroundImage {
@@ -62,7 +51,7 @@
 
 			.homepageText {
 				color: white;
-    			text-shadow: 2px 2px 5px black;
+  			text-shadow: 2px 2px 5px black;
 				font-family: MyriadProSemiBold;
 			}
 
@@ -114,18 +103,35 @@
 			}
 		</style>
 
-		<emsi-firebase-document my-path="home/title" lang="{{lang}}" on-child-output-changed="updateTitle"> </emsi-firebase-document>
-		<emsi-firebase-document my-path="home/churchButton" lang="{{lang}}" on-child-output-changed="updateButton"> </emsi-firebase-document>
-
 		<iron-image sizing="cover" id="personImage" preload src="https://github.com/huawillian/emsi/raw/master/src/images/DonnaImageFinal-01.png"></iron-image>
 
 		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="https://github.com/huawillian/emsi/raw/master/src/images/MainSanctuary_ImageBlurredFINAL.jpg"></iron-image>
 
 		<div class="container">
-			<template is="dom-if" if="[[isEnglish]]"> <div id="title" class="homepageText"> {{title1}} <br> {{title2}} </div> </template>
-			<template is="dom-if" if="[[!isEnglish]]"> <div id="title" class="homepageText"> {{title}} </div> </template>
-			<div id="subtitle" class="homepageText"> <emsi-firebase-document my-path="home/subtitle" lang="{{lang}}" display> </emsi-firebase-document>  </div>
-			<emsi-button color="blue" on-tap="changeRouteToSearch"> <emsi-firebase-document my-path="home/churchButton" lang="{{lang}}" display> </emsi-firebase-document>  </emsi-button>
+			<template is="dom-if" if="[[isEnglish]]">
+				<div id="title" class="homepageText"> 
+					EVANGELICAL MISSION &
+					<br> 
+					SEMINARY INTERNATIONAL
+				</div>
+				<div id="subtitle" class="homepageText">
+					Spreading the gospel to the chinese community
+				</div>
+				<emsi-button color="blue" on-tap="changeRouteToSearch">
+					FIND A CHURCH
+				</emsi-button>
+			</template>
+			<template is="dom-if" if="[[!isEnglish]]">
+				<div id="title" class="homepageText"> 
+					? Chinese Title ?
+				</div>
+				<div id="subtitle" class="homepageText">
+					? Chinese Subtitle ?
+				</div>
+				<emsi-button color="blue" on-tap="changeRouteToSearch">
+					? Chinese Find ?
+				</emsi-button>
+			</template>
 		</div>
 
 	</template>
@@ -133,57 +139,9 @@
 	<script>
 		class EMSIHomepageLandingscreen extends Polymer.Element {
 			static get is() { return 'emsi-homepage-landingscreen'; }
-
-			static get properties() { 
-				return {
-					lang: {
-						type: String,
-						value: "en",
-						observer: "changeLang"
-					},
-					title: {
-						type: Object,
-						value: {}
-					} ,
-					button: {
-						type: String,
-						value: "FIND A CHURCH"
-					} ,
-					title1: {
-						type: String,
-						value: "EVANGELICAL MISSION &"
-					} ,
-					title2: {
-						type: String,
-						value: "SEMINARY INTERNATIONAL"
-					} ,
-					isEnglish: {
-						type: Boolean,
-						value: true
-					}
-				}; 
-			}
-
-			updateTitle(e) {
-				this.title = Polymer.dom(e).localTarget.output;
-
-				if(this.lang == "en") {
-					this.title1 = this.title.firstLine;
-					this.title2 = this.title.secondLine;
-				}
-			}
-
-			updateButton(e) {
-				this.button = Polymer.dom(e).localTarget.output;
-			}
-
-			changeLang(newValue) {
-				if(newValue == "en") {
-					this.isEnglish = true;
-				} else {
-					this.isEnglish = false;
-				}
-			}
+			static get properties() { return {}; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
 		}
 
 		window.customElements.define(EMSIHomepageLandingscreen.is, EMSIHomepageLandingscreen);

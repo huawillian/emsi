@@ -8,32 +8,12 @@
 	<template>
 		<style>
 			:host {
-				display: block;
-				margin: 0;
-				padding: 0;
-				margin-bottom: -4pt;
-				width:50%;
-			}
-
-			@font-face {
-			    font-family: MyriadProBold;
-			    src: url(../fonts/MyriadPro-Bold.otf);
-			}
-
-			@font-face {
-			    font-family: MyriadProRegular;
-			    src: url(../fonts/MyriadPro-Regular.otf);
-			}
-
-
-			.container {
-				width:100%;
-				height: 50vw;
+				display: block;	
+				text-align: left;
 				background-color: white;
 			}
 
 			.title {
-				padding-top: 18vh;
 				padding-left: 10vw;
 				color: #236192;
 				font-weight: 700;
@@ -58,19 +38,8 @@
 				margin-top: 6vh;
 			}
 
-			@media screen and (max-width: 800px) {
-				.container {
-					height:100vw
-				}
-
-				:host {
-					width: 100%;
-				}
-			}
-
 			@media screen and (max-width: 1000px) and (min-width: 800px) {
 				.title {
-					padding-top: 8vh;
 					padding-left: 8vw;
 					font-size: 25px;
 				}
@@ -92,7 +61,6 @@
 
 			@media screen and (max-width: 800px) and (min-width: 500px){
 				.title {
-					padding-top: 15vh;
 					padding-left: 15vw;
 					font-size: 35px;
 				}
@@ -113,7 +81,6 @@
 
 			@media screen and (max-width: 500px) {
 				.title {
-					padding-top: 6vh;
 					padding-left: 8vw;
 					font-size: 22px;
 				}
@@ -132,34 +99,40 @@
 				}
 			}
 		</style>
-
-		<div class="container">
-			<div class="title"> <emsi-firebase-document my-path="{{titlePath}}" lang="{{lang}}" display> </emsi-firebase-document> </div>
-			<div class="content"> <emsi-firebase-document my-path="{{contentPath}}" lang="{{lang}}" display> </emsi-firebase-document> </div>
-			<emsi-button color="brown" on-tap="changeRoute"> <emsi-firebase-document my-path="{{buttonPath}}" lang="{{lang}}" display> </emsi-firebase-document>  </emsi-button>
+		<div class="title">
+			<emsi-firebase-document my-path="{{titlePath}}" lang="{{lang}}" display> </emsi-firebase-document>
 		</div>
+		<div class="content">
+			<emsi-firebase-document my-path="{{contentPath}}" lang="{{lang}}" display> </emsi-firebase-document>
+		</div>
+
+		<template is="dom-if" if="[[isEnglish]]">
+			<emsi-button color="brown" on-tap="changeRoute">
+				LEARN MORE
+			</emsi-button>
+		</template>
+
+		<template is="dom-if" if="[[!isEnglish]]">
+			<emsi-button color="brown" on-tap="changeRoute">
+				? CHINESE LEARN ?
+			</emsi-button>
+		</template>
 	</template>
 
 	<script>
 		class EMSIHomepageContent extends Polymer.Element {
 			static get is() { return 'emsi-homepage-content'; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
 
 			static get properties() { 
 				return {
-					lang: {
-						type: String,
-						value: "en"
-					},
 					sectionPath: {
 						type: String,
 						observer: "sectionPathChanged"
 					},
 					titlePath: String,
 					contentPath: String,
-					buttonPath: {
-						type: String,
-						value: "/home/learnMoreButton"
-					}
 				};
 			}
 
