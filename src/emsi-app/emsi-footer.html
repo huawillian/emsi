@@ -7,6 +7,7 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-firebase-document.html">
+<link rel="import" href="emsi-button.html">
 
 <dom-module id="emsi-footer">
 	<template>
@@ -15,65 +16,37 @@
 				display: block;
 			}
 
-			@font-face {
-			    font-family: MyriadProSemiBold;
-			    src: url(../fonts/MyriadPro-Semibold.otf);
-			}
-
-			@font-face {
-			    font-family: MyriadProRegular;
-			    src: url(../fonts/MyriadPro-Regular.otf);
-			}
-
 			.container {
-				width: 100%;
 				background-color: #857874;
-				height: 140pt;
+				padding: 5pt 10pt;
 			}
 
 			.content {
-				position: relative;
 				text-align: right;
-				right: 5vw;
-				bottom: -78pt;
 				font-family: MyriadProRegular;
 				font-size: 12pt;
-				margin-left: 50px;
 				color: rgba(255,255,255,0.8);
+				height: 40pt;
 			}
 
 			.user {
 				position: relative;
 				text-align: right;
-				right: 5vw;
-				bottom: -40pt;
 				font-family: MyriadProSemiBold;
 				font-size: 12pt;
 				color: rgba(255, 255, 255, 0.5);
 				text-decoration: underline;
-				margin-left: 80%;
+		    min-width: 50pt;
 			}
 
 			.user:hover {
 				color: blue;
-			}
-
-			paper-button {
-				margin-left: 5vw;
-				top: -1vh;
-				background-color: #236192;
-				color: white;
-				border: 2px solid white;
-				border-radius: 10px;
-				font-size: 10pt;
-				padding-left: 20px;
-				padding-right: 20px;
-				padding-top: 5px;
-				padding-bottom: 5px;
+				cursor: pointer;
 			}
 
 			#icon {
 				margin-left: 15px;
+				top: 10px;
 			}
 
 			.user {
@@ -85,35 +58,69 @@
 			.user:hover {
 				color : blue;
 			}
+
+			table {
+	    	border-spacing: 0;
+	    	width: 100%;
+				height: 100pt;
+	    }
+
+	    td {
+	    	padding: 10pt;
+	    	vertical-align: middle;
+	    	text-align: center;
+	    }
+
+	    table, td {
+	    	border: 0px solid black;
+	    }
+
+	    emsi-button {
+	    	width: 50%;
+	    	display: inline;
+	    }
 		</style>
 
 		<div class="container">
-			<div class="user" on-tap="changeRouteToSignin">
-				SIGN IN
-			</div>
+			<table>
+				<tr>
+					<td style="text-align: left">
+						<emsi-button color="blue" on-tap="openEmail">
+							<template is="dom-if" if="[[isEnglish]]">
+								CONTACT US
+							</template>
+							<template is="dom-if" if="[[!isEnglish]]">
+								? CHINESE CONTACT ?
+							</template>
+							<iron-image id="icon" src="https://github.com/huawillian/emsi/raw/master/src/images/MobilePhoneMail_Icons-01.png" sizing="cover" style="height:30px;width:70px;" preload></iron-image>
+						</emsi-button>
+					</td>
+					<td style="text-align: right">
+						<div class="user" on-tap="changeRouteToSignin">
+							<template is="dom-if" if="[[isEnglish]]">
+								SIGN IN
+							</template>
+							<template is="dom-if" if="[[!isEnglish]]">
+								? CHINESE SIGNIN ?
+							</template>
+						</div>
+					</td>
+				</tr>
+			</table>
 			<div class="content">
 				EMSI USA Headquarters | 36 Alpine Road | Towaco New Jersey | 973.335.7177 | emsi@emsionline.org
 			</div>
-			<paper-button raised on-tap="openEmail"> 
-				<emsi-firebase-document my-path="home/contactButton" lang="{{lang}}" display> </emsi-firebase-document> 
-				<iron-image id="icon" src="https://github.com/huawillian/emsi/raw/master/src/images/MobilePhoneMail_Icons-01.png" sizing="cover" style="height:30px;width:70px;" preload></iron-image>
-			</paper-button>
 		</div>
+
 
 	</template>
 
 	<script>
 		class EMSIFooter extends Polymer.Element {
 			static get is() { return 'emsi-footer'; }
-
-			static get properties() { 
-				return {
-					lang: {
-						type: String,
-						value: "en"
-					}
-				}; 
-			}
+			static get properties() { return {}; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
 
 			changeRouteToContact() {
 				// this.fire("emsi-route-change-event", {route: "contact"});
