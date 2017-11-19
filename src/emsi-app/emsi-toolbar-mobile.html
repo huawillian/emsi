@@ -24,6 +24,7 @@
 				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
 				          0 1px 5px 0 rgba(0, 0, 0, 0.12),
 				          0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
 			}
 
 			paper-icon-button {
@@ -32,12 +33,19 @@
 				width: 40pt;
 				border-radius: 50%;
 				top: 12pt;
-				right: 12pt;
+				right: 40pt;
 				color: rgba(0,0,0,0.6);
 			}
 
 			paper-icon-button:hover {
 				background-color: rgba(0,0,0, 0.2);
+				cursor: pointer;
+			}
+
+			emsi-language-button {
+		    position: absolute;
+		    right: 25pt;
+		    top: 0;
 			}
 
 		</style>		
@@ -74,16 +82,16 @@
 			}
 
 			routeChangedEventHandler() {
-				this.$$(".navbar").hideMenu();
+				Polymer.dom(this.root).querySelector('.navbar').hideMenu();
 				this.icon = "menu";
 			}
 
 			toggleNavbarMenu() {
 				if(this.icon == "menu") {
-					this.$$(".navbar").showMenu();
+					Polymer.dom(this.root).querySelector('.navbar').showMenu();
 					this.icon = "clear";
 				} else {
-					this.$$(".navbar").hideMenu();
+					Polymer.dom(this.root).querySelector('.navbar').hideMenu();
 					this.icon = "menu";
 				}
 			}

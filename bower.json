@@ -25,7 +25,8 @@
     "paper-spinner": "PolymerElements/paper-spinner#^2.0.0",
     "app-layout": "PolymerElements/app-layout#^2.0.4",
     "neon-animation": "PolymerElements/neon-animation#^2.0.2",
-    "web-animations-js": "^2.3.1"
+    "web-animations-js": "^2.3.1",
+    "iron-collapse": "PolymerElements/iron-collapse#^2.0.0"
   },
   "devDependencies": {
     "web-component-tester": "^6.0.0",
