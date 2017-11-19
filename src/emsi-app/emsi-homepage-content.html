@@ -143,13 +143,13 @@
 
 			changeRoute() {
 				if(this.title == "ABOUT US") {
-					// this.fire("emsi-route-change-event", {route: "about"});
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "about", bubbles: true, composed: true }));
 				} else if(this.title == "LOCATIONS") {
-					// this.fire("emsi-route-change-event", {route: "search"});
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "search", bubbles: true, composed: true }));
 				} else if(this.title == "MISSIONS") {
-					// this.fire("emsi-route-change-event", {route: "missions"});
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "missions", bubbles: true, composed: true }));
 				} else if(this.title == "SEMINARY") {
-					// this.fire("emsi-route-change-event", {route: "seminary"});
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "seminary", bubbles: true, composed: true }));
 				}
 			}
 		}

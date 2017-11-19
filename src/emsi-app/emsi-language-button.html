@@ -65,11 +65,11 @@
 			static get properties() { return {}; }
 
 			changeLangToEnglish() {
-				// this.fire("emsi-lang-change-event", {lang: "en"});
+				this.dispatchEvent(new CustomEvent('emsi-lang-change-event', { detail: "en", bubbles: true, composed: true }));
 			}
 
 			changeLangToChinese() {
-				// this.fire("emsi-lang-change-event", {lang: "zh"});
+				this.dispatchEvent(new CustomEvent('emsi-lang-change-event', { detail: "zh", bubbles: true, composed: true }));
 			}
 		}
 

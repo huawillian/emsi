@@ -123,11 +123,11 @@
       languageChanged(val) { this.isEnglish = val === "en"; }
 
 			changeRouteToContact() {
-				// this.fire("emsi-route-change-event", {route: "contact"});
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "contact", bubbles: true, composed: true }));
 			}
 
 			changeRouteToSignin() {
-				// this.fire("emsi-route-change-event", {route: "signin"});
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "signin", bubbles: true, composed: true }));
 			}
 
 			openEmail() {

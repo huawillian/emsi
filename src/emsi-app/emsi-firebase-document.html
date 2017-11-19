@@ -61,10 +61,10 @@
 
         if(this.lang == "en") {
           this.output = newValue.en;
-          // this.fire("child-output-changed");
+          this.dispatchEvent(new CustomEvent('child-output-changed', { detail: {}, bubbles: true, composed: true }));
         } else if(this.lang == "zh") {
           this.output = newValue.zh;
-          // this.fire("child-output-changed");
+          this.dispatchEvent(new CustomEvent('child-output-changed', { detail: {}, bubbles: true, composed: true }));
         }
       }
 
@@ -73,10 +73,10 @@
 
         if(newValue == "en") {
           this.output = this.data.en;
-          // this.fire("child-output-changed");
+          this.dispatchEvent(new CustomEvent('child-output-changed', { detail: {}, bubbles: true, composed: true }));
         } else if(newValue == "zh") {
           this.output = this.data.zh;
-          // this.fire("child-output-changed");
+          this.dispatchEvent(new CustomEvent('child-output-changed', { detail: {}, bubbles: true, composed: true }));
         }
       }
     }

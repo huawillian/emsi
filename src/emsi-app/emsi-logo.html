@@ -75,7 +75,7 @@
 			static get properties() { return {}; }
 
 			changeRouteHome() {
-				// this.fire("emsi-route-change-event", {route: "home"});
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "home", bubbles: true, composed: true }));
 			}
 		}
 		

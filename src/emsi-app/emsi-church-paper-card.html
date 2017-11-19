@@ -182,7 +182,7 @@
 				var param = {};
 				param.name = this.city;
 				param.distance = newValue;
-				// this.fire('distance-updated', param);
+				this.dispatchEvent(new CustomEvent('distance-updated', { detail: param, bubbles: true, composed: true }));
 			}
 
 			responseChanged(newValue, oldValue) {
@@ -213,7 +213,7 @@
 			}
 
 			gotoChurchPage() {
-				// this.fire("emsi-route-change-event", {route: this.learnMoreUrl});
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: this.learnMoreUrl, bubbles: true, composed: true }));
 			}
 		}
 

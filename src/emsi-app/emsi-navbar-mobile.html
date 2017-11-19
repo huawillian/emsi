@@ -65,14 +65,14 @@
 				</iron-collapse>
 				<div class="menu-trigger" on-tap="openSubMenu"> MISSIONS </div>
 				<iron-collapse class="subMenuCollapse" id="collapseMissions">
-					<div class="menu-trigger menu-item" on-tap="changeRoute"> Introduction </div>
+					<div class="menu-trigger menu-item" on-tap="changeRouteToMissions"> Introduction </div>
 				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Ministries </div>
 				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Churches </div>
 				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Activities </div>
 				</iron-collapse>
 				<div class="menu-trigger" on-tap="openSubMenu"> SEMINARY </div>
 				<iron-collapse class="subMenuCollapse" id="collapseSeminary">
-					<div class="menu-trigger menu-item" on-tap="changeRoute"> Introduction </div>
+					<div class="menu-trigger menu-item" on-tap="changeRouteToSeminary"> Introduction </div>
 				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Courses </div>
 				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Curriculum </div>
 				</iron-collapse>
@@ -120,11 +120,11 @@
 			changeRoute(e) {
 				var text = Polymer.dom(e).localTarget.innerText;
 				if(text == "Organization") {
-					// this.fire("emsi-route-change-event", {route: "about"});
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "about", bubbles: true, composed: true }));
 				} else if(text == "Introduction") {
 					// Do nothing
 				} else {
-					// this.fire("emsi-route-change-event", {route: text.toLowerCase()});
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: text.toLowerCase(), bubbles: true, composed: true }));
 				}
 
 				this.closeAllMenus();
@@ -132,13 +132,13 @@
 			}
 
 			changeRouteToMissions() {
-				// this.fire("emsi-route-change-event", {route: "missions"});
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "missions", bubbles: true, composed: true }));
 				this.closeAllMenus();
 				this.hideMenu();
 			}
 
 			changeRouteToSeminary() {
-				// this.fire("emsi-route-change-event", {route: "seminary"});
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "seminary", bubbles: true, composed: true }));
 				this.closeAllMenus();
 				this.hideMenu();
 			}
