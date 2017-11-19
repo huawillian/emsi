@@ -1,0 +1,79 @@
+<dom-module id="church-card-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-card {
+        color: black;
+        border-radius: 20px;
+        width:100%;
+        background-color: rgb(230,230,230);
+        margin-bottom: 30pt;
+        margin-top: 10pt;
+      }
+
+      #title {
+        font-size: 22pt;
+        color: #236192;
+        font-family: MyriadProBold;
+        padding-bottom: 10px;
+        margin-right: 25%;
+      }
+
+      #address {
+        font-size: 15pt;
+        color: rgba(0,0,0,0.6);
+        font-family: MyriadProSemibold;
+      }
+
+      #serviceTitle {
+        font-size: 14pt;
+        color: rgba(0,0,0,0.6);
+        font-family: MyriadProSemibold;
+        padding-top: 30px;
+      }
+
+      #serviceContainer {
+        font-size: 13pt;
+        color: rgba(0,0,0,0.6);
+        font-family: MyriadProRegular;
+        width: 50%;
+        text-align: left;
+        padding-bottom: 30px;
+        min-width: 300px;
+      }
+
+      #distance {
+        position: absolute;
+        width: 100%;
+        text-align: right;
+        right:0;
+        margin-right: 30px;
+        color: rgba(0,0,0,0.6);
+        font-family: MyriadProSemibold;
+        font-size: 14pt;
+      }
+
+      paper-button {
+        padding: 10pt;
+      }
+
+      paper-button:hover {
+        background-color: rgba(0,0,0,0.2);
+        cursor: pointer;
+      }
+
+      .card-actions {
+        border-top: 1px solid #e8e8e8;
+        padding: 10pt 16px;
+        position: relative;
+        background-color: rgba(133,120,116,0.95);
+        border-radius: 0 0 20px 20px;
+        color: white;
+        padding-bottom: 10pt;
+      }
+    </style>
+  </template>
+</dom-module>

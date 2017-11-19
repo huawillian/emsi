@@ -4,50 +4,12 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../styles/navbar-desktop-styles.html">
 
 <dom-module id="emsi-navbar-desktop">
 	<template>
-		<style>
-			:host {
-				display: block;
-			}
-
-			.navbuttons {
-				position: absolute;
-				top: 12pt;
-				margin-left: 220pt;
-			}
-
-			.menu-trigger, paper-item {	
-		    width: 80pt;
-    		height: 30px;
-		    padding-top: 20px;
-		    padding-bottom: 0;
-		    font-family: MyriadProSemiBold;
-		    color: rgba(0,0,0,0.6);
-		    font-size: 9pt;
-		    padding-left: 20pt;
-			}
-
-			paper-item {
-				width: 80pt;
-    		height: 20px;
-		    padding-top: 10px;
-		    padding-bottom: 0;
-		    font-family: MyriadProSemiBold;
-		    color: rgba(0,0,0,0.6);
-		    font-size: 9pt;
-		    padding-left: 20pt;
-			}
-
-			paper-item:hover, .menu-trigger:hover {
-				background-color: rgba(0,0,0,0.2);
-				cursor: pointer;
-			}
-
-		</style>
+		<style include="navbar-desktop-styles"> </style>
 		<div class="container">
-
 			<paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style="left:0pt" vertical-offset="55" horizontal-offset="8">
 			  <div slot="dropdown-trigger" class="menu-trigger"> ABOUT US </div>
 			  <paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
@@ -87,42 +49,27 @@
 			    <div on-tap="changeRoute" class="menu-trigger"> Curriculum </div>
 			  </paper-listbox>
 			</paper-menu-button>
-
 		</div>
 	</template>
+
 	<script>
 		class EMSINavbarDesktop extends Polymer.Element {
 			static get is() { return 'emsi-navbar-desktop'; }
 
 			static get properties() { return {}; }
 
-			openMenu(e) {
-				var submenuObj = Polymer.dom(e).localTarget.parentNode.parentNode;
-				var isOpen = submenuObj.opened;
-
-				this.closeAllMenus();
-
-	        	if(!isOpen) {
-	        		submenuObj.close();
-	        	} else {
-	        		submenuObj.open();
-	        	}
-			}
-
 			openSubMenu(e) {
-				var submenuObj = Polymer.dom(e).localTarget;
+				let submenuObj = Polymer.dom(e).localTarget;
 				submenuObj.open();
 			}
 
 			closeAllMenus(e) {
-				var submenuArr = Polymer.dom(this.root).querySelectorAll("paper-menu-button");
-      	for(var i = 0; i < submenuArr.length; i++) {
-      		submenuArr[i].close();
-      	}				
+				let submenuArr = Polymer.dom(this.root).querySelectorAll("paper-menu-button");
+				submenuArr.forEach(v => v.close());			
 			}
 
 			changeRoute(e) {
-				var text = Polymer.dom(e).localTarget.innerText;
+				let text = Polymer.dom(e).localTarget.innerText;
 
 				if(text == "Organization") {
 					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "about", bubbles: true, composed: true }));

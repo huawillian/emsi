@@ -1,0 +1,75 @@
+<dom-module id="continent-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+        min-height: 100vh;
+        background-color: white;
+        color: black;
+      }
+
+      .container {
+        padding-left: 10%;
+        padding-right: 10%;
+      }
+
+      .regionContainer {
+        font-family: MyriadProSemibold;
+        color: #857874;
+        font-size: 20pt;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      paper-dropdown-menu-light{
+        width:100%;
+        margin-bottom: 50px;
+      }
+
+      .titleContainer {
+        font-size: 40pt;
+        font-weight: 700;
+        width: 100%;
+        background-color: white;
+        color: #236192;
+        text-align: center;
+        font-family: MyriadProBold;
+        padding-top: 30pt;
+        padding-bottom: 10pt;
+      }
+
+      paper-dropdown-menu-light ::slotted() #dropdown {
+        width: 100%;
+        min-width: 200pt;
+      }
+
+      @media screen and (max-width: 800px) {
+        .container {
+          padding-left: 5%;
+          padding-right: 5%;
+        }
+      }
+
+      @media screen and (min-width: 1200px) {
+        .container {
+          padding-left: 20%;
+          padding-right: 20%;
+        }
+      }
+
+      paper-item {
+        padding: 10pt 20pt 0 20pt;
+        background-color: rgb(230,230,230);
+      }
+
+      paper-listbox {
+        background-color: rgb(230,230,230);
+      }
+
+      paper-item:hover{
+        background-color: rgba(0,0,0,0.2);
+        cursor: pointer;
+      }
+    </style>
+  </template>
+</dom-module>

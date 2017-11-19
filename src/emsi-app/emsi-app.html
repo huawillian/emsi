@@ -8,9 +8,6 @@
 <!-- custom elements -->
 <link rel="import" href="emsi-toolbar-desktop.html">
 <link rel="import" href="emsi-toolbar-mobile.html">
-<link rel="import" href="emsi-firebase-document.html">
-<link rel="import" href="emsi-church-paper-card.html">
-<link rel="import" href="emsi-church-collection.html">
 <link rel="import" href="emsi-footer.html">
 
 <!-- custom pages -->
@@ -55,32 +52,32 @@
       api-key="AIzaSyBWgbTxY5Oh2JonNkjJ9ZhTYgrRvg-D9gI">
     </firebase-app>
 
-    <!-- app-location binds to the app's URL -->
-    <app-location route="{{route}}" id="myRoute" query-params="{{queryParams}}"></app-location>
+    <!-- Set data property to locations part of database -->
+    <firebase-document
+      path= "locations"
+      data="{{data}}">
+    </firebase-document>
 
+    <!-- app-location binds to the app's URL -->
     <!-- this app-route manages the top-level routes -->
-    <app-route
-        route="{{route}}"
-        pattern="/:page"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
+    <app-location route="{{route}}" id="myRoute" query-params="{{queryParams}}" use-hash-as-path></app-location>
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
     <!-- set isDesktop property depending on width of screen -->
     <iron-media-query query="(min-width: 1000px)" query-matches="{{isDesktop}}"></iron-media-query>
 
+    <!-- Use emsi-toolbar-desktop for wide screens -->
+    <!-- Use emsi-toolbar-mobile for narrow screens -->
     <template is="dom-if" if="[[isDesktop]]">
-      <!-- Use emsi-toolbar-desktop for wide screens -->
       <emsi-toolbar-desktop> </emsi-toolbar-desktop>
     </template>
     <template is="dom-if" if="[[!isDesktop]]">
-      <!-- Use emsi-toolbar-mobile for narrow screens -->
       <emsi-toolbar-mobile> </emsi-toolbar-mobile>
     </template>
 
+    <!-- iron-pages selects the view based on the active route routeData.page by checking name of element, and show 404 image if no name matches -->
     <div class="mainContent">    
-      <!-- iron-pages selects the view based on the active route routeData.page by checking name of element, and show 404 image if no name matches -->
-      <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="404">
-        <emsi-404-page class="page" name="404" lang="{{lang}}"> </emsi-404-page>
+      <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="home">
         <emsi-home-page class="page" name="" lang="{{lang}}"> </emsi-home-page>
         <emsi-home-page class="page" name="home" lang="{{lang}}"> </emsi-home-page>
 
@@ -90,10 +87,11 @@
         <emsi-seminary-page class="page" name="seminary" lang="{{lang}}"> </emsi-seminary-page>
 
         <emsi-search-page class="page" name="search" lang="{{lang}}"> </emsi-search-page>
-        <emsi-continent-page class="page" name="america" lang="{{lang}}" continent="America"> </emsi-continent-page>
-        <emsi-continent-page class="page" name="europe" lang="{{lang}}" continent="Europe"> </emsi-continent-page>
-        <emsi-continent-page class="page" name="asia" lang="{{lang}}" continent="Asia"> </emsi-continent-page>
-        <emsi-continent-page class="page" name="africa" lang="{{lang}}" continent="Africa"> </emsi-continent-page>
+
+        <emsi-continent-page class="page" name="america" lang="{{lang}}" continent="America" locations="{{dataAsArray}}"> </emsi-continent-page>
+        <emsi-continent-page class="page" name="europe" lang="{{lang}}" continent="Europe" locations="{{dataAsArray}}"> </emsi-continent-page>
+        <emsi-continent-page class="page" name="asia" lang="{{lang}}" continent="Asia" locations="{{dataAsArray}}"> </emsi-continent-page>
+        <emsi-continent-page class="page" name="africa" lang="{{lang}}" continent="Africa" locations="{{dataAsArray}}"> </emsi-continent-page>
 
         <emsi-ministries-page class="page" name="ministries" lang="{{lang}}"> </emsi-ministries-page>
         <emsi-churches-page class="page" name="churches" lang="{{lang}}"> </emsi-churches-page>
@@ -105,7 +103,7 @@
       </iron-pages>
 
       <!-- Footer -->
-      <emsi-footer lang="{{lang}}"> </emsi-footer>
+      <emsi-footer lang="{{lang}}" />
     </div>
 
   </template>
@@ -119,45 +117,60 @@
           lang: {
             type: String,
             value: "en",
+          },
+          data: {
+            type: Object,
+            value: {},
+            observer: "locationsReceived"
+          },
+          dataAsArray: {
+            type: Array,
+            value: []
           }
         };
       }
 
       connectedCallback() {
         super.connectedCallback();
+
         this.addEventListener('emsi-route-change-event', this.routeChangeEventHandler);
         this.addEventListener('emsi-lang-change-event', this.langChangeEventHandler);
 
-        // Set language to english or chinese on load given queryParams
-        if(this.$.myRoute.queryParams.lang == undefined || this.$.myRoute.queryParams.lang == "en") {
-          this.lang = "en";
-        } else if(this.$.myRoute.queryParams.lang == "zh") {
-          this.lang = "zh";
-        }
-        console.log("Language set to: " + this.lang);
+        let lang = this.$.myRoute.queryParams.lang;
+        this.lang = !lang || lang === "en" ? "en" : "zh"
       }
 
       // Called on event fired, emsi-route-change-event, given object param
       routeChangeEventHandler(e) {
-        console.log("Route Change Event Handler: " + e.detail);
-        // Set all pages back to the top of the screen
         this.scrollAllPagesToTop();
-        this.set('route.path', e.detail);
-        this.$.churchPage.path = this.route.path;
+        let path = e.detail;
+        path = path.startsWith("/") ? path : "/" + path;
+        this.set('route.path', path);
+        this.$.churchPage.path = path;
       }
 
       // Called on event fired, emsi-lang-change-event, given object param
+      // Set top level lang to language, this will cascade down each page binded to lang {{lang}}
       langChangeEventHandler(e) {
-        console.log("Lang Change Event Handler: " + e.detail);
-        // Set top level lang to language, this will cascade down each page binded to lang {{lang}}
         this.lang = e.detail;
-        // Change queryParams to reflect lang change
         this.$.myRoute.queryParams = this.lang === "en" ? {lang: "en"} : {lang: "zh"};
       }
 
       // Set all pages back to the top of the screen
       scrollAllPagesToTop() {
         setTimeout(function(){this.document.body.scrollTop = 0;}, 0);
+      }
+
+      // Turn locations from object into array => dataAsArray
+      locationsReceived(newValue) {
+        if(!newValue || Object.keys(newValue).length === 0) {
+          this.set("dataAsArray", []);
+        } else {
+          let newArray = [];
+          let keys = Object.keys(newValue);
+          keys.forEach(k => newArray.push(newValue[k]));
+          this.set("dataAsArray", newArray);
+        }
       }
     }
 

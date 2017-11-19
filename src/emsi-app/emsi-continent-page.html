@@ -1,134 +1,47 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
 
 <!-- custom elements -->
 <link rel="import" href="emsi-church-collection.html">
 <link rel="import" href="emsi-firebase-document.html">
+<link rel="import" href="emsi-church-paper-card.html">
+<link rel="import" href="emsi-church-details-card.html">
+
+<link rel="import" href="../styles/continent-styles.html">
 
 <!-- Define: emsi-continent-page custom element -->
 <!-- Usage: Used by emsi-app, must set continent property to either America, Europe, Asia, or Africa  -->
 <dom-module id="emsi-continent-page">
 	<template>
-		<style>
-			:host {
-				display: block;
-				min-height: 100vh;
-				background-color: white;
-				color: black;
-			}
-
-			.container {
-				padding-left: 10%;
-				padding-right: 10%;
-			}
-
-			@font-face {
-			    font-family: MyriadProSemibold;
-			    src: url(../fonts/MyriadPro-Semibold.otf);
-			}
-
-			.regionContainer {
-				font-family: MyriadProSemibold;
-				color: #857874;
-				font-size: 20pt;
-				margin-top: 20px;
-				margin-bottom: 20px;
-			}
-
-			paper-dropdown-menu-light{
-				width:100%;
-				margin-bottom: 50px;
-			}
-
-			.titleContainer {
-				font-size: 40pt;
-				font-weight: 700;
-				width: 100%;
-				background-color: white;
-				color: #236192;
-				text-align: center;
-				font-family: MyriadProBold;
-				padding-top: 30pt;
-				padding-bottom: 10pt;
-			}
-
-
-			paper-dropdown-menu-light ::slotted() #dropdown {
-				width: 30%;
-				min-width: 200pt;
-			}
-
-
-			@media screen and (max-width: 800px) {
-				.container {
-					padding-left: 5%;
-					padding-right: 5%;
-				}
-			}
-
-			@media screen and (min-width: 1200px) {
-				.container {
-					padding-left: 20%;
-					padding-right: 20%;
-				}
-			}
-
-			paper-listbox {
-				width: 80vw;
-			}
-
-			paper-item {
-				padding: 10pt 0 0 10pt;
-    		background-color: rgb(220,220,220);
-			}
-		</style>
-
-		<!-- Set data property to locations part of database -->
-		<firebase-document
-	      path= "locations"
-	      data="{{data}}">
-	    </firebase-document>
+		<style include="continent-styles"> </style>
 
 		<div class="container">
 			<div class="titleContainer"> {{continent}} </div>
-			<div class="regionContainer"> Select Region or Country </div>
+			<div class="regionContainer"> Select Region </div>
 
 			<!-- Regions Dropdown Menu-->
-			<paper-dropdown-menu-light label="Regions / Countries" selected-item="{{selectedItem}}" active>
-			  <paper-listbox slot="dropdown-content" selected="1" class="dropdown-content">
+			<paper-dropdown-menu-light label="Regions" selected-item="{{selectedItem}}">
+			  <paper-listbox slot="dropdown-content" selected="0">
 			    <paper-item> All </paper-item>
-
-				<!-- Add paper-item for each element in regionArr-->
-		    <template is="dom-repeat" items="[[regionArr]]">
-					<paper-item> {{item}} </paper-item>
-				</template>
-
+			    <template is="dom-repeat" items="{{regionArr}}">
+						<paper-item> {{item}} </paper-item>
+					</template>
 			  </paper-listbox>
 			</paper-dropdown-menu-light>
 
-			<!-- iron-pages selects the view based on the active route -->
-	      	<iron-pages selected="[[displayRegion]]" attr-for-selected="name">
-	      		<!-- Show all regions if currently displayed Region is All -->
-	      		<div name="All"> 
-	      			<template is="dom-repeat" items="[[regionArr]]">
-						<div class="regionContainer"> {{item}} </div>
-	      				<emsi-church-collection query-type="search" continent="{{continent}}" region="{{item}}"> </emsi-church-collection>
-					</template>
-	      		</div>
-
-				<!-- Show the corresponding region -->
-	      		<template is="dom-repeat" items="[[regionArr]]">
-					<emsi-church-collection name="{{item}}" query-type="search" continent="{{continent}}" region="{{item}}"> </emsi-church-collection>
-				</template>
-	      	</iron-pages>
+			<!-- Results from regions selection and the current continent -->
+    	<template id="cardRepeat" is="dom-repeat" items="[[locations]]" filter="filterLocations" as="details">
+        <emsi-church-details-card data="{{details}}" lang="{{lang}}"> </emsi-church-details-card>
+			</template>
 		</div>
-
 	</template>
 
 	<script>
@@ -149,15 +62,15 @@
 						value: "All",
 					} ,
 					// Set from firebase document locations
-					data: {
-						type: Object,
-						observer: "dataChanged"
-					} ,
+					locations: {
+						type: Array
+					},
 					// List of regions given continent
 					regionArr: {
 						type: Array,
-						value: []
-					} ,
+						value: [],
+						computed: 'computeRegions(locations)'
+					},
 					// Element's continent set from emsi-app
 					continent: {
 						type: String, 
@@ -166,43 +79,25 @@
 				}; 
 			}
 
-			// Called when locations data from firebase document is changed
-			dataChanged(newValue, oldValue) {
-				// Return if newValue is empty
-				if(!newValue || Object.keys(newValue).length === 0) return;
-				// Return if regionArr is already set
-				if(Object.keys(oldValue).length > 0) return;
-				let regionResults = [];
-
-				for(var key in newValue) {
-					if(!!newValue[key] && newValue[key].continent == this.continent) {
-						var containsRegion = false;
-
-						for(var i = 0; i < regionResults.length; i++) {
-							if(regionResults[i] == newValue[key].region) {
-								containsRegion = true;
-							}
-						}
-
-						// Add to regionArr if the location is current continent and region does not exist in regionArr	
-						if(!containsRegion) {
-							regionResults.push(newValue[key].region);
-						}
-					}
+			filterLocations(loc) {
+				if(loc.continent === this.continent && (this.displayRegion === "All" || loc.region === this.displayRegion)) {
+						return true;
 				}
-
-
-
-				this.set("regionArr", regionResults.map(v => v + " "));
-
-				console.log(this.regionArr);
+				return false;
 			}
-		
+
+			computeRegions(locations) {
+				let regionResults = locations.filter(v => v.continent === this.continent);
+				regionResults = regionResults.map(v => v.region + " ");
+				regionResults = regionResults.filter((v, i) => i === regionResults.lastIndexOf(v));
+				return regionResults;
+			}
 
 			// Called when different region selected from dropdown
 			regionChanged(newValue) {
 				if(!newValue) return;
-				this.displayRegion = newValue.innerText.toString().slice(-1);
+				this.displayRegion = newValue.innerText;
+				this.$.cardRepeat.render();
 			}
 		}
 

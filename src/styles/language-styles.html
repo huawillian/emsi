@@ -1,0 +1,53 @@
+<dom-module id="language-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .container {
+        width: 120pt;
+        margin-right: 12pt;
+        position: absolute;
+        top: 21pt;
+        right: 30pt;
+        color: rgba(0,0,0,0.6);;
+      }
+
+      span:hover {
+        background-color: rgba(0,0,0, 0.2);
+        cursor: pointer;
+      }
+
+      span {
+        padding: 5pt;
+        padding-top: 7pt;
+        font-family: MyriadProSemiBold;
+        color: rgba(0,0,0,0.6);
+        font-size: 9pt;
+      }
+
+      @media screen and (max-width: 1000px) and (min-width: 500px) {
+        .container {
+          right: 30pt;
+          top: 22pt;
+        }
+
+        span {
+          font-size: 11pt;
+        }
+      }   
+
+      @media screen and (max-width: 500px) {
+        .container {
+          right: 3pt;
+          top: 22pt;
+        }
+
+        span {
+          font-size: 9pt;
+        }
+      } 
+    </style>
+  </template>
+</dom-module>

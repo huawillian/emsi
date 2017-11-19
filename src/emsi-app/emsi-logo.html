@@ -1,79 +1,20 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../styles/logo-styles.html">
 
 <dom-module id="emsi-logo">
 	<template>
-		<style>
-			:host {
-				display: block;
-			}
-				
-			.container:hover {
-				background-color: rgba(0,0,0,0.2);
-				cursor: pointer;
-			}
-
-			.container {
-				padding-left: 25pt;
-				width: 150pt;
-				height: 62pt;
-			}
-
-			#logo {
-				border-radius: 50%;
-				position: absolute;
-				width: 60pt;
-				top: 0pt;
-				height: 60pt;
-			}
-			
-			#logoText {
-				color: #236192;
-				font-family: MyriadProBold;
-				position: absolute;
-				font-size: 23pt;
-				top: 20pt;
-				left: 110pt;
-			}
-
-			@media screen and (max-width: 1000px) and (min-width: 500px) {
-				#logoText {
-					left: 100pt;
-				}
-
-				.container {
-					padding-left: 15pt;
-					width: 140pt;
-					height: 60pt;
-				}
-			}
-
-			@media screen and (max-width: 500px) {
-				#logoText {
-					left: 80pt;
-				}
-
-				.container {
-					padding-left: 0pt;
-					width: 120pt;
-					height: 60pt;
-				}
-			}
-
-		</style>
-
+		<style include="logo-styles"> </style>
 		<div class="container" on-tap="changeRouteHome">
 			<iron-image id="logo" sizing="cover" preload src="https://github.com/huawillian/emsi/raw/master/src/images/EMSI_logo-01.png"></iron-image>
 			<div id="logoText"> EMSI </div>
 		</div>
-
 	</template>
+
 	<script>
 		class EMSILogo extends Polymer.Element {
 			static get is() { return 'emsi-logo'; }
-
 			static get properties() { return {}; }
-
 			changeRouteHome() {
 				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "home", bubbles: true, composed: true }));
 			}

@@ -1,29 +1,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/google-map/google-map-directions.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="emsi-church-paper-card">
 	<template>
 		<style>
 			:host {
 				display: block;
-			}
-
-			@font-face {
-			    font-family: MyriadProBold;
-			    src: url(../fonts/MyriadPro-Bold.otf);
-			}
-
-			@font-face {
-			    font-family: MyriadProRegular;
-			    src: url(../fonts/MyriadPro-Regular.otf);
-			}
-
-			@font-face {
-			    font-family: MyriadProSemibold;
-			    src: url(../fonts/MyriadPro-Semibold.otf);
 			}
 
 			paper-card {
@@ -33,18 +17,6 @@
 				background-color: rgb(230,230,230);
 				margin-bottom: 30pt;
 				margin-top: 10pt;
-				--paper-card-actions: {
-					background-color: rgba(133,120,116,0.95);
-					border-radius: 0 0 20px 20px;
-					color: white;
-					padding-bottom: 0;
-				}
-
-				--paper-card-content: {
-					padding-top: 20px;
-					padding-left: 40px;
-					padding-right: 40px;
-				}
 			}
 
 			#title {
@@ -96,11 +68,11 @@
 			}
 
 		</style>
-      <google-map-directions id="dir"
-          start-address=""
-          end-address="{{address}}"
-          response="{{data}}" 
-          api-key="AIzaSyCmbUbEOc5qc59PyjgmM0kASRC9eS9JsDk"></google-map-directions>
+    <google-map-directions id="dir"
+        start-address=""
+        end-address="{{address}}"
+        response="{{data}}" 
+        api-key="AIzaSyCmbUbEOc5qc59PyjgmM0kASRC9eS9JsDk"></google-map-directions>
 
 		<paper-card elevation="3">
 		  <div class="card-content">
@@ -116,10 +88,6 @@
 				  	</tr>
 				</template>
 			</table>
-
-		    <!-- <h3> {{sundayServiceTime}}</h3>
-
-		    <h3> {{userDistanceText}}</h3> -->
 		  </div>
 		  <div class="card-actions">
 		  	<paper-button on-click="goToGoogleMaps"> Get Directions </paper-button>

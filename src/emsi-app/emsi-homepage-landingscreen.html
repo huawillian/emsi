@@ -142,6 +142,9 @@
 			static get properties() { return {}; }
       static get observers() { return [ 'languageChanged(lang)' ]; }
       languageChanged(val) { this.isEnglish = val === "en"; }
+      changeRouteToSearch() {
+      	this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "search", bubbles: true, composed: true }));
+      }
 		}
 
 		window.customElements.define(EMSIHomepageLandingscreen.is, EMSIHomepageLandingscreen);

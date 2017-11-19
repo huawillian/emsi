@@ -16,197 +16,187 @@
 			}
 		</style>
 		<emsi-template-page title-path="courses/title" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg" lang="{{lang}}">
-			<!-- iron-pages selects the view based on the active route -->
-	      	<iron-pages selected="[[lang]]" attr-for-selected="name">
-	      		<div name="en">
-					Basic Bible Courses
+			<template is="dom-if" if="[[isEnglish]]">
+				Basic Bible Courses
 
-					Old Testament Survey 
-					New Testament Survey 
-					Life of Christ 
-					Gospel of Matthew 
-					Doctrine of Salvation 
-					Book of Romans 
-					Book of Hebrews 
-					Basic Doctrines 
-					Anthropology 
-					Systematic Theology I 
-					Systematic Theology II 
-					Personal Evangelism 
-					Church History 
-					General Epistles 
-					Gospel of John 
-					Pentateuch 
-					How To Lead a Bible Study
+				Old Testament Survey 
+				New Testament Survey 
+				Life of Christ 
+				Gospel of Matthew 
+				Doctrine of Salvation 
+				Book of Romans 
+				Book of Hebrews 
+				Basic Doctrines 
+				Anthropology 
+				Systematic Theology I 
+				Systematic Theology II 
+				Personal Evangelism 
+				Church History 
+				General Epistles 
+				Gospel of John 
+				Pentateuch 
+				How To Lead a Bible Study
 
-					Elective Courses
+				Elective Courses
 
-					Children, Youth & Adult Christian Education 
-					Introduction to Christian Education 
-					History of Religious Education 
-					Educational Psychology 
-					Field Studies 
-					Microteaching 
-					Counseling Techniques 
-					Biblical Psychology 
-					Contemporary Psychology 
-					Music Theory 
-					Music History 
-					Church Music 
-					Basic Piano Techniques 
-					Choral Conducting 
-					Chorus 
-					Computer 
-					Vocal 
-					Piano
+				Children, Youth & Adult Christian Education 
+				Introduction to Christian Education 
+				History of Religious Education 
+				Educational Psychology 
+				Field Studies 
+				Microteaching 
+				Counseling Techniques 
+				Biblical Psychology 
+				Contemporary Psychology 
+				Music Theory 
+				Music History 
+				Church Music 
+				Basic Piano Techniques 
+				Choral Conducting 
+				Chorus 
+				Computer 
+				Vocal 
+				Piano
 
-					Advance Bible Courses
+				Advance Bible Courses
 
-					Minor Prophets 
-					Hebrew I 
-					Hebrew II 
-					Greek I 
-					Greek II 
-					Contemporary Theology 
-					Bible and Science 
-					Hermeneutics 
-					Eschatology 
-					Homiletics 
-					Christian Ethics 
-					Major Prophets 
-					Acts of the Apostles 
-					Pastoral Epistles 
-					Prison Epistles 
-					Introduction to Bible 
-					Christian Evidences 
-					Biblical Archaeology 
-					I & II Samuel 
-					Psalms 
-					Cults and Religions 
-					Educational Ministry 
-					Daniel 
-					Ezekiel 
-					Isaiah (6)
-					Revelation 
-					Old Testament Poetical Books 
-					I & II Kings 
-					Christian Philosophy 
-					Book of Joshua 
-					Apologetics 
-					Missionlogy 
-					Biblical Prophecy 
-					Pastoral Care 
-					Genesis 
-					Creationism 
-					Pneumatology 
-					Christology 
-					Biblical Geography 
-					Biblical Logic 
-					King James Bible Defense
-	      		</div>
-	      		
-	      		<div name="zh">
-	      			基要聖經課程
+				Minor Prophets 
+				Hebrew I 
+				Hebrew II 
+				Greek I 
+				Greek II 
+				Contemporary Theology 
+				Bible and Science 
+				Hermeneutics 
+				Eschatology 
+				Homiletics 
+				Christian Ethics 
+				Major Prophets 
+				Acts of the Apostles 
+				Pastoral Epistles 
+				Prison Epistles 
+				Introduction to Bible 
+				Christian Evidences 
+				Biblical Archaeology 
+				I & II Samuel 
+				Psalms 
+				Cults and Religions 
+				Educational Ministry 
+				Daniel 
+				Ezekiel 
+				Isaiah (6)
+				Revelation 
+				Old Testament Poetical Books 
+				I & II Kings 
+				Christian Philosophy 
+				Book of Joshua 
+				Apologetics 
+				Missionlogy 
+				Biblical Prophecy 
+				Pastoral Care 
+				Genesis 
+				Creationism 
+				Pneumatology 
+				Christology 
+				Biblical Geography 
+				Biblical Logic 
+				King James Bible Defense
+	    </template>	      		
+		  <template is="dom-if" if="[[!isEnglish]]">
+				基要聖經課程
 
-					舊約綜覽
-					新約綜覽
-					基督生平
-					馬太福音
-					救恩論
-					羅馬書
-					希伯來書
-					基要信仰
-					人類學
-					系統神學Ι 
-					系統神學Ⅱ
-					個人佈道法
-					教會歷史
-					普通書信
-					約翰福音
-					摩西五經
-					如何帶領小組查經
+				舊約綜覽
+				新約綜覽
+				基督生平
+				馬太福音
+				救恩論
+				羅馬書
+				希伯來書
+				基要信仰
+				人類學
+				系統神學Ι 
+				系統神學Ⅱ
+				個人佈道法
+				教會歷史
+				普通書信
+				約翰福音
+				摩西五經
+				如何帶領小組查經
 
-					選修課程
+				選修課程
 
-					兒童、青少年與成人教育
-					基督教教育概論
-					宗教教育史
-					教育心理學
-					工場實習研究
-					顯微教學法
-					輔導的技巧
-					聖經心理學
-					現代心理學
-					樂 理
-					音樂史
-					教會音樂
-					基礎司琴法
-					詩班指揮
-					合唱
-					電腦
-					聲樂
-					鋼琴
+				兒童、青少年與成人教育
+				基督教教育概論
+				宗教教育史
+				教育心理學
+				工場實習研究
+				顯微教學法
+				輔導的技巧
+				聖經心理學
+				現代心理學
+				樂 理
+				音樂史
+				教會音樂
+				基礎司琴法
+				詩班指揮
+				合唱
+				電腦
+				聲樂
+				鋼琴
 
-					進階聖經課程
+				進階聖經課程
 
-					小先知書
-					希伯來文Ⅰ
-					希伯來文Ⅱ
-					希臘文Ⅰ
-					希臘文Ⅱ
-					當代神學
-					聖經與科學
-					釋經學
-					末世論
-					講道學
-					基督教倫理學
-					大先知書
-					使徒行傳
-					教牧書信
-					監獄書信
-					聖經概論
-					基督教證據學
-					聖經考古學
-					撒母耳記上下
-					詩 篇
-					異端學
-					教育事工研究
-					但以理書
-					以西結書
-					以賽亞書(6)
-					啟示錄
-					舊約詩歌書
-					列王記上下
-					基督教哲學
-					約書亞記
-					護教學
-					宣教學
-					聖經預言
-					教牧關懷
-					創世記
-					創世論
-					聖靈論
-					基督論
-					聖經地理
-					聖經羅輯學
-					欽定本聖經維護
-	      		</div>
-	      	</iron-pages>	
+				小先知書
+				希伯來文Ⅰ
+				希伯來文Ⅱ
+				希臘文Ⅰ
+				希臘文Ⅱ
+				當代神學
+				聖經與科學
+				釋經學
+				末世論
+				講道學
+				基督教倫理學
+				大先知書
+				使徒行傳
+				教牧書信
+				監獄書信
+				聖經概論
+				基督教證據學
+				聖經考古學
+				撒母耳記上下
+				詩 篇
+				異端學
+				教育事工研究
+				但以理書
+				以西結書
+				以賽亞書(6)
+				啟示錄
+				舊約詩歌書
+				列王記上下
+				基督教哲學
+				約書亞記
+				護教學
+				宣教學
+				聖經預言
+				教牧關懷
+				創世記
+				創世論
+				聖靈論
+				基督論
+				聖經地理
+				聖經羅輯學
+				欽定本聖經維護
+			</template>
 		</emsi-template-page>
 	</template>
 	
 	<script>
 		class EMSICoursesPage extends Polymer.Element {
 			static get is() { return 'emsi-courses-page'; }
-
-			static get properties() { 
-				return {
-					lang: {
-						type: String,
-						value: "en"
-					}
-				}; 
-			}
+			static get properties() { return {}; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
 		}
 
 		window.customElements.define(EMSICoursesPage.is, EMSICoursesPage);

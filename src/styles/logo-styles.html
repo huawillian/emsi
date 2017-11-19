@@ -1,0 +1,61 @@
+<dom-module id="logo-styles">
+  <template>
+    <style>
+      :host {
+        display: block
+      }
+
+      .container:hover {
+        background-color: rgba(0,0,0,0.2);
+        cursor: pointer;
+      }
+
+      .container {
+        padding-left: 25pt;
+        width: 150pt;
+        height: 62pt;
+      }
+
+      #logo {
+        border-radius: 50%;
+        position: absolute;
+        width: 60pt;
+        top: 0pt;
+        height: 60pt;
+      }
+
+      #logoText {
+        color: #236192;
+        font-family: MyriadProBold;
+        position: absolute;
+        font-size: 23pt;
+        top: 20pt;
+        left: 110pt;
+      }
+
+      @media screen and (max-width: 1000px) and (min-width: 500px) {
+        #logoText {
+          left: 100pt;
+        }
+
+        .container {
+          padding-left: 15pt;
+          width: 140pt;
+          height: 60pt;
+        }
+      }
+
+      @media screen and (max-width: 500px) {
+        #logoText {
+          left: 80pt;
+        }
+
+        .container {
+          padding-left: 0pt;
+          width: 120pt;
+          height: 60pt;
+        }
+      }
+    </style>
+  </template>
+</dom-module>
