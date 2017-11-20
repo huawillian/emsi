@@ -1,193 +1,38 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
 <link rel="import" href="emsi-template-page.html">
+<link rel="import" href="emsi-church-details-card.html">
+
+<link rel="import" href="../styles/search-styles.html">
 
 <dom-module id="emsi-search-page">
 	<template>
-		<style>
-			:host {
-				display: block;
-				color: black;
-				min-height: 80vh;
-			}
+		<style include="search-styles"> </style>
 
-			paper-spinner-lite {
-				padding-left: 47%;
-				height: 100px;
-				width: 100px;
-				padding-top: 20vh;
-			}
-
-			#backgroundImage {
-				position: absolute;
-				height: 81vh;
-				width: 100%;
-				z-index: -1;
-				top: 0px;
-			}
-
-			#searchContainer {
-				position: absolute;
-				min-height: 60vh;
-				width: 35vw;
-				max-height: 500px;
-				max-width: 500px;
-				background-color: rgba(133,120,116,0.8);
-				left: 55vw;
-				top: 10vh;
-				border-radius: 30px;
-				border: 5px solid rgba(255,255,255,0.95);
-			}
-
-			#searchTitle {
-				width: 100%;
-				padding-top: 10vh;
-				text-align: center;
-				color: white;
-				font-family: MyriadProBold;
-				font-size: 20pt;
-			}
-
-			#addressBox {
-				margin-top: 20px;
-				width: 60%;
-				margin-left: 17%;
-				margin-right: 20%;
-				background-color: white;
-				padding-left: 10px;
-				padding-right: 10px;
-				padding-top: 5px;
-				padding-bottom: 5px;
-				border-radius: 10px;
-				border: 1px solid black;
-
-			}
-
-			#addressBox ::content .floated-label-placeholder {
-				height: 0;
-			}
-
-			#searchButton {
-				margin-top: 15px;
-				width: 66.5%;
-				margin-left: 17%;
-				margin-right: 20%;
-				background-color: #236192;
-				color: white;
-				border: 2px solid white;
-				border-radius: 5px;
-				font-size: 9pt;
-				padding: 15px 40px 15px 40px;
-			}
-
-			#returnToSearchButton {
-				width: 78%;
-				margin-left: 10%;
-				margin-right: 10%;
-				margin-top: 10pt;
-				margin-bottom: 20pt;
-				background-color: #236192;
-				color: white;
-				border: 2px solid white;
-				border-radius: 5px;
-				font-size: 9pt;
-				padding: 15px 40px 15px 40px;
-			}
-
-			#locationButton {
-				font-family: MyriadProSemibold;
-				font-size: 10pt;
-				color: white;
-				width: 50%;
-				margin-left: 30%;
-				text-align: right;
-				margin-top: 10px;
-			}
-
-			#locationButton:hover {
-				color: blue;
-			}
-
-			#resultsContainer {
-				background-color: white;
-				min-height: 100vh;
-				padding-bottom: 20pt;
-			}
-
-			#resultsTitle {
-				height: 40pt;
-				font-size: 30pt;
-				background-color: white;
-				color: #236192;
-				font-family: MyriadProBold;
-				padding-top: 20pt;
-				padding-left: 10%;
-				padding-right: 10%;
-				z-index: 2;
-			}
-
-			emsi-church-paper-card {
-				width: 80%;
-				margin-left: 10%;
-			}
-
-			@media screen and (max-width: 800px) {
-				#searchContainer {
-					height: 65vh;
-					width: 80vw;
-					max-height: 100vh;
-					max-width: 100vw;
-					left: 10vw;
-					top: 10vh;
-				}
-
-				#addressBox {
-					width: 62%;
-				}
-
-				emsi-church-paper-card {
-					width: 90%;
-					margin-left: 5%;
-				}
-			}
-
-			#locationButton {
-				color : rgba(255,255,255, 0.5);
-				font-weight:bold;
-				text-decoration: none;
-			} 
-
-			#locationButton:hover {
-				color : blue;
-			}
-			
-		</style>
-
-		<firebase-document
-	      path= "locations"
-	      data="{{data}}">
-	    </firebase-document>
-
-		<template is="dom-repeat" id="addrFinder" items="[[dataArr]]">
+		<template is="dom-repeat" id="addrFinder" items="[[locations]]" as="details">
 			<iron-collapse class="collapse">
-	        	<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.name}}" user-location="{{address}}" on-distance-updated="distanceUpdated"> </emsi-church-paper-card>
-	        <iron-collapse>
-	    </template>
+      	<emsi-church-details-card class="addrFinderCard" data="{{details}}" lang="{{lang}}" on-distance-updated="distanceUpdated"> </emsi-church-details-card>
+    	</iron-collapse>
+    </template>
 
 	 	<template is="dom-if" if="{{!showSearchResults}}" id="searchMenu">
 	 		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="https://github.com/huawillian/emsi/raw/master/src/images/FindALocationBkgrd-01.jpg"></iron-image>
 			<div id="searchContainer">
-				<div id="searchTitle"> FIND A CHURCH </div>
-				<paper-input id="addressBox" placeholder="Enter Address Here"></paper-input>
-				<paper-button raised id="searchButton" on-tap="startSearchByAddress"> FIND A LOCATION </paper-button>
-				<div id="locationButton" on-tap="getLocation"> Or, use your current location </div>
+				<div id="searchContainerInner">
+					<div id="searchTitle"> FIND A CHURCH </div>
+					<div style="padding:10pt" id="addressBoxC"> 
+						<paper-input id="addressBox" placeholder="Enter Address Here"></paper-input>
+					</div>
+					<div raised id="searchButton" on-tap="startSearchByAddress"> FIND A LOCATION </div>
+					<div id="locationButton" on-tap="getLocation"> Or, use your current location </div>
+				</div>
 			</div>
 	    </template>
 
@@ -198,16 +43,22 @@
 				</div>
 
 				<template is="dom-if" if="{{!isSearching}}">
-					<paper-button raised id="returnToSearchButton" on-tap="toggleShowSearchResults"> START ANOTHER SEARCH </paper-button>
+					<div raised id="returnToSearchButton" on-tap="toggleShowSearchResults"> START ANOTHER SEARCH </div>
 				</template>
 
-				<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]">
-		        	<!--<emsi-church-paper-card city="{{item.name}}" address="{{item.address}}" sunday-service-time="{{item.time}}" learn-more-url="{{item.url}}" user-distance-text="{{item.distance}}"> </emsi-church-paper-card> -->
-			    </template>
+				<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]" as="details">
+        	<emsi-church-details-card class="addrFinderCard" data="{{details}}" lang="{{lang}}" user-distance-text="{{details.distance}}"> </emsi-church-details-card>
+		    </template>
 
 				<template is="dom-if" if="[[isSearching]]">
-			      <paper-spinner-lite active class="thick"></paper-spinner-lite>
-			    </template>
+					<table>
+					<tr>
+						<td>
+		      		<paper-spinner-lite active class="thick"></paper-spinner-lite>
+						</td>
+					</tr>
+					</table>
+		    </template>
 			</div>
 		</template>
 	</template>
@@ -227,14 +78,8 @@
 						value: "en"
 					} ,
 					address: String ,
-					data: {
-						type: Object,
-						value: {},
-						observer: "dataChanged"
-					},
-					dataArr: {
-						type: Array,
-						value: []
+					locations: {
+						type: Array
 					} , 
 					directionsArr: {
 						type: Array,
@@ -244,11 +89,7 @@
 						type: Array,
 						value: []
 					},
-					isSearching: Boolean ,
-					maxCount: {
-						type: Number,
-						value: 5
-					}
+					isSearching: Boolean
 				}; 
 			}
 
@@ -264,64 +105,16 @@
 			distanceUpdated(params) {
 				if(params.detail.distance.text == undefined) return;
 				this.push("directionsArr", params.detail);
-				console.log(params.detail);
 			}
-
-			dataChanged(newValue, oldValue) {
-				if(!newValue) return;
-				if(!!oldValue && Object.keys(oldValue).length > 0) return;
-
-				let temp = [];
-
-				for(var key in newValue) {
-					temp.push(newValue[key]);
-				}
-
-				this.set("dataArr", temp);
-
-				console.log(this.dataArr);
-			}
-
-			resetDataArr() {
-				this.set("dataArr", []);
-				
-				for(var key in this.data) {
-					this.push("dataArr", this.data[key]);
-				}
-
-				console.log(this.dataArr);
-			}
-
-			startSearchByAddress() {
-				if(Polymer.dom(this.root).querySelector('#addressBox') == undefined || Polymer.dom(this.root).querySelector('#addressBox').value == "") return;
-				if(this.isSearching == true) return;
-				this.resetDataArr();
-
-				this.address = "";
-				this.address = Polymer.dom(this.root).querySelector('#addressBox').value;
-				this.set("directionsArr", []);
-				this.set("displayArr", []);
-				this.isSearching = true;
-				this.toggleShowSearchResults();
-				this.startSearch();
-			} 
 
 			startSearch() {
 				setTimeout(function(){
 					this.directionsArr.sort(function(a, b){return a.distance.value-b.distance.value});
-
-					console.log(this.directionsArr);
-
-					var currCount = 0;
-
 					for(var i = 0; i < this.directionsArr.length; i++) {
-						for(var key in this.dataArr) {
-							if(this.dataArr[key].name == this.directionsArr[i].name) {
-								if(currCount >= this.maxCount) break;
-								currCount++;
-
-								this.push("displayArr", this.dataArr[key]);
-								this.dataArr[key].distance = this.directionsArr[i].distance.text;
+						for(let location of this.locations) {
+							if(location.name == this.directionsArr[i].name) {
+								this.push("displayArr", location);
+								location.distance = this.directionsArr[i].distance.text;
 							}
 						}
 					}
@@ -340,11 +133,10 @@
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function(position){
 						if(this.isSearching == true) return;
-
 						this.address = "";
 						this.address = position.coords.latitude + " " + position.coords.longitude;
-						this.resetDataArr();
 						this.$.addrFinder.render();
+						this.startAddressFinder();
 						this.set("directionsArr", []);
 						this.set("displayArr", []);
 						this.isSearching = true;
@@ -352,6 +144,25 @@
 						this.startSearch();
 					}.bind(this));
 				}
+			}
+
+			startSearchByAddress() {
+				if(Polymer.dom(this.root).querySelector('#addressBox') == undefined || Polymer.dom(this.root).querySelector('#addressBox').value == "") return;
+				if(this.isSearching == true) return;
+				this.address = "";
+				this.address = Polymer.dom(this.root).querySelector('#addressBox').value;
+				this.$.addrFinder.render();
+				this.startAddressFinder();
+				this.set("directionsArr", []);
+				this.set("displayArr", []);
+				this.isSearching = true;
+				this.toggleShowSearchResults();
+				this.startSearch();
+			} 
+
+			startAddressFinder() {
+				let addrFinderCards = Polymer.dom(this.root).querySelectorAll('.addrFinderCard');
+				addrFinderCards.forEach(v => v.setLocation(this.address));
 			}
 		}
 

@@ -60,7 +60,7 @@
 
     <!-- app-location binds to the app's URL -->
     <!-- this app-route manages the top-level routes -->
-    <app-location route="{{route}}" id="myRoute" query-params="{{queryParams}}" use-hash-as-path></app-location>
+    <app-location route="{{route}}" id="myRoute" use-hash-as-path query-params="{{queryParams}}" ></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
     <!-- set isDesktop property depending on width of screen -->
@@ -86,7 +86,7 @@
         <emsi-missions-page class="page" name="missions" lang="{{lang}}"> </emsi-missions-page>
         <emsi-seminary-page class="page" name="seminary" lang="{{lang}}"> </emsi-seminary-page>
 
-        <emsi-search-page class="page" name="search" lang="{{lang}}"> </emsi-search-page>
+        <emsi-search-page class="page" name="search" lang="{{lang}}" locations="{{dataAsArray}}"> </emsi-search-page>
 
         <emsi-continent-page class="page" name="america" lang="{{lang}}" continent="America" locations="{{dataAsArray}}"> </emsi-continent-page>
         <emsi-continent-page class="page" name="europe" lang="{{lang}}" continent="Europe" locations="{{dataAsArray}}"> </emsi-continent-page>
@@ -136,8 +136,9 @@
         this.addEventListener('emsi-route-change-event', this.routeChangeEventHandler);
         this.addEventListener('emsi-lang-change-event', this.langChangeEventHandler);
 
-        let lang = this.$.myRoute.queryParams.lang;
-        this.lang = !lang || lang === "en" ? "en" : "zh"
+        // let lang = this.$.myRoute.queryParams.lang;
+        //this.lang = !lang || lang === "en" ? "en" : "zh"
+        this.lang = "en";
       }
 
       // Called on event fired, emsi-route-change-event, given object param
@@ -153,7 +154,7 @@
       // Set top level lang to language, this will cascade down each page binded to lang {{lang}}
       langChangeEventHandler(e) {
         this.lang = e.detail;
-        this.$.myRoute.queryParams = this.lang === "en" ? {lang: "en"} : {lang: "zh"};
+        // this.$.myRoute.queryParams = this.lang === "en" ? {lang: "en"} : {lang: "zh"};
       }
 
       // Set all pages back to the top of the screen

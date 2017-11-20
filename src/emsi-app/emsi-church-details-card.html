@@ -51,18 +51,25 @@
             type: String,
           } , 
           userDistance: {
-            type: Object
+            type: Object,
+            observer: "distanceUpdated"
           } ,
-          userDistanceText: {
-            type: String,
-            value: ""
-          }
+          userDistanceText: String
         };
       }
 
       connectedCallback() {
         super.connectedCallback();
-        this.getLocation();
+        // this.getLocation();
+      }
+
+      distanceUpdated(newValue) {
+        if(!newValue || !Object.keys(newValue).length) return;
+        var param = {
+          name: this.data.name,
+          distance: newValue
+        };
+        this.dispatchEvent(new CustomEvent('distance-updated', { detail: param, bubbles: true, composed: true }));
       }
 
       // Get your current location and start maps process
@@ -74,6 +81,12 @@
             this.$.dir.startAddress = this.userLocation;
           }.bind(this));
         }
+      }
+
+      // Or set address externally and capture distance-updated event
+      setLocation(loc) {
+        this.userLocation = loc;
+        this.$.dir.startAddress = this.userLocation;
       }
 
       // Handle Maps Result and set distance to church from you
