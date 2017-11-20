@@ -172,7 +172,12 @@
 							<template id='renderList' is="dom-repeat" items="[[displayedData]]">
 								<div class="stafftitle">{{item.title}}</div>
 								<div class="staffname">{{item.name}}</div>
-								<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}"></iron-image>
+								<template is="dom-if" if="[[item.url]]">
+									<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}"></iron-image>
+								</template>
+								<template is="dom-if" if="[[!item.url]]">
+									<iron-image class="staffpic" sizing="cover" preload src="./src/images/user.png"></iron-image>
+								</template>
 							</template>
 							<template is="dom-if" if="{{hasHiddenStaff}}">
 					      <emsi-button color="blue" on-tap="showMore">
@@ -204,14 +209,27 @@
 				font-size: 16pt;
 				padding-left: 0%;
 				color: rgba(0,0,0,0.6);">{{item.name}}</div>
-					<iron-image class="staffpic" style="width: 50pt;
+
+					<template is="dom-if" if="[[item.url]]">
+						<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}" style="width: 50pt;
 				height: 50pt;
 				right: -65%;
 				border: 2px black;
 				border-radius: 50%;
 				top: -110pt;
 				margin-bottom: -100pt;
-				border: 3pt solid rgba(0,0,0,0.4);" sizing="cover" preload src="{{item.url}}"></iron-image>
+				border: 3pt solid rgba(0,0,0,0.4);"></iron-image>
+					</template>
+					<template is="dom-if" if="[[!item.url]]">
+						<iron-image class="staffpic" sizing="cover" preload src="./src/images/user.png" style="width: 50pt;
+				height: 50pt;
+				right: -65%;
+				border: 2px black;
+				border-radius: 50%;
+				top: -110pt;
+				margin-bottom: -100pt;
+				border: 3pt solid rgba(0,0,0,0.4);"></iron-image>
+					</template>
 				</template>
 			</div>
 		  </paper-dialog-scrollable>
