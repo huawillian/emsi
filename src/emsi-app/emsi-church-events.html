@@ -14,24 +14,7 @@
 				margin: 0;
 				padding: 0;
 				margin-bottom: -4pt;
-				width:50%;
 			}
-
-			@font-face {
-			    font-family: MyriadProBold;
-			    src: url(../fonts/MyriadPro-Bold.otf);
-			}
-
-			@font-face {
-			    font-family: MyriadProRegular;
-			    src: url(../fonts/MyriadPro-Regular.otf);
-			}
-
-			@font-face {
-			    font-family: MyriadProSemibold;
-			    src: url(../fonts/MyriadPro-Semibold.otf);
-			}
-
 
 			.container {
 				width:100%;
@@ -118,10 +101,6 @@
 				.container {
 					height:100vw
 				}
-
-				:host {
-					width: 100%;
-				}
 			}
 
 			@media screen and (max-width: 1000px) and (min-width: 800px) {
@@ -203,9 +182,16 @@
 								</div>
 							</template>
 
-						      <emsi-button color="brown" on-tap="showMore"> 
-						      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
-						      </emsi-button>
+						  <template is="dom-if" if="{{hasHiddenEvents}}">
+					      <emsi-button color="blue" on-tap="showMore">
+									<template is="dom-if" if="[[isEnglish]]">
+										SHOW MORE
+									</template>
+									<template is="dom-if" if="[[!isEnglish]]">
+										? CHINESE SHOW ?
+									</template>
+								</emsi-button>
+					    </template>
 						</td>
 	    			</tr>
     			</tbody>
@@ -292,6 +278,10 @@
 					}
 				}; 
 			}
+
+			static get observers() { return [ 'languageChanged(lang)' ]; }
+
+      languageChanged(val) { this.isEnglish = val === "en"; }
 
 			dataChanged(newValue, oldValue) {
 				if(!newValue || newValue.length === 0) {

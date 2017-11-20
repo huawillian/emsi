@@ -14,17 +14,6 @@
 				margin: 0;
 				padding: 0;
 				margin-bottom: -4pt;
-				width:50%;
-			}
-
-			@font-face {
-			    font-family: MyriadProBold;
-			    src: url(../fonts/MyriadPro-Bold.otf);
-			}
-
-			@font-face {
-			    font-family: MyriadProRegular;
-			    src: url(../fonts/MyriadPro-Regular.otf);
 			}
 
 			.container {
@@ -68,10 +57,6 @@
 			@media screen and (max-width: 800px) {
 				.container {
 					height:100vw
-				}
-
-				:host {
-					width: 100%;
 				}
 			}
 
@@ -140,7 +125,7 @@
 			}
 
 			th, td {
-			    width: 50%;
+	    	width: 50%;
 			}
 
 		</style>
@@ -166,10 +151,15 @@
 							</div>
 
 							<template is="dom-if" if="{{hasHiddenMinistries}}">
-						      <emsi-button color="brown" on-tap="showMore"> 
-						      	<emsi-firebase-document my-path="showMoreButton" lang="{{lang}}" display> </emsi-firebase-document>
-						      </emsi-button>
-						    </template>
+								<emsi-button color="blue" on-tap="showMore">
+									<template is="dom-if" if="[[isEnglish]]">
+										SHOW MORE
+									</template>
+									<template is="dom-if" if="[[!isEnglish]]">
+										? CHINESE SHOW ?
+									</template>
+								</emsi-button>
+					    </template>
 						</td>
 	    			</tr>
     			</tbody>
@@ -205,10 +195,6 @@
 
 			static get properties() { 
 				return {
-					lang: {
-						type: String,
-						value: "en"
-					},
 					title: String,
 					data: {
 						type: Array,
@@ -225,6 +211,10 @@
 					}
 				}; 
 			}
+
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+
+      languageChanged(val) { this.isEnglish = val === "en"; }
 
 			dataChanged(newValue, oldValue) {
 				if(!newValue || newValue.length === 0) {

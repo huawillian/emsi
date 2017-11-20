@@ -99,7 +99,8 @@
         <emsi-courses-page class="page" name="courses" lang="{{lang}}"> </emsi-courses-page>
         <emsi-curriculum-page class="page" name="curriculum" lang="{{lang}}"> </emsi-curriculum-page>
         <emsi-signin-page class="page" name="signin" lang="{{lang}}"> </emsi-signin-page>
-        <emsi-church-page id="churchPage" class="page" name="church" lang="{{lang}}" path="{{route.path}}"> </emsi-church-page>
+
+        <emsi-church-page id="churchPage" class="page" name="church" lang="{{lang}}" church-data="[[churchData]]"> </emsi-church-page>
       </iron-pages>
 
       <!-- Footer -->
@@ -126,7 +127,8 @@
           dataAsArray: {
             type: Array,
             value: []
-          }
+          },
+          churchData: Object
         };
       }
 
@@ -147,7 +149,8 @@
         let path = e.detail;
         path = path.startsWith("/") ? path : "/" + path;
         this.set('route.path', path);
-        this.$.churchPage.path = path;
+        this.updateChurchData();
+        console.log(this.route.path);
       }
 
       // Called on event fired, emsi-lang-change-event, given object param
@@ -171,6 +174,16 @@
           let keys = Object.keys(newValue);
           keys.forEach(k => newArray.push(newValue[k]));
           this.set("dataAsArray", newArray);
+        }
+        this.updateChurchData();
+      }
+
+      // Update church information given updated path or updated locations
+      updateChurchData() {
+        if(!this.dataAsArray || !this.dataAsArray) return;
+        let church = this.dataAsArray.find(v => v.url === this.route.path);
+        if(!!church) {
+          this.set("churchData", church);
         }
       }
     }
