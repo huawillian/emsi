@@ -125,7 +125,6 @@
 					return;
 				}
 
-				console.log(newValue);
 				this.calculateHasHiddenMinistries(newValue);
 
 				this.set("displayedData", []);
@@ -145,8 +144,7 @@
 					this.push("displayedData", tempObj);
 				}
 
-				console.log(this.displayedData);
-
+				// console.log(this.displayedData);
 			}
 
 			calculateHasHiddenMinistries(data) {
