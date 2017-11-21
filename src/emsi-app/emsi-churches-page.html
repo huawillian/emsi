@@ -1,8 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 
 <!-- custom element -->
-<link rel="import" href="emsi-firebase-document.html">
 <link rel="import" href="emsi-template-page.html">
 
 <dom-module id="emsi-churches-page">
@@ -14,21 +12,21 @@
 				width: 100%;
 				z-index: 0;
 			}
+
+			div {
+				margin-bottom: 20pt;
+			}
 		</style>
 		
-		<emsi-template-page title-path="churches/title" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg" lang="{{lang}}">
-			<!-- iron-pages selects the view based on the active route -->
-	      	<iron-pages selected="[[lang]]" attr-for-selected="name">
-	      		<div name="en"> 
-			<section><p>
-				The main thrusts of the ministry of the Christian Evangelical Oversea Mission 
+		<template is="dom-if" if="[[isEnglish]]">
+			<emsi-template-page title="Mission Churches" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
+			 <div> The main thrusts of the ministry of the Christian Evangelical Oversea Mission 
 				are to spread the Gospel of Christ Jesus and to establish churches that are based 
 				on God’s truth.  Aside from coordinating all missionary work in America, Europe, 
 				Asia, and Africa, the CEOM oversees the establishment of mission churches.  It 
 				also sends out and supervises missionaries in order to meet the needs of the 
-				mission fields.
-			</p><p>
-				At the present, the emphasis of the Christian Evangelical Overseas Mission is for
+				mission fields. </div>
+				<div> At the present, the emphasis of the Christian Evangelical Overseas Mission is for
 				the mission churches.  “Mission churches” are 
 				those pioneering mission fields where new Christians are gathered together and 
 				churches are established.  A mission church is the first step in establishing a 
@@ -41,38 +39,26 @@
 				established church is self-supporting, it is still considered a mission church, 
 				because although it is financially independent, it still needs to be unified 
 				with the operation at the Mission Headquarters.  The status of a church will be 
-				determined after a year of evaluation.
-			</p><p>
-				A mission church is like a new-born baby that needs extra care and nurture.  It 
+				determined after a year of evaluation. </div>
+				<div> A mission church is like a new-born baby that needs extra care and nurture.  It 
 				needs financial, manpower, and prayer support from brothers and sisters.  So, in 
-				the mission field, the C.E.O.M. will fully support the pioneering mission field.
-			</p></section>
-	      		</div>
-	      		<div name="zh">
-			<section><p>
-		       國際福音差傳會主要的事工就是：傳揚基督耶穌的福音，並在世界各地建立基督真理的教會。我們除了聯合協調美洲、歐洲、亞洲、非洲各地宣教的工作，監督各宣教教會的建立，也差遣並監管各地宣教同工，以配合各地福音工場之需。 
-		</p>
-		       國際福音差傳會事工的重點較集中於各宣教教會。所謂「宣教教會」就是指：在拓荒的宣教工場中將曾帶領得救信主的信徒召集聚會，因此而成立的教會即為宣教教會。宣教教會是各生命堂建立教會的第一步，不論是已有能力自立，或是由差傳會基金支持，每間生命堂的建立都必須由宣教教會起步；所以，在國際福音差傳會整體的組織架構裡，宣教教會將成為未來各生命堂發展的基石。 <br/><br/>
-		       當宣教教會已有能力足夠支付自己教會的一切經常開支，不需其他教會或是宣教基金支持時，並且在一切整體的運作上與總會一致，即可成為自立教會。 宣教教會，有如剛出生的嬰孩，需要格外地照顧，不論在財力、人力、物力等方面，特別需要關懷，在禱告中支持；差傳會是全力支援這些剛拓荒的工場。 
-		</section>
-	      		</div>
-	      	</iron-pages>
-	    </emsi-template-page>
-
-
+				the mission field, the C.E.O.M. will fully support the pioneering mission field. </div>
+			</emsi-template-page>
+		</template>
+		<template is="dom-if" if="[[!isEnglish]]">
+			<emsi-template-page title="宣教教會" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
+				<div> 國際福音差傳會主要的事工就是：傳揚基督耶穌的福音，並在世界各地建立基督真理的教會。我們除了聯合協調美洲、歐洲、亞洲、非洲各地宣教的工作，監督各宣教教會的建立，也差遣並監管各地宣教同工，以配合各地福音工場之需。 </div>
+				<div> 國際福音差傳會事工的重點較集中於各宣教教會。所謂「宣教教會」就是指：在拓荒的宣教工場中將曾帶領得救信主的信徒召集聚會，因此而成立的教會即為宣教教會。宣教教會是各生命堂建立教會的第一步，不論是已有能力自立，或是由差傳會基金支持，每間生命堂的建立都必須由宣教教會起步；所以，在國際福音差傳會整體的組織架構裡，宣教教會將成為未來各生命堂發展的基石。</div>
+				<div> 當宣教教會已有能力足夠支付自己教會的一切經常開支，不需其他教會或是宣教基金支持時，並且在一切整體的運作上與總會一致，即可成為自立教會。 宣教教會，有如剛出生的嬰孩，需要格外地照顧，不論在財力、人力、物力等方面，特別需要關懷，在禱告中支持；差傳會是全力支援這些剛拓荒的工場。 </div>
+			</emsi-template-page>
+		</template>
 	</template>
 	<script>
 		class EMSIChurchesPage extends Polymer.Element {
 			static get is() { return 'emsi-churches-page'; }
-
-			static get properties() { 
-				return {
-					lang: {
-						type: String,
-						value: "en"
-					}
-				}; 
-			}
+			static get properties() { return {}; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
 		}
 		
 		window.customElements.define(EMSIChurchesPage.is, EMSIChurchesPage);
