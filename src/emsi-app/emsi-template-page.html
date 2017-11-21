@@ -1,134 +1,24 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <!-- custom element -->
-<link rel="import" href="emsi-firebase-document.html">
+<link rel="import" href="../styles/template-styles.html">
 
 <dom-module id="emsi-template-page">
 	<template>
-		<style>
-			:host {
-				display: block;
-				min-height: 100vh;
-				width: 100%;
-				z-index: 0;
-			}
-
-			@font-face {
-			    font-family: MyriadProBold;
-			    src: url(../fonts/MyriadPro-Bold.otf);
-			}
-
-			@font-face {
-			    font-family: MyriadProRegular;
-			    src: url(../fonts/MyriadPro-Regular.otf);
-			}
-
-			.titleContainer {
-				height: 80pt;
-				font-size: 30pt;
-				background-color: rgba(133,120,116, 0.15);
-				color: #236192;
-				font-family: MyriadProBold;
-				padding-top: 40pt;
-				padding-left: 20vw;
-				padding-right: 20vw;
-				z-index: 2;
-			}
-
-			.contentContainer {
-				padding-left: 20vw;
-				padding-right: 20vw;
-				padding-top: 20pt;
-				padding-bottom: 20pt;
-				font-family: MyriadProRegular;
-				background-color: rgba(133,120,116, 0.15);
-				font-size: 15pt;
-				color: white;
-				text-align: left;
-				text-align: justify;
-			}
-
-			@media screen and (max-width: 800px) {
-				.titleContainer {
-					padding-left: 10vw;
-					padding-right: 10vw;
-					font-size: 25pt;
-				}
-
-				.contentContainer {
-					padding-left: 10vw;
-					padding-right: 10vw;
-					font-size: 12.5pt;
-				}
-			}
-
-			@media screen and (min-width: 1200px) {
-				.titleContainer {
-					padding-left: 25vw;
-					padding-right: 25vw;
-				}
-
-				.contentContainer {
-					padding-left: 25vw;
-					padding-right: 25vw;
-				}
-			}
-
-			#backgroundImage {
-				position: absolute;
-				height: 100%;
-				width: 100%;
-				z-index: -1;
-				top: 0%;
-			}
-
-			.titleContainerBackground {
-				height: 110pt;
-				background-color: white;
-				width: 100%;
-				position: absolute;
-				z-index: -1;
-			}
-		</style>
-
-		<iron-image id="backgroundImage" sizing="cover" preload src="{{backgroundImagePath}}"></iron-image>
-
-		<div class="titleContainerBackground"> </div>
-
-	    <div class="titleContainer">
-	    	<emsi-firebase-document my-path="{{titlePath}}" lang="{{lang}}" display> </emsi-firebase-document>
-	    </div>
-
-	    <div class="contentContainer">
-				<slot> </slot>
-	    </div>
+		<style include="template-styles"> </style>
 		
+		<iron-image id="backgroundImage" sizing="cover" preload src="{{backgroundImagePath}}"></iron-image>
+    <div class="titleContainer"> [[title]] </div>
+    <div class="contentContainer">
+			<slot> </slot>
+    </div>
 	</template>
 	
 	<script>
 		class EMSITemplatePage extends Polymer.Element {
 			static get is() { return 'emsi-template-page'; }
-
-			static get properties() { 
-				return {
-					lang: {
-						type: String,
-						value: "en"
-					} ,
-					titlePath: {
-						type: String,
-						value: "beliefs/title",
-
-					},
-					backgroundImagePath: {
-						type: String,
-						value: "src/StatementOfFaithImage-01.jpg",
-					}
-				}; 
-			}
+			static get properties() { return { title: String, backgroundImagePath: String }; }
 		}
 
 		window.customElements.define(EMSITemplatePage.is, EMSITemplatePage);
