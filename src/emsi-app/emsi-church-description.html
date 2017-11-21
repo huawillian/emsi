@@ -134,10 +134,10 @@
 		<paper-dialog id="dialog" modal style="width: 80vw; padding: 20pt; padding-right: 0">
 		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
 		  <paper-dialog-scrollable>
-			<div class="content contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
+			<div class="content contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;overflow-y: scroll;height:60vh;padding:5pt">
 			</div>
 		  </paper-dialog-scrollable>
-		  <div class="buttons">
+		  <div class="buttons" style="margin-top: 20pt">
 		    <emsi-button color="blue" dialog-dismiss> CLOSE </emsi-button>
 		  </div>
 		</paper-dialog>
