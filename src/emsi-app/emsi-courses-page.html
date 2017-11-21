@@ -1,8 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 
 <!-- custom element -->
-<link rel="import" href="emsi-firebase-document.html">
 <link rel="import" href="emsi-template-page.html">
 
 <dom-module id="emsi-courses-page">
@@ -14,181 +12,194 @@
 				width: 100%;
 				z-index: 0;
 			}
+
+			div {
+				margin-bottom: 10pt;
+			}
+
+			.divHeader {
+				font-weight: bold;
+				text-decoration: underline;
+				margin-top: 20pt;
+			}
 		</style>
-		<emsi-template-page title-path="courses/title" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg" lang="{{lang}}">
-			<template is="dom-if" if="[[isEnglish]]">
-				Basic Bible Courses
 
-				Old Testament Survey 
-				New Testament Survey 
-				Life of Christ 
-				Gospel of Matthew 
-				Doctrine of Salvation 
-				Book of Romans 
-				Book of Hebrews 
-				Basic Doctrines 
-				Anthropology 
-				Systematic Theology I 
-				Systematic Theology II 
-				Personal Evangelism 
-				Church History 
-				General Epistles 
-				Gospel of John 
-				Pentateuch 
-				How To Lead a Bible Study
+		<template is="dom-if" if="[[isEnglish]]">
+			<emsi-template-page title="Courses" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
+				<div class="divHeader"> Basic Bible Courses </div>
 
-				Elective Courses
+				<div> Old Testament Survey  </div>
+				<div> New Testament Survey  </div>
+				<div> Life of Christ  </div>
+				<div> Gospel of Matthew  </div>
+				<div> Doctrine of Salvation  </div>
+				<div> Book of Romans  </div>
+				<div> Book of Hebrews  </div>
+				<div> Basic Doctrines  </div>
+				<div> Anthropology  </div>
+				<div> Systematic Theology I  </div>
+				<div> Systematic Theology II  </div>
+				<div> Personal Evangelism  </div>
+				<div> Church History  </div>
+				<div> General Epistles  </div>
+				<div> Gospel of John  </div>
+				<div> Pentateuch  </div>
+				<div> How To Lead a Bible Study </div>
 
-				Children, Youth & Adult Christian Education 
-				Introduction to Christian Education 
-				History of Religious Education 
-				Educational Psychology 
-				Field Studies 
-				Microteaching 
-				Counseling Techniques 
-				Biblical Psychology 
-				Contemporary Psychology 
-				Music Theory 
-				Music History 
-				Church Music 
-				Basic Piano Techniques 
-				Choral Conducting 
-				Chorus 
-				Computer 
-				Vocal 
-				Piano
+				<div class="divHeader"> Elective Courses </div>
 
-				Advance Bible Courses
+				<div> Children, Youth & Adult Christian Education  </div>
+				<div> Introduction to Christian Education  </div>
+				<div> History of Religious Education  </div>
+				<div> Educational Psychology  </div>
+				<div> Field Studies  </div>
+				<div> Microteaching  </div>
+				<div> Counseling Techniques  </div>
+				<div> Biblical Psychology  </div>
+				<div> Contemporary Psychology  </div>
+				<div> Music Theory  </div>
+				<div> Music History  </div>
+				<div> Church Music  </div>
+				<div> Basic Piano Techniques  </div>
+				<div> Choral Conducting  </div>
+				<div> Chorus  </div>
+				<div> Computer  </div>
+				<div> Vocal  </div>
+				<div> Piano </div>
 
-				Minor Prophets 
-				Hebrew I 
-				Hebrew II 
-				Greek I 
-				Greek II 
-				Contemporary Theology 
-				Bible and Science 
-				Hermeneutics 
-				Eschatology 
-				Homiletics 
-				Christian Ethics 
-				Major Prophets 
-				Acts of the Apostles 
-				Pastoral Epistles 
-				Prison Epistles 
-				Introduction to Bible 
-				Christian Evidences 
-				Biblical Archaeology 
-				I & II Samuel 
-				Psalms 
-				Cults and Religions 
-				Educational Ministry 
-				Daniel 
-				Ezekiel 
-				Isaiah (6)
-				Revelation 
-				Old Testament Poetical Books 
-				I & II Kings 
-				Christian Philosophy 
-				Book of Joshua 
-				Apologetics 
-				Missionlogy 
-				Biblical Prophecy 
-				Pastoral Care 
-				Genesis 
-				Creationism 
-				Pneumatology 
-				Christology 
-				Biblical Geography 
-				Biblical Logic 
-				King James Bible Defense
-	    </template>	      		
-		  <template is="dom-if" if="[[!isEnglish]]">
-				基要聖經課程
+				<div class="divHeader"> Advance Bible Courses</div>
 
-				舊約綜覽
-				新約綜覽
-				基督生平
-				馬太福音
-				救恩論
-				羅馬書
-				希伯來書
-				基要信仰
-				人類學
-				系統神學Ι 
-				系統神學Ⅱ
-				個人佈道法
-				教會歷史
-				普通書信
-				約翰福音
-				摩西五經
-				如何帶領小組查經
+				<div> Minor Prophets </div>
+				<div> Hebrew I </div>
+				<div> Hebrew II </div>
+				<div> Greek I </div>
+				<div> Greek II </div>
+				<div> Contemporary Theology </div>
+				<div> Bible and Science </div>
+				<div> Hermeneutics </div>
+				<div> Eschatology </div>
+				<div> Homiletics </div>
+				<div> Christian Ethics </div>
+				<div> Major Prophets </div>
+				<div> Acts of the Apostles </div>
+				<div> Pastoral Epistles </div>
+				<div> Prison Epistles </div>
+				<div> Introduction to Bible </div>
+				<div> Christian Evidences </div>
+				<div> Biblical Archaeology </div>
+				<div> I & II Samuel </div>
+				<div> Psalms </div>
+				<div> Cults and Religions </div>
+				<div> Educational Ministry </div>
+				<div> Daniel </div>
+				<div> Ezekiel </div>
+				<div> Isaiah (6)</div>
+				<div> Revelation </div>
+				<div> Old Testament Poetical Books </div>
+				<div> I & II Kings </div>
+				<div> Christian Philosophy </div>
+				<div> Book of Joshua </div>
+				<div> Apologetics </div>
+				<div> Missionlogy </div>
+				<div> Biblical Prophecy </div>
+				<div> Pastoral Care </div>
+				<div> Genesis </div>
+				<div> Creationism </div>
+				<div> Pneumatology </div>
+				<div> Christology </div>
+				<div> Biblical Geography </div>
+				<div> Biblical Logic </div>
+				<div> King James Bible Defense</div>
+			</emsi-template-page>
+    </template>   		
+	  <template is="dom-if" if="[[!isEnglish]]">
+	  	<emsi-template-page title="課程" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
+				<div class="divHeader"> 基要聖經課程 </div>
 
-				選修課程
+				<div> 舊約綜覽 </div>
+				<div> 新約綜覽 </div>
+				<div> 基督生平 </div>
+				<div> 馬太福音 </div>
+				<div> 救恩論 </div>
+				<div> 羅馬書 </div>
+				<div> 希伯來書 </div>
+				<div> 基要信仰 </div>
+				<div> 人類學 </div>
+				<div> 系統神學Ι  </div>
+				<div> 系統神學Ⅱ </div>
+				<div> 個人佈道法 </div>
+				<div> 教會歷史 </div>
+				<div> 普通書信 </div>
+				<div> 約翰福音 </div>
+				<div> 摩西五經 </div>
+				<div> 如何帶領小組查經 </div>
 
-				兒童、青少年與成人教育
-				基督教教育概論
-				宗教教育史
-				教育心理學
-				工場實習研究
-				顯微教學法
-				輔導的技巧
-				聖經心理學
-				現代心理學
-				樂 理
-				音樂史
-				教會音樂
-				基礎司琴法
-				詩班指揮
-				合唱
-				電腦
-				聲樂
-				鋼琴
+				<div class="divHeader"> 選修課程 </div>
 
-				進階聖經課程
+				<div> 兒童、青少年與成人教育 </div>
+				<div> 基督教教育概論 </div>
+				<div> 宗教教育史 </div>
+				<div> 教育心理學 </div>
+				<div> 工場實習研究 </div>
+				<div> 顯微教學法 </div>
+				<div> 輔導的技巧 </div>
+				<div> 聖經心理學 </div>
+				<div> 現代心理學 </div>
+				<div> 樂 理 </div>
+				<div> 音樂史 </div>
+				<div> 教會音樂 </div>
+				<div> 基礎司琴法 </div>
+				<div> 詩班指揮 </div>
+				<div> 合唱 </div>
+				<div> 電腦 </div>
+				<div> 聲樂 </div>
+				<div> 鋼琴 </div>
 
-				小先知書
-				希伯來文Ⅰ
-				希伯來文Ⅱ
-				希臘文Ⅰ
-				希臘文Ⅱ
-				當代神學
-				聖經與科學
-				釋經學
-				末世論
-				講道學
-				基督教倫理學
-				大先知書
-				使徒行傳
-				教牧書信
-				監獄書信
-				聖經概論
-				基督教證據學
-				聖經考古學
-				撒母耳記上下
-				詩 篇
-				異端學
-				教育事工研究
-				但以理書
-				以西結書
-				以賽亞書(6)
-				啟示錄
-				舊約詩歌書
-				列王記上下
-				基督教哲學
-				約書亞記
-				護教學
-				宣教學
-				聖經預言
-				教牧關懷
-				創世記
-				創世論
-				聖靈論
-				基督論
-				聖經地理
-				聖經羅輯學
-				欽定本聖經維護
-			</template>
-		</emsi-template-page>
+				<div class="divHeader"> 進階聖經課程 </div>
+
+				<div> 小先知書 </div>
+				<div> 希伯來文Ⅰ </div>
+				<div> 希伯來文Ⅱ </div>
+				<div> 希臘文Ⅰ </div>
+				<div> 希臘文Ⅱ </div>
+				<div> 當代神學 </div>
+				<div> 聖經與科學 </div>
+				<div> 釋經學 </div>
+				<div> 末世論 </div>
+				<div> 講道學 </div>
+				<div> 基督教倫理學 </div>
+				<div> 大先知書 </div>
+				<div> 使徒行傳 </div>
+				<div> 教牧書信 </div>
+				<div> 監獄書信 </div>
+				<div> 聖經概論 </div>
+				<div> 基督教證據學 </div>
+				<div> 聖經考古學 </div>
+				<div> 撒母耳記上下 </div>
+				<div> 詩 篇 </div>
+				<div> 異端學 </div>
+				<div> 教育事工研究 </div>
+				<div> 但以理書 </div>
+				<div> 以西結書 </div>
+				<div> 以賽亞書(6) </div>
+				<div> 啟示錄 </div>
+				<div> 舊約詩歌書 </div>
+				<div> 列王記上下 </div>
+				<div> 基督教哲學 </div>
+				<div> 約書亞記 </div>
+				<div> 護教學 </div>
+				<div> 宣教學 </div>
+				<div> 聖經預言 </div>
+				<div> 教牧關懷 </div>
+				<div> 創世記 </div>
+				<div> 創世論 </div>
+				<div> 聖靈論 </div>
+				<div> 基督論 </div>
+				<div> 聖經地理 </div>
+				<div> 聖經羅輯學 </div>
+				<div> 欽定本聖經維護 </div>
+			</emsi-template-page>
+		</template>
 	</template>
 	
 	<script>
