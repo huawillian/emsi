@@ -1,0 +1,23 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/emsi-app/emsi-app.html",
+  "fragments": [],
+  "sources": [
+   "src/**/*",
+   "bower.json"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "service-worker.js",
+    "bower_components/webcomponentsjs/webcomponents-lite.js"
+  ],
+  "lint": {
+    "rules": ["polymer-2-hybrid"]
+  },
+  "builds": [{
+    "bundle": true,
+    "js": {"compile": true, "minify": true},
+    "css": {"minify": true},
+    "html": {"minify": true}
+  }]
+}
