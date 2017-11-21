@@ -1,0 +1,116 @@
+<dom-module id="church-block-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        height: 100%;
+        width: 100%;
+      }
+
+      .container {
+        width:80%;
+        height: 80%;
+        text-align: left;
+        margin: auto;
+      }
+
+      .title {
+        font-weight: 700;
+        font-size: 25pt;
+        font-family: MyriadProBold;
+        letter-spacing: 0px;
+        color: white;
+        margin-bottom: 15pt;
+      }
+
+      .content {
+        color: white;
+        font-weight: 400;
+        font-size: 15pt;
+        line-height: 1.5;
+        font-family: MyriadProRegular;
+        margin-bottom: 15pt;
+      }
+
+      .tableContainer {
+        height:100%; 
+        text-align: center; 
+        width: 100%;
+        vertical-align: middle;
+      }
+
+      @media screen and (max-width: 800px) {
+        .tableContainer {
+          min-height:100vw
+        }
+      }
+
+      @media screen and (max-width: 1000px) and (min-width: 800px) {
+        .title {
+          font-size: 30px;
+          margin-bottom: 8pt;
+        }
+
+        .content {
+          margin-bottom: 8pt;
+          font-size: 13pt;
+        }
+      }
+
+
+      @media screen and (max-width: 800px) and (min-width: 500px){
+        .title {
+          font-size: 25pt;
+          margin-bottom: 15pt;
+        }
+
+        .content {
+          font-size: 15pt;
+          margin-bottom: 15pt;
+        }
+
+        .container {
+          width: 70%;
+          height: 70%;
+        }
+      }
+
+       @media screen and (min-width: 500px) {
+          .tableContainer {
+            max-height: 50vw;
+          }
+       }
+
+
+      @media screen and (max-width: 500px) {
+        .title {
+          font-size: 30px;
+          margin-bottom: 8pt;
+        }
+
+        .content {
+          margin-bottom: 8pt;
+          font-size: 13pt;
+        }
+
+        .tableContainer {
+          padding-bottom: 50pt;
+        }
+      }
+
+      paper-dialog {
+        background-color: white;
+        width: 80vw;
+        padding: 20pt;
+        padding-right: 0;
+      }
+
+      emsi-button {
+        margin-top: 25pt;
+      }
+    </style>
+  </template>
+</dom-module>

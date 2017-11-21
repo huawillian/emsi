@@ -1,0 +1,72 @@
+<dom-module id="church-events-styles">
+  <template>
+    <style>
+      .eventTitle {
+        font-family: MyriadProRegular;
+        font-size: 15pt;
+        padding-left: 80pt;
+        padding-top: 20pt;
+        margin-bottom: 20pt;
+        color: rgba(0,0,0,0.6);
+      }
+
+      .eventContent {
+        font-family: MyriadProRegular;
+        font-size: 15pt;
+        padding-left: 80pt;
+        color: rgba(0,0,0,0.6);
+      }
+
+      .calender {
+        height: 50pt;
+        width: 50pt;
+        background-color: rgb(230,230,230);
+        border-radius: 5pt;
+        margin-bottom: -50pt;
+        top: -50pt;
+        position: relative;
+      }
+
+      .calenderMonth {
+        height: 20pt;
+        width: 50pt;
+        background-color: #236192;
+        color: white;
+        text-align: center;
+        font-family: MyriadProSemibold;
+        font-size: 12pt;
+        border-radius: 5pt 5pt 0 0;
+        padding-top: 5px;
+      }
+
+      .calenderDay {
+        height: 30pt;
+        width: 50pt;
+        color: black;
+        text-align: center;
+        font-family: MyriadProSemibold;
+        font-size: 25pt;
+        letter-spacing: -2px;
+      }
+
+      @media screen and (max-width: 1000px) and (min-width: 800px) {
+        .eventTitle {
+          font-size: 13pt;
+        }
+      }
+
+
+      @media screen and (max-width: 800px) and (min-width: 500px){
+        .eventTitle {
+          font-size: 15pt;
+        }
+      }
+
+      @media screen and (max-width: 500px) {
+        .eventTitle {
+          font-size: 13pt;
+        }
+      }
+    </style>
+  </template>
+</dom-module>

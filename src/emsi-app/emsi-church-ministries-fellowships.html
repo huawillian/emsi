@@ -4,137 +4,33 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
-<link rel="import" href="emsi-firebase-document.html">
+
+<link rel="import" href="../styles/church-block-styles.html">
+<link rel="import" href="../styles/church-ministries-fellowships-styles.html">
+
 
 <dom-module id="emsi-church-ministries-fellowships">
 	<template>
+		<style include="church-block-styles"> </style>
+		<style include="church-ministries-fellowships-styles"> </style>
 		<style>
-			:host {
-				display: block;
-				margin: 0;
-				padding: 0;
-				margin-bottom: -4pt;
-			}
-
-			.container {
-				width:100%;
-				height: 50vw;
-				background-color: white;
-			}
-
-			.title {
-				color: #236192;
-				font-size: 25pt;
-				font-family: MyriadProBold;
-				letter-spacing: 0px;
-				text-align: left;
-				margin-bottom: 15pt;
-			}
-
-			#serviceTitle {
-				font-size: 14pt;
-				color: rgba(0,0,0,0.6);
-				font-family: MyriadProSemibold;
-				padding-top: 5px;
-			}
-
-			#serviceContainer {
-				font-size: 13pt;
-				color: rgba(0,0,0,0.6);
-				font-family: MyriadProRegular;
-				width:100%;
-				text-align: left;
-				padding-bottom: 0px;
-			}
-
-			.container > table {
-				width:100%; 
-				height:100%; 
-				text-align: left; 
-				padding: 8%;
-			}
-
-			@media screen and (max-width: 800px) {
-				.container {
-					height:100vw
-				}
-			}
-
-			@media screen and (max-width: 1000px) and (min-width: 800px) {
-				.container > table {
-					padding: 4%
-				}
-
-				.title {
-					font-size: 30px;
-					margin-bottom: 8pt;
-				}
-
-				#serviceTitle {
-					font-size: 12pt;
-				}
-
-				#serviceContainer {
-					font-size: 11pt;
-				}
-			}
-
-
-			@media screen and (max-width: 800px) and (min-width: 500px){
-				.container > table {
-					padding: 8%;
-				}
-
-				.title {
-					font-size: 25pt;
-					margin-bottom: 15pt;
-				}
-			}
-
-			@media screen and (max-width: 500px) {
-				.container > table {
-					padding: 4%;
-				}
-
-				.title {
-					font-size: 26px;
-					margin-bottom: 8pt;
-				}
-
-				#serviceTitle {
-					font-size: 12pt;
-				}
-
-				#serviceContainer {
-					font-size: 11pt;
-					line-height: 1;
-				}
-			}
-
-			paper-dialog {
-				width: 80%;
-				background-color: white;
-			}
-
-			emsi-button {
-				margin-top: 10pt;
-			}
-
-			table {
-				table-layout: fixed;
-			}
-
-			th, td {
-	    	width: 50%;
-			}
-
+			.tableContainer {
+        background-color: white;
+      }
+      .title {
+        color: #236192;
+      }
+      .content {
+      	color: rgba(0,0,0,0.6)
+      }
 		</style>
 
-		<div class="container">
-			<table> 
-				<tbody valign="top">
-					<tr>
-	    				<td>
+		<!-- display -->
+		<table class="tableContainer"> 
+			<tbody>
+				<tr>
+  				<td>
+  					<div class="container">
 							<div class="title"> {{title}} </div>
 							<div class="content">
 								<template is="dom-repeat" items="[[displayedData]]" as="section">
@@ -149,7 +45,6 @@
 									</table>
 								</template>
 							</div>
-
 							<template is="dom-if" if="{{hasHiddenMinistries}}">
 								<emsi-button color="blue" on-tap="showMore">
 									<template is="dom-if" if="[[isEnglish]]">
@@ -160,19 +55,20 @@
 									</template>
 								</emsi-button>
 					    </template>
-						</td>
-	    			</tr>
-    			</tbody>
-			</table>
-		</div>
+				    </div>
+					</td>
+  			</tr>
+			</tbody>
+		</table>
 
-		<paper-dialog id="dialog" modal style="width: 80vw; padding: 10pt; padding-right: 0">
+		<!-- dialog -->
+		<paper-dialog id="dialog" modal>
 		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
 		  <paper-dialog-scrollable>
-			<div class="content" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
+			<div class="contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5;font-family: MyriadProRegular;overflow-y: auto;height:60vh;padding:5pt;word-wrap: break-word;">
 				<template is="dom-repeat" items="[[data]]" as="section">
-					<div id="serviceTitle" style="font-size: 14pt; color: rgba(0,0,0,0.6); font-family: MyriadProSemibold; padding-top: 5px;"> {{section.language}} </div>
-					<table id="serviceContainer" style="font-size: 13pt; color: rgba(0,0,0,0.6); font-family: MyriadProRegular; width:100%; text-align: left; padding-bottom: 0px;table-layout: fixed;">
+					<div id="serviceTitle" style="font-size: 12pt; color: rgba(0,0,0,0.6); font-family: MyriadProSemibold; padding-top: 5px;"> {{section.language}} </div>
+					<table id="serviceContainer" style="font-size: 11pt; color: rgba(0,0,0,0.6); font-family: MyriadProRegular; width:100%; text-align: left; padding-bottom: 0px;table-layout: fixed;">
 						<template is="dom-repeat" items="[[section.list]]" as="item">
 							<tr>
 								<td style="width: 50%;">{{item.name}}</td> 
@@ -181,12 +77,19 @@
 						</template>
 					</table>
 				</template>
+
 			</div>
 		  </paper-dialog-scrollable>
-		  <div class="buttons">
-		    <emsi-button color="blue" dialog-dismiss> CLOSE </emsi-button>
-		  </div>
+		   <emsi-button style="margin-top: 20pt;" color="blue" dialog-dismiss>
+				<template is="dom-if" if="[[isEnglish]]">
+					CLOSE
+				</template>
+				<template is="dom-if" if="[[!isEnglish]]">
+					? CHINESE CLOSE ?
+				</template>
+			</emsi-button>
 		</paper-dialog>
+
 		
 	</template>
 	<script>
@@ -226,7 +129,7 @@
 
 				this.set("displayedData", []);
 
-				for(var i = 0; i < 3; i++) {
+				for(var i = 0; i < 2; i++) {
 					if(newValue[i] == undefined) break;
 
 					var tempObj = {};
@@ -253,7 +156,7 @@
 				
 				this.hasHiddenMinistries = false;
 
-				if(data.length > 3) {
+				if(data.length > 2) {
 					this.hasHiddenMinistries = true;
 				}
 

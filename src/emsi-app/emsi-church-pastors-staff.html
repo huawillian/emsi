@@ -5,250 +5,93 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
-<link rel="import" href="emsi-firebase-document.html">
+
+<link rel="import" href="../styles/church-block-styles.html">
+<link rel="import" href="../styles/church-pastors-staff-styles.html">
+
 
 <dom-module id="emsi-church-pastors-staff">
 	<template>
+		<style include="church-block-styles"></style>
+		<style include="church-pastors-staff-styles"></style>
 		<style>
-			:host {
-				display: block;
-				margin: 0;
-				padding: 0;
-				margin-bottom: -4pt;
-				background-color: white;
-			}
-			
-			.container {
-				width:100%;
-				height: 50vw;
-				background-color: rgba(133,120,116, 0.9);
-			}
-
-			.title {
-				color: white;
-				font-weight: 700;
-				font-size: 25pt;
-				font-family: MyriadProBold;
-				letter-spacing: 0px;
-				margin-bottom: 18pt;
-			}
-
-			.content {
-				color: white;
-				font-weight: 400;
-				font-size: 15pt;
-				line-height: 1.5;
-				font-family: MyriadProRegular;
-				margin-bottom: 0pt;
-			}
-
-			.stafftitle {
-				font-family: MyriadProSemibold;
-				font-size: 17pt;
-				color: white;
-			}
-
-			.staffname {
-				font-family: MyriadProRegular;
-				font-size: 15pt;
-				color: white;
-				margin-bottom: 10pt;
-			}
-
-			.staffpic {
-				width: 50pt;
-				height: 50pt;
-				right: -65%;
-				border: 2px black;
-				border-radius: 50%;
-				top: -110pt;
-				margin-bottom: -100pt;
-				border: 3pt solid rgba(255,255,255,0.4);
-			}
-
-			.container > table {
-				width:100%; 
-				height:100%; 
-				text-align: left; 
-				padding: 15%;
-			}
-
-			@media screen and (max-width: 800px) {
-				.container {
-					height:100vw
-				}
-			}
-
-			@media screen and (max-width: 1000px) and (min-width: 800px) {
-				.container > table {
-					padding: 10%;
-				}
-
-				.title {
-					font-size: 30px;
-					margin-bottom: 8pt;
-				}
-
-				.content {
-					margin-bottom: 8pt;
-					font-size: 13pt;
-				}
-
-				.staffname {
-					font-size: 13pt;
-				}
-
-				.stafftitle {
-					font-size: 15pt;
-				}
-			}
-
-
-			@media screen and (max-width: 800px) and (min-width: 500px){
-				.container > table {
-					padding: 15%;
-				}
-
-				.title {
-					font-size: 25pt;
-					margin-bottom: 15pt;
-				}
-
-				.content {
-					font-size: 15pt;
-					margin-bottom: 15pt;
-				}
-
-				.staffname {
-					font-size: 15pt;
-				}
-
-				.stafftitle {
-					font-size: 17pt;
-				}
-			}
-
-			@media screen and (max-width: 500px) {
-				.container > table {
-					padding: 7%;
-				}
-
-				.title {
-					font-size: 30px;
-					margin-bottom: 8pt;
-				}
-
-				.content {
-					margin-bottom: 8pt;
-					font-size: 13pt;
-				}
-
-				.staffname {
-					font-size: 13pt;
-				}
-
-				.stafftitle {
-					font-size: 15pt;
-				}
-			}
-
-			paper-dialog {
-				width: 80%;
-				background-color: #857874;
-			}
-
-			emsi-button {
-				margin-top: -10pt;
-			}
-
+      .tableContainer {
+        background-color: rgba(133,120,116, 0.9);
+      }
+      .title, .content {
+        color: white;
+      }
 		</style>
-		
-		<div class="container">
-			<table> 
-				<tbody valign="top">
-					<tr>
-	    				<td>
-							<div class="title"> {{title}} </div>
-							<template id='renderList' is="dom-repeat" items="[[displayedData]]">
-								<div class="stafftitle">{{item.title}}</div>
-								<div class="staffname">{{item.name}}</div>
-								<template is="dom-if" if="[[item.url]]">
-									<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}"></iron-image>
-								</template>
-								<template is="dom-if" if="[[!item.url]]">
-									<iron-image class="staffpic" sizing="cover" preload src="./src/images/user.png"></iron-image>
-								</template>
-							</template>
-							<template is="dom-if" if="{{hasHiddenStaff}}">
-					      <emsi-button color="blue" on-tap="showMore">
-									<template is="dom-if" if="[[isEnglish]]">
-										SHOW MORE
-									</template>
-									<template is="dom-if" if="[[!isEnglish]]">
-										? CHINESE SHOW ?
-									</template>
-								</emsi-button>
-					    </template>
-						</td>
-	    			</tr>
-    			</tbody>
-			</table>
-		</div>
 
-		<paper-dialog id="dialog" modal style="width: 80vw; padding: 20pt; padding-right: 0">
+		<!-- display -->
+			<table class="tableContainer"> 
+				<tbody>
+					<tr>
+    				<td>
+    					<div class="container">
+								<div class="title"> {{title}} </div>
+								<template id='renderList' is="dom-repeat" items="[[displayedData]]">
+									<div class="stafftitle">{{item.title}}</div>
+									<div class="staffname">{{item.name}}</div>
+									<template is="dom-if" if="[[item.url]]">
+										<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}"></iron-image>
+									</template>
+									<template is="dom-if" if="[[!item.url]]">
+										<iron-image class="staffpic" sizing="cover" preload src="./src/images/user.png"></iron-image>
+									</template>
+								</template>
+								<template is="dom-if" if="{{hasHiddenStaff}}">
+						      <emsi-button color="blue" on-tap="showMore">
+										<template is="dom-if" if="[[isEnglish]]">
+											SHOW MORE
+										</template>
+										<template is="dom-if" if="[[!isEnglish]]">
+											? CHINESE SHOW ?
+										</template>
+									</emsi-button>
+						    </template>
+					    </div>
+						</td>
+    			</tr>
+  			</tbody>
+			</table>
+
+		<!-- dialog -->
+		<paper-dialog id="dialog" modal>
 		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
 		  <paper-dialog-scrollable>
-			<div class="content" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
-				<template id='renderList' is="dom-repeat" items="[[data]]">
-					<div class="stafftitle" style="font-family: MyriadProSemibold;
-				font-size: 16pt;
-				padding-left: 0%;
-				padding-top: 20pt;
-				color: rgba(0,0,0,0.6);">{{item.title}}</div>
-					<div class="staffname" style="font-family: MyriadProRegular;
-				font-size: 16pt;
-				padding-left: 0%;
-				color: rgba(0,0,0,0.6);">{{item.name}}</div>
-
-					<template is="dom-if" if="[[item.url]]">
-						<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}" style="width: 50pt;
-				height: 50pt;
-				right: -65%;
-				border: 2px black;
-				border-radius: 50%;
-				top: -110pt;
-				margin-bottom: -100pt;
-				border: 3pt solid rgba(0,0,0,0.4);"></iron-image>
-					</template>
-					<template is="dom-if" if="[[!item.url]]">
-						<iron-image class="staffpic" sizing="cover" preload src="./src/images/user.png" style="width: 50pt;
-				height: 50pt;
-				right: -65%;
-				border: 2px black;
-				border-radius: 50%;
-				top: -110pt;
-				margin-bottom: -100pt;
-				border: 3pt solid rgba(0,0,0,0.4);"></iron-image>
-					</template>
-				</template>
-			</div>
+				<div class="contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5;font-family: MyriadProRegular;overflow-y: auto;height:60vh;padding:5pt;word-wrap: break-word;width:80vw">
+					<div class="content" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
+						<template id='renderList' is="dom-repeat" items="[[data]]">
+							<div class="stafftitle" style="font-family: MyriadProSemibold; font-size: 16pt; padding-left: 0%; padding-top: 20pt;">{{item.title}}</div>
+							<div class="staffname" style="font-family: MyriadProRegular; font-size: 16pt;padding-left: 0%;">{{item.name}}</div>
+							<template is="dom-if" if="[[item.url]]">
+								<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}" style="width: 50pt;height: 50pt;right: -62%;border: 2px black;border-radius: 50%;top: -110pt;margin-bottom: -100pt;border: 3pt solid rgba(0,0,0,0.4);"></iron-image>
+							</template>
+							<template is="dom-if" if="[[!item.url]]">
+								<iron-image class="staffpic" sizing="cover" preload src="./src/images/user.png" style="width: 50pt;height: 50pt;right: -62%;border: 2px black;border-radius: 50%;top: -110pt;margin-bottom: -100pt;border: 3pt solid rgba(0,0,0,0.4);"></iron-image>
+							</template>
+						</template>
+					</div>
+				</div>
 		  </paper-dialog-scrollable>
-		  <div class="buttons">
-		    <emsi-button color="blue" dialog-dismiss> CLOSE </emsi-button>
-		  </div>
+		   <emsi-button style="margin-top: 20pt;" color="blue" dialog-dismiss>
+				<template is="dom-if" if="[[isEnglish]]">
+					CLOSE
+				</template>
+				<template is="dom-if" if="[[!isEnglish]]">
+					? CHINESE CLOSE ?
+				</template>
+			</emsi-button>
 		</paper-dialog>
-
 	</template>
+
 	<script>
 		class EMSIChurchPastorsStaff extends Polymer.Element {
 			static get is() { return 'emsi-church-pastors-staff'; }
 
 			static get properties() { 
 				return {
-					lang: {
-						type: String,
-						value: "en"
-					},
 					title: String,
 					data: {
 						type: Array,

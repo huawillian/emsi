@@ -1,0 +1,59 @@
+<dom-module id="church-pastors-staff-styles">
+  <template>
+    <style>
+      .stafftitle {
+        font-family: MyriadProSemibold;
+        font-size: 17pt;
+        color: white;
+      }
+
+      .staffname {
+        font-family: MyriadProRegular;
+        font-size: 15pt;
+        color: white;
+        margin-bottom: 10pt;
+      }
+
+      .staffpic {
+        width: 50pt;
+        height: 50pt;
+        right: -65%;
+        border: 2px black;
+        border-radius: 50%;
+        top: -110pt;
+        margin-bottom: -100pt;
+        border: 3pt solid rgba(255,255,255,0.4);
+      }
+
+      @media screen and (max-width: 1000px) and (min-width: 800px) {
+        .staffname {
+          font-size: 13pt;
+        }
+
+        .stafftitle {
+          font-size: 15pt;
+        }
+      }
+
+      @media screen and (max-width: 800px) and (min-width: 500px){
+        .staffname {
+          font-size: 15pt;
+        }
+
+        .stafftitle {
+          font-size: 17pt;
+        }
+      }
+
+      @media screen and (max-width: 500px) {
+        .staffname {
+          font-size: 13pt;
+        }
+
+        .stafftitle {
+          font-size: 15pt;
+        }
+      }
+    </style>
+  </template>
+</dom-module>
