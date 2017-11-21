@@ -1,0 +1,113 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/navbar-mobile-styles.html">
+
+<dom-module id="emsi-navbar-mobile">
+	<template>
+		<style include="navbar-mobile-styles"> </style>
+    <!-- app-location binds to the app's URL -->
+    <app-location route="{{route}}"></app-location>
+		<iron-collapse id="collapse">
+			<div id="menu">
+				<div class="menu-trigger" on-tap="changeRoute"> HOME </div>
+				<div class="menu-trigger" on-tap="openSubMenu"> ABOUT US </div>
+				<iron-collapse class="subMenuCollapse" id="collapseAbout">
+					<div class="menu-trigger menu-item" on-tap="changeRoute"> Organization </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Beliefs </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Missions </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Seminary </div>
+				</iron-collapse>
+				<div class="menu-trigger" on-tap="openSubMenu"> LOCATIONS </div>
+				<iron-collapse class="subMenuCollapse" id="collapseLocations">
+					<div class="menu-trigger menu-item" on-tap="changeRoute"> Search </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> America </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Europe </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Asia </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Africa </div>
+				</iron-collapse>
+				<div class="menu-trigger" on-tap="openSubMenu"> MISSIONS </div>
+				<iron-collapse class="subMenuCollapse" id="collapseMissions">
+					<div class="menu-trigger menu-item" on-tap="changeRouteToMissions"> Introduction </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Ministries </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Churches </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Activities </div>
+				</iron-collapse>
+				<div class="menu-trigger" on-tap="openSubMenu"> SEMINARY </div>
+				<iron-collapse class="subMenuCollapse" id="collapseSeminary">
+					<div class="menu-trigger menu-item" on-tap="changeRouteToSeminary"> Introduction </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Courses </div>
+				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Curriculum </div>
+				</iron-collapse>
+			</div>
+		</iron-collapse>
+	</template>
+
+	<script>
+		class EMSINavbarMobile extends Polymer.Element {
+			static get is() { return 'emsi-navbar-mobile'; }
+
+			static get properties() { return {}; }
+
+			closeAllMenus(e) {
+				var submenuArr = Polymer.dom(this.root).querySelectorAll(".subMenuCollapse");
+      	for(var i = 0; i < submenuArr.length; i++) {
+      		submenuArr[i].hide();
+      	}				
+			}
+
+			openSubMenu(e) {
+				var text = Polymer.dom(e).localTarget.innerText;
+				this.closeAllMenus();
+				if(text === "ABOUT US") {
+					Polymer.dom(this.root).querySelector("#collapseAbout").show();
+				} else if(text == "LOCATIONS") {
+					Polymer.dom(this.root).querySelector("#collapseLocations").show();
+				} else if(text == "MISSIONS") {
+					Polymer.dom(this.root).querySelector("#collapseMissions").show();
+				} else if(text == "SEMINARY") {
+					Polymer.dom(this.root).querySelector("#collapseSeminary").show();
+				}
+			}
+
+			showMenu() {
+			  this.$.collapse.show();
+			  this.closeAllMenus();
+			}
+
+			hideMenu() {
+			  this.$.collapse.hide();
+			  this.closeAllMenus();
+			}
+
+			changeRoute(e) {
+				var text = Polymer.dom(e).localTarget.innerText;
+				if(text == "Organization") {
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "about", bubbles: true, composed: true }));
+				} else if(text == "Introduction") {
+					// Do nothing
+				} else {
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: text.toLowerCase(), bubbles: true, composed: true }));
+				}
+
+				this.closeAllMenus();
+				this.hideMenu();
+			}
+
+			changeRouteToMissions() {
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "missions", bubbles: true, composed: true }));
+				this.closeAllMenus();
+				this.hideMenu();
+			}
+
+			changeRouteToSeminary() {
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "seminary", bubbles: true, composed: true }));
+				this.closeAllMenus();
+				this.hideMenu();
+			}
+		}
+
+		window.customElements.define(EMSINavbarMobile.is, EMSINavbarMobile);
+	</script>
+</dom-module>

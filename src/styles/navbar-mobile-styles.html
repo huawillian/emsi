@@ -1,0 +1,43 @@
+<dom-module id="navbar-mobile-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      #menu {
+        width:100%;
+        position: absolute;
+        top: 60pt;
+        left: 0;
+        padding: 0;
+        background-color: #857874;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+
+      .menu-content paper-item {
+        padding-left: 60pt;
+      }
+
+      .menu-trigger {
+        font-family: MyriadProSemiBold;
+        color: white;
+        font-size: 11pt;
+        padding: 15pt 30pt;
+      }
+
+      .menu-trigger:hover {
+        background-color: rgba(0,0,0,0.2);
+        cursor: pointer;
+      }
+
+      .menu-item {
+        width: 100%;
+        background-color: #857874;
+        padding-left: 55pt;
+      }
+    </style>
+  </template>
+</dom-module>

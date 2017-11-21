@@ -1,0 +1,41 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/bibleverse-styles.html">
+
+<dom-module id="emsi-homepage-bibleverse">
+	<template>
+		<style include="bibleverse-styles"> </style>
+		<div class="container">
+			<template is="dom-if" if="[[isEnglish]]">
+				<div class="bibleverse">
+					And he said unto them, Go ye into all the world, and preach the gospel to every creature. Mark 16:25
+				</div>
+				<paper-button raised on-tap="openEmail">
+					CONTACT US
+				</paper-button>
+			</template>
+			<template is="dom-if" if="[[!isEnglish]]">
+				<div class="bibleverse">
+					? Chinese Verse ?
+				</div>
+				<paper-button raised on-tap="openEmail">
+					? Chinese Contact ?
+				</paper-button>
+			</template>
+		</div>
+	</template>
+
+	<script>
+		class EMSIHomepageBibleverse extends Polymer.Element {
+			static get is() { return 'emsi-homepage-bibleverse'; }
+			static get properties() { return {}; }
+	    static get observers() { return [ 'languageChanged(lang)' ]; }
+	    languageChanged(val) { this.isEnglish = val === "en"; }
+			openEmail() { window.open('mailto:emsi@emsionline.org'); }
+		}
+
+		window.customElements.define(EMSIHomepageBibleverse.is, EMSIHomepageBibleverse);
+	</script>
+</dom-module>

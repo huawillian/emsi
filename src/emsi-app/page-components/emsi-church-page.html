@@ -1,0 +1,149 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-media-query/iron-media-query.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
+<link rel="import" href="../util-components/emsi-homepage-picture.html">
+<link rel="import" href="../custom-components/emsi-church-description.html">
+<link rel="import" href="../custom-components/emsi-church-ministries-fellowships.html">
+<link rel="import" href="../custom-components/emsi-church-pastors-staff.html">
+<link rel="import" href="../custom-components/emsi-church-news.html">
+<link rel="import" href="../custom-components/emsi-church-events.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/church-styles.html">
+
+<dom-module id="emsi-church-page">
+	<template>
+		<style include="church-styles"> </style>
+		<div id="churchHeader">
+			<div id="churchName"> {{churchData.name}} </div>
+			<div id="churchAddress"> {{churchData.address}} </div>
+			<div>
+				<span id="churchPhoneNumber"> {{churchData.phone}} </span>
+				<span id="churchEmail"> {{churchData.email}} </span>
+			</div>
+			<div id="serviceTitle"> Sunday Worship Times </div>
+			<table id="serviceContainer">
+				<template is="dom-repeat" items="[[churchData.time]]">
+					<tr>
+						<td class="serviceTime"> {{item.time}}</td> 
+					    <td class="serviceName">{{item.name}}</td>
+				  	</tr>
+				</template>
+			</table>
+			<emsi-button color="blue" on-tap="goToGoogleMaps">
+				<template is="dom-if" if="[[isEnglish]]">
+					GET DIRECTIONS
+				</template>
+				<template is="dom-if" if="[[!isEnglish]]">
+					? CHINESE DIRECTIONS ?
+				</template>
+			</emsi-button>
+			<emsi-button color="blue" on-tap="openEmail">
+				<template is="dom-if" if="[[isEnglish]]">
+					CONTACT US
+				</template>
+				<template is="dom-if" if="[[!isEnglish]]">
+					? CHINESE CONTACT ?
+				</template>
+			</emsi-button>
+		</div>
+
+		<iron-media-query query="(min-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
+		<div id="contentArea">
+			<!-- If large screen, show this... -->
+			<template is="dom-if" if="[[isTwoColumns]]">
+				<table id="layout">
+			  	<tr>
+			  		<td>
+			  			<emsi-homepage-picture image-url="{{churchData.churchImageUrl}}"> </emsi-homepage-picture>
+			  		</td>
+			  		<td>
+			  			<emsi-church-ministries-fellowships title="Ministries and Fellowships" data="{{churchData.ministries}}" lang="{{lang}}"> </emsi-church-ministries-fellowships>
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>
+			  			<emsi-church-events title="Upcoming Events" data="{{churchData.events}}" lang="{{lang}}"> </emsi-church-events>
+			  		</td>
+			  		<td>
+			  			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}" lang="{{lang}}"> </emsi-church-pastors-staff>
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>
+			  			<emsi-church-description title="Brief History" description="{{churchData.description}}" lang="{{lang}}"> </emsi-church-description>
+			  		</td>
+			  		<td>
+			  			<emsi-church-news title="News and Updates" data="{{churchData.news}}" lang="{{lang}}"> </emsi-church-news>
+			  		</td>
+			  	</tr>
+		  	</table>
+			</template>
+			<!-- If small screen, show this... -->
+			<template is="dom-if" if="[[!isTwoColumns]]">
+				<table id="layout">
+			  	<tr>
+			  		<td>
+							<emsi-homepage-picture image-url="{{churchData.churchImageUrl}}"> </emsi-homepage-picture>
+						</td>
+					</tr>
+					<tr>
+			  		<td>
+							<emsi-church-ministries-fellowships title="Ministries and Fellowships" data="{{churchData.ministries}}" lang="{{lang}}"> </emsi-church-ministries-fellowships>
+						</td>
+					</tr>
+					<tr>
+			  		<td>
+			  			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}" lang="{{lang}}"> </emsi-church-pastors-staff>
+						</td>
+					</tr>
+					<tr>
+			  		<td>
+			  			<emsi-church-events title="Upcoming Events" data="{{churchData.events}}" lang="{{lang}}"> </emsi-church-events>
+						</td>
+					</tr>
+					<tr>
+			  		<td>
+			  			<emsi-church-description title="Brief History" description="{{churchData.description}}" lang="{{lang}}"> </emsi-church-description>
+						</td>
+					</tr>
+					<tr>
+			  		<td>
+			  			<emsi-church-news title="News and Updates" data="{{churchData.news}}" lang="{{lang}}"> </emsi-church-news>
+	  				</td>
+					</tr>
+			</template>
+		</div>
+	</template>
+	
+	<script>
+		class EMSIChurchPage extends Polymer.Element {
+			static get is() { return 'emsi-church-page'; }
+
+			static get properties() { 
+				return {
+					churchData: Object,
+					lang: String
+				};
+			}
+
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+
+      languageChanged(val) { this.isEnglish = val === "en"; }
+
+			goToGoogleMaps() {
+				setTimeout(function(){
+					window.open('http://maps.google.com/?q=' + this.churchData.address);
+				}.bind(this), 0);
+			}
+
+			openEmail() {
+				window.open('mailto:' + this.churchData.email);
+			}
+		}
+
+		window.customElements.define(EMSIChurchPage.is, EMSIChurchPage);
+	</script>
+</dom-module>

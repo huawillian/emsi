@@ -1,0 +1,98 @@
+<dom-module id="landingscreen-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 80vh;
+        width: 100%;
+      }
+
+      #backgroundImage {
+        position: absolute;
+        height: 110vh;
+        width: 100%;
+        z-index: -10;
+        top: 0px;
+        filter: brightness(90%);
+      }
+
+      #personImage {
+        position: absolute;
+        z-index: -9;
+        right:-0;
+        top: 8vh;
+        width: 70vh;
+        height: 75vh;
+      }
+
+      .container {
+        width: 100%;
+        margin-top: 25vh;
+      }
+
+      #title {
+        font-size: 28pt;
+        margin-left: 5vw;
+        letter-spacing: 0px;
+      }
+
+      #subtitle {
+        font-family: MyriadProIt;
+        font-size: 16pt;
+        margin-left: 5vw;
+        margin-top: 5vh;
+      }
+
+      .homepageText {
+        color: white;
+        text-shadow: 2px 2px 5px black;
+        font-family: MyriadProSemiBold;
+      }
+
+      emsi-button {
+        margin-left: 5vw;
+        margin-top: 5vh;
+      }
+
+      @media screen and (max-width: 1000px) {
+        #title {
+          margin-left: 2vw;
+          font-size: 20pt;
+          padding-left: 5vw;
+          padding-right: 5vw;
+        }
+
+        #subtitle {
+          margin-left: 2vw;
+          margin-top: 5vh;
+          font-size: 20px;
+          padding-left:5vw;
+          padding-right: 5vw;
+        }
+
+        emsi-button {
+          margin-left: 7vw;
+          margin-top: 5vh;
+          font-size: 15px;
+        }
+
+        #personImage {
+          top: 10vh;
+          width: 70vh;
+          height: 75vh;
+        }
+
+        .container {
+          margin-top: 20vh;
+        }
+      }
+
+      @media screen and (max-width: 650px) {
+        #personImage {
+          width: 0px;
+          height: 0px;
+        }
+      }
+    </style>
+  </template>
+</dom-module>

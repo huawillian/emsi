@@ -1,0 +1,61 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<!-- custom element -->
+<link rel="import" href="../util-components/emsi-template-page.html">
+
+<dom-module id="emsi-organization-page">
+	<template>
+		<style>
+			:host {
+				display: block;
+				min-height: 100vh;
+				width: 100%;
+				z-index: 0;
+			}
+			div {
+				margin-bottom: 20pt;
+			}
+		</style>
+		<template is="dom-if" if="[[isEnglish]]">
+			<emsi-template-page title="Evangelical Mission and Seminary International" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/OrganizationImage-01.jpg">
+			 <div> Headquartered in Towaco, New Jersey U.S.A. 36 Alpine Road, Towaco, NJ 07082. </div>
+			 <div> EMSI was founded by Rev. Moses Yang. </div>
+			 <div> EMSI has branches in 4 continents: </div>
+			 <div> Europe </div>
+			 <div> North America </div>
+			 <div> Africa </div>
+			 <div> Asia </div>
+			 <div> EMSI is made up of the following organizations - </div>
+			 <div> Evangelical Bible Institute </div>
+			 <div> Christian Evangelical Mission </div>
+			 <div> Christian Evangelical Overseas Outreach </div>
+			 <div> Evangelical Mission and Seminary International (E.M.S.I.) was established by the founder, Rev. Moses Yang, in 1968 after 'Fellowship of Life' was started. Later it progressively developed into a global evangelical organization. At the present, we have established Gospel ministries in four continents - Europe, Asia, North America, and Africa. The Christian Evangelical Mission was established in West Orange, New Jersey in 1975. And the Evangelical Mission and Seminary International was established in Towaco, New Jersey in 1982. In these forty years (1968-2008), the ministry had expanded to seminaries, churches, mission, literature, and broadcasting, etc. We have a biblically sound Statement of Faith, a clear administrative organization and a strong three-fold Gospel ministry. Through the multi-faceted ministry, the Gospel could spread far and wide. </div>
+			 <div> The Mission headquarters is located at 36 Alpine Road, Towaco, New Jersey, U.S.A. The Board of Directors are: John Chuang (Chairman), Moses Yang (Executive Director), Rose Yang (Treasurer), Zion Wu (Secretary), Joseph Chuang, Siti Aminah, Luciana Lu, William Chuang, Ruth Chandra, Patrick Chang, Micky Yu, Jane Chang, Meelen Lim, Jih-Han Hsieh, and Vicky Yang. </div>
+			</emsi-template-page>
+		</template>
+		<template is="dom-if" if="[[!isEnglish]]">
+			<emsi-template-page title="國際神學福音佈道會" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/OrganizationImage-01.jpg">
+			 <div> 總會設於美國新澤西州多華谷 , Towaco, New Jersey U.S.A. 36 Alpine Road, Towaco, NJ 07082. </div>
+			 <div> 創辦人是楊摩西博士 </div>
+			 <div> 福音事工遍及歐、美、非、亞四大洲 </div>
+			 <div> 下設三大福音機構： </div>
+			 <div> 國際福音神學院 </div>
+			 <div> 國際福音佈道會 </div>
+			 <div> 國際福音差傳會 </div>
+			 <div> 國際神學福音佈道會是創辦人楊摩西牧師一九六八年於美洲紐約市成立「生命團契」之後，逐步發展而成的一個國際性傳福音的機構。目前已於歐洲、亞洲、美洲及非洲四大洲都設有重要的福音事工。一九七五年於美洲新澤西州西橘園成立「國際福音佈道會」；一九八二年於美洲新澤西多華谷成立「國際福音佈道神學院」。一九六八年 迄今，四十餘年來，國際神學福音佈道會的聖工從神學院、教會、植堂、宣教，擴展至文字出版、福音廣播等各個不同的領域。藉著這多樣化的服事，使福音的觸角更廣遠。</div>
+			 <div> 國際神學福音佈道會總部設於美洲新澤西州多華谷（36 Alpine Road., Towaco, NJ 07082 U.S.A.）。董事會成員有：莊仲春（董事長）、楊摩西(總幹事) 、陳愛玫(財政)、吳錫安(秘書)、莊仲立、莊淑賢、呂秋萍、莊仲基、莊路得、張 雄、楊昭陸、張劍二、林美玲、謝繼珩、楊怡心。 </div>
+			</emsi-template-page>
+		</template>
+	</template>
+	
+	<script>
+		class EMSIOrganizationPage extends Polymer.Element {
+			static get is() { return 'emsi-organization-page'; }
+			static get properties() { return {}; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
+		}
+
+		window.customElements.define(EMSIOrganizationPage.is, EMSIOrganizationPage);
+	</script>
+</dom-module>

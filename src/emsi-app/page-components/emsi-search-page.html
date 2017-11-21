@@ -1,0 +1,166 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
+<link rel="import" href="../util-components/emsi-template-page.html">
+<link rel="import" href="../util-components/emsi-church-details-card.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/search-styles.html">
+
+<dom-module id="emsi-search-page">
+	<template>
+		<style include="search-styles"> </style>
+		<template is="dom-repeat" id="addrFinder" items="[[locations]]" as="details">
+			<iron-collapse class="collapse">
+      	<emsi-church-details-card class="addrFinderCard" data="{{details}}" lang="{{lang}}" on-distance-updated="distanceUpdated"> </emsi-church-details-card>
+    	</iron-collapse>
+    </template>
+	 	<template is="dom-if" if="{{!showSearchResults}}" id="searchMenu">
+	 		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="https://github.com/huawillian/emsi/raw/master/src/images/FindALocationBkgrd-01.jpg"></iron-image>
+			<div id="searchContainer">
+				<div id="searchContainerInner">
+					<div id="searchTitle"> FIND A CHURCH </div>
+					<div style="padding:10pt" id="addressBoxC"> 
+						<paper-input id="addressBox" placeholder="Enter Address Here"></paper-input>
+					</div>
+					<div raised id="searchButton" on-tap="startSearchByAddress"> FIND A LOCATION </div>
+					<div id="locationButton" on-tap="getLocation"> Or, use your current location </div>
+				</div>
+			</div>
+	    </template>
+	    <template is="dom-if" if="{{showSearchResults}}">
+			<div id="resultsContainer">
+				<div id="resultsTitle">
+					Results
+				</div>
+				<template is="dom-if" if="{{!isSearching}}">
+					<div raised id="returnToSearchButton" on-tap="toggleShowSearchResults"> START ANOTHER SEARCH </div>
+				</template>
+				<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]" as="details">
+        	<emsi-church-details-card class="addrFinderCard" data="{{details}}" lang="{{lang}}" user-distance-text="{{details.distance}}"> </emsi-church-details-card>
+		    </template>
+				<template is="dom-if" if="[[isSearching]]">
+					<table>
+					<tr>
+						<td>
+		      		<paper-spinner-lite active class="thick"></paper-spinner-lite>
+						</td>
+					</tr>
+					</table>
+		    </template>
+			</div>
+		</template>
+	</template>
+
+	<script>
+		class EMSISearchPage extends Polymer.Element {
+			static get is() { return 'emsi-search-page'; }
+
+			static get properties() { 
+				return {
+					showSearchResults: {
+						type: Boolean,
+						value: false,
+					} ,
+					lang: {
+						type: String,
+						value: "en"
+					} ,
+					address: String ,
+					locations: {
+						type: Array
+					} , 
+					directionsArr: {
+						type: Array,
+						value: []
+					} ,
+					displayArr: {
+						type: Array,
+						value: []
+					},
+					isSearching: Boolean
+				}; 
+			}
+
+			toggleShowSearchResults() {
+				setTimeout(function(){this.document.body.scrollTop = 0;}, 0);
+				if(this.showSearchResults) {
+					this.showSearchResults = false;
+				} else {
+					this.showSearchResults = true;
+				}
+			}
+
+			distanceUpdated(params) {
+				if(params.detail.distance.text == undefined) return;
+				this.push("directionsArr", params.detail);
+			}
+
+			startSearch() {
+				setTimeout(function(){
+					this.directionsArr.sort(function(a, b){return a.distance.value-b.distance.value});
+					for(var i = 0; i < this.directionsArr.length; i++) {
+						for(let location of this.locations) {
+							if(location.name == this.directionsArr[i].name) {
+								this.push("displayArr", location);
+								location.distance = this.directionsArr[i].distance.text;
+							}
+						}
+					}
+					this.isSearching = false;
+				}.bind(this), 4000);
+			}
+
+			toggleAllCollapse() {
+				var collapseArr = Polymer.dom(this.root).querySelectorAll('.collapse');
+				for(var i = 0; i < collapseArr.length; i++) {
+					collapseArr[i].show();
+				}
+			}
+
+			getLocation() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position){
+						if(this.isSearching == true) return;
+						this.address = "";
+						this.address = position.coords.latitude + " " + position.coords.longitude;
+						this.$.addrFinder.render();
+						this.startAddressFinder();
+						this.set("directionsArr", []);
+						this.set("displayArr", []);
+						this.isSearching = true;
+						this.toggleShowSearchResults();
+						this.startSearch();
+					}.bind(this));
+				}
+			}
+
+			startSearchByAddress() {
+				if(Polymer.dom(this.root).querySelector('#addressBox') == undefined || Polymer.dom(this.root).querySelector('#addressBox').value == "") return;
+				if(this.isSearching == true) return;
+				this.address = "";
+				this.address = Polymer.dom(this.root).querySelector('#addressBox').value;
+				this.$.addrFinder.render();
+				this.startAddressFinder();
+				this.set("directionsArr", []);
+				this.set("displayArr", []);
+				this.isSearching = true;
+				this.toggleShowSearchResults();
+				this.startSearch();
+			} 
+
+			startAddressFinder() {
+				let addrFinderCards = Polymer.dom(this.root).querySelectorAll('.addrFinderCard');
+				addrFinderCards.forEach(v => v.setLocation(this.address));
+			}
+		}
+
+		window.customElements.define(EMSISearchPage.is, EMSISearchPage);
+	</script>
+</dom-module>

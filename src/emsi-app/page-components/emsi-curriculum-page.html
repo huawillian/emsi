@@ -1,0 +1,101 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<!-- custom element -->
+<link rel="import" href="../util-components/emsi-template-page.html">
+
+<dom-module id="emsi-curriculum-page">
+	<template>
+		<style>
+			:host {
+				display: block;
+				min-height: 100vh;
+				width: 100%;
+				z-index: 0;
+			}
+			div {
+				margin-bottom: 10pt;
+			}
+		</style>
+		<emsi-template-page title="Curriculum (課程)" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg" lang="{{lang}}">
+			<div> 課 程 </div>
+			<div> Course	學 分 </div>
+			<div> Credits	日 期</div>
+			<div> Dates	課 時</div>
+			<div> Day/Time	教 授</div>
+			<div> Professor</div>
+			<div> 創造論 </div>
+			<div> Creationism	</div>
+			<div> 2	</div>
+			<div> 03/06/17 – 05/22/17	Monday </div>
+			<div> 10:00 a.m. – 12:00 noon	</div>
+			<div> Moses Yang</div>
+			<div> 末世論 </div>
+			<div> Eschatology	</div>
+			<div> 3	</div>
+			<div> 03/07/17 – 05/23/17	Tuesday </div>
+			<div> 10:00 a.m. – 12:00 noon	</div>
+			<div> Moses Yang</div>
+			<div> 教牧學</div>
+			<div> Pastoral Theology	</div>
+			<div> 2	</div>
+			<div> 03/07/17 – 05/23/17	Tuesday</div>
+			<div> 1:00 a.m. – 3:00p.m.	</div>
+			<div> Moses Yang</div>
+			<div> 個人佈道 </div>
+			<div> Personal Evangelism	</div>
+			<div> 2	</div>
+			<div> 03/08/17 – 05/24/17	Wednesday</div>
+			<div> 10:00 a.m. – 12:00 noon	</div>
+			<div> Moses Yang</div>
+			<div> 教會電腦應用 </div>
+			<div> Church Office </div>
+			<div> Technology	</div>
+			<div> 2	</div>
+			<div> 03/08/17 – 05/24/17	Wednesday</div>
+			<div> 1:00 p.m. – 3:00 p.m.	</div>
+			<div> Zion Wu</div>
+			<div> 約書亞記/士師記/</div>
+			<div> 路得記</div>
+			<div> (密 集 課)</div>
+			<div> Joshua/Judges/Ruth </div>
+			<div> (Intensive course)	</div>
+
+			<div> 2	</div>
+			<div> 04/18/17 – 04/21/17</div>
+			<div> 04/25/17 – 04/28/17	</div>
+			<div> Tuesday-Friday </div>
+			<div> 12:45 a.m. – 03:30 p.m.	</div>
+
+			<div> Gordon Franz </div>
+			<div> 合 唱 </div>
+			<div> Chorus	 </div>
+			<div> 1	 </div>
+			<div> 03/09/17 – 05/25/17	Thursday </div>
+			<div> 10:00 a.m. – 12:00 noon	 </div>
+			<div> Jing Huang </div>
+			<div> 合唱指揮 </div>
+			<div> Choral Conducting	 </div>
+			<div> 1	 </div>
+			<div> 03/09/17 – 05/25/17	Thursday </div>
+			<div> 1:00 p.m. – 2:00 p.m.	 </div>
+			<div> Jing Huang </div>
+			<div> 聲 樂 </div>
+			<div> Voice	 </div>
+			<div> 1	 </div>
+			<div> 03/09/17 – 05/25/17	Thursday/Friday </div>
+			<div> (Individually Arranged)	 </div>
+			<div> Jing Huang </div>
+		</emsi-template-page>
+	</template>
+	
+	<script>
+		class EMSICurriculumPage extends Polymer.Element {
+			static get is() { return 'emsi-curriculum-page'; }
+			static get properties() { return {}; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
+		}
+
+		window.customElements.define(EMSICurriculumPage.is, EMSICurriculumPage);
+	</script>
+</dom-module>

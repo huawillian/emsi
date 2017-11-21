@@ -1,0 +1,68 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<!-- custom elements -->
+<link rel="import" href="emsi-button.html">
+<link rel="import" href="emsi-firebase-document.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/homepage-content-styles.html">
+
+<dom-module id="emsi-homepage-content">
+	<template>
+		<style include="homepage-content-styles">	</style>
+		<div class="title">
+			<emsi-firebase-document my-path="{{titlePath}}" lang="{{lang}}" display> </emsi-firebase-document>
+		</div>
+		<div class="content">
+			<emsi-firebase-document my-path="{{contentPath}}" lang="{{lang}}" display> </emsi-firebase-document>
+		</div>
+		<template is="dom-if" if="[[isEnglish]]">
+			<emsi-button color="brown" on-tap="changeRoute">
+				LEARN MORE
+			</emsi-button>
+		</template>
+		<template is="dom-if" if="[[!isEnglish]]">
+			<emsi-button color="brown" on-tap="changeRoute">
+				? CHINESE LEARN ?
+			</emsi-button>
+		</template>
+	</template>
+
+	<script>
+		class EMSIHomepageContent extends Polymer.Element {
+			static get is() { return 'emsi-homepage-content'; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
+
+			static get properties() { 
+				return {
+					sectionPath: {
+						type: String,
+						observer: "sectionPathChanged"
+					},
+					titlePath: String,
+					contentPath: String,
+				};
+			}
+
+			sectionPathChanged(newValue, oldValue) {
+				this.titlePath = newValue + "/title";
+				this.contentPath = newValue + "/text";
+			}
+
+			changeRoute() {
+				if(this.title == "ABOUT US") {
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "about", bubbles: true, composed: true }));
+				} else if(this.title == "LOCATIONS") {
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "search", bubbles: true, composed: true }));
+				} else if(this.title == "MISSIONS") {
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "missions", bubbles: true, composed: true }));
+				} else if(this.title == "SEMINARY") {
+					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "seminary", bubbles: true, composed: true }));
+				}
+			}
+		}
+
+		window.customElements.define(EMSIHomepageContent.is, EMSIHomepageContent);
+	</script>
+</dom-module>

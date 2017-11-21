@@ -1,0 +1,47 @@
+<dom-module id="home-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+
+      #moreContent {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+      }
+
+      table {
+        border-spacing: 0;
+        width: 100%
+      }
+
+      td {
+        width: 50%;
+        height: 50vw;
+        padding: 0;
+        vertical-align: middle;
+        text-align: center;
+        background-color: white;
+      }
+
+      table, td {
+        border: 0px solid black;
+      }
+
+      @media screen and (max-width: 800px) {
+        td {
+          width: 100%;
+          min-height: 100vw;
+          padding-top: 15%;
+          padding-bottom: 7.5%;
+        }
+
+        .pictd {
+          padding-bottom: 0;
+        }
+      }
+    </style>
+  </template>
+</dom-module>

@@ -1,0 +1,97 @@
+<dom-module id="homepage-content-styles">
+  <template>
+    <style>
+      :host {
+        display: block; 
+        text-align: left;
+        background-color: white;
+      }
+
+      .title {
+        padding-left: 10vw;
+        color: #236192;
+        font-weight: 700;
+        font-size: 18pt;
+        font-family: MyriadProBold;
+        letter-spacing: 2px;
+      }
+
+      .content {
+        padding-top: 6vh;
+        padding-left: 10vw;
+        padding-right: 10vw;
+        color: rgba(0,0,0,0.6);
+        font-weight: 400;
+        font-size: 12pt;
+        line-height: 1.5;
+        font-family: MyriadProRegular;
+      }
+
+      emsi-button {
+        margin-left: 10vw;
+        margin-top: 6vh;
+      }
+
+      @media screen and (max-width: 1000px) and (min-width: 800px) {
+        .title {
+          padding-left: 8vw;
+          font-size: 25px;
+        }
+
+        .content {
+          padding-top: 4vh;
+          padding-left: 8vw;
+          padding-right: 8vw;
+          font-size: 16px;
+          line-height: 1.4;
+        }
+
+        emsi-button {
+          margin-left: 8vw;
+          margin-top: 4vh;
+        }
+      }
+
+
+      @media screen and (max-width: 800px) and (min-width: 500px){
+        .title {
+          padding-left: 15vw;
+          font-size: 35px;
+        }
+
+        .content {
+          padding-top: 6vh;
+          padding-left: 15vw;
+          padding-right: 15vw;
+          font-size: 20px;
+          line-height: 1.5;
+        }
+
+        emsi-button {
+          margin-left: 15vw;
+          margin-top: 8vh;
+        }
+      }
+
+      @media screen and (max-width: 500px) {
+        .title {
+          padding-left: 8vw;
+          font-size: 22px;
+        }
+
+        .content {
+          padding-top: 3vh;
+          padding-left: 8vw;
+          padding-right: 8vw;
+          font-size: 15px;
+          line-height: 1.4;
+        }
+
+        emsi-button {
+          margin-left: 7vw;
+          margin-top: 5vh;
+        }
+      }
+    </style>
+  </template>
+</dom-module>

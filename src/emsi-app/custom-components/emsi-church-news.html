@@ -1,0 +1,144 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/church-block-styles.html">
+<link rel="import" href="../../styles/church-news-styles.html">
+
+<dom-module id="emsi-church-news">
+	<template>
+		<style include="church-block-styles"></style>
+		<style include="church-news-styles"></style>
+		<style>
+			.tableContainer {
+        background-color: white;
+      }
+      .title {
+        color: #236192;
+      }
+      .content {
+      	color: rgba(0,0,0,0.6)
+      }
+		</style>
+
+		<!-- display -->
+		<table class="tableContainer"> 
+			<tbody>
+				<tr>
+    			<td>
+    				<div class="container">
+							<div class="title"> {{title}} </div>
+							<ul>
+								<template id='renderList' is="dom-repeat" items="[[displayedData]]">
+									<li>
+										<div class="content">{{item.content}}</div>
+									</li>
+								</template>
+							</ul>
+							<template is="dom-if" if="{{hasHiddenNews}}">
+					      <emsi-button color="blue" on-tap="showMore">
+									<template is="dom-if" if="[[isEnglish]]">
+										SHOW MORE
+									</template>
+									<template is="dom-if" if="[[!isEnglish]]">
+										? CHINESE SHOW ?
+									</template>
+								</emsi-button>
+					    </template>
+				    </div>
+					</td>
+    		</tr>
+  		</tbody>
+		</table>
+
+		<!-- dialog -->
+		<paper-dialog id="dialog" modal>
+		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
+		  <paper-dialog-scrollable>
+			<div class="contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5;font-family: MyriadProRegular;overflow-y: auto;height:60vh;padding:5pt;word-wrap: break-word;">
+				<ul>
+					<template id='renderList' is="dom-repeat" items="[[data]]">
+						<li>
+							<div class="content">{{item.content}}</div>
+						</li>
+					</template>
+				</ul>
+			</div>
+		  </paper-dialog-scrollable>
+		   <emsi-button style="margin-top: 20pt;" color="blue" dialog-dismiss>
+				<template is="dom-if" if="[[isEnglish]]">
+					CLOSE
+				</template>
+				<template is="dom-if" if="[[!isEnglish]]">
+					? CHINESE CLOSE ?
+				</template>
+			</emsi-button>
+		</paper-dialog>
+	</template>
+	<script>
+	class EMSIChurchNews extends Polymer.Element {
+			static get is() { return 'emsi-church-news'; }
+			
+			static get properties() { 
+				return {
+					title: String,
+					data: {
+						type: Array,
+						value: [] ,
+						observer: "dataChanged"
+					} ,
+					displayedData: {
+						type: Array,
+						value: []
+					} ,
+					hasHiddenNews: {
+						type: Boolean,
+						value: false
+					}
+				}; 
+			}
+
+			static get observers() { return [ 'languageChanged(lang)' ]; }
+
+      languageChanged(val) { this.isEnglish = val === "en"; }
+
+			dataChanged(newValue, oldValue) {
+				if(!newValue || newValue.length === 0) {
+					return;
+				}
+				
+				if(newValue.length > 3) {
+					this.hasHiddenNews = true;
+				}
+
+				this.set("displayedData", []);
+
+				for(var i = 0; i < 3; i++) {
+					if(newValue[i] == undefined) break;
+					var tempObj = {};
+					tempObj.content = newValue[i].content.slice(0,75);
+
+					if(newValue[i].content.length > 75) {
+						tempObj.content += " . . ."
+					}
+
+					this.push("displayedData", tempObj);
+				}
+
+				console.log(this.displayedData);
+			}
+
+			showMore() {
+				var body = document.querySelector('body');
+			  	Polymer.dom(body).appendChild(this.$.dialog);
+			  	this.$.dialog.open();
+			}
+		}
+
+		window.customElements.define(EMSIChurchNews.is, EMSIChurchNews);
+	</script>
+</dom-module>

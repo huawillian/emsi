@@ -1,0 +1,28 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/language-styles.html">
+
+<dom-module id="emsi-language-button">
+	<template>
+		<style include="language-styles"> </style>
+  	<div class="container">
+			<span on-tap="changeLangToEnglish"> ENGLISH </span> | <span on-tap="changeLangToChinese"> 中文 </span>
+		</div>
+	</template>
+
+	<script>
+		class EMSILanguageButton extends Polymer.Element {
+			static get is() { return 'emsi-language-button'; }
+			static get properties() { return {}; }
+			changeLangToEnglish() {
+				this.dispatchEvent(new CustomEvent('emsi-lang-change-event', { detail: "en", bubbles: true, composed: true }));
+			}
+			changeLangToChinese() {
+				this.dispatchEvent(new CustomEvent('emsi-lang-change-event', { detail: "zh", bubbles: true, composed: true }));
+			}
+		}
+
+		window.customElements.define(EMSILanguageButton.is, EMSILanguageButton);
+	</script>
+</dom-module>

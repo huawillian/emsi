@@ -1,0 +1,57 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="emsi-button">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-button {
+				background-color: #857874;
+				color: white;
+				border: 2px solid rgba(255, 255, 255, 0.5);
+				border-radius: 5px;
+				font-size: 9pt;
+				padding: 15px 40px 15px 40px;
+			}
+		</style>
+		<paper-button raised style$="background-color: {{myBackgroundColor}}; border: {{myBorder}}">
+			<slot> </slot> 
+		</paper-button>
+	</template>
+	<script>
+		class EMSIButton extends Polymer.Element {
+			static get is() { return 'emsi-button'; }
+
+			static get properties() { 
+				return {
+					name: {
+						type: String,
+						value: "LEARN MORE"
+					} ,
+					color: {
+						type: String,
+						value: "blue",
+						observer: "colorChanged"
+					} ,
+					myBackgroundColor: String,
+					myBorder: String
+				}; 
+			}
+
+			colorChanged(newValue, oldValue) {				
+				if(newValue == "brown") {
+					this.myBackgroundColor = "#857874";
+					this.myBorder = "2px solid rgba(255, 255, 255, 0.5)";
+				} else {
+					// default to blue
+					this.myBackgroundColor = "#236192";
+					this.myBorder = "2px solid white";
+				}
+			}
+		}
+
+		window.customElements.define(EMSIButton.is, EMSIButton);
+	</script>
+</dom-module>

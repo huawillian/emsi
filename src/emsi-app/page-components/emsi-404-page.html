@@ -1,0 +1,26 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/404-styles.html">
+
+
+<!-- Define: emsi-404-page custom element -->
+<!-- Usage: Used by emsi-app, displayed when url is not recognized -->
+<dom-module id="emsi-404-page">
+	<template>
+		<style include="404-styles"> </style>
+		<div id="title"> Error 404 </div>
+		<div id="content"> This page does not exist. </div>
+		<iron-icon icon="explore"></iron-icon>
+	</template>
+
+	<script>
+		class EMSI404Page extends Polymer.Element {
+			static get is() { return 'emsi-404-page'; }
+			static get properties() { return {}; }
+		}
+
+		window.customElements.define(EMSI404Page.is, EMSI404Page);
+	</script>
+</dom-module>

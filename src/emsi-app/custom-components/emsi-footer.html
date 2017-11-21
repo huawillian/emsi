@@ -1,0 +1,67 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/footer-styles.html">
+
+<dom-module id="emsi-footer">
+	<template>
+		<style include="footer-styles"> </style>
+		<div class="container">
+			<table>
+				<tr>
+					<td style="text-align: left">
+						<emsi-button color="blue" on-tap="openEmail">
+							<template is="dom-if" if="[[isEnglish]]">
+								CONTACT US
+							</template>
+							<template is="dom-if" if="[[!isEnglish]]">
+								? CHINESE CONTACT ?
+							</template>
+							<iron-image id="icon" src="https://github.com/huawillian/emsi/raw/master/src/images/MobilePhoneMail_Icons-01.png" sizing="cover" style="height:30px;width:70px;" preload></iron-image>
+						</emsi-button>
+					</td>
+					<td style="text-align: right">
+						<div class="user" on-tap="changeRouteToSignin">
+							<template is="dom-if" if="[[isEnglish]]">
+								SIGN IN
+							</template>
+							<template is="dom-if" if="[[!isEnglish]]">
+								? CHINESE SIGNIN ?
+							</template>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div class="content">
+				EMSI USA Headquarters | 36 Alpine Road | Towaco New Jersey | 973.335.7177 | emsi@emsionline.org
+			</div>
+		</div>
+	</template>
+
+	<script>
+		class EMSIFooter extends Polymer.Element {
+			static get is() { return 'emsi-footer'; }
+			static get properties() { return {}; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
+			openEmail() { window.open('mailto:emsi@emsionline.org'); }
+
+			changeRouteToContact() {
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "contact", bubbles: true, composed: true }));
+			}
+
+			changeRouteToSignin() {
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "signin", bubbles: true, composed: true }));
+			}
+		}
+
+		window.customElements.define(EMSIFooter.is, EMSIFooter);
+	</script>
+</dom-module>
