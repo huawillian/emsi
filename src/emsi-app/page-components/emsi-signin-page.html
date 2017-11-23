@@ -1,5 +1,11 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
 
 <!-- custom styles -->
 <link rel="import" href="../../styles/signin-styles.html">
@@ -7,15 +13,67 @@
 <dom-module id="emsi-signin-page">
 	<template>
 		<style include="signin-styles"> </style>
-		<div id="title"> Sign In </div>
-		<div id="content"> This page is still under construction... </div>
-		<iron-icon icon="build"></iron-icon>
+		<firebase-auth app-name="emsionline" id="auth" user="{{user}}" on-error="handleError"> </firebase-auth>
+		<table>
+			<tr>
+				<td>
+					<div class="container">
+						<div id="title"> Sign In </div>
+						<div class="error"> {{errorMessage}} </div>
+						<div> {{signedInMessage}} </div>
+						<paper-input id="email" label="Enter Email Address" ></paper-input>
+						<paper-input id="password" label="Enter Password" type="password"></paper-input>
+						<emsi-button color="blue" on-tap="logInHandler"> Sign In </emsi-button>
+						<emsi-button color="blue" on-tap="logOutHandler"> Sign Out </emsi-button>
+					</div>
+				</td>
+			</tr>
+		</table>
 	</template>
 	
 	<script>
 		class EMSISigninPage extends Polymer.Element {
 			static get is() { return 'emsi-signin-page'; }
-			static get properties() { return {}; }
+			static get properties() { 
+				return {
+					user: {
+            observer: "userChanged"
+          },
+          errorMessage: String,
+          signedInMessage: String
+				}; 
+			}
+
+			userChanged(v) {
+				this.signedInMessage = !!v ?  `You are currently signed in as ${v.email}` : "";
+			}
+
+			logInHandler() {
+				let email = this.$.email.value;
+				let password = this.$.password.value;
+				this.errorMessage = "";
+
+				console.log('Attempting to sign in with email', email, password);
+
+        this.$.auth.signInWithEmailAndPassword(email, password)
+          .then((response) => {
+          	this.changeRouteToUser(response.uid);
+          });
+      }
+
+      logOutHandler() {
+      	this.$.auth.signOut();
+      	this.errorMessage = "";
+      	this.signedInMessage = "";
+      }
+
+      changeRouteToUser(uid) {
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: `user/${uid}`, bubbles: true, composed: true }));
+			}
+
+			handleError(e) {
+       	this.errorMessage = e.detail.message;
+			}
 		}
 
 		window.customElements.define(EMSISigninPage.is, EMSISigninPage);

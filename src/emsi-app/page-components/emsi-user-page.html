@@ -1,0 +1,390 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/user-styles.html">
+
+<dom-module id="emsi-user-page">
+  <template>
+    <style include="user-styles"> </style>
+
+    <firebase-auth app-name="emsionline" id="auth" user="{{user}}" on-error="handleError"> </firebase-auth>
+
+    <!-- Set data property to locations part of database -->
+    <firebase-document
+      id="userDoc"
+      app-name="emsionline"
+      path= "users/[[uid]]"
+      data="{{userData}}">
+    </firebase-document>
+
+    <div class="titleContainer"> Welcome, [[userData.name]] </div>
+
+    <div class="contentContainer">
+      <paper-card>
+        <div class="title"> Account Information </div>
+        <hr/>
+        <div class="content">
+          <paper-input label="Email Address" disabled value="[[user.email]]"> </paper-input>
+          <paper-input label="Password" disabled value="*********"> </paper-input>
+          <div> {{passwordResetString}} </div>
+        </div>
+        <div class="card-actions">
+          <emsi-button color="blue" on-tap="logOutHandler"> Sign Out </emsi-button>
+          <emsi-button color="blue" on-tap="passwordResetHandler"> Reset Password </emsi-button>
+        </div>
+      </paper-card>
+
+      <paper-card>
+        <div class="title"> Personal Information </div>
+        <hr/>
+        <div class="content">
+          <table>
+            <tr>
+              <td> 
+                <paper-input id="name" label="Name" disabled value="[[userData.name]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editHandler" field="name"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveHandler" field="name"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td> 
+                <paper-input id="displayName" label="Display Name" disabled value="[[userData.displayName]]"> </paper-input>
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editHandler" field="displayName"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveHandler" field="displayName"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td> 
+                <paper-input id="position" label="Position" disabled value="[[userData.position]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editHandler" field="position"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveHandler" field="position"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td> 
+                <paper-input id="imageUrl" label="Picture Link" disabled value="[[userData.imageUrl]]"> </paper-input>
+              </td>
+              <td class="icons"> 
+                <paper-icon-button icon="create" on-tap="editHandler" field="imageUrl"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveHandler" field="imageUrl"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <iron-image style="width:200px; height:200px;" sizing="cover" preload src="[[userData.imageUrl]]"></iron-image>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </paper-card>
+      
+      <paper-card>
+        <div class="title"> Your Location </div>
+        <hr/>
+        <div class="content">
+          <paper-input label="Location" disabled value="[[userData.admin]]"> </paper-input>
+          <div> Please contact or email an administrator to change your location </div>
+          <div> Email: huawillian@gmail.com </div>
+        </div>
+      </paper-card>
+
+      <div class="titleContainerChurch"> [[location.name]] @ [[location.url]] </div>
+
+      <paper-card>
+        <div class="title"> Church Information </div>
+        <hr/>
+        <div class="content">
+          <table>
+            <tr>
+              <td> 
+                <paper-input id="address" label="Address" disabled value="[[location.address]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editChurchHandler" field="address"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveChurchHandler" field="address"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td> 
+                <paper-input id="continent" label="Continent" disabled value="[[location.continent]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editChurchHandler" field="continent"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveChurchHandler" field="continent"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td> 
+                <paper-input id="region" label="Region" disabled value="[[location.region]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editChurchHandler" field="region"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveChurchHandler" field="region"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td> 
+                <paper-input id="phone" label="Phone" disabled value="[[location.phone]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editChurchHandler" field="phone"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveChurchHandler" field="phone"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td> 
+                <paper-input id="email" label="Email" disabled value="[[location.email]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editChurchHandler" field="email"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveChurchHandler" field="email"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td> 
+                <paper-input id="churchImageUrl" label="Picture Link" disabled value="[[location.churchImageUrl]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editChurchHandler" field="churchImageUrl"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveChurchHandler" field="churchImageUrl"></paper-icon-button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <iron-image style="width:200px; height:200px;" sizing="cover" preload src="[[location.churchImageUrl]]"></iron-image>
+              </td>
+            </tr>
+            <tr>
+              <td> 
+                <paper-input id="description" label="Description" disabled value="[[location.description]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <paper-icon-button icon="create" on-tap="editChurchHandler" field="description"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveChurchHandler" field="description"></paper-icon-button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </paper-card>
+
+        <paper-card>
+          <div class="title"> News </div>
+          <hr/>
+          <div class="content">
+            <table>
+              <template is="dom-repeat" items="[[location.news]]" as="news" index-as="i">
+                <tr>
+                  <td>
+                    <td> 
+                      <paper-input disabled value="[[news.content]]"> </paper-input> 
+                    </td>
+                    <td class="icons">
+                      <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="news"></paper-icon-button>
+                    </td>
+                  </td>
+                </tr>
+              </template>
+            </table>
+          </div>
+          <div class="card-actions">
+            <emsi-button color="blue" on-tap="addHandler" field="news"> Add News </emsi-button>
+          </div>
+        </paper-card>
+
+        <paper-card>
+          <div class="title"> Events </div>
+          <hr/>
+          <div class="content">
+            <table>
+              <template is="dom-repeat" items="[[location.events]]" as="event" index-as="i">
+                <tr>
+                  <td>
+                    <td> 
+                      <paper-input label="Event Title and Date" disabled value="[[event.title]], [[event.month]] [[event.date]]"> </paper-input> 
+                      <paper-input label="Event Description"  disabled value="[[event.content]]"> </paper-input> 
+                    </td>
+                    <td class="icons">
+                      <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="events"></paper-icon-button>
+                    </td>
+                  </td>
+                </tr>
+              </template>
+            </table>
+          </div>
+          <div class="card-actions">
+            <emsi-button color="blue" on-tap="addHandler" field="events"> Add Event </emsi-button>
+          </div>
+        </paper-card>
+
+        <paper-card>
+          <div class="title"> Sunday Worship Times </div>
+          <hr/>
+          <div class="content">
+            <table>
+              <template is="dom-repeat" items="[[location.time]]" as="time" index-as="i">
+                <tr>
+                  <td>
+                    <td> 
+                      <paper-input disabled value="[[time.name]] | [[time.time]]"> </paper-input>
+                    </td>
+                    <td class="icons">
+                      <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="time"></paper-icon-button>
+                    </td>
+                  </td>
+                </tr>
+              </template>
+            </table>
+          </div>
+          <div class="card-actions">
+            <emsi-button color="blue" on-tap="addHandler" field="time"> Add Time </emsi-button>
+          </div>
+        </paper-card>
+
+        <paper-card>
+          <div class="title"> Ministries </div>
+          <hr/>
+          <div class="content">
+            <table>
+              <template is="dom-repeat" items="[[location.ministries]]" as="ministry" index-as="i">
+                <tr>
+                  <td>
+                    <paper-input label="Language" disabled value="[[ministry.language]]"> </paper-input>
+                    <div style="padding-left: 20pt">
+                      <table>
+                        <template is="dom-repeat" items="[[ministry.list]]" as="entry" index-as="j">
+                          <tr>
+                            <td>
+                              <td> 
+                                <paper-input disabled value="[[entry.name]] | [[entry.time]]"> </paper-input>
+                              </td>
+                              <td class="icons">
+                                <paper-icon-button icon="remove" on-tap="deleteMinistryHandler" field="ministry"></paper-icon-button>
+                              </td>
+                            </td>
+                          </tr>
+                        </template>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </template>
+            </table>
+          </div>
+          <div class="card-actions">
+            <emsi-button color="blue" on-tap="addHandlerLanguage" field="ministries"> Add Language </emsi-button>
+            <emsi-button color="blue" on-tap="addHandler" field="ministries"> Add Ministry </emsi-button>
+          </div>
+        </paper-card>
+    </div>
+  </template>
+  
+  <script>
+    class EMSIUserPage extends Polymer.Element {
+      static get is() { return 'emsi-user-page'; }
+
+      static get properties() {
+        return {
+          userData: Object,
+          lang: String,
+          route: Object,
+          uid: String,
+          user: Object,
+          locations: Array,
+          passwordResetString: String,
+          location: Object
+        };
+      }
+
+      static get observers() { 
+        return [ 
+          'languageChanged(lang)',
+          'userDataReceived(userData)',
+          'routeChanged(route)',
+          'locationsChanged(locations)'
+        ]; 
+      }
+
+      languageChanged(val) { this.isEnglish = val === "en"; }
+
+      userDataReceived(v) {
+        this.location = this.locations.find(o => o.name === v.admin);
+      }
+
+      routeChanged(route) {
+        this.uid = !!route.path ? route.path.slice(1) : "";
+      }
+
+      logOutHandler() {
+        this.$.auth.signOut();
+        this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "", bubbles: true, composed: true }));
+      }
+
+      locationsChanged(v) {
+        this.location = v.find(o => o.name === this.userData.admin);
+      }
+
+      passwordResetHandler() {
+        this.$.auth.sendPasswordResetEmail(this.user.email).then(() => {
+          this.passwordResetString = `A password reset email has been sent to ${this.user.email}`
+        })
+      }
+
+      // Edit and Save Methods
+      editHandler(e) {
+        let attr = e.target.getAttribute("field");  
+        if(!attr) return;
+        this.$[attr].disabled = false;
+        this.$[attr].focus();
+      }
+
+      saveHandler(e) {
+        let attr = e.target.getAttribute("field");
+        if(!attr) return;
+        this.$[attr].disabled = true;
+        this.$.userDoc.setStoredValue(`users/${this.uid}/${attr}`, this.$[attr].value);
+      }
+
+      editChurchHandler(e) {
+        let attr = e.target.getAttribute("field");
+        console.log(attr, this);
+        if(!attr) return;
+        this.$[attr].disabled = false;
+        this.$[attr].focus();
+      }
+
+      saveChurchHandler(e) {
+        let attr = e.target.getAttribute("field");
+        if(!attr || !this.location) return;
+        this.$[attr].disabled = true;
+        this.$.userDoc.setStoredValue(`locations/${location.uid}/${attr}`, this.$[attr].value);
+      }
+
+      deleteChurchTableHandler(e) {
+        console.log("deleteChurchTableHandler", e.target.getAttribute("field"), e.model.i);
+      }
+
+      addHandler(e) {
+        console.log("add", e.target.getAttribute("field"));
+      }
+    }
+
+    window.customElements.define(EMSIUserPage.is, EMSIUserPage);
+  </script>
+</dom-module>

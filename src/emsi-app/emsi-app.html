@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
@@ -26,6 +27,7 @@
 <link rel="import" href="page-components/emsi-signin-page.html">
 <link rel="import" href="page-components/emsi-church-page.html">
 <link rel="import" href="page-components/emsi-continent-page.html">
+<link rel="import" href="page-components/emsi-user-page.html">
 
 <!-- Define: emsi-app custom element -->
 <!-- Usage: Used by index.html, runs the whole app in polymer context -->
@@ -47,13 +49,16 @@
     </style>
 
     <!-- Register firebase element to bind to firebase project -->
-    <firebase-app auth-domain="emsionline-2b9df.firebaseapp.com"
+    <firebase-app
+      name="emsionline"
+      auth-domain="emsionline-2b9df.firebaseapp.com"
       database-url="https://emsionline-2b9df.firebaseio.com/"
       api-key="AIzaSyBWgbTxY5Oh2JonNkjJ9ZhTYgrRvg-D9gI">
     </firebase-app>
 
     <!-- Set data property to locations part of database -->
     <firebase-document
+      app-name="emsionline"
       path= "locations"
       data="{{data}}">
     </firebase-document>
@@ -100,7 +105,9 @@
         <emsi-curriculum-page class="page" name="curriculum" lang="{{lang}}"> </emsi-curriculum-page>
         <emsi-signin-page class="page" name="signin" lang="{{lang}}"> </emsi-signin-page>
 
-        <emsi-church-page id="churchPage" class="page" name="church" lang="{{lang}}" church-data="[[churchData]]"> </emsi-church-page>
+        <emsi-church-page class="page" name="church" lang="{{lang}}" church-data="[[churchData]]"> </emsi-church-page>
+
+        <emsi-user-page class="page" name="user" lang="{{lang}}" route="{{subroute}}" locations="{{dataAsArray}}"> </emsi-user-page>
       </iron-pages>
 
       <!-- Footer -->
@@ -172,7 +179,10 @@
         } else {
           let newArray = [];
           let keys = Object.keys(newValue);
-          keys.forEach(k => newArray.push(newValue[k]));
+          keys.forEach(k => {
+            newValue[k].uid = k;
+            newArray.push(newValue[k]);
+          });
           this.set("dataAsArray", newArray);
         }
         this.updateChurchData();
