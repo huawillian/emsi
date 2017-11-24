@@ -47,7 +47,6 @@
         width: 100%;
       }
     </style>
-
     <!-- Register firebase element to bind to firebase project -->
     <firebase-app
       name="emsionline"
@@ -58,6 +57,7 @@
 
     <!-- Set data property to locations part of database -->
     <firebase-document
+      id="locDoc"
       app-name="emsionline"
       path= "locations"
       data="{{data}}">
@@ -144,6 +144,7 @@
 
         this.addEventListener('emsi-route-change-event', this.routeChangeEventHandler);
         this.addEventListener('emsi-lang-change-event', this.langChangeEventHandler);
+        this.addEventListener('resync-firebase', this.resyncFirebase);
 
         // let lang = this.$.myRoute.queryParams.lang;
         //this.lang = !lang || lang === "en" ? "en" : "zh"
@@ -195,6 +196,10 @@
         if(!!church) {
           this.set("churchData", church);
         }
+      }
+
+      resyncFirebase() {
+        this.$.locDoc.reset().then(() => this.$.locDoc.path = "locations");
       }
     }
 

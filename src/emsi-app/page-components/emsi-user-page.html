@@ -542,6 +542,7 @@
         if(!attr || !this.location) return;
         this.$[attr].disabled = true;
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${attr}`, this.$[attr].value);
+        setTimeout(this.sendResyncEvent.bind(this), 300);
       }
 
       deleteChurchTableHandler(e) {
@@ -561,8 +562,37 @@
 
       deleteHandler() {
         this.location[this.selectedField].splice(this.selectedIndex, 1);
+        let val;
+
+        if(this.location[this.selectedField].length === 0) {
+          if(this.selectedField === "news") {
+            val = "EDIT NEWS";
+          } else if(this.selectedField === "events") {
+            val = {};
+            val.title = "EDIT TITLE OF EVENT";
+            val.month = "January";
+            val.date = "EDIT DATE";
+            val.content = "EDIT CONTENT";
+          } else if(this.selectedField === "time") {
+            val = {};
+            val.time = "EDIT TIME";
+            val.name = "EDIT NAME";
+          } else if(this.selectedField === "ministries") {
+            val = {
+              language: "EDIT LANGUAGE",
+              list: [{
+                name: 'EDIT NAME',
+                time: 'EDIT TIME'
+              }]
+            }
+          }
+
+          this.location[this.selectedField].push(val);
+        }
+
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
-        this.$[this.selectedField].render();
+
+        setTimeout(this.sendResyncEvent.bind(this), 300);
       }
 
       editChurchTableHandler(e) {
@@ -599,9 +629,9 @@
           val.name = this.$[this.selectedField + "name" + "InputEdit"].value;
         }
 
-        this.location[this.selectedField][this.selectedIndex] = val;
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}/${this.selectedIndex}`, val);
-        this.$[this.selectedField].render();
+        
+        setTimeout(this.sendResyncEvent.bind(this), 300);
       }
 
       addDialogHandler() {
@@ -621,12 +651,9 @@
           val.name = this.$[this.selectedField + "name" + "InputAdd"].value;
         }
 
-        this.location[this.selectedField].push(val);
-
-        console.log(this.location[this.selectedField]);
-
-        this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
-        this.$[this.selectedField].render();
+        this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}/`, [...this.location[this.selectedField], val]);
+        
+        setTimeout(this.sendResyncEvent.bind(this), 300);
       }
 
       addMinistryLanguageHandler() {
@@ -648,13 +675,10 @@
               }
             ]
           };
-          this.location[this.selectedField].push(obj);
-
           console.log(this.location[this.selectedField]);
 
-
-          this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
-          this.$[this.selectedField].render();
+          this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, [...this.location[this.selectedField], obj]);
+          setTimeout(this.sendResyncEvent.bind(this), 300);
         }
       }
 
@@ -678,9 +702,9 @@
             time: time
           };
           ref.list.push(obj);
+
           this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
-          let rend = Polymer.dom(this.root).querySelector(`#${lang}`);
-          rend.render();
+          setTimeout(this.sendResyncEvent.bind(this), 300);
         }
       }
 
@@ -702,16 +726,21 @@
           this.location.ministries.splice(this.selectedIndex, 1);
         }
 
+        if(this.location.ministries.length === 0) {
+          let val = {
+            language: "EDIT LANGUAGE",
+            list: [{
+              name: 'EDIT NAME',
+              time: 'EDIT TIME'
+            }]
+          }
+
+          this.location.ministries = [val];
+        }
+
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/ministries`, this.location.ministries);
 
-        if(!!this.location.ministries[this.selectedIndex]) {
-          let lang = this.location.ministries[this.selectedIndex].language;
-          let rend = Polymer.dom(this.root).querySelector(`#${lang}`);
-          rend.render();
-        } else {
-          console.log(this.location.ministries);
-          this.$.ministries.render();
-        }
+        setTimeout(this.sendResyncEvent.bind(this), 300);
       }
 
       editMinistryHandler(e) {
@@ -742,9 +771,11 @@
 
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}/${this.selectedIndex}`,  this.location[this.selectedField][this.selectedIndex]);
 
-        let lang = this.location.ministries[this.selectedIndex].language;
-        let rend = Polymer.dom(this.root).querySelector(`#${lang}`);
-          rend.render();
+        setTimeout(this.sendResyncEvent.bind(this), 300);
+      }
+
+      sendResyncEvent() {
+        this.dispatchEvent(new CustomEvent('resync-firebase', { detail: {}, bubbles: true, composed: true }));
       }
     }
 
