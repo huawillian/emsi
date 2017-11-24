@@ -57,7 +57,7 @@
               </td>
               <td class="icons">
                 <paper-icon-button icon="create" on-tap="editHandler" field="name"></paper-icon-button>
-                <paper-icon-button icon="done" on-tap="saveHandler" field="name"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveUserHandler" field="name"></paper-icon-button>
               </td>
             </tr>
             <tr>
@@ -66,7 +66,7 @@
               </td>
               <td class="icons">
                 <paper-icon-button icon="create" on-tap="editHandler" field="displayName"></paper-icon-button>
-                <paper-icon-button icon="done" on-tap="saveHandler" field="displayName"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveUserHandler" field="displayName"></paper-icon-button>
               </td>
             </tr>
             <tr>
@@ -75,7 +75,7 @@
               </td>
               <td class="icons">
                 <paper-icon-button icon="create" on-tap="editHandler" field="position"></paper-icon-button>
-                <paper-icon-button icon="done" on-tap="saveHandler" field="position"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveUserHandler" field="position"></paper-icon-button>
               </td>
             </tr>
             <tr>
@@ -84,7 +84,7 @@
               </td>
               <td class="icons"> 
                 <paper-icon-button icon="create" on-tap="editHandler" field="imageUrl"></paper-icon-button>
-                <paper-icon-button icon="done" on-tap="saveHandler" field="imageUrl"></paper-icon-button>
+                <paper-icon-button icon="done" on-tap="saveUserHandler" field="imageUrl"></paper-icon-button>
               </td>
             </tr>
             <tr>
@@ -197,8 +197,8 @@
                       <paper-input disabled value="[[news]]"> </paper-input> 
                     </td>
                     <td class="icons">
-                      <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="news"></paper-icon-button>
                       <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="news"></paper-icon-button>
+                      <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="news"></paper-icon-button>
                     </td>
                   </td>
                 </tr>
@@ -222,8 +222,8 @@
                       <paper-input label="[[event.title]], [[event.month]] [[event.date]]" disabled value="[[event.content]]"> </paper-input> 
                     </td>
                     <td class="icons">
-                      <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="events"></paper-icon-button>
                       <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="events"></paper-icon-button>
+                      <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="events"></paper-icon-button>
                     </td>
                   </td>
                 </tr>
@@ -247,8 +247,8 @@
                       <paper-input disabled label="[[time.name]]" value="[[time.time]]"> </paper-input>
                     </td>
                     <td class="icons">
-                      <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="time"></paper-icon-button>
                       <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="time"></paper-icon-button>
+                      <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="time"></paper-icon-button>
                     </td>
                   </td>
                 </tr>
@@ -280,16 +280,15 @@
                     </table>
                     <div style="padding-left: 20pt">
                       <table>
-                        <template is="dom-repeat" items="[[ministry.list]]" as="entry" index-as="j">
+                        <template id="{{ministry.language}}" is="dom-repeat" items="[[ministry.list]]" as="entry" index-as="j">
                           <tr>
                             <td>
                               <td>
                                 <paper-input disabled label="[[entry.name]]" value="[[entry.time]]"> </paper-input>
                               </td>
-                              <td class="icons3">
-                                <paper-icon-button icon="remove" on-tap="deleteMinistryHandler" field="ministries"></paper-icon-button>
+                              <td class="icons">
                                 <paper-icon-button icon="create" on-tap="editMinistryHandler" field="ministries"></paper-icon-button>
-                                <paper-icon-button icon="done" on-tap="saveMinistryHandler" field="ministries"></paper-icon-button>
+                                <paper-icon-button icon="remove" on-tap="deleteMinistryHandler" field="ministries"></paper-icon-button>
                               </td>
                             </td>
                           </tr>
@@ -302,9 +301,8 @@
             </table>
           </div>
           <div class="card-actions">
-            <emsi-button color="blue" on-tap="addHandlerLanguage" field="ministries"> Add Language </emsi-button>
-            <emsi-button color="blue" on-tap="addHandler" field="ministries"> Add Ministry </emsi-button>
-            <emsi-button color="blue" on-tap="clearHandler" field="ministries"> Clear All Ministries </emsi-button>
+            <emsi-button color="blue" on-tap="addMinistryLanguageHandler" field="ministries"> Add Language </emsi-button>
+            <emsi-button color="blue" on-tap="addMinistryHandler" field="ministries"> Add Ministry </emsi-button>
           </div>
         </paper-card>
     </div>
@@ -399,6 +397,55 @@
       </div>
     </paper-dialog>
 
+    <paper-dialog id="languageAddDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Add Ministries Langage </div>
+      <paper-dialog-scrollable>
+        <paper-input id="languageInputAdd" label="Language"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="addLanguageDialogHandler"> ADD LANGUAGE </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="ministriesAddDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Add Ministries Langage </div>
+      <paper-dialog-scrollable>
+        <paper-input id="ministrieslanguageInputAdd" label="Language"> </paper-input>
+        <paper-input id="ministriesnameInputAdd" label="Name of Ministry"> </paper-input>
+        <paper-input id="ministriestimeInputAdd" label="Time"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="addMinistryDialogHandler"> ADD MINISTRY </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="ministriesDeleteDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Delete {{selectedField}}</div>
+      <paper-dialog-scrollable>
+        <div> Are you sure you want to delete this? You cannot undo this change. </div>
+        <div> Selected: {{selectedField}} </div>
+        <div> Index: {{selectedIndex}} {{selectedIndex2}} </div>
+        <div> Content: {{selectedValue}} </div>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> NO </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="deleteMinistriesDialogHandler"> YES </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="ministriesEditDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Edit Ministry </div>
+      <paper-dialog-scrollable>
+        <paper-input id="ministriesnameInputEdit" label="Name of Ministry" value="[[selectedValue.name]]"> </paper-input>
+        <paper-input id="ministriestimeInputEdit" label="Time" value="[[selectedValue.time]]"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="saveMinistryHandler"> SAVE </emsi-button>
+      </div>
+    </paper-dialog>
   </template>
   
   <script>
@@ -464,7 +511,7 @@
         this.$[attr].focus();
       }
 
-      saveHandler(e) {
+      saveUserHandler(e) {
         let attr = e.target.getAttribute("field");
         if(!attr) return;
         this.$[attr].disabled = true;
@@ -577,6 +624,104 @@
         this.location[this.selectedField].push(val);
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
         this.$[this.selectedField].render();
+      }
+
+      addMinistryLanguageHandler() {
+        this.selectedField = "ministries";
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$.languageAddDialog);
+        this.$.languageAddDialog.open();
+      }
+
+      addLanguageDialogHandler() {
+        let val = this.$.languageInputAdd.value.toUpperCase();
+        if(!this.location.ministries.find(v => v.language === val)) {
+          let obj = {
+            language: val,
+            list: []
+          };
+          this.location[this.selectedField].push(obj);
+          this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
+          this.$[this.selectedField].render();
+        }
+      }
+
+      addMinistryHandler() {
+        this.selectedField = "ministries";
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$.ministriesAddDialog);
+        this.$.ministriesAddDialog.open();
+      }
+
+      addMinistryDialogHandler() {
+        let lang = this.$.ministrieslanguageInputAdd.value.toUpperCase();
+        let name = this.$.ministriesnameInputAdd.value;
+        let time = this.$.ministriestimeInputAdd.value;
+
+        let ref = this.location.ministries.find(v => v.language === lang);
+
+        if(!!ref) {
+          let obj = {
+            name: name,
+            time: time
+          };
+          ref.list.push(obj);
+          this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
+          let rend = Polymer.dom(this.root).querySelector(`#${lang}`);
+          rend.render();
+        }
+      }
+
+      deleteMinistryHandler(e) {
+        this.selectedField = "ministries";
+        this.selectedIndex = e.model.parentModel.i;
+        this.selectedIndex2 = e.model.j;
+        this.selectedValue = JSON.stringify(this.location.ministries[this.selectedIndex].list[this.selectedIndex2]);
+
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$.ministriesDeleteDialog);
+        this.$.ministriesDeleteDialog.open();
+      }
+
+      deleteMinistriesDialogHandler() {
+        this.location.ministries[this.selectedIndex].list.splice(this.selectedIndex2, 1);
+        this.$.userDoc.setStoredValue(`locations/${this.location.uid}/ministries`, this.location.ministries);
+        let lang = this.location.ministries[this.selectedIndex].language;
+        let rend = Polymer.dom(this.root).querySelector(`#${lang}`);
+          rend.render();
+      }
+
+      editMinistryHandler(e) {
+        this.selectedField = "ministries";
+        this.selectedIndex = e.model.parentModel.i;
+        this.selectedIndex2 = e.model.j;
+
+        if(!this.location || this.selectedIndex === undefined || this.selectedIndex2 === undefined) return;
+
+        this.selectedValue = this.location.ministries[this.selectedIndex].list[this.selectedIndex2];
+
+        console.log('editMinistryHandler', this.selectedIndex, this.selectedIndex2, this.selectedValue);
+
+        let dialogId = `ministriesEditDialog`;
+
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$[dialogId]);
+        this.$[dialogId].open();
+      }
+
+      saveMinistryHandler() {
+        let val = {};
+
+        val.time = this.$[this.selectedField + "time" + "InputEdit"].value;
+        val.name = this.$[this.selectedField + "name" + "InputEdit"].value;
+
+        this.location[this.selectedField][this.selectedIndex].list[this.selectedIndex2] = val;
+
+        this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}/${this.selectedIndex}`,  this.location[this.selectedField][this.selectedIndex]);
+
+        let lang = this.location.ministries[this.selectedIndex].language;
+        let rend = Polymer.dom(this.root).querySelector(`#${lang}`);
+          rend.render();
       }
     }
 
