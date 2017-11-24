@@ -124,7 +124,7 @@
             </tr>
             <tr>
               <td> 
-                <paper-input id="continent" label="Continent" disabled value="[[location.continent]]"> </paper-input> 
+                <paper-input id="continent" label="Continent (America, Europe, Asia, Africa, Australia)" disabled value="[[location.continent]]"> </paper-input> 
               </td>
               <td class="icons">
                 <paper-icon-button icon="create" on-tap="editChurchHandler" field="continent"></paper-icon-button>
@@ -350,7 +350,7 @@
       <paper-dialog-scrollable>
         <paper-input id="eventstitleInputEdit" label="Event Title" value="[[selectedValue.title]]"> </paper-input>
         <paper-input id="eventsmonthInputEdit" label="Event Month" value="[[selectedValue.month]]"> </paper-input>
-        <paper-input id="eventsdateInputEdit" label="Event Date" value="[[selectedValue.date]]"> </paper-input>
+        <paper-input id="eventsdateInputEdit" label="Event Date (1-31)" value="[[selectedValue.date]]"> </paper-input>
         <paper-input id="eventscontentInputEdit" label="Event Content" value="[[selectedValue.content]]"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons" style="margin-top: 30pt">
@@ -615,13 +615,16 @@
           val.month = this.$[this.selectedField + "month" + "InputAdd"].value;
           val.date = this.$[this.selectedField + "date" + "InputAdd"].value;
           val.content = this.$[this.selectedField + "content" + "InputAdd"].value;
-        }else if(this.selectedField === "time") {
+        } else if(this.selectedField === "time") {
           val = {};
           val.time = this.$[this.selectedField + "time" + "InputAdd"].value;
           val.name = this.$[this.selectedField + "name" + "InputAdd"].value;
         }
 
         this.location[this.selectedField].push(val);
+
+        console.log(this.location[this.selectedField]);
+
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
         this.$[this.selectedField].render();
       }
@@ -638,9 +641,18 @@
         if(!this.location.ministries.find(v => v.language === val)) {
           let obj = {
             language: val,
-            list: []
+            list: [
+              {
+                name: "EDIT NAME OF MINISTRY", 
+                time: "EDIT TIME"
+              }
+            ]
           };
           this.location[this.selectedField].push(obj);
+
+          console.log(this.location[this.selectedField]);
+
+
           this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
           this.$[this.selectedField].render();
         }
@@ -685,10 +697,21 @@
 
       deleteMinistriesDialogHandler() {
         this.location.ministries[this.selectedIndex].list.splice(this.selectedIndex2, 1);
+
+        if(this.location.ministries[this.selectedIndex].list.length === 0) {
+          this.location.ministries.splice(this.selectedIndex, 1);
+        }
+
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/ministries`, this.location.ministries);
-        let lang = this.location.ministries[this.selectedIndex].language;
-        let rend = Polymer.dom(this.root).querySelector(`#${lang}`);
+
+        if(!!this.location.ministries[this.selectedIndex]) {
+          let lang = this.location.ministries[this.selectedIndex].language;
+          let rend = Polymer.dom(this.root).querySelector(`#${lang}`);
           rend.render();
+        } else {
+          console.log(this.location.ministries);
+          this.$.ministries.render();
+        }
       }
 
       editMinistryHandler(e) {
