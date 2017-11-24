@@ -373,7 +373,7 @@
         let attr = e.target.getAttribute("field");
         if(!attr || !this.location) return;
         this.$[attr].disabled = true;
-        this.$.userDoc.setStoredValue(`locations/${location.uid}/${attr}`, this.$[attr].value);
+        this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${attr}`, this.$[attr].value);
       }
 
       deleteChurchTableHandler(e) {
