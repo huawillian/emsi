@@ -221,10 +221,9 @@
                     <td> 
                       <paper-input label="[[event.title]], [[event.month]] [[event.date]]" disabled value="[[event.content]]"> </paper-input> 
                     </td>
-                    <td class="icons3">
+                    <td class="icons">
                       <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="events"></paper-icon-button>
                       <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="events"></paper-icon-button>
-                      <paper-icon-button icon="done" on-tap="saveChurchTableHandler" field="events"></paper-icon-button>
                     </td>
                   </td>
                 </tr>
@@ -233,7 +232,6 @@
           </div>
           <div class="card-actions">
             <emsi-button color="blue" on-tap="addHandler" field="events"> Add Event </emsi-button>
-            <emsi-button color="blue" on-tap="clearHandler" field="events"> Clear All Events </emsi-button>
           </div>
         </paper-card>
 
@@ -248,10 +246,9 @@
                     <td> 
                       <paper-input disabled label="[[time.name]]" value="[[time.time]]"> </paper-input>
                     </td>
-                    <td class="icons3">
+                    <td class="icons">
                       <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="time"></paper-icon-button>
                       <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="time"></paper-icon-button>
-                      <paper-icon-button icon="done" on-tap="saveChurchTableHandler" field="time"></paper-icon-button>
                     </td>
                   </td>
                 </tr>
@@ -260,7 +257,6 @@
           </div>
           <div class="card-actions">
             <emsi-button color="blue" on-tap="addHandler" field="time"> Add Time </emsi-button>
-            <emsi-button color="blue" on-tap="clearHandler" field="time"> Clear Times </emsi-button>
           </div>
         </paper-card>
 
@@ -332,7 +328,7 @@
     <paper-dialog id="newsEditDialog" modal style="width: 80vw;padding: 20pt;">
       <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Edit News </div>
       <paper-dialog-scrollable>
-         <paper-input id="newsInputEdit" label="News" value="[[selectedValue]]"> </paper-input>
+        <paper-input id="newsInputEdit" label="News" value="[[selectedValue]]"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons" style="margin-top: 30pt">
         <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
@@ -343,11 +339,63 @@
     <paper-dialog id="newsAddDialog" modal style="width: 80vw;padding: 20pt;">
       <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Add News </div>
       <paper-dialog-scrollable>
-         <paper-input id="newsInputAdd" label="Enter News Content"> </paper-input>
+        <paper-input id="newsInputAdd" label="Enter News Content"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons" style="margin-top: 30pt">
         <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
         <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="addDialogHandler"> ADD NEWS </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="eventsEditDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Edit Events </div>
+      <paper-dialog-scrollable>
+        <paper-input id="eventstitleInputEdit" label="Event Title" value="[[selectedValue.title]]"> </paper-input>
+        <paper-input id="eventsmonthInputEdit" label="Event Month" value="[[selectedValue.month]]"> </paper-input>
+        <paper-input id="eventsdateInputEdit" label="Event Date" value="[[selectedValue.date]]"> </paper-input>
+        <paper-input id="eventscontentInputEdit" label="Event Content" value="[[selectedValue.content]]"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="saveHandler"> SAVE </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="eventsAddDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Add Events </div>
+      <paper-dialog-scrollable>
+        <paper-input id="eventstitleInputAdd" label="Event Title"> </paper-input>
+        <paper-input id="eventsmonthInputAdd" label="Event Month"> </paper-input>
+        <paper-input id="eventsdateInputAdd" label="Event Date"> </paper-input>
+        <paper-input id="eventscontentInputAdd" label="Event Content"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="addDialogHandler"> ADD EVENTS </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="timeEditDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Edit Sunday Worship Times </div>
+      <paper-dialog-scrollable>
+        <paper-input id="timenameInputEdit" label="Language" value="[[selectedValue.name]]"> </paper-input>
+        <paper-input id="timetimeInputEdit" label="Sunday Worship Time" value="[[selectedValue.time]]"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="saveHandler"> SAVE </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="timeAddDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Add Sunday Worship Times </div>
+      <paper-dialog-scrollable>
+        <paper-input id="timenameInputAdd" label="Language"> </paper-input>
+        <paper-input id="timetimeInputAdd" label="Sunday Worship Time"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="addDialogHandler"> ADD TIME </emsi-button>
       </div>
     </paper-dialog>
 
@@ -427,9 +475,8 @@
         let attr = e.target.getAttribute("field");
         if(!attr || !this.location) return;
         console.log("add", e.target.getAttribute("field"));
-
-        let dialogId = `${attr}AddDialog`;
-
+        this.selectedField = attr;
+        let dialogId = `${attr}AddDialog`; 
         let body = document.querySelector('body');
         Polymer.dom(body).appendChild(this.$[dialogId]);
         this.$[dialogId].open();
@@ -489,14 +536,44 @@
       }
 
       saveHandler() {
-        let val = this.$[this.selectedField + "InputEdit"].value;
+        let val;
+
+        if(this.selectedField === "news") {
+          val = this.$[this.selectedField + "InputEdit"].value;
+        } else if(this.selectedField === "events") {
+          val = {};
+          val.title = this.$[this.selectedField + "title" + "InputEdit"].value;
+          val.month = this.$[this.selectedField + "month" + "InputEdit"].value;
+          val.date = this.$[this.selectedField + "date" + "InputEdit"].value;
+          val.content = this.$[this.selectedField + "content" + "InputEdit"].value;
+        } else if(this.selectedField === "time") {
+          val = {};
+          val.time = this.$[this.selectedField + "time" + "InputEdit"].value;
+          val.name = this.$[this.selectedField + "name" + "InputEdit"].value;
+        }
+
         this.location[this.selectedField][this.selectedIndex] = val;
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}/${this.selectedIndex}`, val);
         this.$[this.selectedField].render();
       }
 
       addDialogHandler() {
-        let val = this.$[this.selectedField + "InputAdd"].value;
+        let val;
+
+        if(this.selectedField === "news") {
+          val = this.$[this.selectedField + "InputAdd"].value;
+        } else if(this.selectedField === "events") {
+          val = {};
+          val.title = this.$[this.selectedField + "title" + "InputAdd"].value;
+          val.month = this.$[this.selectedField + "month" + "InputAdd"].value;
+          val.date = this.$[this.selectedField + "date" + "InputAdd"].value;
+          val.content = this.$[this.selectedField + "content" + "InputAdd"].value;
+        }else if(this.selectedField === "time") {
+          val = {};
+          val.time = this.$[this.selectedField + "time" + "InputAdd"].value;
+          val.name = this.$[this.selectedField + "name" + "InputAdd"].value;
+        }
+
         this.location[this.selectedField].push(val);
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
         this.$[this.selectedField].render();
