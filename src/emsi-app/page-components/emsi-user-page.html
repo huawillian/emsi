@@ -195,8 +195,10 @@
                     <td> 
                       <paper-input disabled value="[[news.content]]"> </paper-input> 
                     </td>
-                    <td class="icons">
+                    <td class="icons3">
                       <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="news"></paper-icon-button>
+                      <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="news"></paper-icon-button>
+                      <paper-icon-button icon="done" on-tap="saveChurchTableHandler" field="news"></paper-icon-button>
                     </td>
                   </td>
                 </tr>
@@ -205,6 +207,7 @@
           </div>
           <div class="card-actions">
             <emsi-button color="blue" on-tap="addHandler" field="news"> Add News </emsi-button>
+            <emsi-button color="blue" on-tap="clearHandler" field="news"> Clear All News </emsi-button>
           </div>
         </paper-card>
 
@@ -217,11 +220,12 @@
                 <tr>
                   <td>
                     <td> 
-                      <paper-input label="Event Title and Date" disabled value="[[event.title]], [[event.month]] [[event.date]]"> </paper-input> 
-                      <paper-input label="Event Description"  disabled value="[[event.content]]"> </paper-input> 
+                      <paper-input label="[[event.title]], [[event.month]] [[event.date]]" disabled value="[[event.content]]"> </paper-input> 
                     </td>
-                    <td class="icons">
+                    <td class="icons3">
                       <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="events"></paper-icon-button>
+                      <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="events"></paper-icon-button>
+                      <paper-icon-button icon="done" on-tap="saveChurchTableHandler" field="events"></paper-icon-button>
                     </td>
                   </td>
                 </tr>
@@ -230,6 +234,7 @@
           </div>
           <div class="card-actions">
             <emsi-button color="blue" on-tap="addHandler" field="events"> Add Event </emsi-button>
+            <emsi-button color="blue" on-tap="clearHandler" field="events"> Clear All Events </emsi-button>
           </div>
         </paper-card>
 
@@ -242,10 +247,12 @@
                 <tr>
                   <td>
                     <td> 
-                      <paper-input disabled value="[[time.name]] | [[time.time]]"> </paper-input>
+                      <paper-input disabled label="[[time.name]]" value="[[time.time]]"> </paper-input>
                     </td>
-                    <td class="icons">
+                    <td class="icons3">
                       <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="time"></paper-icon-button>
+                      <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="time"></paper-icon-button>
+                      <paper-icon-button icon="done" on-tap="saveChurchTableHandler" field="time"></paper-icon-button>
                     </td>
                   </td>
                 </tr>
@@ -254,6 +261,7 @@
           </div>
           <div class="card-actions">
             <emsi-button color="blue" on-tap="addHandler" field="time"> Add Time </emsi-button>
+            <emsi-button color="blue" on-tap="clearHandler" field="time"> Clear Times </emsi-button>
           </div>
         </paper-card>
 
@@ -265,17 +273,28 @@
               <template is="dom-repeat" items="[[location.ministries]]" as="ministry" index-as="i">
                 <tr>
                   <td>
-                    <paper-input label="Language" disabled value="[[ministry.language]]"> </paper-input>
+                    <table>
+                      <tr>
+                        <td>
+                          <paper-input label="Language" disabled value="[[ministry.language]]"> </paper-input>
+                        </td>
+                        <td class="icons">
+                          <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="ministry"></paper-icon-button>
+                        </td>
+                      </tr>
+                    </table>
                     <div style="padding-left: 20pt">
                       <table>
                         <template is="dom-repeat" items="[[ministry.list]]" as="entry" index-as="j">
                           <tr>
                             <td>
-                              <td> 
-                                <paper-input disabled value="[[entry.name]] | [[entry.time]]"> </paper-input>
+                              <td>
+                                <paper-input disabled label="[[entry.name]]" value="[[entry.time]]"> </paper-input>
                               </td>
-                              <td class="icons">
+                              <td class="icons3">
                                 <paper-icon-button icon="remove" on-tap="deleteMinistryHandler" field="ministry"></paper-icon-button>
+                                <paper-icon-button icon="create" on-tap="editMinistryHandler" field="ministry"></paper-icon-button>
+                                <paper-icon-button icon="done" on-tap="saveMinistryHandler" field="ministry"></paper-icon-button>
                               </td>
                             </td>
                           </tr>
@@ -290,6 +309,7 @@
           <div class="card-actions">
             <emsi-button color="blue" on-tap="addHandlerLanguage" field="ministries"> Add Language </emsi-button>
             <emsi-button color="blue" on-tap="addHandler" field="ministries"> Add Ministry </emsi-button>
+            <emsi-button color="blue" on-tap="clearHandler" field="ministries"> Clear All Ministries </emsi-button>
           </div>
         </paper-card>
     </div>

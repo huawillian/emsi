@@ -27,7 +27,9 @@
     "neon-animation": "PolymerElements/neon-animation#^2.0.2",
     "web-animations-js": "^2.3.1",
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
-    "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^2.0.1"
+    "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^2.0.1",
+    "paper-input": "PolymerElements/paper-input#^2.0.3",
+    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^2.1.0"
   },
   "devDependencies": {
     "web-component-tester": "^6.0.0",
