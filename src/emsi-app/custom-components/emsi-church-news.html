@@ -35,7 +35,7 @@
 							<ul>
 								<template id='renderList' is="dom-repeat" items="[[displayedData]]">
 									<li>
-										<div class="content">{{item.content}}</div>
+										<div class="content">{{item}}</div>
 									</li>
 								</template>
 							</ul>
@@ -63,7 +63,7 @@
 				<ul>
 					<template id='renderList' is="dom-repeat" items="[[data]]">
 						<li>
-							<div class="content">{{item.content}}</div>
+							<div class="content">{{item}}</div>
 						</li>
 					</template>
 				</ul>
@@ -119,11 +119,10 @@
 
 				for(var i = 0; i < 3; i++) {
 					if(newValue[i] == undefined) break;
-					var tempObj = {};
-					tempObj.content = newValue[i].content.slice(0,75);
+					let tempObj = newValue[i].slice(0,75);
 
-					if(newValue[i].content.length > 75) {
-						tempObj.content += " . . ."
+					if(newValue[i].length > 75) {
+						tempObj += " . . ."
 					}
 
 					this.push("displayedData", tempObj);

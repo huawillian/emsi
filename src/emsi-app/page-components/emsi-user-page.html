@@ -7,6 +7,7 @@
 <link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -189,16 +190,15 @@
           <hr/>
           <div class="content">
             <table>
-              <template is="dom-repeat" items="[[location.news]]" as="news" index-as="i">
+              <template id="news" is="dom-repeat" items="[[location.news]]" as="news" index-as="i">
                 <tr>
                   <td>
                     <td> 
-                      <paper-input disabled value="[[news.content]]"> </paper-input> 
+                      <paper-input disabled value="[[news]]"> </paper-input> 
                     </td>
-                    <td class="icons3">
+                    <td class="icons">
                       <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="news"></paper-icon-button>
                       <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="news"></paper-icon-button>
-                      <paper-icon-button icon="done" on-tap="saveChurchTableHandler" field="news"></paper-icon-button>
                     </td>
                   </td>
                 </tr>
@@ -207,7 +207,6 @@
           </div>
           <div class="card-actions">
             <emsi-button color="blue" on-tap="addHandler" field="news"> Add News </emsi-button>
-            <emsi-button color="blue" on-tap="clearHandler" field="news"> Clear All News </emsi-button>
           </div>
         </paper-card>
 
@@ -216,7 +215,7 @@
           <hr/>
           <div class="content">
             <table>
-              <template is="dom-repeat" items="[[location.events]]" as="event" index-as="i">
+              <template id="events" is="dom-repeat" items="[[location.events]]" as="event" index-as="i">
                 <tr>
                   <td>
                     <td> 
@@ -243,7 +242,7 @@
           <hr/>
           <div class="content">
             <table>
-              <template is="dom-repeat" items="[[location.time]]" as="time" index-as="i">
+              <template id="time" is="dom-repeat" items="[[location.time]]" as="time" index-as="i">
                 <tr>
                   <td>
                     <td> 
@@ -270,7 +269,7 @@
           <hr/>
           <div class="content">
             <table>
-              <template is="dom-repeat" items="[[location.ministries]]" as="ministry" index-as="i">
+              <template id="ministries" is="dom-repeat" items="[[location.ministries]]" as="ministry" index-as="i">
                 <tr>
                   <td>
                     <table>
@@ -279,7 +278,7 @@
                           <paper-input label="Language" disabled value="[[ministry.language]]"> </paper-input>
                         </td>
                         <td class="icons">
-                          <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="ministry"></paper-icon-button>
+                          <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="ministries"></paper-icon-button>
                         </td>
                       </tr>
                     </table>
@@ -292,9 +291,9 @@
                                 <paper-input disabled label="[[entry.name]]" value="[[entry.time]]"> </paper-input>
                               </td>
                               <td class="icons3">
-                                <paper-icon-button icon="remove" on-tap="deleteMinistryHandler" field="ministry"></paper-icon-button>
-                                <paper-icon-button icon="create" on-tap="editMinistryHandler" field="ministry"></paper-icon-button>
-                                <paper-icon-button icon="done" on-tap="saveMinistryHandler" field="ministry"></paper-icon-button>
+                                <paper-icon-button icon="remove" on-tap="deleteMinistryHandler" field="ministries"></paper-icon-button>
+                                <paper-icon-button icon="create" on-tap="editMinistryHandler" field="ministries"></paper-icon-button>
+                                <paper-icon-button icon="done" on-tap="saveMinistryHandler" field="ministries"></paper-icon-button>
                               </td>
                             </td>
                           </tr>
@@ -313,6 +312,45 @@
           </div>
         </paper-card>
     </div>
+
+
+    <!-- Dialogs -->
+    <paper-dialog id="deleteDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Delete {{selectedField}}</div>
+      <paper-dialog-scrollable>
+        <div> Are you sure you want to delete this? You cannot undo this change. </div>
+        <div> Selected: {{selectedField}} </div>
+        <div> Index: {{selectedIndex}} </div>
+        <div> Content: {{selectedValue}} </div>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> NO </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="deleteHandler"> YES </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="newsEditDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Edit News </div>
+      <paper-dialog-scrollable>
+         <paper-input id="newsInputEdit" label="News" value="[[selectedValue]]"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="saveHandler"> SAVE </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="newsAddDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Add News </div>
+      <paper-dialog-scrollable>
+         <paper-input id="newsInputAdd" label="Enter News Content"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="addDialogHandler"> ADD NEWS </emsi-button>
+      </div>
+    </paper-dialog>
+
   </template>
   
   <script>
@@ -328,7 +366,11 @@
           user: Object,
           locations: Array,
           passwordResetString: String,
-          location: Object
+          location: Object,
+          selectedField: String,
+          selectedIndex: String,
+          selectedIndex2: String,
+          selectedValue: String
         };
       }
 
@@ -366,7 +408,7 @@
         })
       }
 
-      // Edit and Save Methods
+      // Edit, Save and Add Methods
       editHandler(e) {
         let attr = e.target.getAttribute("field");  
         if(!attr) return;
@@ -379,6 +421,18 @@
         if(!attr) return;
         this.$[attr].disabled = true;
         this.$.userDoc.setStoredValue(`users/${this.uid}/${attr}`, this.$[attr].value);
+      }
+
+      addHandler(e) {
+        let attr = e.target.getAttribute("field");
+        if(!attr || !this.location) return;
+        console.log("add", e.target.getAttribute("field"));
+
+        let dialogId = `${attr}AddDialog`;
+
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$[dialogId]);
+        this.$[dialogId].open();
       }
 
       editChurchHandler(e) {
@@ -397,11 +451,55 @@
       }
 
       deleteChurchTableHandler(e) {
-        console.log("deleteChurchTableHandler", e.target.getAttribute("field"), e.model.i);
+        let attr = e.target.getAttribute("field");
+        let idx = e.model.i;
+        if(!attr || !this.location || idx === undefined) return;
+        console.log('deleteChurchTableHandler', attr, idx);
+
+        this.selectedField = attr;
+        this.selectedIndex = idx;
+        this.selectedValue = JSON.stringify(this.location[this.selectedField][this.selectedIndex]);
+
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$.deleteDialog);
+        this.$.deleteDialog.open();
       }
 
-      addHandler(e) {
-        console.log("add", e.target.getAttribute("field"));
+      deleteHandler() {
+        this.location[this.selectedField].splice(this.selectedIndex, 1);
+        this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
+        this.$[this.selectedField].render();
+      }
+
+      editChurchTableHandler(e) {
+        let attr = e.target.getAttribute("field");
+        let idx = e.model.i;
+        if(!attr || !this.location || idx === undefined) return;
+        console.log('editChurchTableHandler', attr, idx);
+
+        this.selectedField = attr;
+        this.selectedIndex = idx;
+        this.selectedValue = this.location[this.selectedField][this.selectedIndex];
+
+        let dialogId = `${attr}EditDialog`;
+
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$[dialogId]);
+        this.$[dialogId].open();
+      }
+
+      saveHandler() {
+        let val = this.$[this.selectedField + "InputEdit"].value;
+        this.location[this.selectedField][this.selectedIndex] = val;
+        this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}/${this.selectedIndex}`, val);
+        this.$[this.selectedField].render();
+      }
+
+      addDialogHandler() {
+        let val = this.$[this.selectedField + "InputAdd"].value;
+        this.location[this.selectedField].push(val);
+        this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}`, this.location[this.selectedField]);
+        this.$[this.selectedField].render();
       }
     }
 
