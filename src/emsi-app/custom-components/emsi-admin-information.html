@@ -1,6 +1,7 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -12,7 +13,12 @@
   <template>
     <style include="user-styles"> </style>
     <paper-card>
-      <div class="title"> Your Location </div>
+      <template is="dom-if" if="[[!userData.isMasterAdmin]]">
+        <div class="title"> Your Location </div>
+      </template>
+      <template is="dom-if" if="[[userData.isMasterAdmin]]">
+        <div class="title"> Master Administrator Panel </div>
+      </template>
       <hr/>
       <div class="content">
         <template is="dom-if" if="[[!userData.isMasterAdmin]]">
@@ -25,7 +31,49 @@
         </template>
         <div> If you have any questions, please email huawillian@gmail.com </div>
       </div>
+      <template is="dom-if" if="[[userData.isMasterAdmin]]">
+        <div class="card-actions">
+          <emsi-button color="blue" on-tap="openCreateUserDialog"> Create User </emsi-button>
+          <emsi-button color="blue" on-tap="openCreateChurchDialog"> Create Church </emsi-button>
+        </div>
+      </template>
     </paper-card>
+
+    <paper-dialog id="createUserDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Create New User </div>
+      <paper-dialog-scrollable>
+        <paper-input id="createUserName" label="Name"> </paper-input>
+        <paper-input id="createUserDisplayName" label="Display Name"> </paper-input>
+        <paper-input id="createUserDisplayIsMasterAdmin" label="Master Administrator (true / false)"> </paper-input>
+        <div> Master Administrator will have access to everything. Please be careful with this. </div>
+        <paper-input id="createUserDisplayAdmin" label="Location"> </paper-input>
+        <paper-input id="createUserDisplayEmail" label="Email"> </paper-input>
+        <paper-input id="createUserDisplayEmail" label="Password"> </paper-input>
+        <div> Please Note, email cannot be changed and password can be changed by the user after creating this account. </div>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" on-tap="createUserHandler"> CREATE </emsi-button>
+      </div>
+    </paper-dialog>
+
+    <paper-dialog id="createChurchDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Create New Church </div>
+      <paper-dialog-scrollable>
+        <paper-input id="createChurchName" label="Name"> </paper-input>
+        <paper-input id="createChurchAddress" label="Address"> </paper-input>
+        <paper-input id="createChurchContinent" label="Continent"> </paper-input>
+        <paper-input id="createChurchRegion" label="Region"> </paper-input>
+        <paper-input id="createChurchUrl" label="City"> </paper-input>
+        <paper-input id="createChurchEmail" label="Email"> </paper-input>
+        <paper-input id="createChurchPhone" label="Phone Number"> </paper-input>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button style="display: inline" color="blue" on-tap="createChurchHandler"> CREATE </emsi-button>
+      </div>
+    </paper-dialog>
+
   </template>
   
   <script>
@@ -46,6 +94,30 @@
       }
 
       languageChanged(val) { this.isEnglish = val === "en"; }
+
+      openCreateUserDialog() {
+        let dialogId = "createUserDialog";
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$[dialogId]);
+        this.$[dialogId].open();
+      }
+
+      openCreateChurchDialog() {
+        let dialogId = "createChurchDialog";
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$[dialogId]);
+        this.$[dialogId].open();
+      }
+
+      createUserHandler() {
+        let dialogId = "createUserDialog";
+        this.$[dialogId].close();
+      }
+
+      createChurchHandler() {
+        let dialogId = "createChurchDialog";
+        this.$[dialogId].close();
+      }
     }
 
     window.customElements.define(EMSIAdminInformation.is, EMSIAdminInformation);
