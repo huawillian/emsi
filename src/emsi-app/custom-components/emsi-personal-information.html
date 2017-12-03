@@ -44,15 +44,6 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="position" label="Position" disabled value="[[userData.position]]"> </paper-input> 
-            </td>
-            <td class="icons">
-              <paper-icon-button icon="create" on-tap="editHandler" field="position"></paper-icon-button>
-              <paper-icon-button icon="done" on-tap="saveUserHandler" field="position"></paper-icon-button>
-            </td>
-          </tr>
-          <tr>
-            <td> 
               <paper-input id="imageUrl" label="Picture Link" disabled value="[[userData.imageUrl]]"> </paper-input>
             </td>
             <td class="icons"> 
@@ -65,6 +56,28 @@
               <iron-image style="width:200px; height:200px;" sizing="cover" preload src="[[userData.imageUrl]]"></iron-image>
             </td>
           </tr>
+            <tr>
+              <td> 
+                <paper-input id="admin" label="Location" disabled value="[[userData.admin]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <template is="dom-if" if="[[isMasterAdmin]]">
+                  <paper-icon-button icon="create" on-tap="editHandler" field="admin"></paper-icon-button>
+                  <paper-icon-button icon="done" on-tap="saveUserHandler" field="admin"></paper-icon-button>
+                </template>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <paper-input id="isMasterAdmin" label="Master Administrator (true / false)" disabled value="[[userData.isMasterAdmin]]"> </paper-input> 
+              </td>
+              <td class="icons">
+                <template is="dom-if" if="[[isMasterAdmin]]">
+                  <paper-icon-button icon="create" on-tap="editHandler" field="isMasterAdmin"></paper-icon-button>
+                  <paper-icon-button icon="done" on-tap="saveUserHandler" field="isMasterAdmin"></paper-icon-button>
+                </template>
+              </td>
+            </tr>
         </table>
       </div>
     </paper-card>
@@ -78,7 +91,8 @@
         return {
           userData: Object,
           uid: String,
-          lang: String
+          lang: String,
+          isMasterAdmin: Boolean
         };
       }
 
@@ -101,8 +115,19 @@
       saveUserHandler(e) {
         let attr = e.target.getAttribute("field");
         if(!attr) return;
+
+        let value = this.$[attr].value;
+
+        if(value === "true") value = true;
+        if(value === "false") value = false;
+
         this.$[attr].disabled = true;
-        this.$.userDoc.setStoredValue(`users/${this.uid}/${attr}`, this.$[attr].value);
+        this.$.userDoc.setStoredValue(`users/${this.uid}/${attr}`, value);
+        setTimeout(this.sendResyncEvent.bind(this), 300);
+      }
+
+      sendResyncEvent() {
+        this.dispatchEvent(new CustomEvent('resync-firebase', { detail: {}, bubbles: true, composed: true }));
       }
     }
 

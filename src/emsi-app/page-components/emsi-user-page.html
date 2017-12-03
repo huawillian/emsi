@@ -8,6 +8,10 @@
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
+<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -42,16 +46,49 @@
     <div class="contentContainer">
       <!-- user specific information -->
       <emsi-account-information user="[[user]]" lang="[[lang]]"> </emsi-account-information>
-      <emsi-personal-information user-data="[[userData]]" lang="[[lang]]" uid="[[uid]]"> </emsi-personal-information>
+      <emsi-personal-information user-data="[[userData]]" lang="[[lang]]" uid="[[uid]]" is-master-admin="[[userData.isMasterAdmin]]"> </emsi-personal-information>
       <emsi-admin-information user-data="[[userData]]" lang="[[lang]]"> </emsi-admin-information>
 
-      <!-- church specific information -->
-      <div class="titleContainerChurch"> [[location.name]] @ [[location.url]] </div>
-      <emsi-church-information location="[[location]]" lang="[[lang]]"> </emsi-church-information>
-      <emsi-church-news-information location="[[location]]" lang="[[lang]]"> </emsi-church-news-information>
-      <emsi-church-events-information location="[[location]]" lang="[[lang]]"> </emsi-church-events-information>
-      <emsi-church-sunday-services-information location="[[location]]" lang="[[lang]]"> </emsi-church-sunday-services-information>
-      <emsi-church-ministries-information location="[[location]]" lang="[[lang]]"> </emsi-church-ministries-information>
+      <!-- All Users Dropdown Menu if user is master administrator -->
+      <template is="dom-if" if="[[userData.isMasterAdmin]]">
+        <div class="titleContainerChurch"> All Users </div>
+        <paper-dropdown-menu-light label="Select User" selected-item="{{selectedItem}}">
+          <paper-listbox slot="dropdown-content" selected="0">
+            <paper-item> None </paper-item>
+            <template is="dom-repeat" items="{{users}}">
+              <paper-item> {{item.name}} </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu-light>
+      </template>
+
+      <template is="dom-if" if="[[hasSelectedUser]]">
+        <div class="titleContainerChurch"> [[selectedUser.name]] </div>
+        <emsi-personal-information user-data="[[selectedUser]]" lang="[[lang]]" uid="[[selectedUser.uid]]" is-master-admin="[[userData.isMasterAdmin]]"> </emsi-personal-information>
+      </template>
+
+      <!-- All Churches Dropdown Menu if user is master administrator -->
+      <template is="dom-if" if="[[userData.isMasterAdmin]]">
+        <div class="titleContainerChurch"> All Churches </div>
+        <paper-dropdown-menu-light label="Select Church" selected-item="{{selectedLocation}}">
+          <paper-listbox slot="dropdown-content" selected="0">
+            <paper-item> None </paper-item>
+            <template is="dom-repeat" items="{{locations}}">
+              <paper-item> {{item.name}} </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu-light>
+      </template>
+
+      <template is="dom-if" if="[[hasSelectedLocation]]">
+        <!-- church specific information -->
+        <div class="titleContainerChurch"> [[location.name]] @ [[location.url]] </div>
+        <emsi-church-information location="[[location]]" lang="[[lang]]"> </emsi-church-information>
+        <emsi-church-news-information location="[[location]]" lang="[[lang]]"> </emsi-church-news-information>
+        <emsi-church-events-information location="[[location]]" lang="[[lang]]"> </emsi-church-events-information>
+        <emsi-church-sunday-services-information location="[[location]]" lang="[[lang]]"> </emsi-church-sunday-services-information>
+        <emsi-church-ministries-information location="[[location]]" lang="[[lang]]"> </emsi-church-ministries-information>
+      </template>
     </div>
   </template>
   
@@ -68,6 +105,18 @@
           user: Object,
           locations: Array,
           location: Object,
+          selectedLocation: Object,
+          hasSelectedLocation: {
+            value: false,
+            type: Boolean
+          },
+          users: Array,
+          selectedItem: Object,
+          selectedUser: Object,
+          hasSelectedUser: {
+            value: false,
+            type: Boolean
+          },
         };
       }
 
@@ -76,14 +125,19 @@
           'languageChanged(lang)',
           'userDataReceived(userData)',
           'routeChanged(route)',
-          'locationsChanged(locations)'
+          'locationsChanged(locations)',
+          'selectedChurchChanged(selectedLocation)',
+          'selectedUserChanged(selectedItem)',
         ]; 
       }
 
       languageChanged(val) { this.isEnglish = val === "en"; }
 
       userDataReceived(v) {
-        this.location = this.locations.find(o => o.name === v.admin);
+        if(!v.isMasterAdmin) {
+          this.location = this.locations.find(o => o.name === v.admin);
+        }
+        if(!!this.location) this.set("hasSelectedLocation", true);
       }
 
       routeChanged(route) {
@@ -91,7 +145,36 @@
       }
 
       locationsChanged(v) {
-        this.location = v.find(o => o.name === this.userData.admin);
+        if(this.userData && !this.userData.isMasterAdmin) {
+          this.location = v.find(o => o.name === this.userData.admin);
+        }
+        if(!!this.location) this.set("hasSelectedLocation", true);
+      }
+
+      selectedUserChanged(v) {
+        if(!v) return;
+        let name = v.innerText.trim();
+
+        if(name === "None") {
+          this.set("selectedUser", null);
+          this.set("hasSelectedUser", false);
+        } else {
+          this.set("selectedUser", this.users.find(o => o.name === name));
+          this.set("hasSelectedUser", true);
+        }
+      }
+
+      selectedChurchChanged(v) {
+        if(!v) return;
+        let name = v.innerText.trim();
+
+        if(name === "None") {
+          this.set("location", null);
+          this.set("hasSelectedLocation", false);
+        } else {
+          this.set("location", this.locations.find(o => o.name === name));
+          this.set("hasSelectedLocation", true);
+        }
       }
 
       sendResyncEvent() {

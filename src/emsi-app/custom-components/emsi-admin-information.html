@@ -15,9 +15,15 @@
       <div class="title"> Your Location </div>
       <hr/>
       <div class="content">
-        <paper-input label="Location" disabled value="[[userData.admin]]"> </paper-input>
-        <div> Please contact or email an administrator to change your location </div>
-        <div> Email: huawillian@gmail.com </div>
+        <template is="dom-if" if="[[!userData.isMasterAdmin]]">
+          <paper-input label="Location" disabled value="[[userData.admin]]"> </paper-input>
+          <div> Please contact or email an administrator to change your location </div>
+        </template>
+        <template is="dom-if" if="[[userData.isMasterAdmin]]">
+          <paper-input label="Location" disabled value="All Churches"> </paper-input>
+          <div> You are a master administrator </div>
+        </template>
+        <div> If you have any questions, please email huawillian@gmail.com </div>
       </div>
     </paper-card>
   </template>

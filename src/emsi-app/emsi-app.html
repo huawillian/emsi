@@ -63,6 +63,13 @@
       data="{{data}}">
     </firebase-document>
 
+    <firebase-document
+      id="userDoc"
+      app-name="emsionline"
+      path= "users"
+      data="{{users}}">
+    </firebase-document>
+
     <!-- app-location binds to the app's URL -->
     <!-- this app-route manages the top-level routes -->
     <app-location route="{{route}}" id="myRoute" use-hash-as-path query-params="{{queryParams}}" ></app-location>
@@ -107,7 +114,7 @@
 
         <emsi-church-page class="page" name="church" lang="{{lang}}" church-data="[[churchData]]"> </emsi-church-page>
 
-        <emsi-user-page class="page" name="user" lang="{{lang}}" route="{{subroute}}" locations="{{dataAsArray}}"> </emsi-user-page>
+        <emsi-user-page class="page" name="user" lang="{{lang}}" route="{{subroute}}" locations="{{dataAsArray}}" users="{{usersAsArray}}"> </emsi-user-page>
       </iron-pages>
 
       <!-- Footer -->
@@ -132,6 +139,15 @@
             observer: "locationsReceived"
           },
           dataAsArray: {
+            type: Array,
+            value: []
+          },
+          users: {
+            type: Object,
+            value: {},
+            observer: "usersReceived"
+          },
+          usersAsArray: {
             type: Array,
             value: []
           },
@@ -198,8 +214,20 @@
         }
       }
 
+      usersReceived(v) {
+        if(!v) return;
+        let result = [];
+        Object.keys(v).forEach(k => {
+          let val = v[k];
+          val.uid = k;
+          result.push(val);
+        });
+        this.set("usersAsArray", result);
+      }
+
       resyncFirebase() {
         this.$.locDoc.reset().then(() => this.$.locDoc.path = "locations");
+        this.$.userDoc.reset().then(() => this.$.userDoc.path = "users");
       }
     }
 
