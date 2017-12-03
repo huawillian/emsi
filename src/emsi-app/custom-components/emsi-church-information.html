@@ -1,0 +1,140 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/user-styles.html">
+
+<dom-module id="emsi-church-information">
+  <template>
+    <style include="user-styles"> </style>
+    <!-- Set data property to locations part of database -->
+    <firebase-document id="userDoc" app-name="emsionline"> </firebase-document>
+    <paper-card>
+      <div class="title"> Church Information </div>
+      <hr/>
+      <div class="content">
+        <table>
+          <tr>
+            <td> 
+              <paper-input id="address" label="Address" disabled value="[[location.address]]"> </paper-input> 
+            </td>
+            <td class="icons">
+              <paper-icon-button icon="create" on-tap="editChurchHandler" field="address"></paper-icon-button>
+              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="address"></paper-icon-button>
+            </td>
+          </tr>
+          <tr>
+            <td> 
+              <paper-input id="continent" label="Continent (America, Europe, Asia, Africa, Australia)" disabled value="[[location.continent]]"> </paper-input> 
+            </td>
+            <td class="icons">
+              <paper-icon-button icon="create" on-tap="editChurchHandler" field="continent"></paper-icon-button>
+              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="continent"></paper-icon-button>
+            </td>
+          </tr>
+          <tr>
+            <td> 
+              <paper-input id="region" label="Region" disabled value="[[location.region]]"> </paper-input> 
+            </td>
+            <td class="icons">
+              <paper-icon-button icon="create" on-tap="editChurchHandler" field="region"></paper-icon-button>
+              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="region"></paper-icon-button>
+            </td>
+          </tr>
+          <tr>
+            <td> 
+              <paper-input id="phone" label="Phone" disabled value="[[location.phone]]"> </paper-input> 
+            </td>
+            <td class="icons">
+              <paper-icon-button icon="create" on-tap="editChurchHandler" field="phone"></paper-icon-button>
+              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="phone"></paper-icon-button>
+            </td>
+          </tr>
+          <tr>
+            <td> 
+              <paper-input id="email" label="Email" disabled value="[[location.email]]"> </paper-input> 
+            </td>
+            <td class="icons">
+              <paper-icon-button icon="create" on-tap="editChurchHandler" field="email"></paper-icon-button>
+              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="email"></paper-icon-button>
+            </td>
+          </tr>
+          <tr>
+            <td> 
+              <paper-input id="churchImageUrl" label="Picture Link" disabled value="[[location.churchImageUrl]]"> </paper-input> 
+            </td>
+            <td class="icons">
+              <paper-icon-button icon="create" on-tap="editChurchHandler" field="churchImageUrl"></paper-icon-button>
+              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="churchImageUrl"></paper-icon-button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <iron-image style="width:200px; height:200px;" sizing="cover" preload src="[[location.churchImageUrl]]"></iron-image>
+            </td>
+          </tr>
+          <tr>
+            <td> 
+              <paper-input id="description" label="Description" disabled value="[[location.description]]"> </paper-input> 
+            </td>
+            <td class="icons">
+              <paper-icon-button icon="create" on-tap="editChurchHandler" field="description"></paper-icon-button>
+              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="description"></paper-icon-button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </paper-card>
+  </template>
+  
+  <script>
+    class EMSIChurchInformation extends Polymer.Element {
+      static get is() { return 'emsi-church-information'; }
+
+      static get properties() {
+        return {
+          lang: String,
+          location: Object,
+        };
+      }
+
+      static get observers() { 
+        return [ 
+          'languageChanged(lang)',
+        ]; 
+      }
+
+      languageChanged(val) { this.isEnglish = val === "en"; }
+
+      editChurchHandler(e) {
+        let attr = e.target.getAttribute("field");
+        console.log(attr, this);
+        if(!attr) return;
+        this.$[attr].disabled = false;
+        this.$[attr].focus();
+      }
+
+      saveChurchHandler(e) {
+        let attr = e.target.getAttribute("field");
+        if(!attr || !this.location) return;
+        this.$[attr].disabled = true;
+        this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${attr}`, this.$[attr].value);
+        setTimeout(this.sendResyncEvent.bind(this), 300);
+      }
+
+      sendResyncEvent() {
+        this.dispatchEvent(new CustomEvent('resync-firebase', { detail: {}, bubbles: true, composed: true }));
+      }
+    }
+
+    window.customElements.define(EMSIChurchInformation.is, EMSIChurchInformation);
+  </script>
+</dom-module>

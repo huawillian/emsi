@@ -1,0 +1,67 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/user-styles.html">
+
+<dom-module id="emsi-account-information">
+  <template>
+    <style include="user-styles"> </style>
+    <firebase-auth app-name="emsionline" id="auth" user="{{user}}" on-error="handleError"> </firebase-auth>
+    <paper-card>
+      <div class="title"> Account Information </div>
+      <hr/>
+      <div class="content">
+        <paper-input label="Email Address" disabled value="[[user.email]]"> </paper-input>
+        <paper-input label="Password" disabled value="*********"> </paper-input>
+        <div> {{passwordResetString}} </div>
+      </div>
+      <div class="card-actions">
+        <emsi-button color="blue" on-tap="logOutHandler"> Sign Out </emsi-button>
+        <emsi-button color="blue" on-tap="passwordResetHandler"> Reset Password </emsi-button>
+      </div>
+    </paper-card>
+  </template>
+  
+  <script>
+    class EMSIAccountInformation extends Polymer.Element {
+      static get is() { return 'emsi-account-information'; }
+
+      static get properties() {
+        return {
+          lang: String,
+          passwordResetString: String,
+          user: Object
+        };
+      }
+
+      static get observers() { 
+        return [ 
+          'languageChanged(lang)'
+        ]; 
+      }
+
+      languageChanged(val) { this.isEnglish = val === "en"; }
+
+      logOutHandler() {
+        this.$.auth.signOut();
+        this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "", bubbles: true, composed: true }));
+      }
+
+      passwordResetHandler() {
+        this.$.auth.sendPasswordResetEmail(this.user.email).then(() => {
+          this.passwordResetString = `A password reset email has been sent to ${this.user.email}`
+        })
+      }
+    }
+
+    window.customElements.define(EMSIAccountInformation.is, EMSIAccountInformation);
+  </script>
+</dom-module>

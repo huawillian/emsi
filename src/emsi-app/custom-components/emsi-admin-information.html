@@ -1,0 +1,47 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/user-styles.html">
+
+<dom-module id="emsi-admin-information">
+  <template>
+    <style include="user-styles"> </style>
+    <paper-card>
+      <div class="title"> Your Location </div>
+      <hr/>
+      <div class="content">
+        <paper-input label="Location" disabled value="[[userData.admin]]"> </paper-input>
+        <div> Please contact or email an administrator to change your location </div>
+        <div> Email: huawillian@gmail.com </div>
+      </div>
+    </paper-card>
+  </template>
+  
+  <script>
+    class EMSIAdminInformation extends Polymer.Element {
+      static get is() { return 'emsi-admin-information'; }
+
+      static get properties() {
+        return {
+          userData: Object,
+          lang: String
+        };
+      }
+
+      static get observers() { 
+        return [ 
+          'languageChanged(lang)',
+        ]; 
+      }
+
+      languageChanged(val) { this.isEnglish = val === "en"; }
+    }
+
+    window.customElements.define(EMSIAdminInformation.is, EMSIAdminInformation);
+  </script>
+</dom-module>
