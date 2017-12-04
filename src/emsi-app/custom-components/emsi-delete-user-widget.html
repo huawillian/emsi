@@ -1,0 +1,104 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+
+<!-- custom elements -->
+<link rel="import" href="../util-components/emsi-button.html">
+
+<!-- custom styles -->
+<link rel="import" href="../../styles/user-styles.html">
+
+<dom-module id="emsi-delete-user-widget">
+  <template>
+    <style include="user-styles"> </style>
+    <firebase-document id="userDoc" app-name="emsionline"> </firebase-document>
+    <paper-card>
+      <div class="title"> Delete User </div>
+      <hr/>
+      <div class="content">
+        You can delete this user from the database? If you are not a master administrator please ignore this and email huawillian@gmail.com because you should not have seen this. Once you delete, you cannot undo this action.
+      </div>
+      <div class="card-actions">
+        <emsi-button color="blue" on-tap="deleteUser"> Delete User </emsi-button>
+      </div>
+    </paper-card>
+
+    <!-- Dialogs -->
+    <paper-dialog id="deleteDialog" modal style="width: 80vw;padding: 20pt;">
+      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Delete {{userData.name}} </div>
+      <paper-dialog-scrollable>
+        <div> Are you sure you want to delete this user? You cannot undo this change. </div>
+        <br>
+        <div> Data: {{info}} </div>
+        <br>
+        <div> Please type in "{{userData.name}}" to confirm </div>
+        <paper-input id="deleteChecker" label="Confirm"> </paper-input>
+        <div style="color: red"> {{message}} </div>
+      </paper-dialog-scrollable>
+      <div class="buttons" style="margin-top: 30pt">
+        <emsi-button style="display: inline" color="blue" dialog-dismiss> NO </emsi-button>
+        <emsi-button style="display: inline" color="blue" on-tap="deleteDialogHandler"> YES </emsi-button>
+      </div>
+    </paper-dialog>
+  </template>
+  
+  <script>
+    class EMSIDeleteUserWidget extends Polymer.Element {
+      static get is() { return 'emsi-delete-user-widget'; }
+
+      static get properties() {
+        return {
+          lang: String,
+          userData: Object,
+          uid: String,
+          info: String,
+          message: String
+        };
+      }
+
+      static get observers() { 
+        return [ 
+          'languageChanged(lang)',
+          'userDataReceived(userData)'
+        ]; 
+      }
+
+      languageChanged(val) { this.isEnglish = val === "en"; }
+
+      userDataReceived(v) {
+        this.info = JSON.stringify(v);
+      }
+
+      deleteUser() {
+        let body = document.querySelector('body');
+        Polymer.dom(body).appendChild(this.$.deleteDialog);
+        this.$.deleteDialog.open();
+      }
+
+      deleteDialogHandler() {
+        let confirmStr = this.$.deleteChecker.value;
+
+        if(confirmStr !== this.userData.name) {
+          this.message = "Please type in the name to confirm!"
+        } else {
+          this.$.userDoc.setStoredValue(`users/${this.uid}`, null);
+          setTimeout(this.sendResyncEvent.bind(this), 300);
+          this.$.deleteDialog.close();
+          this.resetUser();
+        }
+      }
+     
+      sendResyncEvent() {
+        this.dispatchEvent(new CustomEvent('resync-firebase', { detail: {}, bubbles: true, composed: true }));
+      }
+
+      resetUser() {
+        this.dispatchEvent(new CustomEvent('reset-user-selector', { detail: {}, bubbles: true, composed: true }));
+      }
+    }
+
+    window.customElements.define(EMSIDeleteUserWidget.is, EMSIDeleteUserWidget);
+  </script>
+</dom-module>

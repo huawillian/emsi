@@ -72,10 +72,7 @@
                 <paper-input id="isMasterAdmin" label="Master Administrator (true / false)" disabled value="[[userData.isMasterAdmin]]"> </paper-input> 
               </td>
               <td class="icons">
-                <template is="dom-if" if="[[isMasterAdmin]]">
-                  <paper-icon-button icon="create" on-tap="editHandler" field="isMasterAdmin"></paper-icon-button>
-                  <paper-icon-button icon="done" on-tap="saveUserHandler" field="isMasterAdmin"></paper-icon-button>
-                </template>
+                
               </td>
             </tr>
         </table>

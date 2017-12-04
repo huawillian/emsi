@@ -27,7 +27,6 @@
     </firebase-app>
     <firebase-auth app-name="emsionline2" id="auth2"> </firebase-auth>
 
-
     <paper-card>
       <template is="dom-if" if="[[!userData.isMasterAdmin]]">
         <div class="title"> Your Location </div>
@@ -142,7 +141,6 @@
           name: this.$.createUserName.value,
           displayName: this.$.createUserDisplayName.value,
           admin: this.$.createUserDisplayAdmin.value,
-          status: "active",
           isMasterAdmin: false,
           imageUrl: ""
         }

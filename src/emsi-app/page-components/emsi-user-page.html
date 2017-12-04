@@ -23,6 +23,8 @@
 <link rel="import" href="../custom-components/emsi-church-events-information.html">
 <link rel="import" href="../custom-components/emsi-church-sunday-services-information.html">
 <link rel="import" href="../custom-components/emsi-church-ministries-information.html">
+<link rel="import" href="../custom-components/emsi-delete-church-widget.html">
+<link rel="import" href="../custom-components/emsi-delete-user-widget.html">
 
 <!-- custom styles -->
 <link rel="import" href="../../styles/user-styles.html">
@@ -53,7 +55,7 @@
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
         <div class="titleContainerChurch"> All Users </div>
         <paper-dropdown-menu-light label="Select User" selected-item="{{selectedItem}}">
-          <paper-listbox slot="dropdown-content" selected="0">
+          <paper-listbox id="userSelector" slot="dropdown-content" selected="0">
             <paper-item> None </paper-item>
             <template is="dom-repeat" items="{{users}}">
               <paper-item> {{item.name}} </paper-item>
@@ -65,13 +67,16 @@
       <template is="dom-if" if="[[hasSelectedUser]]">
         <div class="titleContainerChurch"> [[selectedUser.name]] </div>
         <emsi-personal-information user-data="[[selectedUser]]" lang="[[lang]]" uid="[[selectedUser.uid]]" is-master-admin="[[userData.isMasterAdmin]]"> </emsi-personal-information>
+        <template is="dom-if" if="[[userData.isMasterAdmin]]">
+          <emsi-delete-user-widget user-data="[[selectedUser]]" uid="[[selectedUser.uid]]" lang="[[lang]]"> </emsi-delete-user-widget>
+        </template>
       </template>
 
       <!-- All Churches Dropdown Menu if user is master administrator -->
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
         <div class="titleContainerChurch"> All Churches </div>
         <paper-dropdown-menu-light label="Select Church" selected-item="{{selectedLocation}}">
-          <paper-listbox slot="dropdown-content" selected="0">
+          <paper-listbox id="churchSelector" slot="dropdown-content" selected="0">
             <paper-item> None </paper-item>
             <template is="dom-repeat" items="{{locations}}">
               <paper-item> {{item.name}} </paper-item>
@@ -88,6 +93,9 @@
         <emsi-church-events-information location="[[location]]" lang="[[lang]]"> </emsi-church-events-information>
         <emsi-church-sunday-services-information location="[[location]]" lang="[[lang]]"> </emsi-church-sunday-services-information>
         <emsi-church-ministries-information location="[[location]]" lang="[[lang]]"> </emsi-church-ministries-information>
+        <template is="dom-if" if="[[userData.isMasterAdmin]]">
+          <emsi-delete-church-widget location="[[location]]" lang="[[lang]]"> </emsi-delete-church-widget>
+        </template>
       </template>
     </div>
   </template>
@@ -129,6 +137,21 @@
           'selectedChurchChanged(selectedLocation)',
           'selectedUserChanged(selectedItem)',
         ]; 
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+
+        this.addEventListener('reset-user-selector', this.resetUserSelectorHandler);
+        this.addEventListener('reset-church-selector', this.resetChurchSelectorHandler);
+      }
+
+      resetUserSelectorHandler() {
+        this.shadowRoot.querySelector("#userSelector").selected = 0;
+      }
+
+      resetChurchSelectorHandler() {
+        this.shadowRoot.querySelector("#churchSelector").selected = 0;
       }
 
       languageChanged(val) { this.isEnglish = val === "en"; }
