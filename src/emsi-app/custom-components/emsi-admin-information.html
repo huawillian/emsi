@@ -2,6 +2,8 @@
 <link rel="import" href="../../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-auth.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -12,6 +14,20 @@
 <dom-module id="emsi-admin-information">
   <template>
     <style include="user-styles"> </style>
+
+    <firebase-auth app-name="emsionline" id="auth"> </firebase-auth>
+    <firebase-document id="userDoc" app-name="emsionline"> </firebase-document>
+
+    <!-- second firebase app for creating new users -->
+    <firebase-app
+      name="emsionline2"
+      auth-domain="emsionline-2b9df.firebaseapp.com"
+      database-url="https://emsionline-2b9df.firebaseio.com/"
+      api-key="AIzaSyBWgbTxY5Oh2JonNkjJ9ZhTYgrRvg-D9gI">
+    </firebase-app>
+    <firebase-auth app-name="emsionline2" id="auth2"> </firebase-auth>
+
+
     <paper-card>
       <template is="dom-if" if="[[!userData.isMasterAdmin]]">
         <div class="title"> Your Location </div>
@@ -44,12 +60,14 @@
       <paper-dialog-scrollable>
         <paper-input id="createUserName" label="Name"> </paper-input>
         <paper-input id="createUserDisplayName" label="Display Name"> </paper-input>
-        <paper-input id="createUserDisplayIsMasterAdmin" label="Master Administrator (true / false)"> </paper-input>
-        <div> Master Administrator will have access to everything. Please be careful with this. </div>
         <paper-input id="createUserDisplayAdmin" label="Location"> </paper-input>
         <paper-input id="createUserDisplayEmail" label="Email"> </paper-input>
-        <paper-input id="createUserDisplayEmail" label="Password"> </paper-input>
-        <div> Please Note, email cannot be changed and password can be changed by the user after creating this account. </div>
+        <paper-input id="createUserDisplayPassword" label="Password"> </paper-input>
+        <div> Please Note, email cannot be changed. </div>
+        <div> Password can be changed by the user after creating this account. </div>
+        <template is="dom-repeat" items="[[userMessages]]" as="message" index-as="i">
+          <div style="color: red;"> {{message}} </div>
+        </template>
       </paper-dialog-scrollable>
       <div class="buttons" style="margin-top: 30pt">
         <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
@@ -83,7 +101,10 @@
       static get properties() {
         return {
           userData: Object,
-          lang: String
+          lang: String,
+          userMessages: Array,
+          locations: Array,
+          user: Object
         };
       }
 
@@ -111,12 +132,75 @@
 
       createUserHandler() {
         let dialogId = "createUserDialog";
-        this.$[dialogId].close();
+
+        let data = {
+          name: this.$.createUserName.value,
+          displayName: this.$.createUserDisplayName.value,
+          admin: this.$.createUserDisplayAdmin.value,
+          status: "active",
+          isMasterAdmin: false,
+          imageUrl: ""
+        }
+
+        let userdata = {
+          email: this.$.createUserDisplayEmail.value,
+          password: this.$.createUserDisplayPassword.value,
+        }
+
+        let verifyResults = this.verifyUserData(data, userdata);
+        this.set("userMessages", verifyResults);
+
+        console.log(this.$.auth.user);
+
+        if(verifyResults.length === 0) {
+          // try to create the account
+          this.$.auth2.createUserWithEmailAndPassword(userdata.email, userdata.password)
+          .then((response) => {
+            console.log(response.uid, data);
+            this.$.userDoc.setStoredValue(`users/${response.uid}`, data);
+            setTimeout(this.sendResyncEvent.bind(this), 300);
+            this.$[dialogId].close();
+          })
+          .catch((error) => {
+            this.set("userMessages", [error.message]);
+          })
+          
+        }
+      }
+
+      verifyUserData(data, userdata) {
+        let result = [];
+
+        if(!data.name || data.name === "") {
+          result.push("Name has not been set!");
+        }
+
+        if(!data.displayName || data.displayName === "") {
+          result.push("Display Name has not been set!");
+        }
+
+        if(!data.admin || !this.locations.find(v => v.name === data.admin)) {
+          result.push("Admin location does not exist! (e.g. CEMC in Towaco)");
+        }
+
+        if(!userdata.email || userdata.email === "") {
+          result.push("Email has not been set!");
+        }
+
+        if(!userdata.password || userdata.password === "") {
+          result.push("Password has not been set!");
+        }
+
+        return result;
       }
 
       createChurchHandler() {
         let dialogId = "createChurchDialog";
         this.$[dialogId].close();
+      }
+
+      sendResyncEvent() {
+        this.dispatchEvent(new CustomEvent('resync-firebase', { detail: {}, bubbles: true, composed: true }));
       }
     }
 

@@ -47,7 +47,7 @@
       <!-- user specific information -->
       <emsi-account-information user="[[user]]" lang="[[lang]]"> </emsi-account-information>
       <emsi-personal-information user-data="[[userData]]" lang="[[lang]]" uid="[[uid]]" is-master-admin="[[userData.isMasterAdmin]]"> </emsi-personal-information>
-      <emsi-admin-information user-data="[[userData]]" lang="[[lang]]"> </emsi-admin-information>
+      <emsi-admin-information user-data="[[userData]]" lang="[[lang]]" locations="[[locations]]" user="{{user}}"> </emsi-admin-information>
 
       <!-- All Users Dropdown Menu if user is master administrator -->
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
