@@ -98,7 +98,7 @@
         <emsi-church-information location="[[location]]" lang="[[lang]]" continents="[[continentsAsArray]]"> </emsi-church-information>
         <emsi-church-news-information location="[[location]]" lang="[[lang]]"> </emsi-church-news-information>
         <emsi-church-events-information location="[[location]]" lang="[[lang]]"> </emsi-church-events-information>
-        <emsi-church-staff-information location="[[location]]" lang="[[lang]]"> </emsi-church-staff-information>
+        <emsi-church-staff-information location="[[location]]" lang="[[lang]]" users="[[users]]" users-obj="[[usersObj]]"> </emsi-church-staff-information>
         <emsi-church-sunday-services-information location="[[location]]" lang="[[lang]]"> </emsi-church-sunday-services-information>
         <emsi-church-ministries-information location="[[location]]" lang="[[lang]]"> </emsi-church-ministries-information>
         <template is="dom-if" if="[[userData.isMasterAdmin]]">
@@ -127,6 +127,7 @@
             type: Boolean
           },
           users: Array,
+          usersObj: Object,
           selectedItem: Object,
           selectedUser: Object,
           hasSelectedUser: {

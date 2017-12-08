@@ -62,7 +62,7 @@
 		  <paper-dialog-scrollable>
 				<div class="contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5;font-family: MyriadProRegular;overflow-y: auto;height:60vh;padding:5pt;word-wrap: break-word;width:80vw">
 					<div class="content" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
-						<template id='renderList' is="dom-repeat" items="[[data]]">
+						<template id='renderList' is="dom-repeat" items="[[hiddenData]]">
 							<div class="stafftitle" style="font-family: MyriadProSemibold; font-size: 16pt; padding-left: 0%; padding-top: 20pt;">{{item.title}}</div>
 							<div class="staffname" style="font-family: MyriadProRegular; font-size: 16pt;padding-left: 0%;">{{item.name}}</div>
 							<template is="dom-if" if="[[item.url]]">
@@ -97,24 +97,31 @@
 						type: Array,
 						value: [] ,
 						observer: "dataChanged"
-					} ,
+					},
 					displayedData: {
 						type: Array,
 						value: []
-					} ,
+					},
+					hiddenData: Array,
 					hasHiddenStaff: {
 						type: Boolean,
 						value: false
-					}
+					},
+					usersObj: Object
 				}; 
 			}
 
-			static get observers() { return [ 'languageChanged(lang)' ]; }
+			static get observers() { 
+				return [ 
+					'languageChanged(lang)',
+					'usersObjChanged(usersObj)'
+				];
+			}
 
       languageChanged(val) { this.isEnglish = val === "en"; }
 
 			dataChanged(newValue, oldValue) {
-				if(!newValue || newValue.length === 0) {
+				if(!newValue || newValue.length === 0 || !this.usersObj || !Object.keys(this.usersObj).length) {
 					return;
 				}
 				
@@ -122,15 +129,59 @@
 					this.hasHiddenStaff = true;
 				}
 
-				this.set("displayedData", []);
+				let display = []
 
-				for(var i = 0; i < 3; i++) {
-					if(newValue[i] == undefined) break;
-					this.push("displayedData", newValue[i]);
-
+				for(var i = 0; i < newValue.length; i++) {
+					let member = newValue[i];
+					if(!!member.id) {
+            display.push({
+              title: member.title,
+              name: member.name === "" ? this.usersObj[member.id].displayName : member.name,
+              url: member.url === "" ? this.usersObj[member.id].imageUrl : member.url,
+            });
+          } else {
+            display.push({
+              title: member.title,
+              name: member.name,
+              url: member.url
+            });
+          }
 				}
 
-				// console.log(this.displayedData);
+				this.set("displayedData", display.slice(0,3));
+				this.set("hiddenData", display);
+			}
+
+			usersObjChanged(obj) {
+				if(!obj || !Object.keys(obj).length || !this.data || this.data.length === 0) {
+					return;
+				}
+				
+				if(this.data.length > 3) {
+					this.hasHiddenStaff = true;
+				}
+
+				let display = []
+
+				for(var i = 0; i < this.data.length; i++) {
+					let member = this.data[i];
+					if(!!member.id) {
+            display.push({
+              title: member.title,
+              name: member.name === "" ? this.usersObj[member.id].displayName : member.name,
+              url: member.url === "" ? this.usersObj[member.id].imageUrl : member.url,
+            });
+          } else {
+            display.push({
+              title: member.title,
+              name: member.name,
+              url: member.url
+            });
+          }
+				}
+
+				this.set("displayedData", display.slice(0,3));
+				this.set("hiddenData", display);
 			}
 
 			showMore() {

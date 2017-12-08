@@ -68,7 +68,7 @@
 			  			<emsi-church-events title="Upcoming Events" data="{{churchData.events}}" lang="{{lang}}"> </emsi-church-events>
 			  		</td>
 			  		<td>
-			  			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}" lang="{{lang}}"> </emsi-church-pastors-staff>
+			  			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}" lang="{{lang}}" users-obj="{{usersObj}}"> </emsi-church-pastors-staff>
 			  		</td>
 			  	</tr>
 			  	<tr>
@@ -96,7 +96,7 @@
 					</tr>
 					<tr>
 			  		<td>
-			  			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}" lang="{{lang}}"> </emsi-church-pastors-staff>
+			  			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}" lang="{{lang}}" users-obj="{{usersObj}}"> </emsi-church-pastors-staff>
 						</td>
 					</tr>
 					<tr>
@@ -125,7 +125,8 @@
 			static get properties() { 
 				return {
 					churchData: Object,
-					lang: String
+					lang: String,
+					usersObj: Object
 				};
 			}
 
