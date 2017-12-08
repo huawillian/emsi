@@ -44,13 +44,19 @@
       data="{{userData}}">
     </firebase-document>
 
+    <firebase-document
+      app-name="emsionline"
+      path= "continents"
+      data="{{continentsData}}">
+    </firebase-document>
+
     <div class="titleContainer"> Welcome, [[userData.name]] </div>
 
     <div class="contentContainer">
       <!-- user specific information -->
       <emsi-account-information user="[[user]]" lang="[[lang]]"> </emsi-account-information>
-      <emsi-personal-information user-data="[[userData]]" lang="[[lang]]" uid="[[uid]]" is-master-admin="[[userData.isMasterAdmin]]"> </emsi-personal-information>
-      <emsi-admin-information user-data="[[userData]]" lang="[[lang]]" locations="[[locations]]" user="{{user}}"> </emsi-admin-information>
+      <emsi-personal-information user-data="[[userData]]" lang="[[lang]]" uid="[[uid]]" is-master-admin="[[userData.isMasterAdmin]]" locations="[[locations]]"> </emsi-personal-information>
+      <emsi-admin-information user-data="[[userData]]" lang="[[lang]]" locations="[[locations]]" user="{{user}}" continents="[[continentsAsArray]]"> </emsi-admin-information>
 
       <!-- All Users Dropdown Menu if user is master administrator -->
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
@@ -67,7 +73,7 @@
 
       <template is="dom-if" if="[[hasSelectedUser]]">
         <div class="titleContainerChurch"> [[selectedUser.name]] </div>
-        <emsi-personal-information user-data="[[selectedUser]]" lang="[[lang]]" uid="[[selectedUser.uid]]" is-master-admin="[[userData.isMasterAdmin]]"> </emsi-personal-information>
+        <emsi-personal-information user-data="[[selectedUser]]" lang="[[lang]]" uid="[[selectedUser.uid]]" is-master-admin="[[userData.isMasterAdmin]]" locations="[[locations]]"> </emsi-personal-information>
         <template is="dom-if" if="[[userData.isMasterAdmin]]">
           <emsi-delete-user-widget user-data="[[selectedUser]]" uid="[[selectedUser.uid]]" lang="[[lang]]"> </emsi-delete-user-widget>
         </template>
@@ -89,7 +95,7 @@
       <template is="dom-if" if="[[hasSelectedLocation]]">
         <!-- church specific information -->
         <div class="titleContainerChurch"> [[location.name]] @ [[location.url]] </div>
-        <emsi-church-information location="[[location]]" lang="[[lang]]"> </emsi-church-information>
+        <emsi-church-information location="[[location]]" lang="[[lang]]" continents="[[continentsAsArray]]"> </emsi-church-information>
         <emsi-church-news-information location="[[location]]" lang="[[lang]]"> </emsi-church-news-information>
         <emsi-church-events-information location="[[location]]" lang="[[lang]]"> </emsi-church-events-information>
         <emsi-church-staff-information location="[[location]]" lang="[[lang]]"> </emsi-church-staff-information>
@@ -127,6 +133,8 @@
             value: false,
             type: Boolean
           },
+          continentsData: Object,
+          continentsAsArray: Array
         };
       }
 
@@ -138,6 +146,7 @@
           'locationsChanged(locations)',
           'selectedChurchChanged(selectedLocation)',
           'selectedUserChanged(selectedItem)',
+          'continentsReceived(continentsData)'
         ]; 
       }
 
@@ -146,6 +155,11 @@
 
         this.addEventListener('reset-user-selector', this.resetUserSelectorHandler);
         this.addEventListener('reset-church-selector', this.resetChurchSelectorHandler);
+      }
+
+      continentsReceived(v) {
+        if(!v) return;
+        this.set('continentsAsArray', Object.keys(v));
       }
 
       resetUserSelectorHandler() {

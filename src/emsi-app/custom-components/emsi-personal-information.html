@@ -7,6 +7,10 @@
 <link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
+<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -56,25 +60,26 @@
               <iron-image style="width:200px; height:200px;" sizing="cover" preload src="[[userData.imageUrl]]"></iron-image>
             </td>
           </tr>
-            <tr>
-              <td> 
-                <paper-input id="admin" label="Location" disabled value="[[userData.admin]]"> </paper-input> 
-              </td>
-              <td class="icons">
-                <template is="dom-if" if="[[isMasterAdmin]]">
-                  <paper-icon-button icon="create" on-tap="editHandler" field="admin"></paper-icon-button>
-                  <paper-icon-button icon="done" on-tap="saveUserHandler" field="admin"></paper-icon-button>
-                </template>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <paper-input id="isMasterAdmin" label="Master Administrator (true / false)" disabled value="[[userData.isMasterAdmin]]"> </paper-input> 
-              </td>
-              <td class="icons">
-                
-              </td>
-            </tr>
+          <tr>
+            <td>
+              <paper-input id="isMasterAdmin" label="Master Administrator (true / false)" disabled value="[[isMasterAdmin]]"> </paper-input> 
+            </td>
+            <td class="icons">
+            </td>
+          </tr>
+          <tr>
+            <td> 
+              <paper-dropdown-menu-light id="admin" label="Location" selected-item="{{selectedLocation}}">
+                <paper-listbox id="adminlist" slot="dropdown-content" selected="0">
+                  <template is="dom-repeat" items="{{locations}}">
+                    <paper-item> {{item.name}} </paper-item>
+                  </template>
+                </paper-listbox>
+              </paper-dropdown-menu-light>
+            </td>
+            <td class="icons">
+            </td>
+          </tr>
         </table>
       </div>
     </paper-card>
@@ -89,17 +94,39 @@
           userData: Object,
           uid: String,
           lang: String,
-          isMasterAdmin: Boolean
+          isMasterAdmin: Boolean,
+          locations: Array,
+          selectedLocation: Object,
         };
       }
 
       static get observers() { 
         return [ 
           'languageChanged(lang)',
+          'userDataReceived(userData)',
+          'locationSelectedHandler(selectedLocation)'
         ]; 
       }
 
       languageChanged(val) { this.isEnglish = val === "en"; }
+
+      userDataReceived(v) {
+        if(!v || !this.locations || !v.admin) return;
+        let dropdownlist = this.$.adminlist;
+        let idx = this.locations.findIndex(o => o.name === v.admin);
+        dropdownlist.selected = idx;
+        this.$.admin.disabled = !v.isMasterAdmin;
+        this.isMasterAdmin = v.isMasterAdmin ? v.isMasterAdmin.toString() : "false";
+      }
+
+      locationSelectedHandler(e) {
+        if(!e || !e.innerText) return;
+        let loc = e.innerText.toString().trim();
+        if(this.userData.admin !== loc && this.userData.isMasterAdmin) {
+          this.$.userDoc.setStoredValue(`users/${this.uid}/admin`, loc);
+          setTimeout(this.sendResyncEvent.bind(this), 300);
+        }
+      }
 
       // Edit, Save and Add Methods
       editHandler(e) {

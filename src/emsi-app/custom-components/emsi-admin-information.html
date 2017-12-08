@@ -4,6 +4,10 @@
 <link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
+<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -59,7 +63,14 @@
       <paper-dialog-scrollable>
         <paper-input id="createUserName" label="Name"> </paper-input>
         <paper-input id="createUserDisplayName" label="Display Name"> </paper-input>
-        <paper-input id="createUserDisplayAdmin" label="Location"> </paper-input>
+        <paper-dropdown-menu-light style="width:100%;" id="createUserDisplayAdmin" label="Location">
+          <paper-listbox slot="dropdown-content" selected="0">
+            <paper-item> None </paper-item>
+            <template is="dom-repeat" items="{{locations}}">
+              <paper-item> {{item.name}} </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu-light>
         <paper-input id="createUserDisplayEmail" label="Email"> </paper-input>
         <paper-input id="createUserDisplayPassword" label="Password"> </paper-input>
         <div> Please Note, email cannot be changed. </div>
@@ -79,9 +90,15 @@
       <paper-dialog-scrollable>
         <paper-input id="createChurchName" label="Name"> </paper-input>
         <paper-input id="createChurchAddress" label="Address"> </paper-input>
-        <paper-input id="createChurchContinent" label="Continent"> </paper-input>
-        <paper-input id="createChurchRegion" label="Region"> </paper-input>
-        <paper-input id="createChurchUrl" label="City"> </paper-input>
+        <paper-dropdown-menu-light style="width:100%;" id="createChurchContinent" label="Continent (e.g. America, Europe, Africa, Asia)">
+          <paper-listbox slot="dropdown-content" selected="0">
+            <template id="continentsList" is="dom-repeat" items="{{continents}}">
+              <paper-item> {{item}} </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu-light>
+        <paper-input id="createChurchRegion" label="Region or Country (e.g. East Coast, Netherlands, Japan)"> </paper-input>
+        <paper-input id="createChurchUrl" label="City (e.g. Towaco, Chinatown, Antwerpen)"> </paper-input>
         <paper-input id="createChurchEmail" label="Email"> </paper-input>
         <paper-input id="createChurchPhone" label="Phone Number"> </paper-input>
         <div> Please Note, the name and city of the church cannot be changed. </div>
@@ -108,7 +125,8 @@
           userMessages: Array,
           churchMessages: Array,
           locations: Array,
-          user: Object
+          user: Object,
+          continents: Array
         };
       }
 
@@ -134,16 +152,18 @@
         this.$[dialogId].open();
       }
 
-      createUserHandler() {
+      createUserHandler() {        
         let dialogId = "createUserDialog";
 
         let data = {
           name: this.$.createUserName.value,
           displayName: this.$.createUserDisplayName.value,
-          admin: this.$.createUserDisplayAdmin.value,
+          admin: this.$.createUserDisplayAdmin.selectedItem.innerText.trim(),
           isMasterAdmin: false,
           imageUrl: ""
         }
+
+        if(data.admin === "None") data.admin = "";
 
         let userdata = {
           email: this.$.createUserDisplayEmail.value,
@@ -176,8 +196,8 @@
         if(!data.displayName || data.displayName === "") {
           result.push("Display Name has not been set!");
         }
-        if(!data.admin || !this.locations.find(v => v.name === data.admin)) {
-          result.push("Admin location does not exist! (e.g. CEMC in Towaco)");
+        if(!data.admin || (!this.locations.find(v => v.name === data.admin) && data.admin !== "")) {
+          result.push("Admin location does not exist! " + data.admin);
         }
         if(!userdata.email || userdata.email === "") {
           result.push("Email has not been set!");
@@ -191,13 +211,13 @@
       createChurchHandler() {
         let dialogId = "createChurchDialog";
         // this.$[dialogId].close();
-        let city = this.$.createChurchUrl.value.toLowerCase();
+        let city = this.$.createChurchUrl.value.toLowerCase().trim();
 
         let data = {
-          name: this.$.createChurchName.value,
+          name: this.$.createChurchName.value.trim(),
           address: this.$.createChurchAddress.value,
-          continent: this.$.createChurchContinent.value,
-          region: this.$.createChurchRegion.value,
+          continent: this.$.createChurchContinent.selectedItem.innerText.trim(),
+          region: this.$.createChurchRegion.value.trim(),
           email: this.$.createChurchEmail.value,
           phone: this.$.createChurchPhone.value,
           url: "/church/" + city,

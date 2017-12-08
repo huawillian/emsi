@@ -28,9 +28,11 @@
         font-size: 15pt;
         text-align: left;
         min-height: 80vh;
+        padding: 20pt 10% 100pt 10%;
+        width: 80%;
       }
 
-      .titleContainer, .contentContainer {
+      .titleContainer {
         padding: 20pt 10% 0 10%;
         width: 80%;
       }
@@ -136,9 +138,8 @@
         }
       }
 
-      paper-dropdown-menu-light{
+      paper-dropdown-menu-light {
         width:100%;
-        margin-bottom: 30pt;
       }
 
       paper-dropdown-menu-light ::slotted() #dropdown {
@@ -161,6 +162,13 @@
       paper-item:hover{
         background-color: rgba(0,0,0,0.2);
         cursor: pointer;
+      }
+
+      .staffPic {
+        width:100px;
+        height:100px;
+        border-radius: 50%;
+        border: 3pt solid rgba(255,255,255,0.4);
       }
     </style>
   </template>

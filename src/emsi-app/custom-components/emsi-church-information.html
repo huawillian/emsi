@@ -5,6 +5,10 @@
 <link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
+<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -24,6 +28,19 @@
         <table>
           <tr>
             <td> 
+              <paper-dropdown-menu-light id="continent" label="Continent (e.g. America, Europe, Africa, Asia)" selected-item="{{selectedContinent}}">
+                <paper-listbox id="continentsList" slot="dropdown-content" selected="0">
+                  <template  is="dom-repeat" items="{{continents}}">
+                    <paper-item> {{item}} </paper-item>
+                  </template>
+                </paper-listbox>
+              </paper-dropdown-menu-light>
+            </td>
+            <td class="icons">
+            </td>
+          </tr>
+          <tr>
+            <td> 
               <paper-input id="address" label="Address" disabled value="[[location.address]]"> </paper-input> 
             </td>
             <td class="icons">
@@ -33,16 +50,7 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="continent" label="Continent (America, Europe, Asia, Africa, Australia)" disabled value="[[location.continent]]"> </paper-input> 
-            </td>
-            <td class="icons">
-              <paper-icon-button icon="create" on-tap="editChurchHandler" field="continent"></paper-icon-button>
-              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="continent"></paper-icon-button>
-            </td>
-          </tr>
-          <tr>
-            <td> 
-              <paper-input id="region" label="Region" disabled value="[[location.region]]"> </paper-input> 
+              <paper-input id="region" label="Region or Country (e.g. East Coast, Netherlands, Japan)" disabled value="[[location.region]]"> </paper-input> 
             </td>
             <td class="icons">
               <paper-icon-button icon="create" on-tap="editChurchHandler" field="region"></paper-icon-button>
@@ -51,7 +59,7 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="phone" label="Phone" disabled value="[[location.phone]]"> </paper-input> 
+              <paper-input id="phone" label="Phone Number" disabled value="[[location.phone]]"> </paper-input> 
             </td>
             <td class="icons">
               <paper-icon-button icon="create" on-tap="editChurchHandler" field="phone"></paper-icon-button>
@@ -60,11 +68,20 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="email" label="Email" disabled value="[[location.email]]"> </paper-input> 
+              <paper-input id="email" label="Email Address" disabled value="[[location.email]]"> </paper-input> 
             </td>
             <td class="icons">
               <paper-icon-button icon="create" on-tap="editChurchHandler" field="email"></paper-icon-button>
               <paper-icon-button icon="done" on-tap="saveChurchHandler" field="email"></paper-icon-button>
+            </td>
+          </tr>
+          <tr>
+            <td> 
+              <paper-input id="description" label="Description" disabled value="[[location.description]]"> </paper-input> 
+            </td>
+            <td class="icons">
+              <paper-icon-button icon="create" on-tap="editChurchHandler" field="description"></paper-icon-button>
+              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="description"></paper-icon-button>
             </td>
           </tr>
           <tr>
@@ -81,15 +98,6 @@
               <iron-image style="width:200px; height:200px;" sizing="cover" preload src="[[location.churchImageUrl]]"></iron-image>
             </td>
           </tr>
-          <tr>
-            <td> 
-              <paper-input id="description" label="Description" disabled value="[[location.description]]"> </paper-input> 
-            </td>
-            <td class="icons">
-              <paper-icon-button icon="create" on-tap="editChurchHandler" field="description"></paper-icon-button>
-              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="description"></paper-icon-button>
-            </td>
-          </tr>
         </table>
       </div>
     </paper-card>
@@ -103,16 +111,34 @@
         return {
           lang: String,
           location: Object,
+          continents: Array,
+          selectedContinent: Object,
         };
       }
 
       static get observers() { 
         return [ 
           'languageChanged(lang)',
+          'locationReceived(location)',
+          'continentSelectedHandler(selectedContinent)'
         ]; 
       }
 
       languageChanged(val) { this.isEnglish = val === "en"; }
+
+      locationReceived(loc) {
+        if(!loc || !loc.continent || !this.continents) return;
+        this.$.continentsList.selected = this.continents.findIndex(v => v === loc.continent);
+      }
+
+      continentSelectedHandler(e) {
+        if(!e || !e.innerText) return;
+        let continent = e.innerText.toString().trim();
+        if(this.location.continent !== continent) {
+          this.$.userDoc.setStoredValue(`locations/${this.location.uid}/continent`, continent);
+          setTimeout(this.sendResyncEvent.bind(this), 300);
+        }
+      }
 
       editChurchHandler(e) {
         let attr = e.target.getAttribute("field");
