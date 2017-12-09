@@ -8,6 +8,7 @@
 <link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-storage-ref.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -21,6 +22,7 @@
 
     <firebase-auth app-name="emsionline" id="auth"> </firebase-auth>
     <firebase-document id="userDoc" app-name="emsionline"> </firebase-document>
+    <firebase-storage-ref id="storageRef" app-name="emsionline"></firebase-storage-ref>
 
     <!-- second firebase app for creating new users -->
     <firebase-app
@@ -71,6 +73,13 @@
             </template>
           </paper-listbox>
         </paper-dropdown-menu-light>
+        <paper-input id="createUserDisplayImageUrl" label="ImageUrl"> </paper-input>
+        <vaadin-upload id="upload" accept=".png,.jpg,.gif" max-files="1" max-file-size="1000000" on-upload-before="uploadHandler">
+          <iron-icon slot="drop-label-icon" icon="cloud-upload" style="margin-left: 20pt"></iron-icon>
+          <span slot="drop-label" style="margin-left: 20pt"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </span>
+        </vaadin-upload>
+        <br/>
+        <br/>
         <paper-input id="createUserDisplayEmail" label="Email"> </paper-input>
         <paper-input id="createUserDisplayPassword" label="Password"> </paper-input>
         <div> Please Note, email cannot be changed. </div>
@@ -102,6 +111,7 @@
         <paper-input id="createChurchEmail" label="Email"> </paper-input>
         <paper-input id="createChurchPhone" label="Phone Number"> </paper-input>
         <div> Please Note, the name and city of the church cannot be changed. </div>
+        <div> Please add description and image after creating the church. </div>
         <template is="dom-repeat" items="[[churchMessages]]" as="message" index-as="i">
           <div style="color: red;"> {{message}} </div>
         </template>
@@ -126,7 +136,8 @@
           churchMessages: Array,
           locations: Array,
           user: Object,
-          continents: Array
+          continents: Array,
+          uid: String
         };
       }
 
@@ -137,6 +148,19 @@
       }
 
       languageChanged(val) { this.isEnglish = val === "en"; }
+
+      uploadHandler(e) {
+        e.preventDefault();
+        var file = event.detail.file;
+        this.fileName = file.name;
+        this.$.storageRef.storage.ref(new Date().getUTCMilliseconds() + "_" + this.uid + "_" + file.name).put(file).then((snapshot) => {
+            console.log('Uploaded a blob or file!', snapshot);
+            this.$.upload.files = [
+              {name: this.fileName, progress: 100, complete: true},
+            ];
+            this.$.createUserDisplayImageUrl.value = snapshot.metadata.downloadURLs[0];
+        });
+      }
 
       openCreateUserDialog() {
         let dialogId = "createUserDialog";
@@ -160,7 +184,7 @@
           displayName: this.$.createUserDisplayName.value,
           admin: this.$.createUserDisplayAdmin.selectedItem.innerText.trim(),
           isMasterAdmin: false,
-          imageUrl: ""
+          imageUrl: this.$.createUserDisplayImageUrl.value.trim()
         }
 
         if(data.admin === "None") data.admin = "";

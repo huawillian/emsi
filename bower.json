@@ -29,7 +29,8 @@
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
     "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^2.0.1",
     "paper-input": "PolymerElements/paper-input#^2.0.3",
-    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^2.1.0"
+    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^2.1.0",
+    "vaadin-upload": "vaadin/vaadin-upload#^3.0.0"
   },
   "devDependencies": {
     "web-component-tester": "^6.0.0",

@@ -9,7 +9,9 @@
 <link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
-
+<link rel="import" href="../../../bower_components/vaadin-upload/vaadin-upload.html">
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-storage-ref.html">
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
 
@@ -21,6 +23,8 @@
     <style include="user-styles"> </style>
     <!-- Set data property to locations part of database -->
     <firebase-document id="userDoc" app-name="emsionline"> </firebase-document>
+    <firebase-storage-ref id="storageRef" app-name="emsionline"></firebase-storage-ref>
+
     <paper-card>
       <div class="title"> Church Information </div>
       <hr/>
@@ -87,6 +91,12 @@
           <tr>
             <td> 
               <paper-input id="churchImageUrl" label="Picture Link" disabled value="[[location.churchImageUrl]]"> </paper-input> 
+              <iron-collapse id="editPicture">
+                <vaadin-upload id="upload" accept=".png,.jpg,.gif" max-files="1" max-file-size="1000000" on-upload-before="uploadHandler">
+                  <iron-icon slot="drop-label-icon" icon="cloud-upload" style="margin-left: 20pt"></iron-icon>
+                  <span slot="drop-label" style="margin-left: 20pt"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </span>
+                </vaadin-upload>
+              </iron-collapse>
             </td>
             <td class="icons">
               <paper-icon-button icon="create" on-tap="editChurchHandler" field="churchImageUrl"></paper-icon-button>
@@ -113,6 +123,7 @@
           location: Object,
           continents: Array,
           selectedContinent: Object,
+          uid: String
         };
       }
 
@@ -125,6 +136,19 @@
       }
 
       languageChanged(val) { this.isEnglish = val === "en"; }
+
+      uploadHandler(e) {
+        e.preventDefault();
+        var file = event.detail.file;
+        this.fileName = file.name;
+        this.$.storageRef.storage.ref(new Date().getUTCMilliseconds() + "_" + this.uid + "_" + file.name).put(file).then((snapshot) => {
+            console.log('Uploaded a blob or file!', snapshot);
+            this.$.upload.files = [
+              {name: this.fileName, progress: 100, complete: true},
+            ];
+            this.$.churchImageUrl.value = snapshot.metadata.downloadURLs[0];
+        });
+      }
 
       locationReceived(loc) {
         if(!loc || !loc.continent || !this.continents) return;
@@ -146,6 +170,10 @@
         if(!attr) return;
         this.$[attr].disabled = false;
         this.$[attr].focus();
+
+        if(attr === "churchImageUrl") {
+          this.$.editPicture.show();
+        }
       }
 
       saveChurchHandler(e) {
@@ -154,6 +182,10 @@
         this.$[attr].disabled = true;
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${attr}`, this.$[attr].value);
         setTimeout(this.sendResyncEvent.bind(this), 300);
+
+        if(attr === "churchImageUrl") {
+          this.$.editPicture.hide();
+        }
       }
 
       sendResyncEvent() {

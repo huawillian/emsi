@@ -12,6 +12,7 @@
 <link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-storage-ref.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -24,6 +25,8 @@
     <style include="user-styles"> </style>
     <!-- Set data property to locations part of database -->
     <firebase-document id="userDoc" app-name="emsionline"> </firebase-document>
+    <firebase-storage-ref id="storageRef" app-name="emsionline"></firebase-storage-ref>
+
     <paper-card>
       <div class="title"> Pastoral Staff </div>
       <hr/>
@@ -82,6 +85,10 @@
         <div> Or, </div>
         <paper-input id="staffnameInputEdit" label="Display Name" value="[[selectedValue.name]]"> </paper-input>
         <paper-input id="staffurlInputEdit" label="Profile Image URL" value="[[selectedValue.url]]"> </paper-input>
+        <vaadin-upload id="uploadEdit" accept=".png,.jpg,.gif" max-files="1" max-file-size="1000000" on-upload-before="uploadHandler" field="Edit">
+          <iron-icon slot="drop-label-icon" icon="cloud-upload" style="margin-left: 20pt"></iron-icon>
+          <span slot="drop-label" style="margin-left: 20pt"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </span>
+        </vaadin-upload>
       </paper-dialog-scrollable>
       <div class="buttons" style="margin-top: 30pt">
         <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
@@ -107,6 +114,10 @@
         <div> Or, </div>
         <paper-input id="staffnameInputAdd" label="Display Name"> </paper-input>
         <paper-input id="staffurlInputAdd" label="Profile Image URL"> </paper-input>
+        <vaadin-upload id="uploadAdd" accept=".png,.jpg,.gif" max-files="1" max-file-size="1000000" on-upload-before="uploadHandler" field="Add">
+          <iron-icon slot="drop-label-icon" icon="cloud-upload" style="margin-left: 20pt"></iron-icon>
+          <span slot="drop-label" style="margin-left: 20pt"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </span>
+        </vaadin-upload>
       </paper-dialog-scrollable>
       <div class="buttons" style="margin-top: 30pt">
         <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
@@ -130,6 +141,7 @@
           users: Array,
           usersObj: Object,
           displayedStaff: Array,
+          uid: String
         };
       }
 
@@ -142,6 +154,20 @@
       }
 
       languageChanged(val) { this.isEnglish = val === "en"; }
+
+      uploadHandler(e) {
+        e.preventDefault();
+        let attr = e.target.getAttribute("field");
+        var file = event.detail.file;
+        this.fileName = file.name;
+        this.$.storageRef.storage.ref(new Date().getUTCMilliseconds() + "_" + this.uid + "_" + file.name).put(file).then((snapshot) => {
+            console.log('Uploaded a blob or file!', snapshot);
+            this.$['upload' + attr].files = [
+              {name: this.fileName, progress: 100, complete: true},
+            ];
+            this.$['staffurlInput' + attr].value = snapshot.metadata.downloadURLs[0];
+        });
+      }
 
       locationChanged(loc) {
         if(!this.usersObj || !loc || !Object.keys(loc).length) return;
