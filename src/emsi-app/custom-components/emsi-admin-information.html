@@ -235,13 +235,13 @@
       createChurchHandler() {
         let dialogId = "createChurchDialog";
         // this.$[dialogId].close();
-        let city = this.$.createChurchUrl.value.toLowerCase().trim();
+        let city = this.$.createChurchUrl.value ? this.$.createChurchUrl.value.toLowerCase().trim() : '';
 
         let data = {
-          name: this.$.createChurchName.value.trim(),
+          name: !!this.$.createChurchName.value ? this.$.createChurchName.value.trim() : '',
           address: this.$.createChurchAddress.value,
-          continent: this.$.createChurchContinent.selectedItem.innerText.trim(),
-          region: this.$.createChurchRegion.value.trim(),
+          continent: !!this.$.createChurchContinent.selectedItem ? this.$.createChurchContinent.selectedItem.innerText.trim() : '',
+          region: !!this.$.createChurchRegion.value ? this.$.createChurchRegion.value.trim().toLowerCase().split(' ').map(v => v[0].toUpperCase() + v.slice(1)).join(' ') : '',
           email: this.$.createChurchEmail.value,
           phone: this.$.createChurchPhone.value,
           url: "/church/" + city,
