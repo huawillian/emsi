@@ -117,7 +117,10 @@
           userData: Object,
           lang: String,
           route: Object,
-          uid: String,
+          uid: {
+            type: String,
+            value: ""
+          },
           user: Object,
           locations: Array,
           location: Object,
@@ -147,7 +150,8 @@
           'locationsChanged(locations)',
           'selectedChurchChanged(selectedLocation)',
           'selectedUserChanged(selectedItem)',
-          'continentsReceived(continentsData)'
+          'continentsReceived(continentsData)',
+          'userChanged(user)'
         ]; 
       }
 
@@ -180,8 +184,22 @@
         if(!!this.location) this.set("hasSelectedLocation", true);
       }
 
+      userChanged(v) {
+        if(!v || this.uid !== v.uid) {
+          setTimeout( () => this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "", bubbles: true, composed: true })), 300);
+        }
+      }
+
       routeChanged(route) {
         this.uid = !!route.path ? route.path.slice(1) : "";
+
+        if(this.uid !== "" && (!this.user || this.user && this.uid !== this.user.uid)) {
+          setTimeout( () => { 
+            if(!this.user || this.user && this.uid !== this.user.uid) {
+              this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "", bubbles: true, composed: true }))
+            }
+          }, 300);
+        }
       }
 
       locationsChanged(v) {

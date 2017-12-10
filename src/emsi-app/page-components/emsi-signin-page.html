@@ -23,7 +23,12 @@
 						<div> {{signedInMessage}} </div>
 						<paper-input id="email" label="Enter Email Address" ></paper-input>
 						<paper-input id="password" label="Enter Password" type="password"></paper-input>
-						<emsi-button color="blue" on-tap="logInHandler"> Sign In </emsi-button>
+            <template is="dom-if" if="[[!user]]">
+						  <emsi-button color="blue" on-tap="logInHandler"> Sign In </emsi-button>
+            </template>
+            <template is="dom-if" if="[[user]]">
+              <emsi-button color="blue" on-tap="goToUser"> Continue As {{user.email}} </emsi-button>
+            </template>
 						<emsi-button color="blue" on-tap="logOutHandler"> Sign Out </emsi-button>
 					</div>
 				</td>
@@ -45,7 +50,8 @@
 			}
 
 			userChanged(v) {
-				this.signedInMessage = !!v ?  `You are currently signed in as ${v.email}` : "";
+        this.signedInMessage = !!v ?`You are currently signed in as ${v.email}` : "";
+        if(!!v) this.changeRouteToUser(v.uid);
 			}
 
 			logInHandler() {
@@ -70,6 +76,10 @@
       changeRouteToUser(uid) {
 				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: `user/${uid}`, bubbles: true, composed: true }));
 			}
+
+      goToUser() {
+        this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: `user/${this.user.uid}`, bubbles: true, composed: true }));
+      }
 
 			handleError(e) {
        	this.errorMessage = e.detail.message;
