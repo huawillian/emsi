@@ -1,14 +1,10 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/plastic-image/plastic-image.html">
 
 <dom-module id="emsi-homepage-picture">
 	<template>
-		<style>
-			img {
-				display: block;
-				background-color: black;
-			}
-		</style>
-		<img src="{{imageUrl}}" height="100%" width="100%">
+		<style> </style>
+		<plastic-image lazy-load preload fade use-element-dim srcset="[[imageUrl]]" sizing="cover" style="height: 100%; width: 100%; background-color: white;margin-top: 5pt;"></plastic-image>
 	</template>
 
 	<script>

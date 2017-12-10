@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/plastic-image/plastic-image.html">
 
 <!-- custom styles -->
 <link rel="import" href="../../styles/logo-styles.html">
@@ -8,7 +9,8 @@
 	<template>
 		<style include="logo-styles"> </style>
 		<div class="container" on-tap="changeRouteHome">
-			<iron-image id="logo" sizing="cover" preload src="https://github.com/huawillian/emsi/raw/master/src/images/EMSI_logo-01.png"></iron-image>
+			
+			<plastic-image id="logo" lazy-load preload fade use-element-dim srcset="https://github.com/huawillian/emsi/raw/master/src/images/EMSI_logo-01.png" sizing="cover" style="background-color: white"></plastic-image>
 			<div id="logoText"> EMSI </div>
 		</div>
 	</template>

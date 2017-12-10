@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-lazy-pages/iron-lazy-pages.html">
 
 <!-- custom elements -->
 <link rel="import" href="custom-components/emsi-toolbar-desktop.html">
@@ -90,7 +91,7 @@
 
     <!-- iron-pages selects the view based on the active route routeData.page by checking name of element, and show 404 image if no name matches -->
     <div class="mainContent">    
-      <iron-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="home">
+      <iron-lazy-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="home">
         <emsi-home-page class="page" name="" lang="{{lang}}"> </emsi-home-page>
         <emsi-home-page class="page" name="home" lang="{{lang}}"> </emsi-home-page>
 
@@ -115,8 +116,8 @@
 
         <emsi-church-page class="page" name="church" lang="{{lang}}" church-data="[[churchData]]" users-obj="{{users}}"> </emsi-church-page>
 
-        <emsi-user-page class="page" name="user" lang="{{lang}}" route="{{subroute}}" locations="{{dataAsArray}}" users="{{usersAsArray}}" users-obj="{{users}}"> </emsi-user-page>
-      </iron-pages>
+        <emsi-user-page class="page" name="user" lang="{{lang}}" parent-route="{{routeData.page}}" route="{{subroute}}" locations="{{dataAsArray}}" users="{{usersAsArray}}" users-obj="{{users}}"> </emsi-user-page>
+      </iron-lazy-pages>
 
       <!-- Footer -->
       <emsi-footer lang="{{lang}}" />

@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/plastic-image/plastic-image.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -10,8 +11,11 @@
 <dom-module id="emsi-homepage-landingscreen">
 	<template>
 		<style include="landingscreen-styles"> </style>
-		<iron-image sizing="cover" id="personImage" preload src="https://github.com/huawillian/emsi/raw/master/src/images/DonnaImageFinal-01.png"></iron-image>
-		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="https://github.com/huawillian/emsi/raw/master/src/images/MainSanctuary_ImageBlurredFINAL.jpg"></iron-image>
+
+		<img id="personImage" src="https://github.com/huawillian/emsi/raw/master/src/images/DonnaImageFinal-01.png" sizing="cover">
+
+		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="https://github.com/huawillian/emsi/raw/master/src/images/MainSanctuary_ImageBlurredFINAL.jpg" sizing="cover" style="background-color: black;"></plastic-image>
+
 		<div class="container">
 			<template is="dom-if" if="[[isEnglish]]">
 				<div id="title" class="homepageText"> 

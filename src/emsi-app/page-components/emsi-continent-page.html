@@ -48,11 +48,12 @@
 					// Currently displayed Region, defaulted to All
 					displayRegion: {
 						type: String,
-						value: "All",
+						value: "All"
 					} ,
 					// Set from firebase document locations
 					locations: {
-						type: Array
+						type: Array,
+						observer: 'locationsReceived'
 					},
 					// List of regions given continent
 					regionArr: {
@@ -68,8 +69,12 @@
 				}; 
 			}
 
+			locationsReceived(loc) {
+				this.$.cardRepeat.render();
+			}
+
 			filterLocations(loc) {
-				if(loc.continent === this.continent && (this.displayRegion === "All" || loc.region === this.displayRegion)) {
+				if(loc.continent === this.continent && (this.displayRegion.trim() === "All" || loc.region === this.displayRegion)) {
 						return true;
 				}
 				return false;

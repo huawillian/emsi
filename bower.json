@@ -30,7 +30,9 @@
     "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^2.0.1",
     "paper-input": "PolymerElements/paper-input#^2.0.3",
     "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^2.1.0",
-    "vaadin-upload": "vaadin/vaadin-upload#^3.0.0"
+    "vaadin-upload": "vaadin/vaadin-upload#^3.0.0",
+    "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#^2.1.1",
+    "plastic-image": "^1.0.13"
   },
   "devDependencies": {
     "web-component-tester": "^6.0.0",
@@ -38,6 +40,7 @@
   },
   "resolutions": {
     "polymer": "^2.0.0",
-    "webcomponentsjs": "^v1.0.2"
+    "webcomponentsjs": "^v1.0.2",
+    "iron-selector": "^2.0.0"
   }
 }

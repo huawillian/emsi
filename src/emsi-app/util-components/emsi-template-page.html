@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/plastic-image/plastic-image.html">
 
 <!-- custom styles -->
 <link rel="import" href="../../styles/template-styles.html">
@@ -7,7 +8,9 @@
 <dom-module id="emsi-template-page">
 	<template>
 		<style include="template-styles"> </style>
-		<iron-image id="backgroundImage" sizing="cover" preload src="{{backgroundImagePath}}"></iron-image>
+
+		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="{{backgroundImagePath}}" sizing="cover" style="background-color: white;"></plastic-image>
+
     <div class="titleContainer"> [[title]] </div>
     <div class="contentContainer">
 			<slot> </slot>

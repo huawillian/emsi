@@ -4,6 +4,7 @@
 <link rel="import" href="../../../bower_components/paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../../bower_components/plastic-image/plastic-image.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -22,7 +23,7 @@
     	</iron-collapse>
     </template>
 	 	<template is="dom-if" if="{{!showSearchResults}}" id="searchMenu">
-	 		<iron-image id="backgroundImage" style="background-color: black;" sizing="cover" preload src="https://github.com/huawillian/emsi/raw/master/src/images/FindALocationBkgrd-01.jpg"></iron-image>
+	 		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="https://github.com/huawillian/emsi/raw/master/src/images/FindALocationBkgrd-01.jpg" sizing="cover" style="background-color: white;"></plastic-image>
 			<div id="searchContainer">
 				<div id="searchContainerInner">
 					<div id="searchTitle"> FIND A CHURCH </div>

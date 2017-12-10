@@ -23,6 +23,23 @@
         top: 8vh;
         width: 70vh;
         height: 75vh;
+        animation-name: delayedFadeIn;
+        animation-duration: 2s;
+      }
+
+      @keyframes delayedFadeIn {
+        0% {
+        display: none;
+        opacity: 0;
+        }
+        90% {
+            display: none;
+            opacity: 0;
+        }
+        100% {
+          display: block;
+          opacity: 1;
+        }
       }
 
       .container {
