@@ -60,12 +60,12 @@
       </template>
     </paper-card>
 
-    <paper-dialog id="createUserDialog" modal style="width: 80vw;padding: 20pt;">
-      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Create New User </div>
-      <paper-dialog-scrollable>
+    <paper-dialog id="createUserDialog" modal>
+      <div class="titleDialog"> Create New User </div>
+      <paper-dialog-scrollable class="contentDialog">
         <paper-input id="createUserName" label="Name"> </paper-input>
         <paper-input id="createUserDisplayName" label="Display Name"> </paper-input>
-        <paper-dropdown-menu-light style="width:100%;" id="createUserDisplayAdmin" label="Location">
+        <paper-dropdown-menu-light id="createUserDisplayAdmin" label="Location">
           <paper-listbox slot="dropdown-content" selected="0">
             <paper-item> None </paper-item>
             <template is="dom-repeat" items="{{locations}}">
@@ -88,18 +88,18 @@
           <div style="color: red;"> {{message}} </div>
         </template>
       </paper-dialog-scrollable>
-      <div class="buttons" style="margin-top: 30pt">
-        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button style="display: inline" color="blue" on-tap="createUserHandler"> CREATE </emsi-button>
+      <div class="buttons">
+        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button color="blue" on-tap="createUserHandler"> CREATE </emsi-button>
       </div>
     </paper-dialog>
 
-    <paper-dialog id="createChurchDialog" modal style="width: 80vw;padding: 20pt;">
-      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Create New Church </div>
-      <paper-dialog-scrollable>
+    <paper-dialog id="createChurchDialog" modal>
+      <div class="titleDialog"> Create New Church </div>
+      <paper-dialog-scrollable class="contentDialog">
         <paper-input id="createChurchName" label="Name"> </paper-input>
         <paper-input id="createChurchAddress" label="Address"> </paper-input>
-        <paper-dropdown-menu-light style="width:100%;" id="createChurchContinent" label="Continent (e.g. America, Europe, Africa, Asia)">
+        <paper-dropdown-menu-light id="createChurchContinent" label="Continent (e.g. America, Europe, Africa, Asia)">
           <paper-listbox slot="dropdown-content" selected="0">
             <template id="continentsList" is="dom-repeat" items="{{continents}}">
               <paper-item> {{item}} </paper-item>
@@ -116,9 +116,9 @@
           <div style="color: red;"> {{message}} </div>
         </template>
       </paper-dialog-scrollable>
-      <div class="buttons" style="margin-top: 30pt">
-        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button style="display: inline" color="blue" on-tap="createChurchHandler"> CREATE </emsi-button>
+      <div class="buttons">
+        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button color="blue" on-tap="createChurchHandler"> CREATE </emsi-button>
       </div>
     </paper-dialog>
 

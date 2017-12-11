@@ -46,41 +46,41 @@
     </paper-card>
 
     <!-- Dialogs -->
-    <paper-dialog id="deleteDialog" modal style="width: 80vw;padding: 20pt;">
-      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Delete {{selectedField}}</div>
-      <paper-dialog-scrollable>
+    <paper-dialog id="deleteDialog" modal>
+      <div class="titleDialog"> Delete {{selectedField}}</div>
+      <paper-dialog-scrollable class="contentDialog">
         <div> Are you sure you want to delete this? You cannot undo this change. </div>
         <div> Selected: {{selectedField}} </div>
         <div> Index: {{selectedIndex}} </div>
         <div> Content: {{selectedValue}} </div>
       </paper-dialog-scrollable>
-      <div class="buttons" style="margin-top: 30pt">
-        <emsi-button style="display: inline" color="blue" dialog-dismiss> NO </emsi-button>
-        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="deleteHandler"> YES </emsi-button>
+      <div class="buttons">
+        <emsi-button color="blue" dialog-dismiss> NO </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="deleteHandler"> YES </emsi-button>
       </div>
     </paper-dialog>
 
-    <paper-dialog id="timeEditDialog" modal style="width: 80vw;padding: 20pt;">
-      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Edit Sunday Worship Times </div>
-      <paper-dialog-scrollable>
+    <paper-dialog id="timeEditDialog" modal>
+      <div class="titleDialog"> Edit Sunday Worship Times </div>
+      <paper-dialog-scrollable class="contentDialog">
         <paper-input id="timenameInputEdit" label="Language" value="[[selectedValue.name]]"> </paper-input>
         <paper-input id="timetimeInputEdit" label="Sunday Worship Time" value="[[selectedValue.time]]"> </paper-input>
       </paper-dialog-scrollable>
-      <div class="buttons" style="margin-top: 30pt">
-        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="saveHandler"> SAVE </emsi-button>
+      <div class="buttons">
+        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="saveHandler"> SAVE </emsi-button>
       </div>
     </paper-dialog>
 
-    <paper-dialog id="timeAddDialog" modal style="width: 80vw;padding: 20pt;">
-      <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Add Sunday Worship Times </div>
-      <paper-dialog-scrollable>
+    <paper-dialog id="timeAddDialog" modal>
+      <div class="titleDialog"> Add Sunday Worship Times </div>
+      <paper-dialog-scrollable class="contentDialog">
         <paper-input id="timenameInputAdd" label="Language"> </paper-input>
         <paper-input id="timetimeInputAdd" label="Sunday Worship Time"> </paper-input>
       </paper-dialog-scrollable>
-      <div class="buttons" style="margin-top: 30pt">
-        <emsi-button style="display: inline" color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button style="display: inline" color="blue" dialog-dismiss on-tap="addDialogHandler"> ADD TIME </emsi-button>
+      <div class="buttons">
+        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="addDialogHandler"> ADD TIME </emsi-button>
       </div>
     </paper-dialog>
   </template>

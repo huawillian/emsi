@@ -28,7 +28,7 @@
 				<div id="searchContainerInner">
 					<div id="searchTitle"> FIND A CHURCH </div>
 					<div style="padding:10pt" id="addressBoxC"> 
-						<paper-input id="addressBox" placeholder="Enter Address Here"></paper-input>
+						<paper-input id="addressBox" placeholder="Enter Address Here" on-keydown="checkForEnter"></paper-input>
 					</div>
 					<emsi-button id="searchButton" color="blue" on-tap="startSearchByAddress" my-max-width="500px"> FIND A LOCATION </emsi-button>
 					<div id="locationButton" on-tap="getLocation"> Or, use your current location </div>
@@ -88,6 +88,12 @@
 					isSearching: Boolean
 				}; 
 			}
+
+			checkForEnter (e) {
+        if (e.key === "Enter") {
+          this.startSearchByAddress();
+        }
+      }
 
 			toggleShowSearchResults() {
 				setTimeout(function(){this.document.body.scrollTop = 0;}, 0);

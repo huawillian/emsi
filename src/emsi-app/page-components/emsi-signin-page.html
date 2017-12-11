@@ -21,8 +21,8 @@
 						<div id="title"> Sign In </div>
 						<div class="error"> {{errorMessage}} </div>
 						<div> {{signedInMessage}} </div>
-						<paper-input id="email" label="Enter Email Address" ></paper-input>
-						<paper-input id="password" label="Enter Password" type="password"></paper-input>
+						<paper-input id="email" label="Enter Email Address" on-keydown="checkForEnter"></paper-input>
+						<paper-input id="password" label="Enter Password" type="password" on-keydown="checkForEnter"></paper-input>
             <template is="dom-if" if="[[!user]]">
 						  <emsi-button color="blue" on-tap="logInHandler"> Sign In </emsi-button>
             </template>
@@ -48,6 +48,12 @@
           signedInMessage: String
 				}; 
 			}
+
+      checkForEnter (e) {
+        if (e.key === "Enter") {
+          this.logInHandler();
+        }
+      }
 
 			userChanged(v) {
         this.signedInMessage = !!v ?`You are currently signed in as ${v.email}` : "";
