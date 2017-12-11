@@ -9,6 +9,49 @@
         background-color: #857874;
       }
 
+      .container {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .containerItem {
+        width: 50%;
+        height: 50vw;
+      }
+
+      @media screen and (max-width: 800px) {
+        .containerItem {
+          width: 100%;
+          height: 100vw;
+        }
+
+        .s1 {
+          order: 1;
+        }
+
+        .s2 {
+          order: 2;
+        }
+
+        .s3 {
+          order: 4;
+        }
+
+        .s4 {
+          order: 3;
+        }
+
+        .s5 {
+          order: 5;
+        }
+
+        .s6 {
+          order: 6;
+        }
+      }
+
       .actionContainer {
         display: flex;
         flex-direction: row;

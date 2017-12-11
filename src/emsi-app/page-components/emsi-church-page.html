@@ -52,71 +52,13 @@
 			</div>
 		</div>
 
-		<iron-media-query query="(min-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
-		<div id="contentArea">
-			<!-- If large screen, show this... -->
-			<template is="dom-if" if="[[isTwoColumns]]">
-				<table id="layout">
-			  	<tr>
-			  		<td>
-			  			<emsi-homepage-picture image-url="{{churchData.churchImageUrl}}"> </emsi-homepage-picture>
-			  		</td>
-			  		<td>
-			  			<emsi-church-ministries-fellowships title="Ministries and Fellowships" data="{{churchData.ministries}}" lang="{{lang}}"> </emsi-church-ministries-fellowships>
-			  		</td>
-			  	</tr>
-			  	<tr>
-			  		<td>
-			  			<emsi-church-events title="Upcoming Events" data="{{churchData.events}}" lang="{{lang}}"> </emsi-church-events>
-			  		</td>
-			  		<td>
-			  			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}" lang="{{lang}}" users-obj="{{usersObj}}"> </emsi-church-pastors-staff>
-			  		</td>
-			  	</tr>
-			  	<tr>
-			  		<td>
-			  			<emsi-church-description title="Brief History" description="{{churchData.description}}" lang="{{lang}}"> </emsi-church-description>
-			  		</td>
-			  		<td>
-			  			<emsi-church-news title="News and Updates" data="{{churchData.news}}" lang="{{lang}}"> </emsi-church-news>
-			  		</td>
-			  	</tr>
-		  	</table>
-			</template>
-			<!-- If small screen, show this... -->
-			<template is="dom-if" if="[[!isTwoColumns]]">
-				<table id="layout">
-			  	<tr>
-			  		<td>
-							<emsi-homepage-picture image-url="{{churchData.churchImageUrl}}"> </emsi-homepage-picture>
-						</td>
-					</tr>
-					<tr>
-			  		<td>
-							<emsi-church-ministries-fellowships title="Ministries and Fellowships" data="{{churchData.ministries}}" lang="{{lang}}"> </emsi-church-ministries-fellowships>
-						</td>
-					</tr>
-					<tr>
-			  		<td>
-			  			<emsi-church-pastors-staff title="Pastors and Staff" data="{{churchData.staff}}" lang="{{lang}}" users-obj="{{usersObj}}"> </emsi-church-pastors-staff>
-						</td>
-					</tr>
-					<tr>
-			  		<td>
-			  			<emsi-church-events title="Upcoming Events" data="{{churchData.events}}" lang="{{lang}}"> </emsi-church-events>
-						</td>
-					</tr>
-					<tr>
-			  		<td>
-			  			<emsi-church-description title="Brief History" description="{{churchData.description}}" lang="{{lang}}"> </emsi-church-description>
-						</td>
-					</tr>
-					<tr>
-			  		<td>
-			  			<emsi-church-news title="News and Updates" data="{{churchData.news}}" lang="{{lang}}"> </emsi-church-news>
-	  				</td>
-					</tr>
-			</template>
+		<div class="container">
+			<emsi-homepage-picture class="containerItem s1" image-url="{{churchData.churchImageUrl}}"> </emsi-homepage-picture>
+			<emsi-church-ministries-fellowships class="containerItem s2" title="Ministries and Fellowships" data="{{churchData.ministries}}" lang="{{lang}}"> </emsi-church-ministries-fellowships>
+			<emsi-church-events class="containerItem s3" title="Upcoming Events" data="{{churchData.events}}" lang="{{lang}}"> </emsi-church-events>
+			<emsi-church-pastors-staff class="containerItem s4" title="Pastors and Staff" data="{{churchData.staff}}" lang="{{lang}}" users-obj="{{usersObj}}"> </emsi-church-pastors-staff>
+			<emsi-church-description class="containerItem s5" title="Brief History" description="{{churchData.description}}" lang="{{lang}}"> </emsi-church-description>
+			<emsi-church-news class="containerItem s6" title="News and Updates" data="{{churchData.news}}" lang="{{lang}}"> </emsi-church-news>
 		</div>
 	</template>
 	
