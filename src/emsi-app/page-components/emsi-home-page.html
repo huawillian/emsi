@@ -1,5 +1,4 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../../bower_components/iron-media-query/iron-media-query.html">
 
 <!-- custom elements -->
 <link rel="import" href="../custom-components/emsi-homepage-landingscreen.html">
@@ -10,96 +9,22 @@
 <!-- custom styles -->
 <link rel="import" href="../../styles/home-styles.html">
 
-
 <dom-module id="emsi-home-page">
 	<template>
 		<style include="home-styles">	</style>
-		<iron-media-query query="(min-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>
 		<emsi-homepage-landingscreen lang="{{lang}}"> </emsi-homepage-landingscreen>
 		<emsi-homepage-bibleverse lang="{{lang}}"> </emsi-homepage-bibleverse>
 		<div id="moreContent">
-			<!-- If small screen, show this... -->
-			<template is="dom-if" if="[[!isTwoColumns]]">
-			<table id="layout">
-			  	<tr>
-			  		<td>
-			  			<emsi-homepage-content section-path="home/sections/0" lang="{{lang}}" title="ABOUT US"> </emsi-homepage-content>
-			  		</td>
-			  	</tr>
-			  	<tr>
-			  		<td class="pictd">
-			  			<emsi-homepage-picture image-url="https://github.com/huawillian/emsi/raw/master/src/images/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
-		  			</td>
-	  			</tr>
-			  	<tr>
-			  		<td>
-			  			<emsi-homepage-content section-path="home/sections/1" lang="{{lang}}" title="LOCATIONS"> </emsi-homepage-content>
-			  		</td>
-		  		</tr>
-			  	<tr>
-		  			<td class="pictd">
-		  				<emsi-homepage-picture image-url="https://github.com/huawillian/emsi/raw/master/src/images/Locations2Square.jpg"> </emsi-homepage-picture>
-	  				</td>
-  				</tr>
-			  	<tr>
-			  		<td>
-			  			<emsi-homepage-content section-path="home/sections/2" lang="{{lang}}" title="MISSIONS"> </emsi-homepage-content>
-	  				</td>
-  				</tr>
-			  	<tr>
-			  		<td class="pictd">
-			  			<emsi-homepage-picture image-url="https://github.com/huawillian/emsi/raw/master/src/images/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
-	  				</td>
-  				</tr>
-			  	<tr>
-			  		<td>
-			  			<emsi-homepage-content section-path="home/sections/3" lang="{{lang}}" title="SEMINARY"> </emsi-homepage-content>
-			  		</td>
-  				</tr>
-			  	<tr>
-			  		<td class="pictd">
-			  			<emsi-homepage-picture image-url="https://github.com/huawillian/emsi/raw/master/src/images/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
-		  			</td>
-  				</tr>
-				</table>
-			</template>
-			<!-- If large screen, show this... -->
-			<template is="dom-if" if="[[isTwoColumns]]">
-			  <table>
-			  	<tr>
-			  		<td>
-			  			<emsi-homepage-content section-path="home/sections/0" lang="{{lang}}" title="ABOUT US"> </emsi-homepage-content>
-			  		</td>
-			  		<td>
-			  			<emsi-homepage-picture image-url="https://github.com/huawillian/emsi/raw/master/src/images/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
-			  		</td>
-			  	</tr>
-			  	<tr>
-			  		<td>
-			  			<emsi-homepage-picture image-url="https://github.com/huawillian/emsi/raw/master/src/images/Locations2Square.jpg"> </emsi-homepage-picture>
-			  		</td>
-			  		<td>
-			  			<emsi-homepage-content section-path="home/sections/1" lang="{{lang}}" title="LOCATIONS"> </emsi-homepage-content>
-			  		</td>
-			  	</tr>
-			  	<tr>
-			  		<td>
-			  			<emsi-homepage-content section-path="home/sections/2" lang="{{lang}}" title="MISSIONS"> </emsi-homepage-content>
-			  		</td>
-			  		<td>
-			  			<emsi-homepage-picture image-url="https://github.com/huawillian/emsi/raw/master/src/images/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
-			  		</td>
-			  	</tr>
-			  	<tr>
-			  		<td>
-			  			<emsi-homepage-picture image-url="https://github.com/huawillian/emsi/raw/master/src/images/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
-			  		</td>
-			  		<td>
-			  			<emsi-homepage-content section-path="home/sections/3" lang="{{lang}}" title="SEMINARY"> </emsi-homepage-content>
-			  		</td>
-			  	</tr>
-			  </table>
-			</template>
+		  <div class="container">
+		  	<emsi-homepage-content class="containerItem s1" section-path="home/sections/0" lang="{{lang}}" title="ABOUT US"> </emsi-homepage-content>
+		  	<emsi-homepage-picture class="containerItem s2" image-url="https://github.com/huawillian/emsi/raw/master/src/images/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
+	  		<emsi-homepage-picture class="containerItem s3" image-url="https://github.com/huawillian/emsi/raw/master/src/images/Locations2Square.jpg"> </emsi-homepage-picture>
+	  		<emsi-homepage-content class="containerItem s4" section-path="home/sections/1" lang="{{lang}}" title="LOCATIONS"> </emsi-homepage-content>
+	  		<emsi-homepage-content class="containerItem s5" section-path="home/sections/2" lang="{{lang}}" title="MISSIONS"> </emsi-homepage-content>
+	  		<emsi-homepage-picture class="containerItem s6" image-url="https://github.com/huawillian/emsi/raw/master/src/images/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
+	  		<emsi-homepage-picture class="containerItem s7" image-url="https://github.com/huawillian/emsi/raw/master/src/images/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
+	  		<emsi-homepage-content class="containerItem s8" section-path="home/sections/3" lang="{{lang}}" title="SEMINARY"> </emsi-homepage-content>
+		  </div>
 		</div>
 	</template>
 	

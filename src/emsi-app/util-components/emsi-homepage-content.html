@@ -10,22 +10,24 @@
 <dom-module id="emsi-homepage-content">
 	<template>
 		<style include="homepage-content-styles">	</style>
-		<div class="title">
-			<emsi-firebase-document my-path="{{titlePath}}" lang="{{lang}}" display> </emsi-firebase-document>
+		<div class="container">
+			<div class="title">
+				<emsi-firebase-document my-path="{{titlePath}}" lang="{{lang}}" display> </emsi-firebase-document>
+			</div>
+			<div class="content">
+				<emsi-firebase-document my-path="{{contentPath}}" lang="{{lang}}" display> </emsi-firebase-document>
+			</div>
+			<template is="dom-if" if="[[isEnglish]]">
+				<emsi-button color="brown" on-tap="changeRoute">
+					LEARN MORE
+				</emsi-button>
+			</template>
+			<template is="dom-if" if="[[!isEnglish]]">
+				<emsi-button color="brown" on-tap="changeRoute">
+					? CHINESE LEARN ?
+				</emsi-button>
+			</template>
 		</div>
-		<div class="content">
-			<emsi-firebase-document my-path="{{contentPath}}" lang="{{lang}}" display> </emsi-firebase-document>
-		</div>
-		<template is="dom-if" if="[[isEnglish]]">
-			<emsi-button color="brown" on-tap="changeRoute">
-				LEARN MORE
-			</emsi-button>
-		</template>
-		<template is="dom-if" if="[[!isEnglish]]">
-			<emsi-button color="brown" on-tap="changeRoute">
-				? CHINESE LEARN ?
-			</emsi-button>
-		</template>
 	</template>
 
 	<script>

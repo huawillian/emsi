@@ -7,8 +7,17 @@
         background-color: white;
       }
 
+      .container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
       .title {
-        padding-left: 10vw;
+        width: 60%;
         color: #236192;
         font-weight: 700;
         font-size: 18pt;
@@ -17,9 +26,8 @@
       }
 
       .content {
+        width: 60%;
         padding-top: 6vh;
-        padding-left: 10vw;
-        padding-right: 10vw;
         color: rgba(0,0,0,0.6);
         font-weight: 400;
         font-size: 12pt;
@@ -28,26 +36,25 @@
       }
 
       emsi-button {
-        margin-left: 10vw;
         margin-top: 6vh;
+        width: 60%;
       }
 
       @media screen and (max-width: 1000px) and (min-width: 800px) {
         .title {
-          padding-left: 8vw;
+          width: 85%;
           font-size: 25px;
         }
 
         .content {
+          width: 85%;
           padding-top: 4vh;
-          padding-left: 8vw;
-          padding-right: 8vw;
           font-size: 16px;
           line-height: 1.4;
         }
 
         emsi-button {
-          margin-left: 8vw;
+          width: 85%;
           margin-top: 4vh;
         }
       }
@@ -55,40 +62,38 @@
 
       @media screen and (max-width: 800px) and (min-width: 500px){
         .title {
-          padding-left: 15vw;
+          width: 80%;
           font-size: 35px;
         }
 
         .content {
+          width: 80%;
           padding-top: 6vh;
-          padding-left: 15vw;
-          padding-right: 15vw;
           font-size: 20px;
           line-height: 1.5;
         }
 
         emsi-button {
-          margin-left: 15vw;
+          width: 80%;
           margin-top: 8vh;
         }
       }
 
       @media screen and (max-width: 500px) {
         .title {
-          padding-left: 8vw;
+          width: 70%;
           font-size: 22px;
         }
 
         .content {
+          width: 70%;
           padding-top: 3vh;
-          padding-left: 8vw;
-          padding-right: 8vw;
           font-size: 15px;
           line-height: 1.4;
         }
 
         emsi-button {
-          margin-left: 7vw;
+          width: 70%;
           margin-top: 5vh;
         }
       }
