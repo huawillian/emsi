@@ -58,27 +58,35 @@
 
 		<!-- dialog -->
 		<paper-dialog id="dialog" modal>
-		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
-		  <paper-dialog-scrollable>
-				<div class="contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5;font-family: MyriadProRegular;overflow-y: auto;height:60vh;padding:5pt;word-wrap: break-word;">
-					<template id='renderList' is="dom-repeat" items="[[data]]">
-						<div class="eventTitle" style="font-family: MyriadProSemibold;font-size: 15pt;padding-left: 80pt;padding-top: 20pt;margin-bottom: 20pt;color: rgba(0,0,0,0.6);"> {{item.title}} </div>
-						<div class="calender" style='height: 50pt;width: 50pt;background-color: rgb(230,230,230);border-radius: 5pt;margin-bottom: -50pt;left: 0;top: -50pt;position: relative;'>
-							<div class="calenderMonth" style="height: 20pt;width: 50pt;background-color: #236192;color: white;text-align: center;font-family: MyriadProSemibold;font-size: 12pt;border-radius: 5pt 5pt 0 0;padding-top: 5px;"> {{item.month}}  </div>
-							<div class="calenderDay" style="height: 30pt;width: 50pt;color: black;text-align: center;font-family: MyriadProSemibold;font-size: 25pt;letter-spacing: -2px;margin-top:-4px"> {{item.date}}  </div>
-						</div>
-						<div class="eventContent" style="font-family: MyriadProRegular;font-size: 13pt;padding-left: 80pt;color: rgba(0,0,0,0.6);word-wrap: break-word;line-height:1.1"> {{item.content}} </div>
+		  <div class="titleDialog"> {{title}} </div>
+		  <paper-dialog-scrollable class="contentDialog">
+					<template id='renderList' is="dom-repeat" items="[[hiddenData]]">
+						<table>
+							<tr>
+								<td>
+									<div class="calender">
+										<div class="calenderMonth"> {{item.month}}  </div>
+										<div class="calenderDay"> {{item.date}}  </div>
+									</div>
+								</td>
+								<td>
+									<div class="eventTitle"> {{item.title}} </div>
+								</td>
+							</tr>
+						</table>
+						<div class="eventContent"> {{item.content}} </div>
 					</template>
-				</div>
 		  </paper-dialog-scrollable>
-		   <emsi-button style="margin-top: 20pt;" color="blue" dialog-dismiss>
-				<template is="dom-if" if="[[isEnglish]]">
-					CLOSE
-				</template>
-				<template is="dom-if" if="[[!isEnglish]]">
-					? CHINESE CLOSE ?
-				</template>
-			</emsi-button>
+		  <div class="buttons">
+			  <emsi-button color="blue" dialog-dismiss>
+					<template is="dom-if" if="[[isEnglish]]">
+						CLOSE
+					</template>
+					<template is="dom-if" if="[[!isEnglish]]">
+						? CHINESE CLOSE ?
+					</template>
+				</emsi-button>
+		  </div>
 		</paper-dialog>
 
 	</template>
@@ -99,6 +107,10 @@
 						type: Array,
 						value: []
 					} ,
+					hiddenData: {
+						type: Array,
+						value: []
+					},
 					hasHiddenEvents: {
 						type: Boolean,
 						value: false
@@ -119,25 +131,21 @@
 					this.hasHiddenEvents = true;
 				} 
 
-				this.set("displayedData", []);
+				let display = [];
 
-				for(var i = 0; i < 3; i++) {
+				for(var i = 0; i < newValue.length; i++) {
 					if(newValue[i] == undefined) break;
 					var tempObj = {};
 					tempObj.title = newValue[i].title;
-					tempObj.content = newValue[i].content.slice(0,50);
-					tempObj.month = newValue[i].month;
+					tempObj.content = newValue[i].content;
+					tempObj.month = newValue[i].month.slice(0,3);
 					tempObj.date = newValue[i].date;
 
-					if(newValue[i].content.length > 75) {
-						tempObj.content += " . . ."
-					}
-
-					this.push("displayedData", tempObj);
-
+					display.push(tempObj);
 				}
 
-				// console.log(this.displayedData);
+				this.set("hiddenData", display);
+				this.set("displayedData", display.slice(0,3));
 			}
 
 			showMore() {

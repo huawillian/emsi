@@ -58,31 +58,29 @@
 
 		<!-- dialog -->
 		<paper-dialog id="dialog" modal>
-		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
-		  <paper-dialog-scrollable>
-				<div class="contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5;font-family: MyriadProRegular;overflow-y: auto;height:60vh;padding:5pt;word-wrap: break-word;width:80vw">
-					<div class="content" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5; font-family: MyriadProRegular;">
-						<template id='renderList' is="dom-repeat" items="[[hiddenData]]">
-							<div class="stafftitle" style="font-family: MyriadProSemibold; font-size: 16pt; padding-left: 0%; padding-top: 20pt;">{{item.title}}</div>
-							<div class="staffname" style="font-family: MyriadProRegular; font-size: 16pt;padding-left: 0%;">{{item.name}}</div>
-							<template is="dom-if" if="[[item.url]]">
-								<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}" style="width: 50pt;height: 50pt;right: -62%;border: 2px black;border-radius: 50%;top: -110pt;margin-bottom: -100pt;border: 3pt solid rgba(0,0,0,0.4);"></iron-image>
-							</template>
-							<template is="dom-if" if="[[!item.url]]">
-								<iron-image class="staffpic" sizing="cover" preload src="./src/images/user.png" style="width: 50pt;height: 50pt;right: -62%;border: 2px black;border-radius: 50%;top: -110pt;margin-bottom: -100pt;border: 3pt solid rgba(0,0,0,0.4);"></iron-image>
-							</template>
-						</template>
-					</div>
-				</div>
+		  <div class="titleDialog"> {{title}} </div>
+		  <paper-dialog-scrollable class="contentDialog">
+				<template id='renderList' is="dom-repeat" items="[[hiddenData]]">
+					<div class="stafftitle">{{item.title}}</div>
+					<div class="staffname">{{item.name}}</div>
+					<template is="dom-if" if="[[item.url]]">
+						<iron-image class="staffpic" sizing="cover" preload src="{{item.url}}"></iron-image>
+					</template>
+					<template is="dom-if" if="[[!item.url]]">
+						<iron-image class="staffpic" sizing="cover" preload src="./src/images/user.png"></iron-image>
+					</template>
+				</template>
 		  </paper-dialog-scrollable>
-		   <emsi-button style="margin-top: 20pt;" color="blue" dialog-dismiss>
-				<template is="dom-if" if="[[isEnglish]]">
-					CLOSE
-				</template>
-				<template is="dom-if" if="[[!isEnglish]]">
-					? CHINESE CLOSE ?
-				</template>
-			</emsi-button>
+      <div class="buttons">
+  		  <emsi-button color="blue" dialog-dismiss>
+  				<template is="dom-if" if="[[isEnglish]]">
+  					CLOSE
+  				</template>
+  				<template is="dom-if" if="[[!isEnglish]]">
+  					? CHINESE CLOSE ?
+  				</template>
+  			</emsi-button>
+      </div>
 		</paper-dialog>
 	</template>
 

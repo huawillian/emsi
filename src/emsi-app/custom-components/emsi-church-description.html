@@ -47,18 +47,18 @@
 		<!-- dialog -->
 		<paper-dialog id="dialog" modal>
 		  <div class="titleDialog"> {{title}} </div>
-		  <paper-dialog-scrollable>
-			<div class="contentDialog">
-			</div>
+		  <paper-dialog-scrollable class="contentDialog">
 		  </paper-dialog-scrollable>
-		   <emsi-button style="margin-top: 20pt;" color="blue" dialog-dismiss>
-				<template is="dom-if" if="[[isEnglish]]">
-					CLOSE
-				</template>
-				<template is="dom-if" if="[[!isEnglish]]">
-					? CHINESE CLOSE ?
-				</template>
-			</emsi-button>
+		  <div class="buttons">
+			  <emsi-button color="blue" dialog-dismiss>
+					<template is="dom-if" if="[[isEnglish]]">
+						CLOSE
+					</template>
+					<template is="dom-if" if="[[!isEnglish]]">
+						? CHINESE CLOSE ?
+					</template>
+				</emsi-button>
+		  </div>
 		</paper-dialog>
 	</template>
 

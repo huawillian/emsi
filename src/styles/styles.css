@@ -27,6 +27,14 @@ body {
 paper-dialog {
   width: 80vw;
   padding: 20pt;
+  max-width: 800px;
+}
+
+@media screen and (max-width: 500px) {
+  paper-dialog {
+    margin: 0;
+    width: 90vw;
+  }
 }
 
 paper-dialog .buttons {
@@ -44,7 +52,6 @@ paper-dialog .contentDialog {
   line-height: 1.5;
   font-family: MyriadProRegular;
   overflow-y: auto;
-  padding:5pt;
   word-wrap: break-word;
 }
 
@@ -78,4 +85,91 @@ paper-dialog paper-listbox {
 paper-dialog paper-item:hover{
   background-color: rgba(0,0,0,0.2);
   cursor: pointer;
+}
+
+paper-dialog  #serviceTitle {
+  font-size: 12pt;
+  color: rgba(0,0,0,0.6);
+  font-family: MyriadProSemibold;
+  padding-top: 5px;
+}
+
+paper-dialog #serviceContainer {
+  font-size: 11pt;
+  color: rgba(0,0,0,0.6);
+  font-family: MyriadProRegular;
+  width:100%;
+  text-align: left;
+  padding-bottom: 0px;
+  table-layout: fixed;
+}
+
+paper-dialog .staffpic {
+  width: 50pt;
+  height: 50pt;
+  right: -80%;
+  border: 2px black;
+  border-radius: 50%;
+  top: -110pt;
+  margin-bottom: -100pt;
+  border: 3pt solid rgba(0,0,0,0.4);
+}
+
+paper-dialog .staffname {
+  font-family: MyriadProRegular;
+  font-size: 16pt;
+  padding-left: 0%;
+}
+
+paper-dialog .stafftitle {
+  font-family: MyriadProSemibold;
+  font-size: 16pt;
+  padding-left: 0%;
+  padding-top: 20pt;
+}
+
+paper-dialog .eventTitle {
+  font-family: MyriadProSemibold;
+  font-size: 15pt;
+  color: rgba(0,0,0,0.6);
+  margin-left: 20pt;
+}
+
+paper-dialog .calender {
+  height: 50pt;
+  width: 50pt;
+  background-color: rgb(230,230,230);
+  border-radius: 5pt;
+}
+
+paper-dialog .calenderMonth {
+  height: 20pt;
+  width: 50pt;
+  background-color: #236192;
+  color: white;
+  text-align: center;
+  font-family: MyriadProSemibold;
+  font-size: 12pt;
+  border-radius: 5pt 5pt 0 0;
+  padding-top: 5px;
+}
+
+paper-dialog .calenderDay {
+  height: 30pt;
+  width: 50pt;
+  color: black;
+  text-align: center;
+  font-family: MyriadProSemibold;
+  font-size: 25pt;
+  letter-spacing: -2px;
+  margin-top:-4px
+}
+
+paper-dialog .eventContent {
+  font-family: MyriadProRegular;
+  font-size: 13pt;
+  padding: 10pt 0 20pt 10pt;
+  color: rgba(0,0,0,0.6);
+  word-break: break-all;
+  line-height:1.1;
 }

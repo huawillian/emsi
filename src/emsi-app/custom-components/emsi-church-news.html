@@ -57,9 +57,8 @@
 
 		<!-- dialog -->
 		<paper-dialog id="dialog" modal>
-		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
-		  <paper-dialog-scrollable>
-			<div class="contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5;font-family: MyriadProRegular;overflow-y: auto;height:60vh;padding:5pt;word-wrap: break-word;">
+		  <div class="titleDialog"> {{title}} </div>
+		  <paper-dialog-scrollable class="contentDialog">
 				<ul>
 					<template id='renderList' is="dom-repeat" items="[[data]]">
 						<li>
@@ -67,16 +66,17 @@
 						</li>
 					</template>
 				</ul>
-			</div>
 		  </paper-dialog-scrollable>
-		   <emsi-button style="margin-top: 20pt;" color="blue" dialog-dismiss>
-				<template is="dom-if" if="[[isEnglish]]">
-					CLOSE
-				</template>
-				<template is="dom-if" if="[[!isEnglish]]">
-					? CHINESE CLOSE ?
-				</template>
-			</emsi-button>
+		  <div>
+			  <emsi-button color="blue" dialog-dismiss>
+					<template is="dom-if" if="[[isEnglish]]">
+						CLOSE
+					</template>
+					<template is="dom-if" if="[[!isEnglish]]">
+						? CHINESE CLOSE ?
+					</template>
+				</emsi-button>
+		  </div>
 		</paper-dialog>
 	</template>
 	<script>

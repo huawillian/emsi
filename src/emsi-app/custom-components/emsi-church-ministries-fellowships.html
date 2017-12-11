@@ -64,12 +64,11 @@
 
 		<!-- dialog -->
 		<paper-dialog id="dialog" modal>
-		  <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> {{title}} </div>
-		  <paper-dialog-scrollable>
-			<div class="contentDialog" style="color: rgba(0,0,0,0.6); font-size: 12pt; line-height: 1.5;font-family: MyriadProRegular;overflow-y: auto;height:60vh;padding:5pt;word-wrap: break-word;">
+		  <div class="titleDialog"> {{title}} </div>
+		  <paper-dialog-scrollable class="contentDialog">
 				<template is="dom-repeat" items="[[data]]" as="section">
-					<div id="serviceTitle" style="font-size: 12pt; color: rgba(0,0,0,0.6); font-family: MyriadProSemibold; padding-top: 5px;"> {{section.language}} </div>
-					<table id="serviceContainer" style="font-size: 11pt; color: rgba(0,0,0,0.6); font-family: MyriadProRegular; width:100%; text-align: left; padding-bottom: 0px;table-layout: fixed;">
+					<div id="serviceTitle"> {{section.language}} </div>
+					<table id="serviceContainer">
 						<template is="dom-repeat" items="[[section.list]]" as="item">
 							<tr>
 								<td style="width: 50%;">{{item.name}}</td> 
@@ -78,17 +77,17 @@
 						</template>
 					</table>
 				</template>
-
-			</div>
 		  </paper-dialog-scrollable>
-		   <emsi-button style="margin-top: 20pt;" color="blue" dialog-dismiss>
-				<template is="dom-if" if="[[isEnglish]]">
-					CLOSE
-				</template>
-				<template is="dom-if" if="[[!isEnglish]]">
-					? CHINESE CLOSE ?
-				</template>
-			</emsi-button>
+		  <div class="buttons">
+			  <emsi-button color="blue" dialog-dismiss>
+					<template is="dom-if" if="[[isEnglish]]">
+						CLOSE
+					</template>
+					<template is="dom-if" if="[[!isEnglish]]">
+						? CHINESE CLOSE ?
+					</template>
+				</emsi-button>
+		  </div>
 		</paper-dialog>
 
 		
