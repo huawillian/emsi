@@ -8,6 +8,10 @@
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
+<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/neon-animation/web-animations.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -64,8 +68,20 @@
       <div class="titleDialog"> Edit Events </div>
       <paper-dialog-scrollable class="contentDialog">
         <paper-input id="eventstitleInputEdit" label="Event Title" value="[[selectedValue.title]]"> </paper-input>
-        <paper-input id="eventsmonthInputEdit" label="Event Month" value="[[selectedValue.month]]"> </paper-input>
-        <paper-input id="eventsdateInputEdit" label="Event Date (1-31)" value="[[selectedValue.date]]"> </paper-input>
+        <paper-dropdown-menu-light id="eventsmonthInputEdit" label="Select Month">
+          <paper-listbox id="monthsEditList" slot="dropdown-content" selected="0">
+            <template is="dom-repeat" items="{{months}}">
+              <paper-item> {{item}} </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu-light>
+        <paper-dropdown-menu-light id="eventsdateInputEdit" label="Select Date">
+          <paper-listbox id="datesEditList" slot="dropdown-content" selected="0">
+            <template is="dom-repeat" items="{{dates}}">
+              <paper-item> {{item}} </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu-light>
         <paper-input id="eventscontentInputEdit" label="Event Content" value="[[selectedValue.content]]"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
@@ -78,8 +94,20 @@
       <div class="titleDialog"> Add Events </div>
       <paper-dialog-scrollable class="contentDialog">
         <paper-input id="eventstitleInputAdd" label="Event Title"> </paper-input>
-        <paper-input id="eventsmonthInputAdd" label="Event Month"> </paper-input>
-        <paper-input id="eventsdateInputAdd" label="Event Date"> </paper-input>
+        <paper-dropdown-menu-light id="eventsmonthInputAdd" label="Select Month">
+          <paper-listbox slot="dropdown-content" selected="0">
+            <template is="dom-repeat" items="{{months}}">
+              <paper-item> {{item}} </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu-light>
+        <paper-dropdown-menu-light id="eventsdateInputAdd" label="Select Date">
+          <paper-listbox slot="dropdown-content" selected="0">
+            <template is="dom-repeat" items="{{dates}}">
+              <paper-item> {{item}} </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu-light>
         <paper-input id="eventscontentInputAdd" label="Event Content"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
@@ -100,7 +128,15 @@
           selectedField: String,
           selectedIndex: String,
           selectedIndex2: String,
-          selectedValue: String
+          selectedValue: String,
+          months: {
+            type: Array,
+            value: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+          },
+          dates: {
+            type: Array,
+            value: "1".repeat(31).split("").map((v, i) => i + 1)
+          },
         };
       }
 
@@ -189,6 +225,11 @@
         let body = document.querySelector('body');
         Polymer.dom(body).appendChild(this.$[dialogId]);
         this.$[dialogId].open();
+
+        if(attr === "events") {
+          this.$.monthsEditList.selected = this.months.findIndex(m => m == this.selectedValue.month);
+          this.$.datesEditList.selected = this.dates.findIndex(d => d == this.selectedValue.date);
+        }
       }
 
       saveHandler() {
@@ -199,8 +240,8 @@
         } else if(this.selectedField === "events") {
           val = {};
           val.title = this.$[this.selectedField + "title" + "InputEdit"].value;
-          val.month = this.$[this.selectedField + "month" + "InputEdit"].value;
-          val.date = this.$[this.selectedField + "date" + "InputEdit"].value;
+          val.month = this.$[this.selectedField + "month" + "InputEdit"].selectedItem.innerText.trim();
+          val.date = this.$[this.selectedField + "date" + "InputEdit"].selectedItem.innerText.trim();
           val.content = this.$[this.selectedField + "content" + "InputEdit"].value;
         } else if(this.selectedField === "time") {
           val = {};
@@ -221,8 +262,8 @@
         } else if(this.selectedField === "events") {
           val = {};
           val.title = this.$[this.selectedField + "title" + "InputAdd"].value;
-          val.month = this.$[this.selectedField + "month" + "InputAdd"].value;
-          val.date = this.$[this.selectedField + "date" + "InputAdd"].value;
+          val.month = this.$[this.selectedField + "month" + "InputAdd"].selectedItem.innerText.trim();
+          val.date = this.$[this.selectedField + "date" + "InputAdd"].selectedItem.innerText.trim();
           val.content = this.$[this.selectedField + "content" + "InputAdd"].value;
         } else if(this.selectedField === "time") {
           val = {};
