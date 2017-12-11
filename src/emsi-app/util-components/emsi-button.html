@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-ripple/paper-ripple.html">
 
 <dom-module id="emsi-button">
 	<template>
@@ -7,18 +8,36 @@
 			:host {
 				display: block;
 			}
-			paper-button {
+
+			.btn {
 				background-color: #857874;
 				color: white;
 				border: 2px solid rgba(255, 255, 255, 0.5);
 				border-radius: 5px;
 				font-size: 11pt;
 				padding: 15px 40px 15px 40px;
+				width: inherit;
+				min-width: 50px;
+				max-width: 200px;
+				box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.5);
+				position: relative;
+			}
+
+			.btnContent {
+				margin: auto;
+				text-align: center;
+			}
+
+			.btn:hover {
+				cursor: pointer;
 			}
 		</style>
-		<paper-button raised style$="background-color: {{myBackgroundColor}}; border: {{myBorder}}">
-			<slot> </slot> 
-		</paper-button>
+			<div class="btn" style$="background-color: {{myBackgroundColor}}; border: {{myBorder}}; max-width:{{myMaxWidth}}">
+				<div class="btnContent">
+					<slot> </slot> 
+				</div>
+				<paper-ripple> </paper-ripple>
+			</div>
 	</template>
 	<script>
 		class EMSIButton extends Polymer.Element {
@@ -36,7 +55,11 @@
 						observer: "colorChanged"
 					} ,
 					myBackgroundColor: String,
-					myBorder: String
+					myBorder: String,
+					myMaxWidth: {
+						type: String,
+						value: "200px"
+					}
 				}; 
 			}
 

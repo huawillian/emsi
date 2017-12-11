@@ -32,22 +32,24 @@
 				  	</tr>
 				</template>
 			</table>
-			<emsi-button color="blue" on-tap="goToGoogleMaps">
-				<template is="dom-if" if="[[isEnglish]]">
-					GET DIRECTIONS
-				</template>
-				<template is="dom-if" if="[[!isEnglish]]">
-					? CHINESE DIRECTIONS ?
-				</template>
-			</emsi-button>
-			<emsi-button color="blue" on-tap="openEmail">
-				<template is="dom-if" if="[[isEnglish]]">
-					CONTACT US
-				</template>
-				<template is="dom-if" if="[[!isEnglish]]">
-					? CHINESE CONTACT ?
-				</template>
-			</emsi-button>
+			<div class="actionContainer">
+				<emsi-button class="actionBtn" color="blue" on-tap="goToGoogleMaps">
+					<template is="dom-if" if="[[isEnglish]]">
+						GET DIRECTIONS
+					</template>
+					<template is="dom-if" if="[[!isEnglish]]">
+						? CHINESE DIRECTIONS ?
+					</template>
+				</emsi-button>
+				<emsi-button class="actionBtn" color="blue" on-tap="openEmail">
+					<template is="dom-if" if="[[isEnglish]]">
+						CONTACT US
+					</template>
+					<template is="dom-if" if="[[!isEnglish]]">
+						? CHINESE CONTACT ?
+					</template>
+				</emsi-button>
+			</div>
 		</div>
 
 		<iron-media-query query="(min-width: 800px)" query-matches="{{isTwoColumns}}"></iron-media-query>

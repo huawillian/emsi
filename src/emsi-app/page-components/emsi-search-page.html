@@ -30,7 +30,7 @@
 					<div style="padding:10pt" id="addressBoxC"> 
 						<paper-input id="addressBox" placeholder="Enter Address Here"></paper-input>
 					</div>
-					<div raised id="searchButton" on-tap="startSearchByAddress"> FIND A LOCATION </div>
+					<emsi-button id="searchButton" color="blue" on-tap="startSearchByAddress" my-max-width="500px"> FIND A LOCATION </emsi-button>
 					<div id="locationButton" on-tap="getLocation"> Or, use your current location </div>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 					Results
 				</div>
 				<template is="dom-if" if="{{!isSearching}}">
-					<div raised id="returnToSearchButton" on-tap="toggleShowSearchResults"> START ANOTHER SEARCH </div>
+					<emsi-button id="returnToSearchButton" color="blue" on-tap="toggleShowSearchResults" my-max-width="1000px"> START ANOTHER SEARCH </emsi-button>
 				</template>
 				<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]" as="details">
         	<emsi-church-details-card class="addrFinderCard" data="{{details}}" lang="{{lang}}" user-distance-text="{{details.distance}}"> </emsi-church-details-card>
