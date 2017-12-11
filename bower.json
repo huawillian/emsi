@@ -42,6 +42,8 @@
   "resolutions": {
     "polymer": "^2.0.0",
     "webcomponentsjs": "^v1.0.2",
-    "iron-selector": "^2.0.0"
+    "iron-selector": "^2.0.0",
+    "iron-behaviors": "^v2.0.0",
+    "iron-flex-layout": "^v2.0.0"
   }
 }

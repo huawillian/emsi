@@ -12,189 +12,203 @@
 				width: 100%;
 				z-index: 0;
 			}
-			div {
-				margin-bottom: 10pt;
-			}
+
 			.divHeader {
 				font-weight: bold;
 				text-decoration: underline;
 				margin-top: 20pt;
+			}
+
+			.chip {
+		    background-color: rgb(171, 159, 155);
+		    color: white;
+		    border-radius: 20pt;
+		    display: inline;
+		    padding: 5pt 20pt;
+		    margin: 5pt;
+		    line-height: 2.5em;
+		    white-space: nowrap;
+			}
+
+			.chip:hover {
+				cursor: pointer;
+				background-color: rgb(130, 119, 116);
 			}
 		</style>
 		<template is="dom-if" if="[[isEnglish]]">
 			<emsi-template-page title="Courses" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
 				<div class="divHeader"> Basic Bible Courses </div>
 
-				<div> Old Testament Survey  </div>
-				<div> New Testament Survey  </div>
-				<div> Life of Christ  </div>
-				<div> Gospel of Matthew  </div>
-				<div> Doctrine of Salvation  </div>
-				<div> Book of Romans  </div>
-				<div> Book of Hebrews  </div>
-				<div> Basic Doctrines  </div>
-				<div> Anthropology  </div>
-				<div> Systematic Theology I  </div>
-				<div> Systematic Theology II  </div>
-				<div> Personal Evangelism  </div>
-				<div> Church History  </div>
-				<div> General Epistles  </div>
-				<div> Gospel of John  </div>
-				<div> Pentateuch  </div>
-				<div> How To Lead a Bible Study </div>
+				<div class="chip"> Old Testament Survey  </div>
+				<div class="chip"> New Testament Survey  </div>
+				<div class="chip"> Life of Christ  </div>
+				<div class="chip"> Gospel of Matthew  </div>
+				<div class="chip"> Doctrine of Salvation  </div>
+				<div class="chip"> Book of Romans  </div>
+				<div class="chip"> Book of Hebrews  </div>
+				<div class="chip"> Basic Doctrines  </div>
+				<div class="chip"> Anthropology  </div>
+				<div class="chip"> Systematic Theology I  </div>
+				<div class="chip"> Systematic Theology II  </div>
+				<div class="chip"> Personal Evangelism  </div>
+				<div class="chip"> Church History  </div>
+				<div class="chip"> General Epistles  </div>
+				<div class="chip"> Gospel of John  </div>
+				<div class="chip"> Pentateuch  </div>
+				<div class="chip"> How To Lead a Bible Study </div>
 
 				<div class="divHeader"> Elective Courses </div>
 
-				<div> Children, Youth & Adult Christian Education  </div>
-				<div> Introduction to Christian Education  </div>
-				<div> History of Religious Education  </div>
-				<div> Educational Psychology  </div>
-				<div> Field Studies  </div>
-				<div> Microteaching  </div>
-				<div> Counseling Techniques  </div>
-				<div> Biblical Psychology  </div>
-				<div> Contemporary Psychology  </div>
-				<div> Music Theory  </div>
-				<div> Music History  </div>
-				<div> Church Music  </div>
-				<div> Basic Piano Techniques  </div>
-				<div> Choral Conducting  </div>
-				<div> Chorus  </div>
-				<div> Computer  </div>
-				<div> Vocal  </div>
-				<div> Piano </div>
+				<div class="chip"> Introduction to Christian Education  </div>
+				<div class="chip"> For Children, Youth, and Adult </div>
+				<div class="chip"> History of Religious Education  </div>
+				<div class="chip"> Educational Psychology  </div>
+				<div class="chip"> Field Studies  </div>
+				<div class="chip"> Microteaching  </div>
+				<div class="chip"> Counseling Techniques  </div>
+				<div class="chip"> Biblical Psychology  </div>
+				<div class="chip"> Contemporary Psychology  </div>
+				<div class="chip"> Music Theory  </div>
+				<div class="chip"> Music History  </div>
+				<div class="chip"> Church Music  </div>
+				<div class="chip"> Basic Piano Techniques  </div>
+				<div class="chip"> Choral Conducting  </div>
+				<div class="chip"> Chorus  </div>
+				<div class="chip"> Computer  </div>
+				<div class="chip"> Vocal  </div>
+				<div class="chip"> Piano </div>
 
 				<div class="divHeader"> Advance Bible Courses</div>
 
-				<div> Minor Prophets </div>
-				<div> Hebrew I </div>
-				<div> Hebrew II </div>
-				<div> Greek I </div>
-				<div> Greek II </div>
-				<div> Contemporary Theology </div>
-				<div> Bible and Science </div>
-				<div> Hermeneutics </div>
-				<div> Eschatology </div>
-				<div> Homiletics </div>
-				<div> Christian Ethics </div>
-				<div> Major Prophets </div>
-				<div> Acts of the Apostles </div>
-				<div> Pastoral Epistles </div>
-				<div> Prison Epistles </div>
-				<div> Introduction to Bible </div>
-				<div> Christian Evidences </div>
-				<div> Biblical Archaeology </div>
-				<div> I & II Samuel </div>
-				<div> Psalms </div>
-				<div> Cults and Religions </div>
-				<div> Educational Ministry </div>
-				<div> Daniel </div>
-				<div> Ezekiel </div>
-				<div> Isaiah (6)</div>
-				<div> Revelation </div>
-				<div> Old Testament Poetical Books </div>
-				<div> I & II Kings </div>
-				<div> Christian Philosophy </div>
-				<div> Book of Joshua </div>
-				<div> Apologetics </div>
-				<div> Missionlogy </div>
-				<div> Biblical Prophecy </div>
-				<div> Pastoral Care </div>
-				<div> Genesis </div>
-				<div> Creationism </div>
-				<div> Pneumatology </div>
-				<div> Christology </div>
-				<div> Biblical Geography </div>
-				<div> Biblical Logic </div>
-				<div> King James Bible Defense</div>
+				<div class="chip"> Minor Prophets </div>
+				<div class="chip"> Hebrew I </div>
+				<div class="chip"> Hebrew II </div>
+				<div class="chip"> Greek I </div>
+				<div class="chip"> Greek II </div>
+				<div class="chip"> Contemporary Theology </div>
+				<div class="chip"> Bible and Science </div>
+				<div class="chip"> Hermeneutics </div>
+				<div class="chip"> Eschatology </div>
+				<div class="chip"> Homiletics </div>
+				<div class="chip"> Christian Ethics </div>
+				<div class="chip"> Major Prophets </div>
+				<div class="chip"> Acts of the Apostles </div>
+				<div class="chip"> Pastoral Epistles </div>
+				<div class="chip"> Prison Epistles </div>
+				<div class="chip"> Introduction to Bible </div>
+				<div class="chip"> Christian Evidences </div>
+				<div class="chip"> Biblical Archaeology </div>
+				<div class="chip"> I & II Samuel </div>
+				<div class="chip"> Psalms </div>
+				<div class="chip"> Cults and Religions </div>
+				<div class="chip"> Educational Ministry </div>
+				<div class="chip"> Daniel </div>
+				<div class="chip"> Ezekiel </div>
+				<div class="chip"> Isaiah (6)</div>
+				<div class="chip"> Revelation </div>
+				<div class="chip"> Old Testament Poetical Books </div>
+				<div class="chip"> I & II Kings </div>
+				<div class="chip"> Christian Philosophy </div>
+				<div class="chip"> Book of Joshua </div>
+				<div class="chip"> Apologetics </div>
+				<div class="chip"> Missionlogy </div>
+				<div class="chip"> Biblical Prophecy </div>
+				<div class="chip"> Pastoral Care </div>
+				<div class="chip"> Genesis </div>
+				<div class="chip"> Creationism </div>
+				<div class="chip"> Pneumatology </div>
+				<div class="chip"> Christology </div>
+				<div class="chip"> Biblical Geography </div>
+				<div class="chip"> Biblical Logic </div>
+				<div class="chip"> King James Bible Defense</div>
 			</emsi-template-page>
     </template>   		
 	  <template is="dom-if" if="[[!isEnglish]]">
 	  	<emsi-template-page title="課程" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
 				<div class="divHeader"> 基要聖經課程 </div>
 
-				<div> 舊約綜覽 </div>
-				<div> 新約綜覽 </div>
-				<div> 基督生平 </div>
-				<div> 馬太福音 </div>
-				<div> 救恩論 </div>
-				<div> 羅馬書 </div>
-				<div> 希伯來書 </div>
-				<div> 基要信仰 </div>
-				<div> 人類學 </div>
-				<div> 系統神學Ι  </div>
-				<div> 系統神學Ⅱ </div>
-				<div> 個人佈道法 </div>
-				<div> 教會歷史 </div>
-				<div> 普通書信 </div>
-				<div> 約翰福音 </div>
-				<div> 摩西五經 </div>
-				<div> 如何帶領小組查經 </div>
+				<div class="chip"> 舊約綜覽 </div>
+				<div class="chip"> 新約綜覽 </div>
+				<div class="chip"> 基督生平 </div>
+				<div class="chip"> 馬太福音 </div>
+				<div class="chip"> 救恩論 </div>
+				<div class="chip"> 羅馬書 </div>
+				<div class="chip"> 希伯來書 </div>
+				<div class="chip"> 基要信仰 </div>
+				<div class="chip"> 人類學 </div>
+				<div class="chip"> 系統神學Ι  </div>
+				<div class="chip"> 系統神學Ⅱ </div>
+				<div class="chip"> 個人佈道法 </div>
+				<div class="chip"> 教會歷史 </div>
+				<div class="chip"> 普通書信 </div>
+				<div class="chip"> 約翰福音 </div>
+				<div class="chip"> 摩西五經 </div>
+				<div class="chip"> 如何帶領小組查經 </div>
 
 				<div class="divHeader"> 選修課程 </div>
 
-				<div> 兒童、青少年與成人教育 </div>
-				<div> 基督教教育概論 </div>
-				<div> 宗教教育史 </div>
-				<div> 教育心理學 </div>
-				<div> 工場實習研究 </div>
-				<div> 顯微教學法 </div>
-				<div> 輔導的技巧 </div>
-				<div> 聖經心理學 </div>
-				<div> 現代心理學 </div>
-				<div> 樂 理 </div>
-				<div> 音樂史 </div>
-				<div> 教會音樂 </div>
-				<div> 基礎司琴法 </div>
-				<div> 詩班指揮 </div>
-				<div> 合唱 </div>
-				<div> 電腦 </div>
-				<div> 聲樂 </div>
-				<div> 鋼琴 </div>
+				<div class="chip"> 兒童、青少年與成人教育 </div>
+				<div class="chip"> 基督教教育概論 </div>
+				<div class="chip"> 宗教教育史 </div>
+				<div class="chip"> 教育心理學 </div>
+				<div class="chip"> 工場實習研究 </div>
+				<div class="chip"> 顯微教學法 </div>
+				<div class="chip"> 輔導的技巧 </div>
+				<div class="chip"> 聖經心理學 </div>
+				<div class="chip"> 現代心理學 </div>
+				<div class="chip"> 樂 理 </div>
+				<div class="chip"> 音樂史 </div>
+				<div class="chip"> 教會音樂 </div>
+				<div class="chip"> 基礎司琴法 </div>
+				<div class="chip"> 詩班指揮 </div>
+				<div class="chip"> 合唱 </div>
+				<div class="chip"> 電腦 </div>
+				<div class="chip"> 聲樂 </div>
+				<div class="chip"> 鋼琴 </div>
 
 				<div class="divHeader"> 進階聖經課程 </div>
 
-				<div> 小先知書 </div>
-				<div> 希伯來文Ⅰ </div>
-				<div> 希伯來文Ⅱ </div>
-				<div> 希臘文Ⅰ </div>
-				<div> 希臘文Ⅱ </div>
-				<div> 當代神學 </div>
-				<div> 聖經與科學 </div>
-				<div> 釋經學 </div>
-				<div> 末世論 </div>
-				<div> 講道學 </div>
-				<div> 基督教倫理學 </div>
-				<div> 大先知書 </div>
-				<div> 使徒行傳 </div>
-				<div> 教牧書信 </div>
-				<div> 監獄書信 </div>
-				<div> 聖經概論 </div>
-				<div> 基督教證據學 </div>
-				<div> 聖經考古學 </div>
-				<div> 撒母耳記上下 </div>
-				<div> 詩 篇 </div>
-				<div> 異端學 </div>
-				<div> 教育事工研究 </div>
-				<div> 但以理書 </div>
-				<div> 以西結書 </div>
-				<div> 以賽亞書(6) </div>
-				<div> 啟示錄 </div>
-				<div> 舊約詩歌書 </div>
-				<div> 列王記上下 </div>
-				<div> 基督教哲學 </div>
-				<div> 約書亞記 </div>
-				<div> 護教學 </div>
-				<div> 宣教學 </div>
-				<div> 聖經預言 </div>
-				<div> 教牧關懷 </div>
-				<div> 創世記 </div>
-				<div> 創世論 </div>
-				<div> 聖靈論 </div>
-				<div> 基督論 </div>
-				<div> 聖經地理 </div>
-				<div> 聖經羅輯學 </div>
-				<div> 欽定本聖經維護 </div>
+				<div class="chip"> 小先知書 </div>
+				<div class="chip"> 希伯來文Ⅰ </div>
+				<div class="chip"> 希伯來文Ⅱ </div>
+				<div class="chip"> 希臘文Ⅰ </div>
+				<div class="chip"> 希臘文Ⅱ </div>
+				<div class="chip"> 當代神學 </div>
+				<div class="chip"> 聖經與科學 </div>
+				<div class="chip"> 釋經學 </div>
+				<div class="chip"> 末世論 </div>
+				<div class="chip"> 講道學 </div>
+				<div class="chip"> 基督教倫理學 </div>
+				<div class="chip"> 大先知書 </div>
+				<div class="chip"> 使徒行傳 </div>
+				<div class="chip"> 教牧書信 </div>
+				<div class="chip"> 監獄書信 </div>
+				<div class="chip"> 聖經概論 </div>
+				<div class="chip"> 基督教證據學 </div>
+				<div class="chip"> 聖經考古學 </div>
+				<div class="chip"> 撒母耳記上下 </div>
+				<div class="chip"> 詩 篇 </div>
+				<div class="chip"> 異端學 </div>
+				<div class="chip"> 教育事工研究 </div>
+				<div class="chip"> 但以理書 </div>
+				<div class="chip"> 以西結書 </div>
+				<div class="chip"> 以賽亞書(6) </div>
+				<div class="chip"> 啟示錄 </div>
+				<div class="chip"> 舊約詩歌書 </div>
+				<div class="chip"> 列王記上下 </div>
+				<div class="chip"> 基督教哲學 </div>
+				<div class="chip"> 約書亞記 </div>
+				<div class="chip"> 護教學 </div>
+				<div class="chip"> 宣教學 </div>
+				<div class="chip"> 聖經預言 </div>
+				<div class="chip"> 教牧關懷 </div>
+				<div class="chip"> 創世記 </div>
+				<div class="chip"> 創世論 </div>
+				<div class="chip"> 聖靈論 </div>
+				<div class="chip"> 基督論 </div>
+				<div class="chip"> 聖經地理 </div>
+				<div class="chip"> 聖經羅輯學 </div>
+				<div class="chip"> 欽定本聖經維護 </div>
 			</emsi-template-page>
 		</template>
 	</template>
