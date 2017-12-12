@@ -2,7 +2,6 @@
 
 <!-- custom elements -->
 <link rel="import" href="emsi-button.html">
-<link rel="import" href="emsi-firebase-document.html">
 
 <!-- custom styles -->
 <link rel="import" href="../../styles/homepage-content-styles.html">
@@ -12,10 +11,10 @@
 		<style include="homepage-content-styles">	</style>
 		<div class="container">
 			<div class="title">
-				<emsi-firebase-document my-path="{{titlePath}}" lang="{{lang}}" display> </emsi-firebase-document>
+				<slot name="title"> </slot>
 			</div>
 			<div class="content">
-				<emsi-firebase-document my-path="{{contentPath}}" lang="{{lang}}" display> </emsi-firebase-document>
+				<slot name="content"> </slot>
 			</div>
 			<template is="dom-if" if="[[isEnglish]]">
 				<emsi-button color="brown" on-tap="changeRoute">
@@ -38,18 +37,8 @@
 
 			static get properties() { 
 				return {
-					sectionPath: {
-						type: String,
-						observer: "sectionPathChanged"
-					},
-					titlePath: String,
-					contentPath: String,
+					title: String
 				};
-			}
-
-			sectionPathChanged(newValue, oldValue) {
-				this.titlePath = newValue + "/title";
-				this.contentPath = newValue + "/text";
 			}
 
 			changeRoute() {

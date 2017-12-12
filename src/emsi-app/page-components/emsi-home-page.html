@@ -15,21 +15,64 @@
 		<emsi-homepage-landingscreen lang="{{lang}}"> </emsi-homepage-landingscreen>
 		<emsi-homepage-bibleverse lang="{{lang}}"> </emsi-homepage-bibleverse>
 	  <div class="container">
-	  	<emsi-homepage-content class="containerItem s1" section-path="home/sections/0" lang="{{lang}}" title="ABOUT US"> </emsi-homepage-content>
+	  	<emsi-homepage-content class="containerItem s1" lang="{{lang}}" title="ABOUT US"> 
+        <template is="dom-if" if="[[isEnglish]]">
+          <span slot="title"> ABOUT US </span>
+          <span slot="content"> Headquartered in Towaco, New Jersey U.S.A (36 Alpine Road, Towaco, NJ 07082). EMSI was founded by Pastor Moses Yang. EMSI has branches in 4 continents: Europe, North America, Asia, and Africa. EMSI is made up of the following organizations - Evangelical Bible Institute, Christian Evangelical Mission, and Christian Evangelical Overseas Outreach. </span>
+        </template>
+        <template is="dom-if" if="[[!isEnglish]]">
+          <span slot="title"> ? about us title in chinese ? </span>
+          <span slot="content"> ? about us text in chinese ? </span>
+        </template>
+      </emsi-homepage-content>
 	  	<emsi-homepage-picture class="containerItem s2" image-url="https://github.com/huawillian/emsi/raw/master/src/images/AboutUs_ImageSquare.jpg"> </emsi-homepage-picture>
   		<emsi-homepage-picture class="containerItem s3" image-url="https://github.com/huawillian/emsi/raw/master/src/images/Locations2Square.jpg"> </emsi-homepage-picture>
-  		<emsi-homepage-content class="containerItem s4" section-path="home/sections/1" lang="{{lang}}" title="LOCATIONS"> </emsi-homepage-content>
-  		<emsi-homepage-content class="containerItem s5" section-path="home/sections/2" lang="{{lang}}" title="MISSIONS"> </emsi-homepage-content>
+  		<emsi-homepage-content class="containerItem s4" lang="{{lang}}" title="LOCATIONS">
+        <template is="dom-if" if="[[isEnglish]]">
+          <span slot="title"> LOCATIONS </span>
+          <span slot="content"> CEM is comprised of CEM America, CEM Europe, and CEM Africa. The primary mission is to establish churches, shepherd the flock, and to plant new churches. CEM has 9 churches in the eastern United States, 5 in the western United States, 4 in Belgium, 1 in France, 12 in the Netherlands, 4 in Portugal, 2 in Italy, 1 in Hungary, 3 in South Africa, 3 in Japan, 1 in Taipei Taiwan, and 8 in Spain for a total of 53 churches. </span>
+        </template>
+        <template is="dom-if" if="[[!isEnglish]]">
+          <span slot="title"> ? locations title in chinese ? </span>
+          <span slot="content"> ? locations text in chinese ? </span>
+        </template>  
+      </emsi-homepage-content>
+  		<emsi-homepage-content class="containerItem s5" lang="{{lang}}" title="MISSIONS">
+        <template is="dom-if" if="[[isEnglish]]">
+          <span slot="title"> MISSIONS </span>
+          <span slot="content"> In accordance with the teachings of the Bible our mission is to preach the Gospel; to establish churches; to win souls to Christ, and to train full-time missionaries. Through missions work, we seek to help Church members grow spiritually and to love the Lord fervently, so that all may bring the Gospel to all the world! </span>
+        </template>
+        <template is="dom-if" if="[[!isEnglish]]">
+          <span slot="title"> ? missions title in chinese ? </span>
+          <span slot="content"> ? missions text in chinese ? </span>
+        </template> 
+      </emsi-homepage-content>
   		<emsi-homepage-picture class="containerItem s6" image-url="https://github.com/huawillian/emsi/raw/master/src/images/Missions_ImageSquare.jpg"> </emsi-homepage-picture>
   		<emsi-homepage-picture class="containerItem s7" image-url="https://github.com/huawillian/emsi/raw/master/src/images/Seminary_ImageSquare.jpg"> </emsi-homepage-picture>
-  		<emsi-homepage-content class="containerItem s8" section-path="home/sections/3" lang="{{lang}}" title="SEMINARY"> </emsi-homepage-content>
+  		<emsi-homepage-content class="containerItem s8" lang="{{lang}}" title="SEMINARY">
+        <template is="dom-if" if="[[isEnglish]]">
+          <span slot="title"> SEMINARY </span>
+          <span slot="content"> The seminary was established by Rev. Moses Yang in 1975. Its mission is to train Bible students to become full time ministers of od to spread Gospel; and to help laymen grow spiritually so to serve God fervently. EBI's training emphasizes four expectations from the students: to walk in faith in their life and service; to bring forth spiritual children themselves; to preach well; and to lead Bible Study classes so that believers will be edified. </span>
+        </template>
+        <template is="dom-if" if="[[!isEnglish]]">
+          <span slot="title"> ? seminary title in chinese ? </span>
+          <span slot="content"> ? seminary text in chinese ? </span>
+        </template>   
+      </emsi-homepage-content>
 	  </div>
 	</template>
 	
 	<script>
 		class EMSIHomePage extends Polymer.Element {
 			static get is() { return 'emsi-home-page'; }
-			static get properties() { return {}; }
+			static get observers() { return [ 'languageChanged(lang)' ]; }
+      static get properties() { 
+        return {
+          lang: String,
+          isEnglish: Boolean
+        };
+      }
+      languageChanged(val) { this.isEnglish = val === "en"; }
 		}
 
 		window.customElements.define(EMSIHomePage.is, EMSIHomePage);

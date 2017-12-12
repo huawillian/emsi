@@ -93,7 +93,6 @@
     <div class="mainContent">    
       <iron-lazy-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="home">
         <emsi-home-page class="page" name="" lang="{{lang}}"> </emsi-home-page>
-        <emsi-home-page class="page" name="home" lang="{{lang}}"> </emsi-home-page>
 
         <emsi-organization-page class="page" name="about" lang="{{lang}}"> </emsi-organization-page>
         <emsi-beliefs-page class="page" name="beliefs" lang="{{lang}}"> </emsi-beliefs-page>
@@ -173,6 +172,8 @@
       routeChangeEventHandler(e) {
         this.scrollAllPagesToTop();
         let path = e.detail;
+        if(path === "home" || path === "/home") 
+          path = "";
         path = path.startsWith("/") ? path : "/" + path;
         this.set('route.path', path);
         this.updateChurchData();
