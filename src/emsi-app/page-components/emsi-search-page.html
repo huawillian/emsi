@@ -26,22 +26,35 @@
 	 		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="https://github.com/huawillian/emsi/raw/master/src/images/FindALocationBkgrd-01.jpg" sizing="cover" style="background-color: white;"></plastic-image>
 			<div id="searchContainer">
 				<div id="searchContainerInner">
-					<div id="searchTitle"> FIND A CHURCH </div>
+						<div id="searchTitle"> 
+							<template is="dom-if" if="{{isEnglish}}"> FIND A CHURCH </template>
+							<template is="dom-if" if="{{!isEnglish}}"> ? FIND A CHURCH in chinese ? </template>
+						</div>
 					<div style="padding:10pt" id="addressBoxC"> 
-						<paper-input id="addressBox" placeholder="Enter Address Here" on-keydown="checkForEnter"></paper-input>
+						<paper-input id="addressBox" placeholder="{{addressBoxPlaceholder}}" on-keydown="checkForEnter"></paper-input>
 					</div>
-					<emsi-button id="searchButton" color="blue" on-tap="startSearchByAddress" my-max-width="500px"> FIND A LOCATION </emsi-button>
-					<div id="locationButton" on-tap="getLocation"> Or, use your current location </div>
+					<emsi-button id="searchButton" color="blue" on-tap="startSearchByAddress" my-max-width="500px">
+						<template is="dom-if" if="{{isEnglish}}"> FIND A LOCATION </template>
+						<template is="dom-if" if="{{!isEnglish}}"> ? FIND A LOCATION in chinese ? </template>
+					</emsi-button>
+					<div id="locationButton" on-tap="getLocation">
+						<template is="dom-if" if="{{isEnglish}}"> Or, use your current location </template>
+						<template is="dom-if" if="{{!isEnglish}}"> ? Or, use your current location in chinese ? </template> 
+					</div>
 				</div>
 			</div>
 	    </template>
 	    <template is="dom-if" if="{{showSearchResults}}">
 			<div id="resultsContainer">
-				<div id="resultsTitle">
-					Results
+				<div id="resultsTitle"> 
+					<template is="dom-if" if="{{isEnglish}}"> Results </template>
+					<template is="dom-if" if="{{!isEnglish}}"> ? Results in chinese ? </template>
 				</div>
 				<template is="dom-if" if="{{!isSearching}}">
-					<emsi-button id="returnToSearchButton" color="blue" on-tap="toggleShowSearchResults" my-max-width="1000px"> START ANOTHER SEARCH </emsi-button>
+					<emsi-button id="returnToSearchButton" color="blue" on-tap="toggleShowSearchResults" my-max-width="1000px"> 
+						<template is="dom-if" if="{{isEnglish}}"> START ANOTHER SEARCH </template>
+						<template is="dom-if" if="{{!isEnglish}}"> ? START ANOTHER SEARCH in chinese ? </template>
+					</emsi-button>
 				</template>
 				<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]" as="details">
         	<emsi-church-details-card class="addrFinderCard" data="{{details}}" lang="{{lang}}" user-distance-text="{{details.distance}}"> </emsi-church-details-card>
@@ -62,6 +75,7 @@
 	<script>
 		class EMSISearchPage extends Polymer.Element {
 			static get is() { return 'emsi-search-page'; }
+			static get observers() { return [ 'languageChanged(lang)' ]; }
 
 			static get properties() { 
 				return {
@@ -69,10 +83,7 @@
 						type: Boolean,
 						value: false,
 					} ,
-					lang: {
-						type: String,
-						value: "en"
-					} ,
+					lang: String,
 					address: String ,
 					locations: {
 						type: Array
@@ -85,9 +96,22 @@
 						type: Array,
 						value: []
 					},
-					isSearching: Boolean
+					isSearching: Boolean,
+					addressBoxPlaceholder: {
+						type: String,
+						value: "Enter Address Here"
+					}
 				}; 
 			}
+
+      languageChanged(val) { 
+      	this.isEnglish = val === "en";
+      	if(this.isEnglish) {
+      		this.addressBoxPlaceholder = "Enter Address Here";
+      	} else {
+      		this.addressBoxPlaceholder = "? Enter Address Here in chinese ?";
+      	}
+      }
 
 			checkForEnter (e) {
         if (e.key === "Enter") {

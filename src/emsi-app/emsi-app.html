@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
@@ -93,6 +94,7 @@
     <div class="mainContent">    
       <iron-lazy-pages selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="home">
         <emsi-home-page class="page" name="" lang="{{lang}}"> </emsi-home-page>
+        <emsi-home-page class="page" name="home" lang="{{lang}}"> </emsi-home-page>
 
         <emsi-organization-page class="page" name="about" lang="{{lang}}"> </emsi-organization-page>
         <emsi-beliefs-page class="page" name="beliefs" lang="{{lang}}"> </emsi-beliefs-page>
