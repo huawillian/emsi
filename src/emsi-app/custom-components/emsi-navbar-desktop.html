@@ -9,45 +9,23 @@
 	<template>
 		<style include="navbar-desktop-styles"> </style>
 		<div class="container">
-			<paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style="left:0pt" vertical-offset="55" horizontal-offset="8">
-			  <div slot="dropdown-trigger" class="menu-trigger"> ABOUT US </div>
-			  <paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
-			    <div on-tap="changeRoute" class="menu-trigger"> Organization </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Beliefs </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Missions </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Seminary </div>
-			  </paper-listbox>
-			</paper-menu-button>
 
-			<paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style="left:90pt" vertical-offset="55" horizontal-offset="8">
-			  <div slot="dropdown-trigger" class="menu-trigger"> LOCATIONS </div>
-			  <paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
-			    <div on-tap="changeRoute" class="menu-trigger"> Search </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> America </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Europe </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Asia </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Africa </div>
-			  </paper-listbox>
-			</paper-menu-button>
-
-			<paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style="left:180pt" vertical-offset="55" horizontal-offset="8">
-			  <div slot="dropdown-trigger" class="menu-trigger"> MISSIONS </div>
-			  <paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
-			    <div on-tap="changeRouteToMissions" class="menu-trigger"> Introduction </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Ministries </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Churches </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Activities </div>
-			  </paper-listbox>
-			</paper-menu-button>
-
-			<paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style="left:270pt" vertical-offset="55" horizontal-offset="8">
-			  <div slot="dropdown-trigger" class="menu-trigger"> SEMINARY </div>
-			  <paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
-			    <div on-tap="changeRouteToSeminary" class="menu-trigger"> Introduction </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Courses </div>
-			    <div on-tap="changeRoute" class="menu-trigger"> Curriculum </div>
-			  </paper-listbox>
-			</paper-menu-button>
+			<template is="dom-repeat" items="[[menuContent]]" as="menu" index-as="i">
+	      <paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style$="left:{{computeLeft(i)}}pt" vertical-offset="55" horizontal-offset="8">
+	      	<div slot="dropdown-trigger" class="menu-trigger">
+	      		<template is="dom-if" if="[[isEnglish]]"> {{menu.en}} </template>
+						<template is="dom-if" if="[[!isEnglish]]"> {{menu.zh}} </template>
+	      	</div>
+	      	<paper-listbox slot="dropdown-content" class="menu-content" selectable="none">
+				    <template is="dom-repeat" items="[[menu.items]]" as="item" index-as="j">
+					    <div on-tap="changeRoute" class="menu-trigger">
+					    	<template is="dom-if" if="[[isEnglish]]"> {{item.en}} </template>
+								<template is="dom-if" if="[[!isEnglish]]"> {{item.zh}} </template>
+					  	</div>
+				  	</template>
+			  	</paper-listbox>
+		  	</paper-menu-button>
+			</template>
 		</div>
 	</template>
 
@@ -55,7 +33,131 @@
 		class EMSINavbarDesktop extends Polymer.Element {
 			static get is() { return 'emsi-navbar-desktop'; }
 
-			static get properties() { return {}; }
+			static get properties() {
+				return {
+					lang: String,
+					isEnglish: Boolean,
+					menuContent: {
+						type: Array,
+						value: [
+							{
+								en: "ABOUT US",
+								zh: "? ABOUT US ?",
+								items: [
+									{
+										en: "Organization",
+										zh: "? Organization ?",
+										route: "/home"
+									},
+									{
+										en: "Beliefs",
+										zh: "? Beliefs ?",
+										route: "/beliefs"
+									},
+									{
+										en: "Missions",
+										zh: "? Missions ?",
+										route: "/missions"
+									},
+									{
+										en: "Seminary",
+										zh: "? Seminary ?",
+										route: "/seminary"
+									},
+								]
+							},
+							{
+								en: "LOCATIONS",
+								zh: "? LOCATIONS ?",
+								items: [
+									{
+										en: "Search",
+										zh: "? Search ?",
+										route: "/search"
+									},
+									{
+										en: "America",
+										zh: "? America ?",
+										route: "/america"
+									},
+									{
+										en: "Europe",
+										zh: "? Europe ?",
+										route: "/europe"
+									},
+									{
+										en: "Asia",
+										zh: "? Asia ?",
+										route: "/asia"
+									},
+									{
+										en: "Africa",
+										zh: "? Africa ?",
+										route: "/africa"
+									},
+								]
+							},
+							{
+								en: "MISSIONS",
+								zh: "? MISSIONS ?",
+								items: [
+									{
+										en: "Introduction",
+										zh: "? Introduction ?",
+										route: "missions"
+									},
+									{
+										en: "Ministries",
+										zh: "? Ministries ?",
+										route: "/ministries"
+									},
+									{
+										en: "Churches",
+										zh: "? Churches ?",
+										route: "/churches"
+									},
+									{
+										en: "Activities",
+										zh: "? Activities ?",
+										route: "/activities"
+									},
+								]
+							},
+							{
+								en: "SEMINARY",
+								zh: "? SEMINARY ?",
+								items: [
+									{
+										en: "Introduction",
+										zh: "? Introduction ?",
+										route: "seminary"
+									},
+									{
+										en: "Courses",
+										zh: "? Courses ?",
+										route: "/courses"
+									},
+									{
+										en: "Curriculum",
+										zh: "? Curriculum ?",
+										route: "/curriculum"
+									}
+								]
+							},
+						]
+					}
+				};
+			}
+
+			static get observers() { return [ 'languageChanged(lang)' ]; }
+
+      languageChanged(val) {
+      	this.isEnglish = val === "en";
+      }
+
+      computeLeft(i) {
+      	return i * 90;
+      }
 
 			openSubMenu(e) {
 				let submenuObj = Polymer.dom(e).localTarget;
@@ -68,16 +170,9 @@
 			}
 
 			changeRoute(e) {
-				let text = Polymer.dom(e).localTarget.innerText;
-
-				if(text == "Organization") {
-					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "about", bubbles: true, composed: true }));
-				} else if(text == "Introduction") {
-					// Do nothing
-				} else {
-					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: text.toLowerCase(), bubbles: true, composed: true }));
-				}
-
+				let menuIdx = e.model.parentModel.i;
+				let itemIdx = e.model.j;
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: this.menuContent[menuIdx].items[itemIdx].route, bubbles: true, composed: true }));
 				this.closeAllMenus();
 			}
 

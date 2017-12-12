@@ -18,18 +18,30 @@
 			<tr>
 				<td>
 					<div class="container">
-						<div id="title"> Sign In </div>
+						<div id="title">
+              <template is="dom-if" if="[[isEnglish]]"> Sign In </template>
+              <template is="dom-if" if="[[!isEnglish]]"> ? Sign In in chinese ?</template>   
+            </div>
 						<div class="error"> {{errorMessage}} </div>
 						<div> {{signedInMessage}} </div>
-						<paper-input id="email" label="Enter Email Address" on-keydown="checkForEnter"></paper-input>
-						<paper-input id="password" label="Enter Password" type="password" on-keydown="checkForEnter"></paper-input>
+						<paper-input id="email" label="{{userPlaceholder}}" on-keydown="checkForEnter"></paper-input>
+						<paper-input id="password" label="{{passPlaceholder}}" type="password" on-keydown="checkForEnter"></paper-input>
             <template is="dom-if" if="[[!user]]">
-						  <emsi-button color="blue" on-tap="logInHandler"> Sign In </emsi-button>
+						  <emsi-button color="blue" on-tap="logInHandler">
+                <template is="dom-if" if="[[isEnglish]]"> Sign In </template>
+                <template is="dom-if" if="[[!isEnglish]]"> ? Sign In in chinese ?</template>  
+              </emsi-button>
             </template>
             <template is="dom-if" if="[[user]]">
-              <emsi-button color="blue" on-tap="goToUser"> Continue As {{user.email}} </emsi-button>
+              <emsi-button color="blue" on-tap="goToUser">
+                <template is="dom-if" if="[[isEnglish]]"> Continue As {{user.email}} </template>
+                <template is="dom-if" if="[[!isEnglish]]"> ? Continue As in chinese ? {{user.email}}</template>
+              </emsi-button>
             </template>
-						<emsi-button color="blue" on-tap="logOutHandler"> Sign Out </emsi-button>
+						<emsi-button color="blue" on-tap="logOutHandler">
+              <template is="dom-if" if="[[isEnglish]]"> Sign Out </template>
+              <template is="dom-if" if="[[!isEnglish]]"> ? Sign Out in chinese ?</template>        
+            </emsi-button>
 					</div>
 				</td>
 			</tr>
@@ -39,19 +51,37 @@
 	<script>
 		class EMSISigninPage extends Polymer.Element {
 			static get is() { return 'emsi-signin-page'; }
-			static get properties() { 
-				return {
-					user: {
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+
+      static get properties() { 
+        return {
+          user: {
             observer: "userChanged"
           },
+          lang: String,
           errorMessage: String,
-          signedInMessage: String
-				}; 
-			}
+          signedInMessage: String,
+          isEnglish: Boolean,
+          userPlaceholder: String,
+          passPlaceholder: String
+        }; 
+      }
 
       checkForEnter (e) {
         if (e.key === "Enter") {
           this.logInHandler();
+        }
+      }
+
+      languageChanged(val) {
+        this.isEnglish = val === "en";
+
+        if(this.isEnglish) {
+          this.userPlaceholder = "Enter Email Address";
+          this.passPlaceholder = "Enter Password";
+        } else {
+          this.userPlaceholder = "? Enter Email Address in chinese ?";
+          this.passPlaceholder = "? Enter Password in chinese ?";
         }
       }
 

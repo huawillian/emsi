@@ -19,7 +19,10 @@
         <div id="distance"> {{userDistanceText}} </div>
         <div id="title"> {{data.name}} </div>
         <div id="address"> {{data.address}} </div>
-      <div id="serviceTitle"> Sunday Worship </div>
+      <div id="serviceTitle">
+        <template is="dom-if" if="[[isEnglish]]"> Sunday Worship </template> 
+        <template is="dom-if" if="[[!isEnglish]]"> ? Sunday Worship in chinese ?</template> 
+      </div>
       <table id="serviceContainer">
         <template is="dom-repeat" items="[[data.time]]" as="sundayServiceTime">
           <tr>
@@ -30,8 +33,14 @@
       </table>
       </div>
       <div class="card-actions">
-        <paper-button on-tap="goToGoogleMaps"> Get Directions </paper-button>
-        <paper-button on-tap="gotoChurchPage"> Learn More </paper-button>
+        <paper-button on-tap="goToGoogleMaps">
+          <template is="dom-if" if="[[isEnglish]]"> Get Directions </template> 
+          <template is="dom-if" if="[[!isEnglish]]"> ? Get Directions in chinese ?</template>  
+        </paper-button>
+        <paper-button on-tap="gotoChurchPage">
+          <template is="dom-if" if="[[isEnglish]]"> Learn More </template> 
+          <template is="dom-if" if="[[!isEnglish]]"> ? Learn More in chinese ?</template>
+        </paper-button>
       </div>
     </paper-card>
   </template>
@@ -39,6 +48,8 @@
   <script>
     class EMSIChurchDetailsCard extends Polymer.Element {
       static get is() { return 'emsi-church-details-card'; }
+      static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
 
       static get properties() { 
         return {

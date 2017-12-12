@@ -84,10 +84,10 @@
     <!-- Use emsi-toolbar-desktop for wide screens -->
     <!-- Use emsi-toolbar-mobile for narrow screens -->
     <template is="dom-if" if="[[isDesktop]]">
-      <emsi-toolbar-desktop> </emsi-toolbar-desktop>
+      <emsi-toolbar-desktop lang="{{lang}}"> </emsi-toolbar-desktop>
     </template>
     <template is="dom-if" if="[[!isDesktop]]">
-      <emsi-toolbar-mobile> </emsi-toolbar-mobile>
+      <emsi-toolbar-mobile lang="{{lang}}"> </emsi-toolbar-mobile>
     </template>
 
     <!-- iron-pages selects the view based on the active route routeData.page by checking name of element, and show 404 image if no name matches -->
@@ -103,10 +103,38 @@
 
         <emsi-search-page class="page" name="search" lang="{{lang}}" locations="{{dataAsArray}}"> </emsi-search-page>
 
-        <emsi-continent-page class="page" name="america" lang="{{lang}}" continent="America" locations="{{dataAsArray}}"> </emsi-continent-page>
-        <emsi-continent-page class="page" name="europe" lang="{{lang}}" continent="Europe" locations="{{dataAsArray}}"> </emsi-continent-page>
-        <emsi-continent-page class="page" name="asia" lang="{{lang}}" continent="Asia" locations="{{dataAsArray}}"> </emsi-continent-page>
-        <emsi-continent-page class="page" name="africa" lang="{{lang}}" continent="Africa" locations="{{dataAsArray}}"> </emsi-continent-page>
+        <emsi-continent-page class="page" name="america" lang="{{lang}}" continent="America" locations="{{dataAsArray}}">
+          <template is="dom-if" if="[[isEnglish]]">
+            <span slot="title"> America </span>
+          </template>
+          <template is="dom-if" if="[[!isEnglish]]">
+            <span slot="title"> ? America in chinese ?</span>
+          </template>
+        </emsi-continent-page>
+        <emsi-continent-page class="page" name="europe" lang="{{lang}}" continent="Europe" locations="{{dataAsArray}}">
+          <template is="dom-if" if="[[isEnglish]]">
+            <span slot="title"> Europe </span>
+          </template>
+          <template is="dom-if" if="[[!isEnglish]]">
+            <span slot="title"> ? Europe in chinese ?</span>
+          </template>
+        </emsi-continent-page>
+        <emsi-continent-page class="page" name="asia" lang="{{lang}}" continent="Asia" locations="{{dataAsArray}}">
+          <template is="dom-if" if="[[isEnglish]]">
+            <span slot="title"> Asia </span>
+          </template>
+          <template is="dom-if" if="[[!isEnglish]]">
+            <span slot="title"> ? Asia in chinese ?</span>
+          </template>
+        </emsi-continent-page>
+        <emsi-continent-page class="page" name="africa" lang="{{lang}}" continent="Africa" locations="{{dataAsArray}}">
+          <template is="dom-if" if="[[isEnglish]]">
+            <span slot="title"> Africa </span>
+          </template>
+          <template is="dom-if" if="[[!isEnglish]]">
+            <span slot="title"> ? Africa in chinese ?</span>
+          </template>
+        </emsi-continent-page>
 
         <emsi-ministries-page class="page" name="ministries" lang="{{lang}}"> </emsi-ministries-page>
         <emsi-churches-page class="page" name="churches" lang="{{lang}}"> </emsi-churches-page>
@@ -136,6 +164,7 @@
             type: String,
             value: "en",
           },
+          isEnglish: Boolean,
           data: {
             type: Object,
             value: {},
@@ -168,6 +197,7 @@
         // let lang = this.$.myRoute.queryParams.lang;
         //this.lang = !lang || lang === "en" ? "en" : "zh"
         this.lang = "en";
+        this.isEnglish = true;
       }
 
       // Called on event fired, emsi-route-change-event, given object param
@@ -186,6 +216,7 @@
       // Set top level lang to language, this will cascade down each page binded to lang {{lang}}
       langChangeEventHandler(e) {
         this.lang = e.detail;
+        this.isEnglish = this.lang === "en";
         // this.$.myRoute.queryParams = this.lang === "en" ? {lang: "en"} : {lang: "zh"};
       }
 

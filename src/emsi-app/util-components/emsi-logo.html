@@ -11,7 +11,10 @@
 		<div class="container" on-tap="changeRouteHome">
 			
 			<plastic-image id="logo" lazy-load preload fade use-element-dim srcset="https://github.com/huawillian/emsi/raw/master/src/images/EMSI_logo-01.png" sizing="cover" style="background-color: white"></plastic-image>
-			<div id="logoText"> EMSI </div>
+			<div id="logoText">
+				<template is="dom-if" if="[[isEnglish]]"> EMSI </template>
+				<template is="dom-if" if="[[!isEnglish]]"> ? EMSI-ZH ? </template>
+			</div>
 		</div>
 	</template>
 
@@ -19,6 +22,8 @@
 		class EMSILogo extends Polymer.Element {
 			static get is() { return 'emsi-logo'; }
 			static get properties() { return {}; }
+			static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
 			changeRouteHome() {
 				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "home", bubbles: true, composed: true }));
 			}

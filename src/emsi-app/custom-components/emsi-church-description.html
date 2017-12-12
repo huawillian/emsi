@@ -26,16 +26,15 @@
 				<tr>
   				<td>
   					<div class="container">
-	  					<div class="title"> {{title}} </div>
+	  					<div class="title">
+	  						<template is="dom-if" if="[[isEnglish]]"> {{title}} </template>
+								<template is="dom-if" if="[[!isEnglish]]"> {{chineseTitle}} </template>
+	  					</div>
 	  					<div class="content">  </div>
 	  					<template is="dom-if" if="{{hasHiddenDescription}}">
 					      <emsi-button color="blue" on-tap="showMore">
-									<template is="dom-if" if="[[isEnglish]]">
-										SHOW MORE
-									</template>
-									<template is="dom-if" if="[[!isEnglish]]">
-										? CHINESE SHOW ?
-									</template>
+									<template is="dom-if" if="[[isEnglish]]"> SHOW MORE </template>
+									<template is="dom-if" if="[[!isEnglish]]"> ? CHINESE SHOW ? </template>
 								</emsi-button>
 					    </template>
 				    </div>
@@ -46,17 +45,16 @@
 
 		<!-- dialog -->
 		<paper-dialog id="dialog" modal>
-		  <div class="titleDialog"> {{title}} </div>
+		  <div class="titleDialog">
+	  		<template is="dom-if" if="[[isEnglish]]"> {{title}} </template>
+				<template is="dom-if" if="[[!isEnglish]]"> {{chineseTitle}} </template>
+		  </div>
 		  <paper-dialog-scrollable class="contentDialog">
 		  </paper-dialog-scrollable>
 		  <div class="buttons">
 			  <emsi-button color="blue" dialog-dismiss>
-					<template is="dom-if" if="[[isEnglish]]">
-						CLOSE
-					</template>
-					<template is="dom-if" if="[[!isEnglish]]">
-						? CHINESE CLOSE ?
-					</template>
+					<template is="dom-if" if="[[isEnglish]]"> CLOSE </template>
+					<template is="dom-if" if="[[!isEnglish]]"> ? CHINESE CLOSE ? </template>
 				</emsi-button>
 		  </div>
 		</paper-dialog>
@@ -73,6 +71,7 @@
 						value: "en"
 					},
 					title: String,
+					chineseTitle: String,
 					description: {
 						type: String,
 						observer: "descriptionChanged"

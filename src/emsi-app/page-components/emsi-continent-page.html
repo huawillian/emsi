@@ -16,8 +16,13 @@
 	<template>
 		<style include="continent-styles"> </style>
 		<div class="container">
-			<div class="titleContainer"> {{continent}} </div>
-			<div class="regionContainer"> Select Region </div>
+			<div class="titleContainer">
+				<slot name="title"> </slot>
+			</div>
+			<div class="regionContainer"> 
+				<template is="dom-if" if="[[isEnglish]]"> Select Region </template>	
+				<template is="dom-if" if="[[!isEnglish]]"> ? Select Region in chinese ?</template>	
+			</div>
 			<!-- Regions Dropdown Menu-->
 			<paper-dropdown-menu-light label="Regions" selected-item="{{selectedItem}}">
 			  <paper-listbox slot="dropdown-content" selected="0">
@@ -37,9 +42,13 @@
 	<script>
 		class EMSIContinentPage extends Polymer.Element {
 			static get is() { return 'emsi-continent-page'; }
+			static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
 
 			static get properties() { 
 				return {
+					lang: String,
+          isEnglish: Boolean,
 					// Currently selected Item from dropdown
 					selectedItem: {
 						type: Object,
