@@ -50,7 +50,11 @@
       data="{{continentsData}}">
     </firebase-document>
 
-    <div class="titleContainer"> Welcome, [[userData.name]] </div>
+    <div class="titleContainer">
+      <template is="dom-if" if="[[isEnglish]]"> Welcome </template>
+      <template is="dom-if" if="[[!isEnglish]]"> ? Welcome in Chinese ? </template>
+      , [[userData.name]]
+    </div>
 
     <div class="contentContainer">
       <!-- user specific information -->

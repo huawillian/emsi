@@ -16,16 +16,25 @@
     <style include="user-styles"> </style>
     <firebase-auth app-name="emsionline" id="auth" user="{{user}}" on-error="handleError"> </firebase-auth>
     <paper-card>
-      <div class="title"> Account Information </div>
+      <div class="title">
+        <template is="dom-if" if="[[isEnglish]]"> Account Information </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Account Information in Chinese ? </template>
+      </div>
       <hr/>
       <div class="content">
-        <paper-input label="Email Address" disabled value="[[user.email]]"> </paper-input>
-        <paper-input label="Password" disabled value="*********"> </paper-input>
+        <paper-input label="[[emailLabel]]" disabled value="[[user.email]]"> </paper-input>
+        <paper-input label="[[passLabel]]" disabled value="*********"> </paper-input>
         <div> {{passwordResetString}} </div>
       </div>
       <div class="card-actions">
-        <emsi-button color="blue" on-tap="logOutHandler"> Sign Out </emsi-button>
-        <emsi-button color="blue" on-tap="passwordResetHandler"> Reset Password </emsi-button>
+        <emsi-button color="blue" on-tap="logOutHandler"> 
+          <template is="dom-if" if="[[isEnglish]]"> Sign Out </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Sign Out in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" on-tap="passwordResetHandler">
+          <template is="dom-if" if="[[isEnglish]]"> Reset Password </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Reset Password in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-card>
   </template>
@@ -38,7 +47,9 @@
         return {
           lang: String,
           passwordResetString: String,
-          user: Object
+          user: Object,
+          emailLabel: String,
+          passLabel: String,
         };
       }
 
@@ -48,7 +59,17 @@
         ]; 
       }
 
-      languageChanged(val) { this.isEnglish = val === "en"; }
+      languageChanged(val) {
+        this.isEnglish = val === "en";
+
+        if(this.isEnglish) {
+          this.emailLabel = "Email Address";
+          this.passLabel = "Password";
+        } else {
+          this.emailLabel = "? Email Address in chinese ?";
+          this.passLabel = "? Password in chinese ?";
+        }
+      }
 
       logOutHandler() {
         this.$.auth.signOut();

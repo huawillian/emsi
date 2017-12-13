@@ -35,27 +35,48 @@
 
     <paper-card>
       <template is="dom-if" if="[[!userData.isMasterAdmin]]">
-        <div class="title"> Your Location </div>
+        <div class="title">
+          <template is="dom-if" if="[[isEnglish]]"> Your Location </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Your Location in Chinese ? </template>
+        </div>
       </template>
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
-        <div class="title"> Master Administrator Panel </div>
+        <div class="title"> 
+          <template is="dom-if" if="[[isEnglish]]"> Master Administrator Panel </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Master Administrator Panel in Chinese ? </template>
+        </div>
       </template>
       <hr/>
       <div class="content">
         <template is="dom-if" if="[[!userData.isMasterAdmin]]">
           <paper-input label="Location" disabled value="[[userData.admin]]"> </paper-input>
-          <div> Please contact or email an administrator to change your location </div>
+          <div> 
+            <template is="dom-if" if="[[isEnglish]]"> Please contact or email an administrator to change your location </template>
+            <template is="dom-if" if="[[!isEnglish]]"> ? Please contact or email an administrator to change your location in Chinese ? </template>
+          </div>
         </template>
         <template is="dom-if" if="[[userData.isMasterAdmin]]">
           <paper-input label="Location" disabled value="All Churches"> </paper-input>
-          <div> You are a master administrator </div>
+          <div> 
+            <template is="dom-if" if="[[isEnglish]]"> You are a master administrator </template>
+            <template is="dom-if" if="[[!isEnglish]]"> ? You are a master administrator in Chinese ? </template>
+          </div>
         </template>
-        <div> If you have any questions, please email huawillian@gmail.com </div>
+        <div> 
+          <template is="dom-if" if="[[isEnglish]]"> If you have any questions, please email huawillian@gmail.com </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? If you have any questions, please email huawillian@gmail.com in Chinese ? </template>
+        </div>
       </div>
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
         <div class="card-actions">
-          <emsi-button color="blue" on-tap="openCreateUserDialog"> Create User </emsi-button>
-          <emsi-button color="blue" on-tap="openCreateChurchDialog"> Create Church </emsi-button>
+          <emsi-button color="blue" on-tap="openCreateUserDialog">
+            <template is="dom-if" if="[[isEnglish]]"> Create User </template>
+            <template is="dom-if" if="[[!isEnglish]]"> ? Create User in Chinese ? </template>
+          </emsi-button>
+          <emsi-button color="blue" on-tap="openCreateChurchDialog">
+            <template is="dom-if" if="[[isEnglish]]"> Create Church </template>
+            <template is="dom-if" if="[[!isEnglish]]"> ? Create Church in Chinese ? </template>
+          </emsi-button>
         </div>
       </template>
     </paper-card>
