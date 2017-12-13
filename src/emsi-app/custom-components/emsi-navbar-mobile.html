@@ -11,35 +11,21 @@
     <app-location route="{{route}}"></app-location>
 		<iron-collapse id="collapse">
 			<div id="menu">
-				<div class="menu-trigger" on-tap="changeRoute"> HOME </div>
-				<div class="menu-trigger" on-tap="openSubMenu"> ABOUT US </div>
-				<iron-collapse class="subMenuCollapse" id="collapseAbout">
-					<div class="menu-trigger menu-item" on-tap="changeRoute"> Organization </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Beliefs </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Missions </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Seminary </div>
-				</iron-collapse>
-				<div class="menu-trigger" on-tap="openSubMenu"> LOCATIONS </div>
-				<iron-collapse class="subMenuCollapse" id="collapseLocations">
-					<div class="menu-trigger menu-item" on-tap="changeRoute"> Search </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> America </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Europe </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Asia </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Africa </div>
-				</iron-collapse>
-				<div class="menu-trigger" on-tap="openSubMenu"> MISSIONS </div>
-				<iron-collapse class="subMenuCollapse" id="collapseMissions">
-					<div class="menu-trigger menu-item" on-tap="changeRouteToMissions"> Introduction </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Ministries </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Churches </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Activities </div>
-				</iron-collapse>
-				<div class="menu-trigger" on-tap="openSubMenu"> SEMINARY </div>
-				<iron-collapse class="subMenuCollapse" id="collapseSeminary">
-					<div class="menu-trigger menu-item" on-tap="changeRouteToSeminary"> Introduction </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Courses </div>
-				  <div class="menu-trigger menu-item" on-tap="changeRoute"> Curriculum </div>
-				</iron-collapse>
+				<div class="menu-trigger" on-tap="changeRouteToHome"> HOME </div>
+				<template is="dom-repeat" items="[[menuContent]]" as="menu" index-as="i">
+					<div class="menu-trigger" on-tap="openSubMenu">
+						<template is="dom-if" if="[[isEnglish]]"> {{menu.en}} </template>
+						<template is="dom-if" if="[[!isEnglish]]"> {{menu.zh}} </template>
+					</div>
+					<iron-collapse class="subMenuCollapse" id="collapse{{menu.en}}">
+						<template is="dom-repeat" items="[[menu.items]]" as="item" index-as="j">
+							<div class="menu-trigger menu-item" on-tap="changeRoute">
+								<template is="dom-if" if="[[isEnglish]]"> {{item.en}} </template>
+								<template is="dom-if" if="[[!isEnglish]]"> {{item.zh}} </template>
+							</div>
+						</template>
+					</iron-collapse>
+				</template>
 			</div>
 		</iron-collapse>
 	</template>
@@ -48,7 +34,127 @@
 		class EMSINavbarMobile extends Polymer.Element {
 			static get is() { return 'emsi-navbar-mobile'; }
 
-			static get properties() { return {}; }
+			static get properties() {
+				return {
+					lang: String,
+					isEnglish: Boolean,
+					menuContent: {
+						type: Array,
+						value: [
+							{
+								en: "ABOUT US",
+								zh: "? ABOUT US ?",
+								items: [
+									{
+										en: "Organization",
+										zh: "? Organization ?",
+										route: "/home"
+									},
+									{
+										en: "Beliefs",
+										zh: "? Beliefs ?",
+										route: "/beliefs"
+									},
+									{
+										en: "Missions",
+										zh: "? Missions ?",
+										route: "/missions"
+									},
+									{
+										en: "Seminary",
+										zh: "? Seminary ?",
+										route: "/seminary"
+									},
+								]
+							},
+							{
+								en: "LOCATIONS",
+								zh: "? LOCATIONS ?",
+								items: [
+									{
+										en: "Search",
+										zh: "? Search ?",
+										route: "/search"
+									},
+									{
+										en: "America",
+										zh: "? America ?",
+										route: "/america"
+									},
+									{
+										en: "Europe",
+										zh: "? Europe ?",
+										route: "/europe"
+									},
+									{
+										en: "Asia",
+										zh: "? Asia ?",
+										route: "/asia"
+									},
+									{
+										en: "Africa",
+										zh: "? Africa ?",
+										route: "/africa"
+									},
+								]
+							},
+							{
+								en: "MISSIONS",
+								zh: "? MISSIONS ?",
+								items: [
+									{
+										en: "Introduction",
+										zh: "? Introduction ?",
+										route: "missions"
+									},
+									{
+										en: "Ministries",
+										zh: "? Ministries ?",
+										route: "/ministries"
+									},
+									{
+										en: "Churches",
+										zh: "? Churches ?",
+										route: "/churches"
+									},
+									{
+										en: "Activities",
+										zh: "? Activities ?",
+										route: "/activities"
+									},
+								]
+							},
+							{
+								en: "SEMINARY",
+								zh: "? SEMINARY ?",
+								items: [
+									{
+										en: "Introduction",
+										zh: "? Introduction ?",
+										route: "seminary"
+									},
+									{
+										en: "Courses",
+										zh: "? Courses ?",
+										route: "/courses"
+									},
+									{
+										en: "Curriculum",
+										zh: "? Curriculum ?",
+										route: "/curriculum"
+									}
+								]
+							},
+						]
+					}
+				};
+			}
+
+			static get observers() { return [ 'languageChanged(lang)' ]; }
+
+      languageChanged(val) {
+      	this.isEnglish = val === "en";
+      }
 
 			closeAllMenus(e) {
 				var submenuArr = Polymer.dom(this.root).querySelectorAll(".subMenuCollapse");
@@ -58,17 +164,9 @@
 			}
 
 			openSubMenu(e) {
-				var text = Polymer.dom(e).localTarget.innerText;
 				this.closeAllMenus();
-				if(text === "ABOUT US") {
-					Polymer.dom(this.root).querySelector("#collapseAbout").show();
-				} else if(text == "LOCATIONS") {
-					Polymer.dom(this.root).querySelector("#collapseLocations").show();
-				} else if(text == "MISSIONS") {
-					Polymer.dom(this.root).querySelector("#collapseMissions").show();
-				} else if(text == "SEMINARY") {
-					Polymer.dom(this.root).querySelector("#collapseSeminary").show();
-				}
+				var submenuArr = Polymer.dom(this.root).querySelectorAll(".subMenuCollapse");
+				submenuArr[e.model.i].show();
 			}
 
 			showMenu() {
@@ -82,27 +180,15 @@
 			}
 
 			changeRoute(e) {
-				var text = Polymer.dom(e).localTarget.innerText;
-				if(text == "Organization") {
-					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "about", bubbles: true, composed: true }));
-				} else if(text == "Introduction") {
-					// Do nothing
-				} else {
-					this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: text.toLowerCase(), bubbles: true, composed: true }));
-				}
-
+				let menuIdx = e.model.parentModel.i;
+				let itemIdx = e.model.j;
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: this.menuContent[menuIdx].items[itemIdx].route, bubbles: true, composed: true }));
 				this.closeAllMenus();
 				this.hideMenu();
 			}
 
-			changeRouteToMissions() {
-				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "missions", bubbles: true, composed: true }));
-				this.closeAllMenus();
-				this.hideMenu();
-			}
-
-			changeRouteToSeminary() {
-				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "seminary", bubbles: true, composed: true }));
+			changeRouteToHome() {
+				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "", bubbles: true, composed: true }));
 				this.closeAllMenus();
 				this.hideMenu();
 			}

@@ -175,16 +175,6 @@
 				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: this.menuContent[menuIdx].items[itemIdx].route, bubbles: true, composed: true }));
 				this.closeAllMenus();
 			}
-
-			changeRouteToMissions() {
-				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "missions", bubbles: true, composed: true }));
-				this.closeAllMenus();
-			}
-
-			changeRouteToSeminary() {
-				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "seminary", bubbles: true, composed: true }));
-				this.closeAllMenus();
-			}
 		}
 
 		window.customElements.define(EMSINavbarDesktop.is, EMSINavbarDesktop);
