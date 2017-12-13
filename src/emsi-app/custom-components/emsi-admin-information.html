@@ -82,11 +82,14 @@
     </paper-card>
 
     <paper-dialog id="createUserDialog" modal>
-      <div class="titleDialog"> Create New User </div>
+      <div class="titleDialog">
+        <template is="dom-if" if="[[isEnglish]]"> Create New User </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Create New User in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <paper-input id="createUserName" label="Name"> </paper-input>
-        <paper-input id="createUserDisplayName" label="Display Name"> </paper-input>
-        <paper-dropdown-menu-light id="createUserDisplayAdmin" label="Location">
+        <paper-input id="createUserName" label="{{name}}"> </paper-input>
+        <paper-input id="createUserDisplayName" label="{{displayName}}"> </paper-input>
+        <paper-dropdown-menu-light id="createUserDisplayAdmin" label="{{location}}">
           <paper-listbox slot="dropdown-content" selected="0">
             <paper-item> None </paper-item>
             <template is="dom-repeat" items="{{locations}}">
@@ -94,52 +97,82 @@
             </template>
           </paper-listbox>
         </paper-dropdown-menu-light>
-        <paper-input id="createUserDisplayImageUrl" label="ImageUrl"> </paper-input>
+        <paper-input id="createUserDisplayImageUrl" label="{{imageUrl}}"> </paper-input>
         <vaadin-upload id="upload" accept=".png,.jpg,.gif" max-files="1" max-file-size="1000000" on-upload-before="uploadHandler">
           <iron-icon slot="drop-label-icon" icon="cloud-upload" style="margin-left: 20pt"></iron-icon>
-          <span slot="drop-label" style="margin-left: 20pt"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </span>
+          <span slot="drop-label" style="margin-left: 20pt">
+            <template is="dom-if" if="[[isEnglish]]"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </template>
+            <template is="dom-if" if="[[!isEnglish]]"> ? Drop *.png, *.jpg, or *.gif file here. Max 1 MB. in Chinese ? </template>
+          </span>
         </vaadin-upload>
         <br/>
         <br/>
-        <paper-input id="createUserDisplayEmail" label="Email"> </paper-input>
-        <paper-input id="createUserDisplayPassword" label="Password"> </paper-input>
-        <div> Please Note, email cannot be changed. </div>
-        <div> Password can be changed by the user after creating this account. </div>
+        <paper-input id="createUserDisplayEmail" label="{{email}}"> </paper-input>
+        <paper-input id="createUserDisplayPassword" label="{{password}}"> </paper-input>
+        <div> 
+          <template is="dom-if" if="[[isEnglish]]"> Please Note, email cannot be changed. </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Please Note, email cannot be changed. in Chinese ? </template>
+        </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Password can be changed by the user after creating this account. </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Password can be changed by the user after creating this account. in Chinese ? </template>
+        </div>
         <template is="dom-repeat" items="[[userMessages]]" as="message" index-as="i">
           <div style="color: red;"> {{message}} </div>
         </template>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button color="blue" on-tap="createUserHandler"> CREATE </emsi-button>
+        <emsi-button color="blue" dialog-dismiss> 
+          <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" on-tap="createUserHandler">
+          <template is="dom-if" if="[[isEnglish]]"> CREATE </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? CREATE in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
 
     <paper-dialog id="createChurchDialog" modal>
-      <div class="titleDialog"> Create New Church </div>
+      <div class="titleDialog"> 
+        <template is="dom-if" if="[[isEnglish]]"> Create New Church </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Create New Church in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <paper-input id="createChurchName" label="Name"> </paper-input>
-        <paper-input id="createChurchAddress" label="Address"> </paper-input>
-        <paper-dropdown-menu-light id="createChurchContinent" label="Continent (e.g. America, Europe, Africa, Asia)">
+        <paper-input id="createChurchName" label="{{churchName}}"> </paper-input>
+        <paper-input id="createChurchAddress" label="{{address}}"> </paper-input>
+        <paper-dropdown-menu-light id="createChurchContinent" label="{{continent}}">
           <paper-listbox slot="dropdown-content" selected="0">
             <template id="continentsList" is="dom-repeat" items="{{continents}}">
               <paper-item> {{item}} </paper-item>
             </template>
           </paper-listbox>
         </paper-dropdown-menu-light>
-        <paper-input id="createChurchRegion" label="Region or Country (e.g. East Coast, Netherlands, Japan)"> </paper-input>
-        <paper-input id="createChurchUrl" label="City (e.g. Towaco, Chinatown, Antwerpen)"> </paper-input>
-        <paper-input id="createChurchEmail" label="Email"> </paper-input>
-        <paper-input id="createChurchPhone" label="Phone Number"> </paper-input>
-        <div> Please Note, the name and city of the church cannot be changed. </div>
-        <div> Please add description and image after creating the church. </div>
+        <paper-input id="createChurchRegion" label="{{region}}"> </paper-input>
+        <paper-input id="createChurchUrl" label="{{city}}"> </paper-input>
+        <paper-input id="createChurchEmail" label="{{churchEmail}}"> </paper-input>
+        <paper-input id="createChurchPhone" label="{{churchPhone}}"> </paper-input>
+        <div> 
+          <template is="dom-if" if="[[isEnglish]]"> Please Note, the name and city of the church cannot be changed. </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Please Note, the name and city of the church cannot be changed. in Chinese ? </template>
+        </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Please add description and image after creating the church. </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Please add description and image after creating the church. in Chinese ? </template>
+        </div>
         <template is="dom-repeat" items="[[churchMessages]]" as="message" index-as="i">
           <div style="color: red;"> {{message}} </div>
         </template>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button color="blue" on-tap="createChurchHandler"> CREATE </emsi-button>
+        <emsi-button color="blue" dialog-dismiss>
+          <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" on-tap="createChurchHandler">
+          <template is="dom-if" if="[[isEnglish]]"> CREATE </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? CREATE in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
 
@@ -158,7 +191,20 @@
           locations: Array,
           user: Object,
           continents: Array,
-          uid: String
+          uid: String,
+          name: String,
+          displayName: String,
+          location: String,
+          imageUrl: String,
+          email: String,
+          password: String,
+          churchName: String,
+          address: String,
+          continent: String,
+          region: String,
+          city: String,
+          churchEmail: String,
+          churchPhone: String,
         };
       }
 
@@ -168,7 +214,39 @@
         ]; 
       }
 
-      languageChanged(val) { this.isEnglish = val === "en"; }
+      languageChanged(val) {
+        this.isEnglish = val === "en";
+
+        if(this.isEnglish) {
+          this.name = "Name";
+          this.displayName = "Display Name";
+          this.location = "Location";
+          this.imageUrl = "Image URL";
+          this.email = "Email Address";
+          this.password = "Password";
+          this.churchName = "Church Name";
+          this.address = "Church Address";
+          this.continent = "Continent (e.g. America, Europe, Africa, Asia)";
+          this.region = "Region or Country (e.g. East Coast, Netherlands, Japan)";
+          this.city = "City (e.g. Towaco, Chinatown, Antwerpen)";
+          this.churchEmail = "Email Address";
+          this.churchPhone = "Phone Number";
+        } else {
+          this.name = "? Name in Chinese ?";
+          this.displayName = "? Display Name in Chinese ?";
+          this.location = "? Location in Chinese ?";
+          this.imageUrl = "? Image URL in Chinese ?";
+          this.email = "? Email Address in Chinese ?";
+          this.password = "? Password in Chinese ?";
+          this.churchName = "? Church Name in Chinese ?";
+          this.address = "? Church Address in Chinese ?";
+          this.continent = "? Continent (e.g. America, Europe, Africa, Asia) in Chinese ?";
+          this.region = "? Region or Country (e.g. East Coast, Netherlands, Japan) in Chinese ?";
+          this.city = "? City (e.g. Towaco, Chinatown, Antwerpen) in Chinese ?";
+          this.churchEmail = "? Email Address in Chinese ?";
+          this.churchPhone = "? Phone Number in Chinese ?";
+        }
+      }
 
       uploadHandler(e) {
         e.preventDefault();

@@ -55,6 +55,10 @@ paper-dialog .contentDialog {
   word-wrap: break-word;
 }
 
+paper-dialog-scrollable {
+  word-wrap: break-word;
+}
+
 paper-dialog .titleDialog {
   color: #236192;
   font-size: 22pt;

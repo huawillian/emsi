@@ -64,8 +64,11 @@
 
       <!-- All Users Dropdown Menu if user is master administrator -->
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
-        <div class="titleContainerChurch"> All Users </div>
-        <paper-dropdown-menu-light label="Select User" selected-item="{{selectedItem}}">
+        <div class="titleContainerChurch">
+          <template is="dom-if" if="[[isEnglish]]"> All Users </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? All Users in Chinese ? </template>
+        </div>
+        <paper-dropdown-menu-light label="{{selectUserLabel}}" selected-item="{{selectedItem}}">
           <paper-listbox id="userSelector" slot="dropdown-content" selected="0">
             <paper-item> None </paper-item>
             <template is="dom-repeat" items="{{users}}">
@@ -85,8 +88,11 @@
 
       <!-- All Churches Dropdown Menu if user is master administrator -->
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
-        <div class="titleContainerChurch"> All Churches </div>
-        <paper-dropdown-menu-light label="Select Church" selected-item="{{selectedLocation}}">
+        <div class="titleContainerChurch">
+          <template is="dom-if" if="[[isEnglish]]"> All Churches </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? All Churches in Chinese ? </template>
+        </div>
+        <paper-dropdown-menu-light label="{{selectChurchLabel}}" selected-item="{{selectedLocation}}">
           <paper-listbox id="churchSelector" slot="dropdown-content" selected="0">
             <paper-item> None </paper-item>
             <template is="dom-repeat" items="{{locations}}">
@@ -143,7 +149,9 @@
           },
           continentsData: Object,
           continentsAsArray: Array,
-          parentRoute: String
+          parentRoute: String,
+          selectUserLabel: String,
+          selectChurchLabel: String,
         };
       }
 
@@ -180,7 +188,17 @@
         this.shadowRoot.querySelector("#churchSelector").selected = 0;
       }
 
-      languageChanged(val) { this.isEnglish = val === "en"; }
+      languageChanged(val) {
+        this.isEnglish = val === "en";
+
+        if(this.isEnglish) {
+          this.selectUserLabel = "Select User Here";
+          this.selectChurchLabel = "Select Church Here";
+        } else {
+          this.selectUserLabel = "? Select User Here in Chinese ?";
+          this.selectChurchLabel = "? Select Church Here in Chinese ?";
+        }
+      }
 
       userDataReceived(v) {
         if(!v.isMasterAdmin) {

@@ -26,13 +26,16 @@
     <firebase-storage-ref id="storageRef" app-name="emsionline"></firebase-storage-ref>
 
     <paper-card>
-      <div class="title"> Church Information </div>
+      <div class="title">
+        <template is="dom-if" if="[[isEnglish]]"> Church Information </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Church Information in Chinese ? </template>
+      </div>
       <hr/>
       <div class="content">
         <table>
           <tr>
             <td> 
-              <paper-dropdown-menu-light id="continent" label="Continent (e.g. America, Europe, Africa, Asia)" selected-item="{{selectedContinent}}">
+              <paper-dropdown-menu-light id="continent" label="{{continent}}" selected-item="{{selectedContinent}}">
                 <paper-listbox id="continentsList" slot="dropdown-content" selected="0">
                   <template  is="dom-repeat" items="{{continents}}">
                     <paper-item> {{item}} </paper-item>
@@ -45,7 +48,7 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="address" label="Address" disabled value="[[location.address]]"> </paper-input> 
+              <paper-input id="address" label="{{address}}" disabled value="[[location.address]]"> </paper-input> 
             </td>
             <td class="icons">
               <paper-icon-button icon="create" on-tap="editChurchHandler" field="address"></paper-icon-button>
@@ -54,7 +57,7 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="region" label="Region or Country (e.g. East Coast, Netherlands, Japan)" disabled value="[[location.region]]"> </paper-input> 
+              <paper-input id="region" label="{{region}}" disabled value="[[location.region]]"> </paper-input> 
             </td>
             <td class="icons">
               <paper-icon-button icon="create" on-tap="editChurchHandler" field="region"></paper-icon-button>
@@ -63,7 +66,7 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="phone" label="Phone Number" disabled value="[[location.phone]]"> </paper-input> 
+              <paper-input id="phone" label="{{phone}}" disabled value="[[location.phone]]"> </paper-input> 
             </td>
             <td class="icons">
               <paper-icon-button icon="create" on-tap="editChurchHandler" field="phone"></paper-icon-button>
@@ -72,7 +75,7 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="email" label="Email Address" disabled value="[[location.email]]"> </paper-input> 
+              <paper-input id="email" label="{{email}}" disabled value="[[location.email]]"> </paper-input> 
             </td>
             <td class="icons">
               <paper-icon-button icon="create" on-tap="editChurchHandler" field="email"></paper-icon-button>
@@ -81,7 +84,7 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="description" label="Description" disabled value="[[location.description]]"> </paper-input> 
+              <paper-input id="description" label="{{description}}" disabled value="[[location.description]]"> </paper-input> 
             </td>
             <td class="icons">
               <paper-icon-button icon="create" on-tap="editChurchHandler" field="description"></paper-icon-button>
@@ -90,11 +93,14 @@
           </tr>
           <tr>
             <td> 
-              <paper-input id="churchImageUrl" label="Picture Link" disabled value="[[location.churchImageUrl]]"> </paper-input> 
+              <paper-input id="churchImageUrl" label="{{pictureLink}}" disabled value="[[location.churchImageUrl]]"> </paper-input> 
               <iron-collapse id="editPicture">
                 <vaadin-upload id="upload" accept=".png,.jpg,.gif" max-files="1" max-file-size="1000000" on-upload-before="uploadHandler">
                   <iron-icon slot="drop-label-icon" icon="cloud-upload" style="margin-left: 20pt"></iron-icon>
-                  <span slot="drop-label" style="margin-left: 20pt"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </span>
+                  <span slot="drop-label" style="margin-left: 20pt">
+                    <template is="dom-if" if="[[isEnglish]]"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </template>
+                    <template is="dom-if" if="[[!isEnglish]]"> ? Drop *.png, *.jpg, or *.gif file here. Max 1 MB. in Chinese ? </template>
+                  </span>
                 </vaadin-upload>
               </iron-collapse>
             </td>
@@ -123,7 +129,14 @@
           location: Object,
           continents: Array,
           selectedContinent: Object,
-          uid: String
+          uid: String,
+          address: String,
+          continent: String,
+          region: String,
+          email: String,
+          phone: String,
+          description: String,
+          pictureLink: String,
         };
       }
 
@@ -135,7 +148,27 @@
         ]; 
       }
 
-      languageChanged(val) { this.isEnglish = val === "en"; }
+      languageChanged(val) {
+        this.isEnglish = val === "en";
+
+        if(this.isEnglish) {
+          this.address = "Address";
+          this.continent = "Continent (e.g. America, Europe, Africa, Asia)";
+          this.region = "Region or Country (e.g. East Coast, Netherlands, Japan)";
+          this.email = "Email Address";
+          this.phone = "Phone Number";
+          this.description = "Description or Brief History";
+          this.pictureLink = "Picture Link";
+        } else {
+          this.address = "? Address in Chinese ?";
+          this.continent = "? Continent (e.g. America, Europe, Africa, Asia) in Chinese ?";
+          this.region = "? Region or Country (e.g. East Coast, Netherlands, Japan) in Chinese ?";
+          this.email = "? Email Address in Chinese ?";
+          this.phone = "? Phone Number in Chinese ?";
+          this.description = "? Description or Brief History in Chinese ?";
+          this.pictureLink = "? Picture Link in Chinese ?";
+        }
+      }
 
       uploadHandler(e) {
         e.preventDefault();

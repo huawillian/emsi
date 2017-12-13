@@ -15,13 +15,20 @@
     <style include="user-styles"> </style>
     <firebase-document id="userDoc" app-name="emsionline"> </firebase-document>
     <paper-card>
-      <div class="title"> Delete User </div>
+      <div class="title">
+        <template is="dom-if" if="[[isEnglish]]"> Delete User </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Delete User in Chinese ? </template>
+      </div>
       <hr/>
       <div class="content">
-        You can delete this user from the database? If you are not a master administrator please ignore this and email huawillian@gmail.com because you should not have seen this. Once you delete, you cannot undo this action.
+        <template is="dom-if" if="[[isEnglish]]"> You can delete this user from the database? If you are not a master administrator please ignore this and email huawillian@gmail.com because you should not have seen this. Once you delete, you cannot undo this action. </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? You can delete this user from the database? If you are not a master administrator please ignore this and email huawillian@gmail.com because you should not have seen this. Once you delete, you cannot undo this action. in Chinese ? </template>
       </div>
       <div class="card-actions">
-        <emsi-button color="blue" on-tap="deleteUser"> Delete User </emsi-button>
+        <emsi-button color="blue" on-tap="deleteUser"> 
+          <template is="dom-if" if="[[isEnglish]]"> Delete User </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Delete User in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-card>
 
@@ -29,17 +36,32 @@
     <paper-dialog id="deleteDialog" modal style="width: 80vw;padding: 20pt;">
       <div style="color: #236192; font-size: 22pt; font-family: MyriadProBold;"> Delete {{userData.name}} </div>
       <paper-dialog-scrollable>
-        <div> Are you sure you want to delete this user? You cannot undo this change. </div>
+        <div> 
+          <template is="dom-if" if="[[isEnglish]]"> Are you sure you want to delete this user? You cannot undo this change. </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Are you sure you want to delete this user? You cannot undo this change. in Chinese ? </template>
+        </div>
         <br>
-        <div> Data: {{info}} </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Data: {{info}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Data: in Chinese ? {{info}} </template>
+        </div>
         <br>
-        <div> Please type in "{{userData.name}}" to confirm </div>
-        <paper-input id="deleteChecker" label="Confirm"> </paper-input>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Please type in "{{userData.name}}" to confirm </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Please type in "{{userData.name}}" to confirm in Chinese ?</template>
+        </div>
         <div style="color: red"> {{message}} </div>
+        <paper-input id="deleteChecker" label="{{confirm}}"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons" style="margin-top: 30pt">
-        <emsi-button style="display: inline" color="blue" dialog-dismiss> NO </emsi-button>
-        <emsi-button style="display: inline" color="blue" on-tap="deleteDialogHandler"> YES </emsi-button>
+        <emsi-button style="display: inline" color="blue" dialog-dismiss>
+          <template is="dom-if" if="[[isEnglish]]"> NO </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? NO in Chinese ? </template>
+        </emsi-button>
+        <emsi-button style="display: inline" color="blue" on-tap="deleteDialogHandler">
+          <template is="dom-if" if="[[isEnglish]]"> YES </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? YES in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
   </template>
@@ -54,7 +76,8 @@
           userData: Object,
           uid: String,
           info: String,
-          message: String
+          message: String,
+          confirm: String,
         };
       }
 
@@ -65,7 +88,15 @@
         ]; 
       }
 
-      languageChanged(val) { this.isEnglish = val === "en"; }
+      languageChanged(val) {
+        this.isEnglish = val === "en";
+
+        if(this.isEnglish) {
+          this.confirm = "Enter Name Here";
+        } else {
+          this.confirm = "? Enter Name Here in Chinese ?";
+        }
+      }
 
       userDataReceived(v) {
         this.info = JSON.stringify(v);
@@ -81,8 +112,9 @@
         let confirmStr = this.$.deleteChecker.value;
 
         if(confirmStr !== this.userData.name) {
-          this.message = "Please type in the name to confirm!"
+          this.message = "Please type in the name to confirm! 請輸入名稱確認！"
         } else {
+          this.message = "";
           this.$.userDoc.setStoredValue(`users/${this.uid}`, null);
           setTimeout(this.sendResyncEvent.bind(this), 300);
           this.$.deleteDialog.close();
