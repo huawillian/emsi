@@ -25,7 +25,10 @@
     <!-- Set data property to locations part of database -->
     <firebase-document id="userDoc" app-name="emsionline"> </firebase-document>
     <paper-card>
-      <div class="title"> Ministries </div>
+      <div class="title"> 
+        <template is="dom-if" if="[[isEnglish]]"> Ministries </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Ministries in Chinese ? </template>
+      </div>
       <hr/>
       <div class="content">
         <table>
@@ -35,7 +38,7 @@
                 <table>
                   <tr>
                     <td>
-                      <paper-input label="Language" disabled value="[[ministry.language]]"> </paper-input>
+                      <paper-input label="{{languageLabel}}" disabled value="[[ministry.language]]"> </paper-input>
                     </td>
                     <td class="icons">
                       <paper-icon-button icon="remove" on-tap="deleteChurchTableHandler" field="ministries"></paper-icon-button>
@@ -65,79 +68,154 @@
         </table>
       </div>
       <div class="card-actions">
-        <emsi-button color="blue" on-tap="addMinistryLanguageHandler" field="ministries"> Add Language </emsi-button>
-        <emsi-button color="blue" on-tap="addMinistryHandler" field="ministries"> Add Ministry </emsi-button>
+        <emsi-button color="blue" on-tap="addMinistryLanguageHandler" field="ministries">
+          <template is="dom-if" if="[[isEnglish]]"> Add Language </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Add Language in Chinese ? </template> 
+        </emsi-button>
+        <emsi-button color="blue" on-tap="addMinistryHandler" field="ministries">
+          <template is="dom-if" if="[[isEnglish]]"> Add Ministry </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Add Ministry in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-card>
 
     <!-- Dialogs -->
     <paper-dialog id="deleteDialog" modal>
-      <div class="titleDialog"> Delete {{selectedField}}</div>
+      <div class="titleDialog">
+        <template is="dom-if" if="[[isEnglish]]"> Delete {{selectedField}} </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Delete {{selectedField}} in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <div> Are you sure you want to delete this? You cannot undo this change. </div>
-        <div> Selected: {{selectedField}} </div>
-        <div> Index: {{selectedIndex}} </div>
-        <div> Content: {{selectedValue}} </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]">  Are you sure you want to delete this? You cannot undo this change. </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Are you sure you want to delete this? You cannot undo this change. in Chinese ? </template>
+        </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Selected: {{selectedField}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Selected: {{selectedField}} in Chinese ? </template>
+        </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Index: {{selectedIndex}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Index: {{selectedIndex}} in Chinese ? </template>
+        </div>
+        <div> 
+          <template is="dom-if" if="[[isEnglish]]"> Content: {{selectedValue}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Content: {{selectedValue}} in Chinese ? </template>
+        </div>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> NO </emsi-button>
-        <emsi-button color="blue" dialog-dismiss on-tap="deleteHandler"> YES </emsi-button>
+        <emsi-button color="blue" dialog-dismiss>
+          <template is="dom-if" if="[[isEnglish]]"> NO </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? NO in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="deleteHandler">
+          <template is="dom-if" if="[[isEnglish]]"> YES </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? YES in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
 
     <paper-dialog id="languageAddDialog" modal>
-      <div class="titleDialog"> Add Ministries Langage </div>
+      <div class="titleDialog"> 
+        <template is="dom-if" if="[[isEnglish]]"> Add Ministries Language </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Add Ministries Language in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <paper-input id="languageInputAdd" label="Language (e.g. English, Chinese, Taiwanese)"> </paper-input>
+        <paper-input id="languageInputAdd" label="{{languageInputLabel}}"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button color="blue" dialog-dismiss on-tap="addLanguageDialogHandler"> ADD LANGUAGE </emsi-button>
+        <emsi-button color="blue" dialog-dismiss> 
+          <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="addLanguageDialogHandler"> 
+          <template is="dom-if" if="[[isEnglish]]"> ADD LANGUAGE </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? ADD LANGUAGE in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
 
     <paper-dialog id="ministriesAddDialog" modal>
-      <div class="titleDialog"> Add Ministries Langage </div>
+      <div class="titleDialog"> 
+        <template is="dom-if" if="[[isEnglish]]"> Add Ministry </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Add Ministry in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <paper-dropdown-menu-light id="ministrieslanguageInputAdd" label="Select Language" selected-item="{{selectedLanguageForMinistries}}">
+        <paper-dropdown-menu-light id="ministrieslanguageInputAdd" label="{{languageSelectLabel}}" selected-item="{{selectedLanguageForMinistries}}">
           <paper-listbox id="languageForMinistries" slot="dropdown-content" selected="0">
             <template  is="dom-repeat" items="{{languagesAvailable}}">
               <paper-item> {{item}} </paper-item>
             </template>
           </paper-listbox>
         </paper-dropdown-menu-light>
-        <paper-input id="ministriesnameInputAdd" label="Name of Ministry"> </paper-input>
-        <paper-input id="ministriestimeInputAdd" label="Time"> </paper-input>
+        <paper-input id="ministriesnameInputAdd" label="{{nameLabel}}"> </paper-input>
+        <paper-input id="ministriestimeInputAdd" label="{{timeLabel}}"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button color="blue" dialog-dismiss on-tap="addMinistryDialogHandler"> ADD MINISTRY </emsi-button>
+        <emsi-button color="blue" dialog-dismiss>
+        <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="addMinistryDialogHandler">
+          <template is="dom-if" if="[[isEnglish]]"> ADD MINISTRY </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? ADD MINISTRY in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
 
     <paper-dialog id="ministriesDeleteDialog" modal>
-      <div class="titleDialog"> Delete {{selectedField}}</div>
+      <div class="titleDialog"> 
+        <template is="dom-if" if="[[isEnglish]]"> Delete {{selectedField}} </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Delete {{selectedField}} in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <div> Are you sure you want to delete this? You cannot undo this change. </div>
-        <div> Selected: {{selectedField}} </div>
-        <div> Index: {{selectedIndex}} {{selectedIndex2}} </div>
-        <div> Content: {{selectedValue}} </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]">  Are you sure you want to delete this? You cannot undo this change. </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Are you sure you want to delete this? You cannot undo this change. in Chinese ? </template>
+        </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Selected: {{selectedField}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Selected: {{selectedField}} in Chinese ? </template>
+        </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Index: {{selectedIndex}} {{selectedIndex2}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Index: {{selectedIndex}} {{selectedIndex2}} in Chinese ? </template>
+        </div>
+        <div> 
+          <template is="dom-if" if="[[isEnglish]]"> Content: {{selectedValue}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Content: {{selectedValue}} in Chinese ? </template>
+        </div>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> NO </emsi-button>
-        <emsi-button color="blue" dialog-dismiss on-tap="deleteMinistriesDialogHandler"> YES </emsi-button>
+        <emsi-button color="blue" dialog-dismiss>
+          <template is="dom-if" if="[[isEnglish]]"> NO </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? NO in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="deleteMinistriesDialogHandler">
+          <template is="dom-if" if="[[isEnglish]]"> YES </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? YES in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
 
     <paper-dialog id="ministriesEditDialog" modal>
-      <div class="titleDialog"> Edit Ministry </div>
+      <div class="titleDialog"> 
+        <template is="dom-if" if="[[isEnglish]]"> Edit Ministry </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Edit Ministry in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <paper-input id="ministriesnameInputEdit" label="Name of Ministry" value="[[selectedValue.name]]"> </paper-input>
-        <paper-input id="ministriestimeInputEdit" label="Time" value="[[selectedValue.time]]"> </paper-input>
+        <paper-input id="ministriesnameInputEdit" label="{{nameLabel}}" value="[[selectedValue.name]]"> </paper-input>
+        <paper-input id="ministriestimeInputEdit" label="{{timeLabel}}" value="[[selectedValue.time]]"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button color="blue" dialog-dismiss on-tap="saveMinistryHandler"> SAVE </emsi-button>
+        <emsi-button color="blue" dialog-dismiss> 
+          <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="saveMinistryHandler"> 
+          <template is="dom-if" if="[[isEnglish]]"> SAVE </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? SAVE in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
   </template>
@@ -154,7 +232,12 @@
           selectedIndex: String,
           selectedIndex2: String,
           selectedValue: String,
-          languagesAvailable: Array
+          languagesAvailable: Array,
+          languageLabel: String,
+          languageInputLabel: String,
+          languageSelectLabel: String,
+          nameLabel: String,
+          timeLabel: String,
         };
       }
 
@@ -165,7 +248,23 @@
         ]; 
       }
 
-      languageChanged(val) { this.isEnglish = val === "en"; }
+      languageChanged(val) {
+        this.isEnglish = val === "en";
+
+        if(this.isEnglish) {
+          this.languageLabel = "Language";
+          this.languageInputLabel = "Language (e.g. English, Chinese, or Taiwanese)";
+          this.languageSelectLabel = "Select Language of the Ministry";
+          this.nameLabel = "Name of Ministry";
+          this.timeLabel = "Time of Ministry";
+        } else {
+          this.languageLabel = "? Language in Chinese ?";
+          this.languageInputLabel = "? Language (e.g. English, Chinese, or Taiwanese) in Chinese ?";
+          this.languageSelectLabel = "? Select Language of the Ministry in Chinese ?";
+          this.nameLabel = "? Name of Ministry in Chinese ?";
+          this.timeLabel = "? Time of Ministry in Chinese ?";
+        }
+      }
 
       locationReceived(v) {
         if(!v) return;

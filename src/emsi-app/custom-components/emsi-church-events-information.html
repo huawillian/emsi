@@ -25,7 +25,10 @@
     <!-- Set data property to locations part of database -->
     <firebase-document id="userDoc" app-name="emsionline"> </firebase-document>
     <paper-card>
-      <div class="title"> Events </div>
+      <div class="title">
+        <template is="dom-if" if="[[isEnglish]]"> Events </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Events in Chinese ? </template>
+      </div>
       <hr/>
       <div class="content">
         <table>
@@ -45,74 +48,116 @@
         </table>
       </div>
       <div class="card-actions">
-        <emsi-button color="blue" on-tap="addHandler" field="events"> Add Upcoming Event </emsi-button>
+        <emsi-button color="blue" on-tap="addHandler" field="events"> 
+        <template is="dom-if" if="[[isEnglish]]"> Add Upcoming Event </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Add Upcoming Event in Chinese ? </template>
+      </emsi-button>
       </div>
     </paper-card>
 
     <!-- Dialogs -->
     <paper-dialog id="deleteDialog" modal>
-      <div class="titleDialog"> Delete {{selectedField}}</div>
+      <div class="titleDialog"> 
+        <template is="dom-if" if="[[isEnglish]]"> Delete {{selectedField}} </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Delete {{selectedField}} in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <div> Are you sure you want to delete this? You cannot undo this change. </div>
-        <div> Selected: {{selectedField}} </div>
-        <div> Index: {{selectedIndex}} </div>
-        <div> Content: {{selectedValue}} </div>
+        <div> 
+          <template is="dom-if" if="[[isEnglish]]">  Are you sure you want to delete this? You cannot undo this change. </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Are you sure you want to delete this? You cannot undo this change. in Chinese ? </template>
+        </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Selected: {{selectedField}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Selected: {{selectedField}} in Chinese ? </template>
+        </div>
+        <div>
+          <template is="dom-if" if="[[isEnglish]]"> Index: {{selectedIndex}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Index: {{selectedIndex}} in Chinese ? </template>
+        </div>
+        <div> 
+          <template is="dom-if" if="[[isEnglish]]"> Content: {{selectedValue}} </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Content: {{selectedValue}} in Chinese ? </template>
+        </div>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> NO </emsi-button>
-        <emsi-button color="blue" dialog-dismiss on-tap="deleteHandler"> YES </emsi-button>
+        <emsi-button color="blue" dialog-dismiss>
+          <template is="dom-if" if="[[isEnglish]]"> NO </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? NO in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="deleteHandler">
+          <template is="dom-if" if="[[isEnglish]]"> YES </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? YES in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
 
     <paper-dialog id="eventsEditDialog" modal>
-      <div class="titleDialog"> Edit Events </div>
+      <div class="titleDialog">
+        <template is="dom-if" if="[[isEnglish]]"> Edit Events  </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Edit Events in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <paper-input id="eventstitleInputEdit" label="Event Title" value="[[selectedValue.title]]"> </paper-input>
-        <paper-dropdown-menu-light id="eventsmonthInputEdit" label="Select Month">
+        <paper-input id="eventstitleInputEdit" label="{{title}}" value="[[selectedValue.title]]"> </paper-input>
+        <paper-dropdown-menu-light id="eventsmonthInputEdit" label="{{month}}">
           <paper-listbox id="monthsEditList" slot="dropdown-content" selected="0">
             <template is="dom-repeat" items="{{months}}">
               <paper-item> {{item}} </paper-item>
             </template>
           </paper-listbox>
         </paper-dropdown-menu-light>
-        <paper-dropdown-menu-light id="eventsdateInputEdit" label="Select Date">
+        <paper-dropdown-menu-light id="eventsdateInputEdit" label="{{date}}">
           <paper-listbox id="datesEditList" slot="dropdown-content" selected="0">
             <template is="dom-repeat" items="{{dates}}">
               <paper-item> {{item}} </paper-item>
             </template>
           </paper-listbox>
         </paper-dropdown-menu-light>
-        <paper-input id="eventscontentInputEdit" label="Event Content" value="[[selectedValue.content]]"> </paper-input>
+        <paper-input id="eventscontentInputEdit" label="{{content}}" value="[[selectedValue.content]]"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button color="blue" dialog-dismiss on-tap="saveHandler"> SAVE </emsi-button>
+        <emsi-button color="blue" dialog-dismiss> 
+          <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="saveHandler">
+          <template is="dom-if" if="[[isEnglish]]"> SAVE </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? SAVE in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
 
     <paper-dialog id="eventsAddDialog" modal>
-      <div class="titleDialog"> Add Events </div>
+      <div class="titleDialog"> 
+        <template is="dom-if" if="[[isEnglish]]"> Add Event  </template>
+        <template is="dom-if" if="[[!isEnglish]]"> ? Add Event in Chinese ? </template>
+      </div>
       <paper-dialog-scrollable class="contentDialog">
-        <paper-input id="eventstitleInputAdd" label="Event Title"> </paper-input>
-        <paper-dropdown-menu-light id="eventsmonthInputAdd" label="Select Month">
+        <paper-input id="eventstitleInputAdd" label="{{title}}"> </paper-input>
+        <paper-dropdown-menu-light id="eventsmonthInputAdd" label="{{month}}">
           <paper-listbox slot="dropdown-content" selected="0">
             <template is="dom-repeat" items="{{months}}">
               <paper-item> {{item}} </paper-item>
             </template>
           </paper-listbox>
         </paper-dropdown-menu-light>
-        <paper-dropdown-menu-light id="eventsdateInputAdd" label="Select Date">
+        <paper-dropdown-menu-light id="eventsdateInputAdd" label="{{date}}">
           <paper-listbox slot="dropdown-content" selected="0">
             <template is="dom-repeat" items="{{dates}}">
               <paper-item> {{item}} </paper-item>
             </template>
           </paper-listbox>
         </paper-dropdown-menu-light>
-        <paper-input id="eventscontentInputAdd" label="Event Content"> </paper-input>
+        <paper-input id="eventscontentInputAdd" label="{{content}}"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <emsi-button color="blue" dialog-dismiss> CANCEL </emsi-button>
-        <emsi-button color="blue" dialog-dismiss on-tap="addDialogHandler"> ADD EVENTS </emsi-button>
+        <emsi-button color="blue" dialog-dismiss>
+          <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+        </emsi-button>
+        <emsi-button color="blue" dialog-dismiss on-tap="addDialogHandler">
+          <template is="dom-if" if="[[isEnglish]]"> ADD EVENTS </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? ADD EVENTS in Chinese ? </template>
+        </emsi-button>
       </div>
     </paper-dialog>
   </template>
@@ -137,6 +182,10 @@
             type: Array,
             value: "1".repeat(31).split("").map((v, i) => i + 1)
           },
+          title: String,
+          month: String,
+          date: String,
+          content: String,
         };
       }
 
@@ -146,7 +195,21 @@
         ]; 
       }
 
-      languageChanged(val) { this.isEnglish = val === "en"; }
+      languageChanged(val) {
+        this.isEnglish = val === "en";
+
+        if(this.isEnglish) {
+          this.title = "Event Title";
+          this.month = "Select Month";
+          this.date = "Select Date";
+          this.content = "Event Content";
+        } else {
+          this.title = "? Event Title in Chinese ?";
+          this.month = "? Select Month in Chinese ?";
+          this.date = "? Select Date in Chinese ?";
+          this.content = "? Event Content in Chinese ?";
+        }
+      }
 
       // Edit, Save and Add Methods
       addHandler(e) {
