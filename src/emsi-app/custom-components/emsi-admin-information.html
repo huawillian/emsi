@@ -283,7 +283,7 @@
           displayName: this.$.createUserDisplayName.value,
           admin: this.$.createUserDisplayAdmin.selectedItem.innerText.trim(),
           isMasterAdmin: false,
-          imageUrl: this.$.createUserDisplayImageUrl.value.trim()
+          imageUrl: this.$.createUserDisplayImageUrl.value ? this.$.createUserDisplayImageUrl.value.trim() : ""
         }
 
         if(data.admin === "None") data.admin = "";
@@ -314,19 +314,19 @@
       verifyUserData(data, userdata) {
         let result = [];
         if(!data.name || data.name === "") {
-          result.push("Name has not been set!");
+          result.push("Name has not been set! 名稱尚未設置！");
         }
         if(!data.displayName || data.displayName === "") {
-          result.push("Display Name has not been set!");
+          result.push("Display Name has not been set! 顯示名稱尚未設置！");
         }
         if(!data.admin || (!this.locations.find(v => v.name === data.admin) && data.admin !== "")) {
-          result.push("Admin location does not exist! " + data.admin);
+          result.push("Location does not exist! 位置不存在！" + data.admin);
         }
         if(!userdata.email || userdata.email === "") {
-          result.push("Email has not been set!");
+          result.push("Email has not been set! 電子郵件尚未設置！");
         }
         if(!userdata.password || userdata.password === "") {
-          result.push("Password has not been set!");
+          result.push("Password has not been set! 密碼沒有設置！");
         }
         return result;
       }
@@ -394,37 +394,37 @@
       verifyChurchData(data) {
         let result = [];
         if(!data.name || data.name === "") {
-          result.push("Name has not been set!");
+          result.push("Name has not been set! 名稱尚未設置！");
         }
         if(!data.address || data.address === "") {
-          result.push("Address has not been set!");
+          result.push("Address has not been set! 地址尚未設置！");
         }
         if(!data.continent || data.continent === "") {
-          result.push("Continent has not been set!");
+          result.push("Continent has not been set! 大陸尚未設置！");
         }
         if(!data.region || data.region === "") {
-          result.push("Region has not been set!");
+          result.push("Region has not been set! 地區尚未設置！");
         }
         if(!data.email || data.email === "") {
-          result.push("Email has not been set!");
+          result.push("Email has not been set! 電子郵件尚未設置！");
         }
         if(!data.phone || data.phone === "") {
-          result.push("Phone number has not been set!");
+          result.push("Phone number has not been set! 電話號碼尚未設置！");
         }
 
         // Name must be unique
         if(!!this.locations.find(v => v.name === data.name)) {
-          result.push("Name already taken! Please type another unique name.");
+          result.push("Name already taken! Please type another unique name. 名稱已經被使用！請輸入另一個唯一的名稱。");
         }
 
         // Continent must exist
         if(!["America", "Europe", "Asia", "Africa", "Australia"].includes(data.continent)) {
-          result.push("Continent does not exist! Please select: America, Europe, Asia, Africa, Australia");
+          result.push("Continent does not exist! Please select: America, Europe, Asia, Africa, Australia. 大陸不存在！請選擇：美洲，歐洲，亞洲，非洲，澳大利亞。");
         }
 
         // url must be unique
         if(!!this.locations.find(v => v.url === data.url)) {
-          result.push("Url already taken! ");
+          result.push("Url already taken! 網址已經被佔用！");
         }
 
         return result;
