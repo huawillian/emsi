@@ -17,7 +17,8 @@
 		<style include="continent-styles"> </style>
 		<div class="container">
 			<div class="titleContainer">
-				<slot name="title"> </slot>
+				<template is="dom-if" if="[[isEnglish]]"> {{title}} </template>	
+				<template is="dom-if" if="[[!isEnglish]]"> {{chineseTitle}} </template>	
 			</div>
 			<div class="regionContainer"> 
 				<template is="dom-if" if="[[isEnglish]]"> Select Region </template>	
@@ -47,6 +48,8 @@
 
 			static get properties() { 
 				return {
+					title: String,
+					chineseTitle: String,
 					lang: String,
           isEnglish: Boolean,
 					// Currently selected Item from dropdown

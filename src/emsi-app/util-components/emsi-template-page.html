@@ -11,7 +11,10 @@
 
 		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="{{backgroundImagePath}}" sizing="cover" style="background-color: white;"></plastic-image>
 
-    <div class="titleContainer"> [[title]] </div>
+    <div class="titleContainer">
+    	<template is="dom-if" if="[[isEnglish]]"> {{title}} </template>	
+			<template is="dom-if" if="[[!isEnglish]]"> {{chineseTitle}} </template>	
+    </div>
     <div class="contentContainer">
 			<slot> </slot>
     </div>
@@ -20,7 +23,18 @@
 	<script>
 		class EMSITemplatePage extends Polymer.Element {
 			static get is() { return 'emsi-template-page'; }
-			static get properties() { return { title: String, backgroundImagePath: String }; }
+			static get observers() { return [ 'languageChanged(lang)' ]; }
+      languageChanged(val) { this.isEnglish = val === "en"; }
+
+			static get properties() {
+				return {
+					lang: String,
+					isEnglish: Boolean,
+					title: String,
+					chineseTitle: String,
+					backgroundImagePath: String 
+				}; 
+			}
 		}
 
 		window.customElements.define(EMSITemplatePage.is, EMSITemplatePage);

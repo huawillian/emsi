@@ -19,8 +19,8 @@
 				font-weight: bold;
 			}
 		</style>
-		<template is="dom-if" if="[[isEnglish]]">
-			<emsi-template-page title="Mission Ministries" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/MissionsPageImage409-01.jpg">
+		<emsi-template-page title="Mission Ministries" chinese-title="差傳會" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/MissionsPageImage409-01.jpg" lang="{{lang}}">
+			<template is="dom-if" if="[[isEnglish]]">
 				<div class="divHeader"> PAST </div> 
 
 				<div> I. THE BRIEF HISTORY OF THE CHRISTIAN EVANGELICAL OVERSEA MISSION (C.E.O.M.) </div>
@@ -59,10 +59,8 @@
 				<div> III. FUTURE PROSPECT OF THE CHRISTIAN EVANGELICAL OVERSEAS MISSION </div>
 				<div> There are more than 50 mission organizations around the world and most of them have the burden toward Mainland China. The reason is because there are billions of unconquered souls in China and this has become the main goal of many short-term mission teams. The C.E.O.M. has our own mission direction. Our goal is that, through the influence of the overseas Chinese, we can go into the whole world. The C.E.O.M. does not follow the crowd, but it follows God’s wisdom. We have our own strategy and plan in expanding the mission work. We do not waste financial resources and manpower, but we fulfill the Gospel ministry in these last days. </div>
 				<div> For the past eighteen years, through the Lord’s leading and the full support of the C.E.M. pastors and members, we were able to send out missionaries trained in our seminary to the mission’s field. We were also able to reach out to the overseas Chinese and expand the Gospel ministry. We will continue to train more full-time Christian workers in the days to come. We want to challenge all C.E.C. members to be directly involved in the mission’s work. In the past, every time we made a mission’s call, many faithful brothers and sisters gave generously, just like what Apostle Paul said: “as having nothing, and yet possessing all things” (II Corinthians 6:10). This is an exercise of our faith and a blessed commitment. But the greatest blessing goes to our brothers and sisters. God promises hundred fold now in this life, but eternal life in the world to come (Mark 10:30). Therefore, if we are willing to give our time, money, energy and lives to the Lord, He will always be faithful to us. </div>
-			</emsi-template-page>
-		</template>
-		<template is="dom-if" if="[[!isEnglish]]">
-			<emsi-template-page title="差傳會" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/MissionsPageImage409-01.jpg">
+			</template>
+			<template is="dom-if" if="[[!isEnglish]]">
 				<div> 壹、</div>
 				<div> 國際福音差傳會的過去─我們的簡史 </div>
 			 	<div> 「國際福音差傳會」於一九九五年四月在美國新澤西多華谷總會成立，隨即開展宣教拓荒的事工。卅多年前，楊摩西牧師有機會常往返於歐、美洲之間，應邀至各地培靈及佈道，所到之地看到聖靈引導，不但許多人走進教會，也帶給弟兄姐妹靈命的復興。如今國際福音差傳會已於美、歐、亞、非四大洲都設有分會協助各地生命堂宣教事工的推展。 </div>
@@ -101,8 +99,8 @@
 			 	<div> 過去的十餘年中，感謝主引領，生命堂各牧者全力地配合，使我們能結合各生命堂弟兄姐妹的力量，差派神學院訓練的宣教士投入宣教工場，積極對散佈在海外的華人同胞，開展我們的福音宣教事工；而未來我們除了仍會繼續栽培造就更多願意走上全職事奉道路的宣教士外，我們也要挑旺各生命堂的弟兄姐妹更多直接地參與宣教。若我們能在時間、金錢、才識及體力上都盡己力而為之，主決不會虧待我們。在宣教的事奉中。感謝主，祂的應許不落空！ </div>
 			 	<div> 宣教一直是國際神學福音佈道會多年來所持守的異象，因為我們知道主喜悅我們將祂的福音傳往地極；我們堅守從主來的異象，同心協力往前走，為要搶救更多的靈魂。一個成長的基督徒，一間愛主的教會，都應將宣教當成屬靈生命邁入成長的必經過程；因此為提昇弟兄姐妹對宣教更多的認知，我們這些年來藉由短宣隊、宣教旅遊、音樂佈道來幫助大家有負擔成為宣教的勇士。而如今在不同的國家中，我們應如何堅固這些事工，將各生命堂帶進復興之路，乃是我們的當務之急。求主賜我們各生命堂的牧者、傳道、同工及弟兄姐妹能有此共同的體認。 </div>
 			 	<div> 盼望這傳福音的使命能激勵弟兄姐妹對宣教的負擔，帶動整個生命堂的宣教事工；所以，挑旺弟兄姐妹參與宣教的行列，將每位我們所接觸及認識的華人帶到主前，是國際福音差傳會繼續不斷推動的事工。 </div>
-			</emsi-template-page>
-		</template>
+			</template>
+		</emsi-template-page>
 	</template>
 	
 	<script>

@@ -16,9 +16,9 @@
 				margin-bottom: 20pt;
 			}
 		</style>
-		<template is="dom-if" if="[[isEnglish]]">
-			<emsi-template-page title="Mission Churches" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
-			 <div> The main thrusts of the ministry of the Christian Evangelical Oversea Mission 
+		<emsi-template-page title="Mission Churches" chinese-title="宣教教會" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg" lang="{{lang}}">
+			<template is="dom-if" if="[[isEnglish]]">
+			  <div> The main thrusts of the ministry of the Christian Evangelical Oversea Mission 
 				are to spread the Gospel of Christ Jesus and to establish churches that are based 
 				on God’s truth.  Aside from coordinating all missionary work in America, Europe, 
 				Asia, and Africa, the CEOM oversees the establishment of mission churches.  It 
@@ -41,15 +41,13 @@
 				<div> A mission church is like a new-born baby that needs extra care and nurture.  It 
 				needs financial, manpower, and prayer support from brothers and sisters.  So, in 
 				the mission field, the C.E.O.M. will fully support the pioneering mission field. </div>
-			</emsi-template-page>
-		</template>
-		<template is="dom-if" if="[[!isEnglish]]">
-			<emsi-template-page title="宣教教會" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
+			</template>
+			<template is="dom-if" if="[[!isEnglish]]">
 				<div> 國際福音差傳會主要的事工就是：傳揚基督耶穌的福音，並在世界各地建立基督真理的教會。我們除了聯合協調美洲、歐洲、亞洲、非洲各地宣教的工作，監督各宣教教會的建立，也差遣並監管各地宣教同工，以配合各地福音工場之需。 </div>
 				<div> 國際福音差傳會事工的重點較集中於各宣教教會。所謂「宣教教會」就是指：在拓荒的宣教工場中將曾帶領得救信主的信徒召集聚會，因此而成立的教會即為宣教教會。宣教教會是各生命堂建立教會的第一步，不論是已有能力自立，或是由差傳會基金支持，每間生命堂的建立都必須由宣教教會起步；所以，在國際福音差傳會整體的組織架構裡，宣教教會將成為未來各生命堂發展的基石。</div>
 				<div> 當宣教教會已有能力足夠支付自己教會的一切經常開支，不需其他教會或是宣教基金支持時，並且在一切整體的運作上與總會一致，即可成為自立教會。 宣教教會，有如剛出生的嬰孩，需要格外地照顧，不論在財力、人力、物力等方面，特別需要關懷，在禱告中支持；差傳會是全力支援這些剛拓荒的工場。 </div>
-			</emsi-template-page>
-		</template>
+			</template>
+		</emsi-template-page>
 	</template>
 	
 	<script>

@@ -39,8 +39,8 @@
 				width: 100%;
 			}
 		</style>
-		<template is="dom-if" if="[[isEnglish]]">
-			<emsi-template-page title="Courses" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
+		<emsi-template-page title="Courses" chinese-title="課程" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg" lang="{{lang}}">
+			<template is="dom-if" if="[[isEnglish]]">
 				<div class="divHeader"> Basic Bible Courses </div>
 
 				<div class="chipContainer">
@@ -131,10 +131,8 @@
 					<div class="chip"> Biblical Logic </div>
 					<div class="chip"> King James Bible Defense</div>
 				</div>
-			</emsi-template-page>
-    </template>   		
-	  <template is="dom-if" if="[[!isEnglish]]">
-	  	<emsi-template-page title="課程" background-image-path="https://github.com/huawillian/emsi/raw/master/src/images/StatementOfFaithImage-01.jpg">
+    	</template>   		
+	  	<template is="dom-if" if="[[!isEnglish]]">
 				<div class="divHeader"> 基要聖經課程 </div>
 
 				<div class="chipContainer">
@@ -225,8 +223,8 @@
 					<div class="chip"> 聖經羅輯學 </div>
 					<div class="chip"> 欽定本聖經維護 </div>
 				</div>
-			</emsi-template-page>
-		</template>
+			</template>
+		</emsi-template-page>
 	</template>
 	
 	<script>

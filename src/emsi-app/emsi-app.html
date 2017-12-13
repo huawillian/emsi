@@ -103,38 +103,10 @@
 
         <emsi-search-page class="page" name="search" lang="{{lang}}" locations="{{dataAsArray}}"> </emsi-search-page>
 
-        <emsi-continent-page class="page" name="america" lang="{{lang}}" continent="America" locations="{{dataAsArray}}">
-          <template is="dom-if" if="[[isEnglish]]">
-            <span slot="title"> America </span>
-          </template>
-          <template is="dom-if" if="[[!isEnglish]]">
-            <span slot="title"> ? America in chinese ?</span>
-          </template>
-        </emsi-continent-page>
-        <emsi-continent-page class="page" name="europe" lang="{{lang}}" continent="Europe" locations="{{dataAsArray}}">
-          <template is="dom-if" if="[[isEnglish]]">
-            <span slot="title"> Europe </span>
-          </template>
-          <template is="dom-if" if="[[!isEnglish]]">
-            <span slot="title"> ? Europe in chinese ?</span>
-          </template>
-        </emsi-continent-page>
-        <emsi-continent-page class="page" name="asia" lang="{{lang}}" continent="Asia" locations="{{dataAsArray}}">
-          <template is="dom-if" if="[[isEnglish]]">
-            <span slot="title"> Asia </span>
-          </template>
-          <template is="dom-if" if="[[!isEnglish]]">
-            <span slot="title"> ? Asia in chinese ?</span>
-          </template>
-        </emsi-continent-page>
-        <emsi-continent-page class="page" name="africa" lang="{{lang}}" continent="Africa" locations="{{dataAsArray}}">
-          <template is="dom-if" if="[[isEnglish]]">
-            <span slot="title"> Africa </span>
-          </template>
-          <template is="dom-if" if="[[!isEnglish]]">
-            <span slot="title"> ? Africa in chinese ?</span>
-          </template>
-        </emsi-continent-page>
+        <emsi-continent-page class="page" name="america" lang="{{lang}}" continent="America" locations="{{dataAsArray}}" title="America" chinese-title="? America in chinese ?"> </emsi-continent-page>
+        <emsi-continent-page class="page" name="europe" lang="{{lang}}" continent="Europe" locations="{{dataAsArray}}" title="Europe" chinese-title="? Europe in chinese ?"> </emsi-continent-page>
+        <emsi-continent-page class="page" name="asia" lang="{{lang}}" continent="Asia" locations="{{dataAsArray}}" title="Asia" chinese-title="? Asia in chinese ?"> </emsi-continent-page>
+        <emsi-continent-page class="page" name="africa" lang="{{lang}}" continent="Africa" locations="{{dataAsArray}}" title="Africa" chinese-title="? Africa in chinese ?"> </emsi-continent-page>
 
         <emsi-ministries-page class="page" name="ministries" lang="{{lang}}"> </emsi-ministries-page>
         <emsi-churches-page class="page" name="churches" lang="{{lang}}"> </emsi-churches-page>
