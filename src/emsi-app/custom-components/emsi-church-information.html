@@ -48,6 +48,15 @@
           </tr>
           <tr>
             <td> 
+              <paper-input id="chineseName" label="{{chineseName}}" disabled value="[[location.chineseName]]"> </paper-input> 
+            </td>
+            <td class="icons">
+              <paper-icon-button icon="create" on-tap="editChurchHandler" field="chineseName"></paper-icon-button>
+              <paper-icon-button icon="done" on-tap="saveChurchHandler" field="chineseName"></paper-icon-button>
+            </td>
+          </tr>
+          <tr>
+            <td> 
               <paper-input id="address" label="{{address}}" disabled value="[[location.address]]"> </paper-input> 
             </td>
             <td class="icons">
@@ -137,6 +146,7 @@
           phone: String,
           description: String,
           pictureLink: String,
+          chineseName: String,
         };
       }
 
@@ -159,6 +169,7 @@
           this.phone = "Phone Number";
           this.description = "Description or Brief History";
           this.pictureLink = "Picture Link";
+          this.chineseName = "Chinese Name of the Church (optional)"
         } else {
           this.address = "? Address in Chinese ?";
           this.continent = "? Continent (e.g. America, Europe, Africa, Asia) in Chinese ?";
@@ -167,6 +178,7 @@
           this.phone = "? Phone Number in Chinese ?";
           this.description = "? Description or Brief History in Chinese ?";
           this.pictureLink = "? Picture Link in Chinese ?";
+          this.chineseName = "? Chinese Name of the Church (optional) in Chinese ?"
         }
       }
 

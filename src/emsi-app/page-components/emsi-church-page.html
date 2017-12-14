@@ -17,7 +17,10 @@
 	<template>
 		<style include="church-styles"> </style>
 		<div id="churchHeader">
-			<div id="churchName"> {{churchData.name}} </div>
+			<div id="churchName"> 
+				<template is="dom-if" if="[[isEnglish]]"> {{churchData.name}} </template>
+				<template is="dom-if" if="[[!isEnglish]]"> {{churchData.chineseName}} </template>
+			</div>
 			<div id="churchAddress"> {{churchData.address}} </div>
 			<div>
 				<span id="churchPhoneNumber"> {{churchData.phone}} </span>

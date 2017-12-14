@@ -17,7 +17,10 @@
     <paper-card elevation="3">
       <div class="card-content">
         <div id="distance"> {{userDistanceText}} </div>
-        <div id="title"> {{data.name}} </div>
+        <div id="title">
+          <template is="dom-if" if="[[isEnglish]]"> {{data.name}} </template> 
+          <template is="dom-if" if="[[!isEnglish]]"> {{data.chineseName}} </template> 
+        </div>
         <div id="address"> {{data.address}} </div>
       <div id="serviceTitle">
         <template is="dom-if" if="[[isEnglish]]"> Sunday Worship </template> 

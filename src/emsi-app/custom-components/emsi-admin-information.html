@@ -157,8 +157,8 @@
           <template is="dom-if" if="[[!isEnglish]]"> ? Please Note, the name and city of the church cannot be changed. in Chinese ? </template>
         </div>
         <div>
-          <template is="dom-if" if="[[isEnglish]]"> Please add description and image after creating the church. </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Please add description and image after creating the church. in Chinese ? </template>
+          <template is="dom-if" if="[[isEnglish]]"> Please add description, picture of the church, and chinese name after creating the church. </template>
+          <template is="dom-if" if="[[!isEnglish]]"> ? Please add description, picture of the church, and chinese name after creating the church. in Chinese ? </template>
         </div>
         <template is="dom-repeat" items="[[churchMessages]]" as="message" index-as="i">
           <div style="color: red;"> {{message}} </div>
@@ -346,6 +346,7 @@
           url: "/church/" + city,
           description: "",
           churchImageUrl: "",
+          chineseName: "",
           events: [{
             content: "Enter Content...",
             date: "Enter Date...",

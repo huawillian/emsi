@@ -25,7 +25,7 @@
 				<template is="dom-if" if="[[!isEnglish]]"> ? Select Region in chinese ?</template>	
 			</div>
 			<!-- Regions Dropdown Menu-->
-			<paper-dropdown-menu-light label="Regions" selected-item="{{selectedItem}}">
+			<paper-dropdown-menu-light label="{{regionLabel}}" selected-item="{{selectedItem}}">
 			  <paper-listbox slot="dropdown-content" selected="0">
 			    <paper-item> All </paper-item>
 			    <template is="dom-repeat" items="{{regionArr}}">
@@ -44,7 +44,16 @@
 		class EMSIContinentPage extends Polymer.Element {
 			static get is() { return 'emsi-continent-page'; }
 			static get observers() { return [ 'languageChanged(lang)' ]; }
-      languageChanged(val) { this.isEnglish = val === "en"; }
+
+      languageChanged(val) {
+      	this.isEnglish = val === "en";
+
+      	if(this.isEnglish) {
+      		this.regionLabel = "Region";
+      	} else {
+      		this.regionLabel = "? Region in Chinese ?";
+      	}
+      }
 
 			static get properties() { 
 				return {
@@ -77,7 +86,8 @@
 					continent: {
 						type: String, 
 						value: "America"
-					}
+					},
+					regionLabel: String
 				}; 
 			}
 
