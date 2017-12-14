@@ -52,7 +52,7 @@
 
     <div class="titleContainer">
       <template is="dom-if" if="[[isEnglish]]"> Welcome </template>
-      <template is="dom-if" if="[[!isEnglish]]"> ? Welcome in Chinese ? </template>
+      <template is="dom-if" if="[[!isEnglish]]"> 歡迎 </template>
       , [[userData.name]]
     </div>
 
@@ -66,7 +66,7 @@
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
         <div class="titleContainerChurch">
           <template is="dom-if" if="[[isEnglish]]"> All Users </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? All Users in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 全部用戶 </template>
         </div>
         <paper-dropdown-menu-light label="{{selectUserLabel}}" selected-item="{{selectedItem}}">
           <paper-listbox id="userSelector" slot="dropdown-content" selected="0">
@@ -90,7 +90,7 @@
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
         <div class="titleContainerChurch">
           <template is="dom-if" if="[[isEnglish]]"> All Churches </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? All Churches in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 所有的教會 </template>
         </div>
         <paper-dropdown-menu-light label="{{selectChurchLabel}}" selected-item="{{selectedLocation}}">
           <paper-listbox id="churchSelector" slot="dropdown-content" selected="0">
@@ -195,8 +195,8 @@
           this.selectUserLabel = "Select User Here";
           this.selectChurchLabel = "Select Church Here";
         } else {
-          this.selectUserLabel = "? Select User Here in Chinese ?";
-          this.selectChurchLabel = "? Select Church Here in Chinese ?";
+          this.selectUserLabel = "在這裡選擇用戶";
+          this.selectChurchLabel = "在這裡選擇教堂";
         }
       }
 

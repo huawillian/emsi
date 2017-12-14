@@ -18,7 +18,7 @@
     <paper-card>
       <div class="title">
         <template is="dom-if" if="[[isEnglish]]"> Account Information </template>
-        <template is="dom-if" if="[[!isEnglish]]"> ? Account Information in Chinese ? </template>
+        <template is="dom-if" if="[[!isEnglish]]"> 帳戶信息 </template>
       </div>
       <hr/>
       <div class="content">
@@ -29,11 +29,11 @@
       <div class="card-actions">
         <emsi-button color="blue" on-tap="logOutHandler"> 
           <template is="dom-if" if="[[isEnglish]]"> Sign Out </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Sign Out in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 登出 </template>
         </emsi-button>
         <emsi-button color="blue" on-tap="passwordResetHandler">
           <template is="dom-if" if="[[isEnglish]]"> Reset Password </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Reset Password in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 重設密碼 </template>
         </emsi-button>
       </div>
     </paper-card>
@@ -66,8 +66,8 @@
           this.emailLabel = "Email Address";
           this.passLabel = "Password";
         } else {
-          this.emailLabel = "? Email Address in chinese ?";
-          this.passLabel = "? Password in chinese ?";
+          this.emailLabel = "電子郵件地址";
+          this.passLabel = "密碼";
         }
       }
 

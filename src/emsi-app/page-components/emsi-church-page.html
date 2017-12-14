@@ -28,7 +28,7 @@
 			</div>
 			<div id="serviceTitle">
 				<template is="dom-if" if="[[isEnglish]]"> Sunday Worship Times </template>
-				<template is="dom-if" if="[[!isEnglish]]"> ? CHINESE Sunday Worship Times ? </template>
+				<template is="dom-if" if="[[!isEnglish]]"> 星期日崇拜時報 </template>
 			</div>
 			<table id="serviceContainer">
 				<template is="dom-repeat" items="[[churchData.time]]">
@@ -44,22 +44,22 @@
 			<div class="actionContainer">
 				<emsi-button class="actionBtn" color="blue" on-tap="goToGoogleMaps">
 					<template is="dom-if" if="[[isEnglish]]"> GET DIRECTIONS </template>
-					<template is="dom-if" if="[[!isEnglish]]"> ? CHINESE DIRECTIONS ? </template>
+					<template is="dom-if" if="[[!isEnglish]]"> 獲取路線 </template>
 				</emsi-button>
 				<emsi-button class="actionBtn" color="blue" on-tap="openEmail">
 					<template is="dom-if" if="[[isEnglish]]"> CONTACT US </template>
-					<template is="dom-if" if="[[!isEnglish]]"> ? CHINESE CONTACT ? </template>
+					<template is="dom-if" if="[[!isEnglish]]"> 聯繫我們 </template>
 				</emsi-button>
 			</div>
 		</div>
 
 		<div class="container">
 			<emsi-homepage-picture class="containerItem s1" image-url="{{churchData.churchImageUrl}}"> </emsi-homepage-picture>
-			<emsi-church-ministries-fellowships class="containerItem s2" title="Ministries and Fellowships" chinese-title="? Ministries and Fellowships in chinese ?" data="{{churchData.ministries}}" lang="{{lang}}"> </emsi-church-ministries-fellowships>
-			<emsi-church-events class="containerItem s3" title="Upcoming Events" chinese-title="? Upcoming Events in chinese ?" data="{{churchData.events}}" lang="{{lang}}"> </emsi-church-events>
-			<emsi-church-pastors-staff class="containerItem s4" title="Pastoral Staff" chinese-title="? Pastoral Staff in chinese ?" data="{{churchData.staff}}" lang="{{lang}}" users-obj="{{usersObj}}"> </emsi-church-pastors-staff>
-			<emsi-church-description class="containerItem s5" title="Brief History" chinese-title="? Brief History in chinese ?" description="{{churchData.description}}" lang="{{lang}}"> </emsi-church-description>
-			<emsi-church-news class="containerItem s6" title="News and Announcements" chinese-title="? News and Announcements in chinese ?" data="{{churchData.news}}" lang="{{lang}}"> </emsi-church-news>
+			<emsi-church-ministries-fellowships class="containerItem s2" title="Ministries and Fellowships" chinese-title="部委和研究金" data="{{churchData.ministries}}" lang="{{lang}}"> </emsi-church-ministries-fellowships>
+			<emsi-church-events class="containerItem s3" title="Upcoming Events" chinese-title="即將舉行的活動" data="{{churchData.events}}" lang="{{lang}}"> </emsi-church-events>
+			<emsi-church-pastors-staff class="containerItem s4" title="Pastoral Staff" chinese-title="牧師" data="{{churchData.staff}}" lang="{{lang}}" users-obj="{{usersObj}}"> </emsi-church-pastors-staff>
+			<emsi-church-description class="containerItem s5" title="Brief History" chinese-title="歷史簡介" description="{{churchData.description}}" lang="{{lang}}"> </emsi-church-description>
+			<emsi-church-news class="containerItem s6" title="News and Announcements" chinese-title="新聞和公告" data="{{churchData.news}}" lang="{{lang}}"> </emsi-church-news>
 		</div>
 	</template>
 	

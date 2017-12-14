@@ -31,7 +31,7 @@
     <paper-card>
       <div class="title">
         <template is="dom-if" if="[[isEnglish]]"> Personal Information </template>
-        <template is="dom-if" if="[[!isEnglish]]"> ? Personal Information in Chinese ? </template>
+        <template is="dom-if" if="[[!isEnglish]]"> 個人信息 </template>
       </div>
       <hr/>
       <div class="content">
@@ -62,7 +62,7 @@
                   <iron-icon slot="drop-label-icon" icon="cloud-upload" style="margin-left: 20pt"></iron-icon>
                   <span slot="drop-label" style="margin-left: 20pt">
                     <template is="dom-if" if="[[isEnglish]]"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </template>
-                    <template is="dom-if" if="[[!isEnglish]]"> ? Drop *.png, *.jpg, or *.gif file here. Max 1 MB. ? </template>
+                    <template is="dom-if" if="[[!isEnglish]]"> 在此處放置* .png，* .jpg或* .gif文件。最大1 MB。 </template>
                   </span>
                 </vaadin-upload>
               </iron-collapse>
@@ -141,11 +141,11 @@
           this.masterAdministrator = "Master Administrator";
           this.location = "Location";
         } else {
-          this.name = "? Name in Chinese ?";
-          this.displayName = "? Display Name in Chinese ?";
-          this.pictureLink = "? Picture Link in Chinese ?";
-          this.masterAdministrator = "? Master Administrator in Chinese ?";
-          this.location = "? Location in Chinese ?";
+          this.name = "名稱";
+          this.displayName = "顯示名稱";
+          this.pictureLink = "圖片鏈接";
+          this.masterAdministrator = "主管理員";
+          this.location = "位置";
         }
       }
 

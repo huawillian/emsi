@@ -37,45 +37,45 @@
       <template is="dom-if" if="[[!userData.isMasterAdmin]]">
         <div class="title">
           <template is="dom-if" if="[[isEnglish]]"> Your Location </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Your Location in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 你的地點 </template>
         </div>
       </template>
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
         <div class="title"> 
           <template is="dom-if" if="[[isEnglish]]"> Master Administrator Panel </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Master Administrator Panel in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 主管理員面板 </template>
         </div>
       </template>
       <hr/>
       <div class="content">
         <template is="dom-if" if="[[!userData.isMasterAdmin]]">
-          <paper-input label="Location" disabled value="[[userData.admin]]"> </paper-input>
+          <paper-input label="{{locationLabel}}" disabled value="[[userData.admin]]"> </paper-input>
           <div> 
             <template is="dom-if" if="[[isEnglish]]"> Please contact or email an administrator to change your location </template>
-            <template is="dom-if" if="[[!isEnglish]]"> ? Please contact or email an administrator to change your location in Chinese ? </template>
+            <template is="dom-if" if="[[!isEnglish]]"> 請聯繫或發送電子郵件給管理員更改您的位置 </template>
           </div>
         </template>
         <template is="dom-if" if="[[userData.isMasterAdmin]]">
-          <paper-input label="Location" disabled value="All Churches"> </paper-input>
+          <paper-input label="{{locationLabel}}" disabled value="All Churches"> </paper-input>
           <div> 
             <template is="dom-if" if="[[isEnglish]]"> You are a master administrator </template>
-            <template is="dom-if" if="[[!isEnglish]]"> ? You are a master administrator in Chinese ? </template>
+            <template is="dom-if" if="[[!isEnglish]]"> 您是主管理員 </template>
           </div>
         </template>
         <div> 
           <template is="dom-if" if="[[isEnglish]]"> If you have any questions, please email huawillian@gmail.com </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? If you have any questions, please email huawillian@gmail.com in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 如果您有任何問題，請發送電子郵件 huawillian@gmail.com</template>
         </div>
       </div>
       <template is="dom-if" if="[[userData.isMasterAdmin]]">
         <div class="card-actions">
           <emsi-button color="blue" on-tap="openCreateUserDialog">
             <template is="dom-if" if="[[isEnglish]]"> Create User </template>
-            <template is="dom-if" if="[[!isEnglish]]"> ? Create User in Chinese ? </template>
+            <template is="dom-if" if="[[!isEnglish]]"> 創建用戶 </template>
           </emsi-button>
           <emsi-button color="blue" on-tap="openCreateChurchDialog">
             <template is="dom-if" if="[[isEnglish]]"> Create Church </template>
-            <template is="dom-if" if="[[!isEnglish]]"> ? Create Church in Chinese ? </template>
+            <template is="dom-if" if="[[!isEnglish]]"> 創建教會 </template>
           </emsi-button>
         </div>
       </template>
@@ -84,7 +84,7 @@
     <paper-dialog id="createUserDialog" modal>
       <div class="titleDialog">
         <template is="dom-if" if="[[isEnglish]]"> Create New User </template>
-        <template is="dom-if" if="[[!isEnglish]]"> ? Create New User in Chinese ? </template>
+        <template is="dom-if" if="[[!isEnglish]]"> 創建新用戶 </template>
       </div>
       <paper-dialog-scrollable class="contentDialog">
         <paper-input id="createUserName" label="{{name}}"> </paper-input>
@@ -102,7 +102,7 @@
           <iron-icon slot="drop-label-icon" icon="cloud-upload" style="margin-left: 20pt"></iron-icon>
           <span slot="drop-label" style="margin-left: 20pt">
             <template is="dom-if" if="[[isEnglish]]"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </template>
-            <template is="dom-if" if="[[!isEnglish]]"> ? Drop *.png, *.jpg, or *.gif file here. Max 1 MB. in Chinese ? </template>
+            <template is="dom-if" if="[[!isEnglish]]"> 在此處放置* .png，* .jpg或* .gif文件。最大1 MB。 </template>
           </span>
         </vaadin-upload>
         <br/>
@@ -111,11 +111,11 @@
         <paper-input id="createUserDisplayPassword" label="{{password}}"> </paper-input>
         <div> 
           <template is="dom-if" if="[[isEnglish]]"> Please Note, email cannot be changed. </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Please Note, email cannot be changed. in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 請注意，電子郵件不能更改。 </template>
         </div>
         <div>
           <template is="dom-if" if="[[isEnglish]]"> Password can be changed by the user after creating this account. </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Password can be changed by the user after creating this account. in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 創建此帳戶後，用戶可以更改密碼。</template>
         </div>
         <template is="dom-repeat" items="[[userMessages]]" as="message" index-as="i">
           <div style="color: red;"> {{message}} </div>
@@ -124,11 +124,11 @@
       <div class="buttons">
         <emsi-button color="blue" dialog-dismiss> 
           <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 取消 </template>
         </emsi-button>
         <emsi-button color="blue" on-tap="createUserHandler">
           <template is="dom-if" if="[[isEnglish]]"> CREATE </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? CREATE in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 創建 </template>
         </emsi-button>
       </div>
     </paper-dialog>
@@ -136,7 +136,7 @@
     <paper-dialog id="createChurchDialog" modal>
       <div class="titleDialog"> 
         <template is="dom-if" if="[[isEnglish]]"> Create New Church </template>
-        <template is="dom-if" if="[[!isEnglish]]"> ? Create New Church in Chinese ? </template>
+        <template is="dom-if" if="[[!isEnglish]]"> 創建新的教會 </template>
       </div>
       <paper-dialog-scrollable class="contentDialog">
         <paper-input id="createChurchName" label="{{churchName}}"> </paper-input>
@@ -154,11 +154,11 @@
         <paper-input id="createChurchPhone" label="{{churchPhone}}"> </paper-input>
         <div> 
           <template is="dom-if" if="[[isEnglish]]"> Please Note, the name and city of the church cannot be changed. </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Please Note, the name and city of the church cannot be changed. in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 請注意，教堂的名稱和城市不能改變。 </template>
         </div>
         <div>
           <template is="dom-if" if="[[isEnglish]]"> Please add description, picture of the church, and chinese name after creating the church. </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Please add description, picture of the church, and chinese name after creating the church. in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 建教堂後請添加描述，教堂圖片和中文名稱。 </template>
         </div>
         <template is="dom-repeat" items="[[churchMessages]]" as="message" index-as="i">
           <div style="color: red;"> {{message}} </div>
@@ -167,11 +167,11 @@
       <div class="buttons">
         <emsi-button color="blue" dialog-dismiss>
           <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 取消 </template>
         </emsi-button>
         <emsi-button color="blue" on-tap="createChurchHandler">
           <template is="dom-if" if="[[isEnglish]]"> CREATE </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? CREATE in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 創建 </template>
         </emsi-button>
       </div>
     </paper-dialog>
@@ -205,6 +205,7 @@
           city: String,
           churchEmail: String,
           churchPhone: String,
+          locationLabel: String,
         };
       }
 
@@ -231,20 +232,22 @@
           this.city = "City (e.g. Towaco, Chinatown, Antwerpen)";
           this.churchEmail = "Email Address";
           this.churchPhone = "Phone Number";
+          this.locationLabel = "Location";
         } else {
-          this.name = "? Name in Chinese ?";
-          this.displayName = "? Display Name in Chinese ?";
-          this.location = "? Location in Chinese ?";
-          this.imageUrl = "? Image URL in Chinese ?";
-          this.email = "? Email Address in Chinese ?";
-          this.password = "? Password in Chinese ?";
-          this.churchName = "? Church Name in Chinese ?";
-          this.address = "? Church Address in Chinese ?";
-          this.continent = "? Continent (e.g. America, Europe, Africa, Asia) in Chinese ?";
-          this.region = "? Region or Country (e.g. East Coast, Netherlands, Japan) in Chinese ?";
-          this.city = "? City (e.g. Towaco, Chinatown, Antwerpen) in Chinese ?";
-          this.churchEmail = "? Email Address in Chinese ?";
-          this.churchPhone = "? Phone Number in Chinese ?";
+          this.name = "名稱";
+          this.displayName = "顯示名稱";
+          this.location = "位置";
+          this.imageUrl = "圖片網址";
+          this.email = "電子郵件地址";
+          this.password = "密碼";
+          this.churchName = "教堂名稱";
+          this.address = "教堂地址";
+          this.continent = "大陸（e.g. America, Europe, Africa, Asia）";
+          this.region = "地區或國家 (e.g. East Coast, Netherlands, Japan)";
+          this.city = "市 (e.g. Towaco, Chinatown, Antwerpen)";
+          this.churchEmail = "電子郵件地址";
+          this.churchPhone = "電話號碼";
+          this.locationLabel = "位置";
         }
       }
 

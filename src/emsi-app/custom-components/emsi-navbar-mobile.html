@@ -13,7 +13,7 @@
 			<div id="menu">
 				<div class="menu-trigger" on-tap="changeRouteToHome">
 					<template is="dom-if" if="[[isEnglish]]"> HOME </template>
-					<template is="dom-if" if="[[!isEnglish]]"> ? HOME in Chinese ?</template>
+					<template is="dom-if" if="[[!isEnglish]]"> 主頁 </template>
 				</div>
 				<template is="dom-repeat" items="[[menuContent]]" as="menu" index-as="i">
 					<div class="menu-trigger" on-tap="openSubMenu">
@@ -46,104 +46,104 @@
 						value: [
 							{
 								en: "ABOUT US",
-								zh: "? ABOUT US ?",
+								zh: "關於我們",
 								items: [
 									{
 										en: "Organization",
-										zh: "? Organization ?",
+										zh: "組織",
 										route: "/about"
 									},
 									{
 										en: "Beliefs",
-										zh: "? Beliefs ?",
+										zh: "信仰",
 										route: "/beliefs"
 									},
 									{
 										en: "Missions",
-										zh: "? Missions ?",
+										zh: "任務",
 										route: "/missions"
 									},
 									{
 										en: "Seminary",
-										zh: "? Seminary ?",
+										zh: "修院",
 										route: "/seminary"
 									},
 								]
 							},
 							{
 								en: "LOCATIONS",
-								zh: "? LOCATIONS ?",
+								zh: "地點",
 								items: [
 									{
 										en: "Search",
-										zh: "? Search ?",
+										zh: "搜索",
 										route: "/search"
 									},
 									{
 										en: "America",
-										zh: "? America ?",
+										zh: "美國",
 										route: "/america"
 									},
 									{
 										en: "Europe",
-										zh: "? Europe ?",
+										zh: "歐洲",
 										route: "/europe"
 									},
 									{
 										en: "Asia",
-										zh: "? Asia ?",
+										zh: "亞洲",
 										route: "/asia"
 									},
 									{
 										en: "Africa",
-										zh: "? Africa ?",
+										zh: "非洲",
 										route: "/africa"
 									},
 								]
 							},
 							{
 								en: "MISSIONS",
-								zh: "? MISSIONS ?",
+								zh: "任務",
 								items: [
 									{
 										en: "Introduction",
-										zh: "? Introduction ?",
+										zh: "介紹",
 										route: "missions"
 									},
 									{
 										en: "Ministries",
-										zh: "? Ministries ?",
+										zh: "部委",
 										route: "/ministries"
 									},
 									{
 										en: "Churches",
-										zh: "? Churches ?",
+										zh: "教堂",
 										route: "/churches"
 									},
 									{
 										en: "Activities",
-										zh: "? Activities ?",
+										zh: "活動",
 										route: "/activities"
 									},
 								]
 							},
 							{
 								en: "SEMINARY",
-								zh: "? SEMINARY ?",
+								zh: "修院",
 								items: [
 									{
 										en: "Introduction",
-										zh: "? Introduction ?",
+										zh: "介紹",
 										route: "seminary"
 									},
 									{
 										en: "Courses",
-										zh: "? Courses ?",
+										zh: "培訓班",
 										route: "/courses"
 									},
 									{
 										en: "Curriculum",
-										zh: "? Curriculum ?",
+										zh: "課程",
 										route: "/curriculum"
 									}
 								]

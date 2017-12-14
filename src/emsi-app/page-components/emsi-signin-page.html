@@ -20,7 +20,7 @@
 					<div class="container">
 						<div id="title">
               <template is="dom-if" if="[[isEnglish]]"> Sign In </template>
-              <template is="dom-if" if="[[!isEnglish]]"> ? Sign In in chinese ?</template>   
+              <template is="dom-if" if="[[!isEnglish]]"> 簽到 </template>   
             </div>
 						<div class="error"> {{errorMessage}} </div>
 						<div> {{signedInMessage}} </div>
@@ -29,18 +29,18 @@
             <template is="dom-if" if="[[!user]]">
 						  <emsi-button color="blue" on-tap="logInHandler">
                 <template is="dom-if" if="[[isEnglish]]"> Sign In </template>
-                <template is="dom-if" if="[[!isEnglish]]"> ? Sign In in chinese ?</template>  
+                <template is="dom-if" if="[[!isEnglish]]"> 簽到 </template>  
               </emsi-button>
             </template>
             <template is="dom-if" if="[[user]]">
               <emsi-button color="blue" on-tap="goToUser">
                 <template is="dom-if" if="[[isEnglish]]"> Continue As {{user.email}} </template>
-                <template is="dom-if" if="[[!isEnglish]]"> ? Continue As in chinese ? {{user.email}}</template>
+                <template is="dom-if" if="[[!isEnglish]]"> 繼續 {{user.email}}</template>
               </emsi-button>
             </template>
 						<emsi-button color="blue" on-tap="logOutHandler">
               <template is="dom-if" if="[[isEnglish]]"> Sign Out </template>
-              <template is="dom-if" if="[[!isEnglish]]"> ? Sign Out in chinese ?</template>        
+              <template is="dom-if" if="[[!isEnglish]]"> 登出 </template>        
             </emsi-button>
 					</div>
 				</td>
@@ -80,8 +80,8 @@
           this.userPlaceholder = "Enter Email Address";
           this.passPlaceholder = "Enter Password";
         } else {
-          this.userPlaceholder = "? Enter Email Address in chinese ?";
-          this.passPlaceholder = "? Enter Password in chinese ?";
+          this.userPlaceholder = "請輸入電郵地址";
+          this.passPlaceholder = "輸入密碼";
         }
       }
 

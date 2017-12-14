@@ -22,7 +22,7 @@
 			</div>
 			<div class="regionContainer"> 
 				<template is="dom-if" if="[[isEnglish]]"> Select Region </template>	
-				<template is="dom-if" if="[[!isEnglish]]"> ? Select Region in chinese ?</template>	
+				<template is="dom-if" if="[[!isEnglish]]"> 選擇區域 </template>	
 			</div>
 			<!-- Regions Dropdown Menu-->
 			<paper-dropdown-menu-light label="{{regionLabel}}" selected-item="{{selectedItem}}">
@@ -51,7 +51,7 @@
       	if(this.isEnglish) {
       		this.regionLabel = "Region";
       	} else {
-      		this.regionLabel = "? Region in Chinese ?";
+      		this.regionLabel = "地區";
       	}
       }
 

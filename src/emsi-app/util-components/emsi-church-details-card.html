@@ -13,7 +13,8 @@
         start-address=""
         end-address="{{data.address}}"
         response="{{mapsResult}}" 
-        api-key="AIzaSyCmbUbEOc5qc59PyjgmM0kASRC9eS9JsDk"></google-map-directions>
+        api-key="AIzaSyCmbUbEOc5qc59PyjgmM0kASRC9eS9JsDk"
+        on-google-map-response="check"></google-map-directions>
     <paper-card elevation="3">
       <div class="card-content">
         <div id="distance"> {{userDistanceText}} </div>
@@ -24,7 +25,7 @@
         <div id="address"> {{data.address}} </div>
       <div id="serviceTitle">
         <template is="dom-if" if="[[isEnglish]]"> Sunday Worship </template> 
-        <template is="dom-if" if="[[!isEnglish]]"> ? Sunday Worship in chinese ?</template> 
+        <template is="dom-if" if="[[!isEnglish]]"> 週日崇拜 </template> 
       </div>
       <table id="serviceContainer">
         <template is="dom-repeat" items="[[data.time]]" as="sundayServiceTime">
@@ -41,11 +42,11 @@
       <div class="card-actions">
         <paper-button on-tap="goToGoogleMaps">
           <template is="dom-if" if="[[isEnglish]]"> Get Directions </template> 
-          <template is="dom-if" if="[[!isEnglish]]"> ? Get Directions in chinese ?</template>  
+          <template is="dom-if" if="[[!isEnglish]]"> 獲取路線 </template>  
         </paper-button>
         <paper-button on-tap="gotoChurchPage">
           <template is="dom-if" if="[[isEnglish]]"> Learn More </template> 
-          <template is="dom-if" if="[[!isEnglish]]"> ? Learn More in chinese ?</template>
+          <template is="dom-if" if="[[!isEnglish]]"> 學到更多 </template>
         </paper-button>
       </div>
     </paper-card>
@@ -59,6 +60,7 @@
 
       static get properties() { 
         return {
+          data: Object,
           mapsResult: {
             type: Object,
             observer: "mapsResultHandler"
@@ -79,6 +81,10 @@
         // this.getLocation();
       }
 
+      check(v) {
+        console.log(v);
+      }
+
       distanceUpdated(newValue) {
         if(!newValue || !Object.keys(newValue).length) return;
         var param = {
@@ -92,7 +98,6 @@
       getLocation() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position){
-            this.userLocation = "";
             this.userLocation = position.coords.latitude + " " + position.coords.longitude;
             this.$.dir.startAddress = this.userLocation;
           }.bind(this));
@@ -102,7 +107,7 @@
       // Or set address externally and capture distance-updated event
       setLocation(loc) {
         this.userLocation = loc;
-        this.$.dir.startAddress = this.userLocation;
+        this.$.dir.startAddress = loc;
       }
 
       // Handle Maps Result and set distance to church from you

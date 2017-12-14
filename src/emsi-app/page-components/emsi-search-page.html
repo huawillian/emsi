@@ -17,29 +17,29 @@
 <dom-module id="emsi-search-page">
 	<template>
 		<style include="search-styles"> </style>
-		<template is="dom-repeat" id="addrFinder" items="[[locations]]" as="details">
-			<iron-collapse class="collapse">
-      	<emsi-church-details-card class="addrFinderCard" data="{{details}}" lang="{{lang}}" on-distance-updated="distanceUpdated"> </emsi-church-details-card>
-    	</iron-collapse>
-    </template>
+		<iron-collapse class="collapse">
+			<template is="dom-repeat" id="addrFinder" items="[[locations]]" as="details">
+	      <emsi-church-details-card class="addrFinderCard" data="{{details}}" lang="{{lang}}" on-distance-updated="distanceUpdated"> </emsi-church-details-card>
+	    </template>
+    </iron-collapse>
 	 	<template is="dom-if" if="{{!showSearchResults}}" id="searchMenu">
 	 		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="https://github.com/huawillian/emsi/raw/master/src/images/FindALocationBkgrd-01.jpg" sizing="cover" style="background-color: white;"></plastic-image>
 			<div id="searchContainer">
 				<div id="searchContainerInner">
 						<div id="searchTitle"> 
 							<template is="dom-if" if="{{isEnglish}}"> FIND A CHURCH </template>
-							<template is="dom-if" if="{{!isEnglish}}"> ? FIND A CHURCH in chinese ? </template>
+							<template is="dom-if" if="{{!isEnglish}}"> 找到一個教堂 </template>
 						</div>
 					<div style="padding:10pt" id="addressBoxC"> 
 						<paper-input id="addressBox" placeholder="{{addressBoxPlaceholder}}" on-keydown="checkForEnter"></paper-input>
 					</div>
 					<emsi-button id="searchButton" color="blue" on-tap="startSearchByAddress" my-max-width="500px">
 						<template is="dom-if" if="{{isEnglish}}"> FIND A LOCATION </template>
-						<template is="dom-if" if="{{!isEnglish}}"> ? FIND A LOCATION in chinese ? </template>
+						<template is="dom-if" if="{{!isEnglish}}"> 找到一個位置 </template>
 					</emsi-button>
 					<div id="locationButton" on-tap="getLocation">
 						<template is="dom-if" if="{{isEnglish}}"> Or, use your current location </template>
-						<template is="dom-if" if="{{!isEnglish}}"> ? Or, use your current location in chinese ? </template> 
+						<template is="dom-if" if="{{!isEnglish}}"> 或者，使用您當前的位置 </template> 
 					</div>
 				</div>
 			</div>
@@ -47,13 +47,13 @@
 	    <template is="dom-if" if="{{showSearchResults}}">
 			<div id="resultsContainer">
 				<div id="resultsTitle"> 
-					<template is="dom-if" if="{{isEnglish}}"> Results </template>
-					<template is="dom-if" if="{{!isEnglish}}"> ? Results in chinese ? </template>
+					<template is="dom-if" if="{{isEnglish}}"> {{numResults}} Results </template>
+					<template is="dom-if" if="{{!isEnglish}}"> {{numResults}} 結果 </template>
 				</div>
 				<template is="dom-if" if="{{!isSearching}}">
 					<emsi-button id="returnToSearchButton" color="blue" on-tap="toggleShowSearchResults" my-max-width="1000px"> 
 						<template is="dom-if" if="{{isEnglish}}"> START ANOTHER SEARCH </template>
-						<template is="dom-if" if="{{!isEnglish}}"> ? START ANOTHER SEARCH in chinese ? </template>
+						<template is="dom-if" if="{{!isEnglish}}"> 開始另一個搜索 </template>
 					</emsi-button>
 				</template>
 				<template is="dom-repeat" id="churchdisplay" items="[[displayArr]]" as="details">
@@ -100,7 +100,8 @@
 					addressBoxPlaceholder: {
 						type: String,
 						value: "Enter Address Here"
-					}
+					},
+					numResults: Number
 				}; 
 			}
 
@@ -109,7 +110,7 @@
       	if(this.isEnglish) {
       		this.addressBoxPlaceholder = "Enter Address Here";
       	} else {
-      		this.addressBoxPlaceholder = "? Enter Address Here in chinese ?";
+      		this.addressBoxPlaceholder = "在這裡輸入地址";
       	}
       }
 
@@ -131,6 +132,7 @@
 			distanceUpdated(params) {
 				if(params.detail.distance.text == undefined) return;
 				this.push("directionsArr", params.detail);
+				this.numResults++;
 			}
 
 			startSearch() {
@@ -145,7 +147,7 @@
 						}
 					}
 					this.isSearching = false;
-				}.bind(this), 4000);
+				}.bind(this), 60000);
 			}
 
 			toggleAllCollapse() {
@@ -159,12 +161,12 @@
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function(position){
 						if(this.isSearching == true) return;
-						this.address = "";
 						this.address = position.coords.latitude + " " + position.coords.longitude;
 						this.$.addrFinder.render();
-						this.startAddressFinder();
 						this.set("directionsArr", []);
 						this.set("displayArr", []);
+						this.numResults = 0;
+						this.startAddressFinder();
 						this.isSearching = true;
 						this.toggleShowSearchResults();
 						this.startSearch();
@@ -175,12 +177,12 @@
 			startSearchByAddress() {
 				if(Polymer.dom(this.root).querySelector('#addressBox') == undefined || Polymer.dom(this.root).querySelector('#addressBox').value == "") return;
 				if(this.isSearching == true) return;
-				this.address = "";
 				this.address = Polymer.dom(this.root).querySelector('#addressBox').value;
 				this.$.addrFinder.render();
-				this.startAddressFinder();
 				this.set("directionsArr", []);
 				this.set("displayArr", []);
+				this.numResults = 0;
+				this.startAddressFinder();
 				this.isSearching = true;
 				this.toggleShowSearchResults();
 				this.startSearch();
@@ -188,7 +190,12 @@
 
 			startAddressFinder() {
 				let addrFinderCards = Polymer.dom(this.root).querySelectorAll('.addrFinderCard');
-				addrFinderCards.forEach(v => v.setLocation(this.address));
+				addrFinderCards.forEach((v,i) => {
+					setTimeout(() => {
+						v.setLocation(this.address);
+						console.log(v.data.address);
+					}, i * 1000);
+				});
 			}
 		}
 

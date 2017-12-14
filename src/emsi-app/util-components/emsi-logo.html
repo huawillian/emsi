@@ -12,8 +12,8 @@
 			
 			<plastic-image id="logo" lazy-load preload fade use-element-dim srcset="https://github.com/huawillian/emsi/raw/master/src/images/EMSI_logo-01.png" sizing="cover" style="background-color: white"></plastic-image>
 			<div id="logoText">
-				<template is="dom-if" if="[[isEnglish]]"> EMSI </template>
-				<template is="dom-if" if="[[!isEnglish]]"> ? EMSI-ZH ? </template>
+				<template is="dom-if" if="{{isEnglish}}"> EMSI </template>
+				<template is="dom-if" if="{{!isEnglish}}"> 國際佈道會 </template>
 			</div>
 		</div>
 	</template>

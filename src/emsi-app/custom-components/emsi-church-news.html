@@ -45,7 +45,7 @@
 							<template is="dom-if" if="{{hasHiddenNews}}">
 					      <emsi-button color="blue" on-tap="showMore">
 									<template is="dom-if" if="[[isEnglish]]"> SHOW MORE </template>
-									<template is="dom-if" if="[[!isEnglish]]"> ? CHINESE SHOW ? </template>
+									<template is="dom-if" if="[[!isEnglish]]"> 展示更多 </template>
 								</emsi-button>
 					    </template>
 				    </div>
@@ -69,10 +69,10 @@
 					</template>
 				</ul>
 		  </paper-dialog-scrollable>
-		  <div>
+		  <div class="buttons">
 			  <emsi-button color="blue" dialog-dismiss>
 					<template is="dom-if" if="[[isEnglish]]"> CLOSE </template>
-					<template is="dom-if" if="[[!isEnglish]]"> ? CHINESE CLOSE ? </template>
+					<template is="dom-if" if="[[!isEnglish]]"> 關 </template>
 				</emsi-button>
 		  </div>
 		</paper-dialog>
