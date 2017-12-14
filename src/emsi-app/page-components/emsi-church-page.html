@@ -31,8 +31,11 @@
 				<template is="dom-repeat" items="[[churchData.time]]">
 					<tr>
 						<td class="serviceTime"> {{item.time}}</td> 
-					    <td class="serviceName">{{item.name}}</td>
-				  	</tr>
+				    <td class="serviceName">
+				    	<template is="dom-if" if="[[isEnglish]]"> {{item.name}} </template>
+				    	<template is="dom-if" if="[[!isEnglish]]"> {{item.chineseName}} </template>
+				    </td>
+			  	</tr>
 				</template>
 			</table>
 			<div class="actionContainer">

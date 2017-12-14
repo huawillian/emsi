@@ -11,7 +11,10 @@
     <app-location route="{{route}}"></app-location>
 		<iron-collapse id="collapse">
 			<div id="menu">
-				<div class="menu-trigger" on-tap="changeRouteToHome"> HOME </div>
+				<div class="menu-trigger" on-tap="changeRouteToHome">
+					<template is="dom-if" if="[[isEnglish]]"> HOME </template>
+					<template is="dom-if" if="[[!isEnglish]]"> ? HOME in Chinese ?</template>
+				</div>
 				<template is="dom-repeat" items="[[menuContent]]" as="menu" index-as="i">
 					<div class="menu-trigger" on-tap="openSubMenu">
 						<template is="dom-if" if="[[isEnglish]]"> {{menu.en}} </template>

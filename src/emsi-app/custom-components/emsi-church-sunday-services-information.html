@@ -32,7 +32,7 @@
             <tr>
               <td>
                 <td> 
-                  <paper-input disabled label="[[time.name]]" value="[[time.time]]"> </paper-input>
+                  <paper-input disabled label="[[time.name]] ([[time.chineseName]])" value="[[time.time]]"> </paper-input>
                 </td>
                 <td class="icons">
                   <paper-icon-button icon="create" on-tap="editChurchTableHandler" field="time"></paper-icon-button>
@@ -94,6 +94,7 @@
       </div>
       <paper-dialog-scrollable class="contentDialog">
         <paper-input id="timenameInputEdit" label="{{language}}" value="[[selectedValue.name]]"> </paper-input>
+        <paper-input id="timechineseNameInputEdit" label="{{languageChinese}}" value="[[selectedValue.chineseName]]"> </paper-input>
         <paper-input id="timetimeInputEdit" label="{{time}}" value="[[selectedValue.time]]"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
@@ -115,6 +116,7 @@
       </div>
       <paper-dialog-scrollable class="contentDialog">
         <paper-input id="timenameInputAdd" label="{{language}}"> </paper-input>
+        <paper-input id="timechineseNameInputAdd" label="{{languageChinese}}"> </paper-input>
         <paper-input id="timetimeInputAdd" label="{{time}}"> </paper-input>
       </paper-dialog-scrollable>
       <div class="buttons">
@@ -143,6 +145,7 @@
           selectedIndex2: String,
           selectedValue: String,
           language: String,
+          languageChinese: String,
           time: String,
         };
       }
@@ -157,10 +160,12 @@
         this.isEnglish = val === "en";
 
         if(this.isEnglish) {
-          this.language = "Language";
+          this.language = "Name of Service";
+          this.languageChinese = "Name of Service in Chinese (optional)";
           this.time = "Sunday Worship Time";
         } else {
-          this.language = "? Language in Chinese ?";
+          this.language = "? Name of Service in Chinese ?";
+          this.languageChinese = "? Name of Service in Chinese (optional) in Chinese ?";
           this.time = "? Sunday Worship Time in Chinese ?";
         }
       }
@@ -209,6 +214,7 @@
             val = {};
             val.time = "EDIT TIME"; 
             val.name = "EDIT NAME";
+            val.name = "EDIT CHINESE NAME";
           } else if(this.selectedField === "ministries") {
             val = {
               language: "EDIT LANGUAGE",
@@ -259,6 +265,7 @@
           val = {};
           val.time = this.$[this.selectedField + "time" + "InputEdit"].value;
           val.name = this.$[this.selectedField + "name" + "InputEdit"].value;
+          val.chineseName = this.$[this.selectedField + "chineseName" + "InputEdit"].value;
         }
 
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}/${this.selectedIndex}`, val);
@@ -281,6 +288,7 @@
           val = {};
           val.time = this.$[this.selectedField + "time" + "InputAdd"].value;
           val.name = this.$[this.selectedField + "name" + "InputAdd"].value;
+          val.chineseName = this.$[this.selectedField + "chineseName" + "InputAdd"].value;
         }
 
         this.$.userDoc.setStoredValue(`locations/${this.location.uid}/${this.selectedField}/`, [...this.location[this.selectedField], val]);

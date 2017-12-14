@@ -27,8 +27,11 @@
         <template is="dom-repeat" items="[[data.time]]" as="sundayServiceTime">
           <tr>
             <td>{{sundayServiceTime.time}}</td> 
-              <td>{{sundayServiceTime.name}}</td>
-            </tr>
+            <td>
+              <template is="dom-if" if="[[isEnglish]]"> {{sundayServiceTime.name}} </template> 
+              <template is="dom-if" if="[[!isEnglish]]"> {{sundayServiceTime.chineseName}} </template> 
+            </td>
+          </tr>
         </template>
       </table>
       </div>
