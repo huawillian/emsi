@@ -23,7 +23,7 @@
     <paper-card>
       <div class="title"> 
         <template is="dom-if" if="[[isEnglish]]"> Sunday Service Times </template>
-        <template is="dom-if" if="[[!isEnglish]]"> ? Sunday Service Times in Chinese ? </template>
+        <template is="dom-if" if="[[!isEnglish]]"> 週日服務時間 </template>
       </div>
       <hr/>
       <div class="content">
@@ -46,7 +46,7 @@
       <div class="card-actions">
         <emsi-button color="blue" on-tap="addHandler" field="time"> 
           <template is="dom-if" if="[[isEnglish]]"> Add Sunday Service Time </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Add Sunday Service Time in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 添加星期天服務時間 </template>
         </emsi-button>
       </div>
     </paper-card>
@@ -55,34 +55,34 @@
     <paper-dialog id="deleteDialog" modal>
       <div class="titleDialog"> 
         <template is="dom-if" if="[[isEnglish]]"> Delete {{selectedField}} </template>
-        <template is="dom-if" if="[[!isEnglish]]"> ? Delete {{selectedField}} in Chinese ? </template>
+        <template is="dom-if" if="[[!isEnglish]]"> 刪除 {{selectedField}} </template>
       </div>
       <paper-dialog-scrollable class="contentDialog">
         <div> 
           <template is="dom-if" if="[[isEnglish]]">  Are you sure you want to delete this? You cannot undo this change. </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Are you sure you want to delete this? You cannot undo this change. in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 你確定要刪除這個嗎？您無法撤銷此更改。 </template>
         </div>
         <div>
           <template is="dom-if" if="[[isEnglish]]"> Selected: {{selectedField}} </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Selected: {{selectedField}} in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 選: {{selectedField}} </template>
         </div>
         <div>
           <template is="dom-if" if="[[isEnglish]]"> Index: {{selectedIndex}} </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Index: {{selectedIndex}} in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 指數: {{selectedIndex}} </template>
         </div>
         <div> 
           <template is="dom-if" if="[[isEnglish]]"> Content: {{selectedValue}} </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? Content: {{selectedValue}} in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 內容: {{selectedValue}} </template>
         </div>
       </paper-dialog-scrollable>
       <div class="buttons">
         <emsi-button color="blue" dialog-dismiss> 
           <template is="dom-if" if="[[isEnglish]]"> NO </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? NO in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 沒有 </template>
         </emsi-button>
         <emsi-button color="blue" dialog-dismiss on-tap="deleteHandler"> 
           <template is="dom-if" if="[[isEnglish]]"> YES </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? YES in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 是 </template>
         </emsi-button>
       </div>
     </paper-dialog>
@@ -90,7 +90,7 @@
     <paper-dialog id="timeEditDialog" modal>
       <div class="titleDialog">
         <template is="dom-if" if="[[isEnglish]]"> Edit Sunday Worship Times </template>
-        <template is="dom-if" if="[[!isEnglish]]"> ? Edit Sunday Worship Times in Chinese ? </template>
+        <template is="dom-if" if="[[!isEnglish]]"> 編輯星期天崇拜時間 </template>
       </div>
       <paper-dialog-scrollable class="contentDialog">
         <paper-input id="timenameInputEdit" label="{{language}}" value="[[selectedValue.name]]"> </paper-input>
@@ -100,11 +100,11 @@
       <div class="buttons">
         <emsi-button color="blue" dialog-dismiss> 
           <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 取消 </template>
         </emsi-button>
         <emsi-button color="blue" dialog-dismiss on-tap="saveHandler">
           <template is="dom-if" if="[[isEnglish]]"> SAVE </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? SAVE in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 保存 </template>
         </emsi-button>
       </div>
     </paper-dialog>
@@ -112,7 +112,7 @@
     <paper-dialog id="timeAddDialog" modal>
       <div class="titleDialog">
         <template is="dom-if" if="[[isEnglish]]"> Add Sunday Worship Times </template>
-        <template is="dom-if" if="[[!isEnglish]]"> ? Add Sunday Worship Times in Chinese ? </template>
+        <template is="dom-if" if="[[!isEnglish]]"> 添加星期天崇拜時間 </template>
       </div>
       <paper-dialog-scrollable class="contentDialog">
         <paper-input id="timenameInputAdd" label="{{language}}"> </paper-input>
@@ -122,11 +122,11 @@
       <div class="buttons">
         <emsi-button color="blue" dialog-dismiss>
           <template is="dom-if" if="[[isEnglish]]"> CANCEL </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? CANCEL in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 取消 </template>
         </emsi-button>
         <emsi-button color="blue" dialog-dismiss on-tap="addDialogHandler">
           <template is="dom-if" if="[[isEnglish]]"> ADD TIME </template>
-          <template is="dom-if" if="[[!isEnglish]]"> ? ADD TIME in Chinese ? </template>
+          <template is="dom-if" if="[[!isEnglish]]"> 添加時間 </template>
         </emsi-button>
       </div>
     </paper-dialog>
@@ -164,9 +164,9 @@
           this.languageChinese = "Name of Service in Chinese (optional)";
           this.time = "Sunday Worship Time";
         } else {
-          this.language = "? Name of Service in Chinese ?";
-          this.languageChinese = "? Name of Service in Chinese (optional) in Chinese ?";
-          this.time = "? Sunday Worship Time in Chinese ?";
+          this.language = "服務名稱";
+          this.languageChinese = "中文服務名稱（可選）";
+          this.time = "星期天崇拜時間";
         }
       }
 

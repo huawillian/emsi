@@ -28,7 +28,7 @@
     <paper-card>
       <div class="title">
         <template is="dom-if" if="[[isEnglish]]"> Church Information </template>
-        <template is="dom-if" if="[[!isEnglish]]"> ? Church Information in Chinese ? </template>
+        <template is="dom-if" if="[[!isEnglish]]"> 教會信息 </template>
       </div>
       <hr/>
       <div class="content">
@@ -108,7 +108,7 @@
                   <iron-icon slot="drop-label-icon" icon="cloud-upload" style="margin-left: 20pt"></iron-icon>
                   <span slot="drop-label" style="margin-left: 20pt">
                     <template is="dom-if" if="[[isEnglish]]"> Drop *.png, *.jpg, or *.gif file here. Max 1 MB. </template>
-                    <template is="dom-if" if="[[!isEnglish]]"> ? Drop *.png, *.jpg, or *.gif file here. Max 1 MB. in Chinese ? </template>
+                    <template is="dom-if" if="[[!isEnglish]]"> 在此處放置* .png，* .jpg或* .gif文件。最大1 MB。 </template>
                   </span>
                 </vaadin-upload>
               </iron-collapse>
@@ -168,17 +168,17 @@
           this.email = "Email Address";
           this.phone = "Phone Number";
           this.description = "Description or Brief History";
-          this.pictureLink = "Picture Link";
+          this.pictureLink = "Picture URL";
           this.chineseName = "Chinese Name of the Church (optional)"
         } else {
-          this.address = "? Address in Chinese ?";
-          this.continent = "? Continent (e.g. America, Europe, Africa, Asia) in Chinese ?";
-          this.region = "? Region or Country (e.g. East Coast, Netherlands, Japan) in Chinese ?";
-          this.email = "? Email Address in Chinese ?";
-          this.phone = "? Phone Number in Chinese ?";
-          this.description = "? Description or Brief History in Chinese ?";
-          this.pictureLink = "? Picture Link in Chinese ?";
-          this.chineseName = "? Chinese Name of the Church (optional) in Chinese ?"
+          this.address = "地址";
+          this.continent = "大陸 (e.g. America, Europe, Africa, Asia)";
+          this.region = "地區或國家 (e.g. East Coast, Netherlands, Japan)";
+          this.email = "電子郵件地址";
+          this.phone = "電話號碼";
+          this.description = "描述或簡史";
+          this.pictureLink = "圖片網址";
+          this.chineseName = "教會中文名稱（可選）"
         }
       }
 
