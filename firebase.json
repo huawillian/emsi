@@ -1,7 +1,5 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  },
+  "database": {},
   "hosting": {
     "public": "build/default",
     "rewrites": [

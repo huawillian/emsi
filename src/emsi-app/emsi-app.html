@@ -75,7 +75,7 @@
 
     <!-- app-location binds to the app's URL -->
     <!-- this app-route manages the top-level routes -->
-    <app-location route="{{route}}" id="myRoute" use-hash-as-path query-params="{{queryParams}}" ></app-location>
+    <app-location route="{{route}}" id="myRoute" query-params="{{queryParams}}" ></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
     <!-- set isDesktop property depending on width of screen -->
@@ -166,9 +166,8 @@
         this.addEventListener('emsi-lang-change-event', this.langChangeEventHandler);
         this.addEventListener('resync-firebase', this.resyncFirebase);
 
-        // let lang = this.$.myRoute.queryParams.lang;
-        //this.lang = !lang || lang === "en" ? "en" : "zh"
-        this.lang = "en";
+        let lang = this.$.myRoute.queryParams.lang;
+        this.lang = !lang || lang === "en" ? "en" : "zh"
         this.isEnglish = true;
       }
 
@@ -189,7 +188,7 @@
       langChangeEventHandler(e) {
         this.lang = e.detail;
         this.isEnglish = this.lang === "en";
-        // this.$.myRoute.queryParams = this.lang === "en" ? {lang: "en"} : {lang: "zh"};
+        this.$.myRoute.queryParams = this.isEnglish ? {lang: "en"} : {lang: "zh"};
       }
 
       // Set all pages back to the top of the screen

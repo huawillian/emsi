@@ -13,17 +13,17 @@
     
     <link rel="icon" type="image/png" 
       href="https://github.com/huawillian/emsi/raw/master/src/images/EMSI_logo-01.png">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/manifest.json">
 
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="src/emsi-app/emsi-app.html"> <!-- Import emsi-app element -->
-    <link rel="stylesheet" href="src/styles/styles.css">
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="/src/emsi-app/emsi-app.html"> <!-- Import emsi-app element -->
+    <link rel="stylesheet" href="/src/styles/styles.css">
   </head>
   <body>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-          navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+          navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
             // Registration was successful
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
           }, function(err) {
