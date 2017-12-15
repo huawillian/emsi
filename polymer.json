@@ -9,6 +9,7 @@
   "extraDependencies": [
     "manifest.json",
     "service-worker.js",
+    "sitemap.txt",
     "bower_components/webcomponentsjs/webcomponents-lite.js"
   ],
   "lint": {
