@@ -12,9 +12,9 @@
 	<template>
 		<style include="landingscreen-styles"> </style>
 
-		<img id="personImage" src="https://github.com/huawillian/emsi/raw/master/src/images/DonnaImageFinal-01.png" sizing="cover">
+		<img id="personImage" src="[[importPath]]../../../src/images/DonnaImageFinal-01.png" sizing="cover">
 
-		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="https://github.com/huawillian/emsi/raw/master/src/images/MainSanctuary_ImageBlurredFINAL.jpg" sizing="cover" style="background-color: black;"></plastic-image>
+		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="../../../src/images/MainSanctuary_ImageBlurredFINAL.jpg" sizing="cover" style="background-color: black;"></plastic-image>
 
 		<div class="container">
 			<template is="dom-if" if="[[isEnglish]]">
