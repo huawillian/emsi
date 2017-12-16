@@ -25,7 +25,7 @@
 			static get properties() { return {}; }
 	    static get observers() { return [ 'languageChanged(lang)' ]; }
 	    languageChanged(val) { this.isEnglish = val === "en"; }
-	    openEmail() {window.location.href = "mailto:emsi@emsionline.org?subject=EMSI Website Contact Us&body=How can we help" }
+	    openEmail() {window.location.href = "mailto:emsi@emsionline.org?subject=EMSI Website Contact Us" }
 		}
 
 		window.customElements.define(EMSIHomepageBibleverse.is, EMSIHomepageBibleverse);
