@@ -12,12 +12,10 @@
 				<template is="dom-if" if="[[isEnglish]]"> And he said unto them, Go ye into all the world, and preach the gospel to every creature. Mark 16:25 </template>
 				<template is="dom-if" if="[[!isEnglish]]"> 耶穌對他們說，你們往普天下去，傳福音給萬民聽。馬可福音16:25 </template>
 			</div>
-			<a href="mailto:emsi@emsionline.org">
-				<paper-button raised on-tap="openEmail">
-					<template is="dom-if" if="[[isEnglish]]"> CONTACT US </template>
-					<template is="dom-if" if="[[!isEnglish]]"> 聯繫我們 </template>
-				</paper-button>
-			</a>
+			<paper-button raised on-tap="openEmail">
+				<template is="dom-if" if="[[isEnglish]]"> CONTACT US </template>
+				<template is="dom-if" if="[[!isEnglish]]"> 聯繫我們 </template>
+			</paper-button>
 		</div>
 	</template>
 
@@ -27,6 +25,7 @@
 			static get properties() { return {}; }
 	    static get observers() { return [ 'languageChanged(lang)' ]; }
 	    languageChanged(val) { this.isEnglish = val === "en"; }
+	    openEmail() {window.location.href = "mailto:emsi@emsionline.org?subject=EMSI Website Contact Us&body=How can we help" }
 		}
 
 		window.customElements.define(EMSIHomepageBibleverse.is, EMSIHomepageBibleverse);

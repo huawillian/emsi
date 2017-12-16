@@ -1,6 +1,4 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../../../bower_components/plastic-image/plastic-image.html">
 
 <!-- custom styles -->
 <link rel="import" href="../../styles/template-styles.html">
@@ -9,7 +7,7 @@
 	<template>
 		<style include="template-styles"> </style>
 
-		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="{{backgroundImagePath}}" sizing="cover" style="background-color: white;"></plastic-image>
+		<img id="backgroundImage" src="{{backgroundImagePath}}" sizing="cover" style="background-color: white;"/>
 
     <div class="titleContainer">
     	<template is="dom-if" if="[[isEnglish]]"> {{title}} </template>	

@@ -1,6 +1,4 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../../../bower_components/plastic-image/plastic-image.html">
 
 <!-- custom elements -->
 <link rel="import" href="../util-components/emsi-button.html">
@@ -14,7 +12,7 @@
 
 		<img id="personImage" src="[[importPath]]../../../src/images/DonnaImageFinal-01.png" sizing="cover">
 
-		<plastic-image id="backgroundImage" lazy-load preload fade use-element-dim srcset="../../../src/images/MainSanctuary_ImageBlurredFINAL.jpg" sizing="cover" style="background-color: black;"></plastic-image>
+		<img id="backgroundImage" src="../../../src/images/MainSanctuary_ImageBlurredFINAL.jpg" sizing="cover" style="background-color: black;"/>
 
 		<div class="container">
 			<template is="dom-if" if="[[isEnglish]]">

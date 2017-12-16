@@ -1,7 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../../bower_components/polymerfire/firebase-auth.html">
-<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
@@ -38,7 +37,7 @@
           <template id="staff" is="dom-repeat" items="[[displayedStaff]]" as="member" index-as="i">
             <tr>
               <td style="width: 150px"> 
-                <iron-image class="staffPic" style="" sizing="cover" preload src="[[member.url]]"></iron-image>
+                <img class="staffPic" style="" sizing="cover" src="[[member.url]]"/>
               </td>
               <td> 
                 <paper-input disabled label="[[member.title]]" value="[[member.name]]"> </paper-input> 
