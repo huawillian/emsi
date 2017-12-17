@@ -111,12 +111,17 @@ paper-dialog #serviceContainer {
 paper-dialog .staffpic {
   width: 50pt;
   height: 50pt;
-  right: -80%;
-  border: 2px black;
   border-radius: 50%;
-  top: -110pt;
-  margin-bottom: -100pt;
-  border: 3pt solid rgba(0,0,0,0.4);
+  border: 3pt solid #bdb6b4;
+}
+
+paper-dialog .staffColumn1 {
+  width: 70%;
+  vertical-align: middle;
+}
+
+paper-dialog .staffColumn2 {
+  vertical-align: middle;
 }
 
 paper-dialog .staffname {
@@ -129,7 +134,6 @@ paper-dialog .stafftitle {
   font-family: MyriadProSemibold;
   font-size: 16pt;
   padding-left: 0%;
-  padding-top: 20pt;
 }
 
 paper-dialog .eventTitle {

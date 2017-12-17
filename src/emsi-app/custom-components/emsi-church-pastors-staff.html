@@ -20,6 +20,10 @@
       .title, .content {
         color: white;
       }
+
+      .staffColumn1 {
+        width: 70%;
+      }
 		</style>
 
 		<!-- display -->
@@ -33,14 +37,17 @@
                   <template is="dom-if" if="[[!isEnglish]]"> {{chineseTitle}} </template>
                 </div>
 								<template id='renderList' is="dom-repeat" items="[[displayedData]]">
-									<div class="stafftitle">{{item.title}}</div>
-									<div class="staffname">{{item.name}}</div>
-									<template is="dom-if" if="[[item.url]]">
-										<img class="staffpic" sizing="cover" src="{{item.url}}"/>
-									</template>
-									<template is="dom-if" if="[[!item.url]]">
-										<img class="staffpic" sizing="cover" src="./src/images/user.png"/>
-									</template>
+									<table style="width: 100%;">
+                    <tr>
+                      <td class="staffColumn1">
+                        <div class="stafftitle">{{item.title}}</div>
+                        <div class="staffname">{{item.name}}</div>
+                      </td>
+                      <td class="staffColumn2">
+                        <img class="staffpic" sizing="cover" src="{{item.url}}"/>
+                      </td>
+                    </tr>
+                  </table>
 								</template>
 								<template is="dom-if" if="{{hasHiddenStaff}}">
 						      <emsi-button color="blue" on-tap="showMore">
@@ -62,14 +69,17 @@
       </div>
 		  <paper-dialog-scrollable class="contentDialog">
 				<template id='renderList' is="dom-repeat" items="[[hiddenData]]">
-					<div class="stafftitle">{{item.title}}</div>
-					<div class="staffname">{{item.name}}</div>
-					<template is="dom-if" if="[[item.url]]">
-						<img class="staffpic" sizing="cover" src="{{item.url}}"/>
-					</template>
-					<template is="dom-if" if="[[!item.url]]">
-						<img class="staffpic" sizing="cover" src="./src/images/user.png"/>
-					</template>
+          <table style="width: 100%;">
+            <tr>
+              <td class="staffColumn1">
+                <div class="stafftitle">{{item.title}}</div>
+                <div class="staffname">{{item.name}}</div>
+              </td>
+              <td class="staffColumn2">
+                <img class="staffpic" sizing="cover" src="{{item.url}}"/>
+              </td>
+            </tr>
+          </table>
 				</template>
 		  </paper-dialog-scrollable>
       <div class="buttons">
