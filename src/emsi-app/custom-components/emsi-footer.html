@@ -49,7 +49,7 @@
 			static get properties() { return {}; }
       static get observers() { return [ 'languageChanged(lang)' ]; }
       languageChanged(val) { this.isEnglish = val === "en"; }
-			openEmail() { window.open('mailto:emsi@emsionline.org'); }
+			openEmail() { window.location.href = "mailto:emsi@emsionline.org?subject=EMSI Website Contact Us" }
 
 			changeRouteToContact() {
 				this.dispatchEvent(new CustomEvent('emsi-route-change-event', { detail: "contact", bubbles: true, composed: true }));
