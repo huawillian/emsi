@@ -145,7 +145,7 @@
 						}
 					}
 					this.isSearching = false;
-				}.bind(this), 60000);
+				}.bind(this), 10000);
 			}
 
 			toggleAllCollapse() {
@@ -188,11 +188,31 @@
 
 			startAddressFinder() {
 				let addrFinderCards = Polymer.dom(this.root).querySelectorAll('.addrFinderCard');
-				addrFinderCards.forEach((v,i) => {
-					setTimeout(() => {
-						v.setLocation(this.address);
-						console.log(v.data.address);
-					}, i * 1000);
+
+				// addrFinderCards.forEach((v,i) => {
+				// 	setTimeout(() => {
+				// 		v.setLocation(this.address);
+				// 		console.log(v.data.address);
+				// 	}, i * 1000);
+				// });
+
+				let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+			  addrFinderCards.forEach((v,i) => {
+			  	let targetUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.address}&destination=${v.data.address}&key=AIzaSyBHRFq9Vkvbf9cBRBLzC8A64HYfzSSEHpM`;
+
+					fetch(proxyUrl + targetUrl)
+				  .then(blob => blob.json())
+				  .then(data => {
+				  	if(!data.routes[0]) return;
+				  	let param = {
+		          name: v.data.name,
+		          distance: data.routes[0].legs[0].distance
+		        };
+				    this.push("directionsArr", param);
+						this.numResults++;
+						return;
+				  })
 				});
 			}
 		}
