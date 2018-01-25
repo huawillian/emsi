@@ -9,7 +9,6 @@
 	<template>
 		<style include="navbar-desktop-styles"> </style>
 		<div class="container">
-
 			<template is="dom-repeat" items="[[menuContent]]" as="menu" index-as="i">
 	      <paper-menu-button class="navbuttons" on-mouseenter="openSubMenu" on-mouseleave="closeAllMenus" style$="left:{{computeLeft(i)}}pt" vertical-offset="55" horizontal-offset="8">
 	      	<div slot="dropdown-trigger" class="menu-trigger">
