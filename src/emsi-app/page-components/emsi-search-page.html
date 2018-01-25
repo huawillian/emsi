@@ -145,7 +145,7 @@
 						}
 					}
 					this.isSearching = false;
-				}.bind(this), 10000);
+				}.bind(this), 8000);
 			}
 
 			toggleAllCollapse() {
@@ -209,8 +209,15 @@
 		          name: v.data.name,
 		          distance: data.routes[0].legs[0].distance
 		        };
-				    this.push("directionsArr", param);
-						this.numResults++;
+
+		        // sometimes will push multiple times, need to investigate further
+		        // current fix is to push only unique params
+
+		        if(!this.directionsArr.find(p => p.name === param.name)) {
+		        	this.push("directionsArr", param);
+							this.numResults++;
+		        }
+				    
 						return;
 				  })
 				});
