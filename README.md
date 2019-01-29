@@ -1,3 +1,12 @@
+# Important Notice
+Development for this project has now moved to a new and official repository. 
+
+Please check out https://github.com/EMSI-Tech/emsi-website for any updates.
+
+Thanks for your support!
+
+---
+
 # EMSI Website
 
 Evangelical Mission and Seminary International website created using Google's Polymer Web Component Library and Google's Firebase Database, Authentication, and Hosting services
